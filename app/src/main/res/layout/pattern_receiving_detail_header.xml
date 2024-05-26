@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/shape_background_rect_white_6"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:foreground="?attr/selectableItemBackground"
+    android:layout_marginBottom="@dimen/edi_login_marginTop"
+    android:padding="@dimen/paddingLow2"
+    android:id="@+id/rel0"
+    android:elevation="@dimen/lowElevation"
+    android:minHeight="@dimen/receive_detail_headerHeight"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_weight="1.1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title1"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/recevieNumber" />
+
+
+            <TextView
+                android:id="@+id/recevieNumber"
+                style="@style/pattern_receieve_tv1"
+                tools:text="@string/tools_a220820_023535" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/title2"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/containerNumber" />
+
+            <TextView
+                android:id="@+id/containerNumber"
+                style="@style/pattern_receieve_tv1"
+                tools:text="@string/tools_tdru4204745" />
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/padding_pattern_receive"
+        android:paddingStart="@dimen/padding_pattern_receive">
+
+
+        <RelativeLayout
+            android:layout_width="@dimen/pattern_receive_carNumber_width"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/pattern_receive_carNumber_height"
+            android:background="@drawable/shape_background_rect_border_gray_solid_white">
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_width="@dimen/width_carNumber_bluePart"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/shape_background_rect_border_gray_solid_white_half">
+
+                <ImageView
+                    android:layout_width="@dimen/flag"
+                    android:layout_height="@dimen/flag"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/marginTop_flag"
+                    android:src="@drawable/png_iran" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/plaque"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/view1"
+                android:layout_toEndOf="@+id/rel1"
+                android:fontFamily="@font/bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/carNumber_font"
+                tools:text="@string/tools_345_12" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/rel2"
+                android:background="@color/gray70" />
+
+            <LinearLayout
+                android:id="@+id/rel2"
+                android:layout_width="@dimen/carNumber_iranWidth"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="@dimen/marginTop_flag"
+                    android:fontFamily="@font/medium"
+                    android:gravity="center"
+                    android:text="@string/iran"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/iranSize" />
+
+                <TextView
+                    android:id="@+id/plaqueYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="@dimen/marginTop_flag"
+                    android:fontFamily="@font/bold"
+                    android:gravity="center"
+                    tools:text="@string/tools_79"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/iranSize79" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginTop5ForLayouts"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/view"
+            android:orientation="vertical" >
+
+
+            <TextView
+                android:id="@+id/title4"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_gravity="center"
+                android:text="@string/driverFullName" />
+
+
+            <TextView
+                android:id="@+id/driverFullName"
+                style="@style/pattern_receieve_tv1"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:layout_width="@dimen/driverFullNameWidth"
+                android:gravity="center"
+                android:textColor="@color/black"
+                tools:text="@string/tools_mohammad" />
+
+            <TextView
+                android:id="@+id/lastName"
+                style="@style/pattern_receieve_tv1"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:text="@string/tools_shahryari"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relAssignFinish"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/assign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="start"
+            android:background="@drawable/shape_background_rect_white_6"
+            android:backgroundTint="@color/mainYellow"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingStart="@dimen/paddingEndEdi"
+            android:paddingTop="@dimen/marginTop5ForLayouts"
+            android:paddingEnd="@dimen/paddingEndEdi"
+            android:paddingBottom="@dimen/marginTop5ForLayouts"
+            android:text="@string/Assign"
+            android:textColor="@color/white"
+            android:textSize="@dimen/assignSize" />
+
+
+        <TextView
+            android:id="@+id/finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:background="@drawable/shape_background_rect_white_6"
+            android:backgroundTint="@color/red"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingStart="@dimen/paddingEndEdi"
+            android:paddingTop="@dimen/marginTop5ForLayouts"
+            android:paddingEnd="@dimen/paddingEndEdi"
+            android:paddingBottom="@dimen/marginTop5ForLayouts"
+            android:text="@string/finish"
+            android:textColor="@color/white"
+            android:textSize="@dimen/assignSize" />
+
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+</layout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingStart="@dimen/marginTop5ForLayouts"
+        android:paddingTop="@dimen/marginTop5ForLayouts"
+        android:paddingEnd="@dimen/paddingEndSpinner"
+        android:paddingBottom="@dimen/marginTop5ForLayouts"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/spinnerText"
+            android:paddingEnd="@dimen/marginTop5ForLayouts"
+            android:paddingStart="@dimen/marginTop5ForLayouts"
+            android:layout_marginBottom="@dimen/view_height1"
+            android:fontFamily="@font/bold"
+            android:textSize="@dimen/spinnerTv"
+            android:textColor="@color/gray70"
+            android:gravity="end|center"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:id="@+id/view"
+            android:layout_below="@id/spinnerText"
+            android:visibility="gone"
+            android:background="@color/gray70_alpha53"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/view_height1"/>
+
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

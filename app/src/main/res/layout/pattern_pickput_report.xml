@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:background="@drawable/shape_background_rect_white_6"
+        android:layout_width="match_parent"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_marginBottom="@dimen/edi_login_marginTop"
+        android:id="@+id/rel0"
+        android:elevation="@dimen/lowElevation"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/pattern_location_transfer_Height">
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pattern_receive">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/location_code" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/locationCode"
+                style="@style/pattern_transfer_tvMain_yellow"
+                android:text="@string/tools_a220820_023535" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/product_title" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/product_code" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/productTitle"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/tools_tdru4204745" />
+
+                <TextView
+                    android:id="@+id/productCode"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/_097110478112" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/invType" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/uomTitle" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/invType"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    tools:text="سالم" />
+
+
+                <TextView
+                    android:id="@+id/uomTv"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    tools:text="@string/uomTitle" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ownerTitle"
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/date" />
+
+                <TextView
+                    android:id="@+id/title1"
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/ownerCode" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ownerCode"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/tools_GoodSet" />
+
+                <TextView
+                    android:id="@+id/tv1"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/gin" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/relCount"
+            layout="@layout/layout_count_two_tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true" />
+
+
+
+    </RelativeLayout>
+</layout>
+

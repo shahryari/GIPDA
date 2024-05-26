@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<RelativeLayout
+    android:id="@+id/rel0"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    tools:background="@color/mainBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:paddingTop="@dimen/padding_all"
+        android:paddingEnd="@dimen/padding_all"
+        android:paddingStart="@dimen/padding_all"
+        android:layout_width="match_parent"
+        android:layout_above="@id/printTv"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/mainToolbar"
+            layout="@layout/toolbar_main_top" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/mainToolbar"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/pattern_location_transfer" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/progressStyle"
+            android:padding="@dimen/paddingOfFragmentProgress"
+            tools:visibility="gone" />
+
+
+
+    </RelativeLayout>
+
+    <include android:id="@+id/printTv"
+        layout="@layout/layout_print_tv" />
+
+
+</RelativeLayout>
+
+
+</layout>

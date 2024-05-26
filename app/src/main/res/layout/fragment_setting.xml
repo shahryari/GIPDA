@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    android:background="@color/mainBackground"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_above="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_all">
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settingGeneralRelHeight"
+                android:background="@drawable/shape_background_rect_white_6"
+                android:elevation="@dimen/lowElevation">
+
+                <TextView
+                    android:id="@+id/title1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settingGeneralHeaderHeight"
+                    android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+                    android:gravity="start|center"
+                    android:paddingStart="@dimen/edi_login_marginTop"
+                    android:paddingEnd="@dimen/edi_login_marginTop"
+                    android:text="@string/general"
+                    android:textColor="@color/black" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title2"
+                        style="@style/pattern_putaway_smallTv"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:text="@string/baseUrl" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/baseUrlEdi"
+                            style="@style/ediForSmallDialog"
+                            android:hint=""
+                            android:inputType="textUri" />
+
+                        <ImageView
+                            android:id="@+id/clearImgBaseUrl"
+                            style="@style/imgClose"
+                            android:elevation="@dimen/clearImgElevation" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/title7"
+                        style="@style/pattern_putaway_smallTv"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:text="@string/notification" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/notifEdi"
+                            style="@style/ediForSmallDialog"
+                            android:hint=""
+                            android:inputType="number" />
+
+                        <ImageView
+                            android:id="@+id/clearNotifImg"
+                            style="@style/imgClose"
+                            android:elevation="@dimen/clearImgElevation" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rel2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settingPrintHeight"
+                android:layout_below="@+id/rel1"
+                android:layout_marginTop="@dimen/marginTopRelInSetting"
+                android:background="@drawable/shape_background_rect_white_6"
+                android:elevation="@dimen/lowElevation">
+
+                <TextView
+                    android:id="@+id/title8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settingGeneralHeaderHeight"
+                    android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+                    android:gravity="start|center"
+                    android:paddingStart="@dimen/edi_login_marginTop"
+                    android:paddingEnd="@dimen/edi_login_marginTop"
+                    android:text="@string/labelPrinter"
+                    android:textColor="@color/black" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title8"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title11"
+                        style="@style/pattern_putaway_smallTv"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:text="@string/printerName" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/printerNameEdi"
+                            style="@style/ediForSmallDialog" />
+
+                        <ImageView
+                            android:id="@+id/clearImgPrinterName"
+                            style="@style/imgClose"
+                            android:elevation="@dimen/clearImgElevation" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/title9"
+                        style="@style/pattern_putaway_smallTv"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:text="@string/tinaLabelPrinter" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/tinaLabelPrinterEdi"
+                            style="@style/ediForSmallDialog" />
+
+                        <ImageView
+                            android:id="@+id/clearImgTinaLabelPrinter"
+                            style="@style/imgClose"
+                            android:elevation="@dimen/clearImgElevation" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/title10"
+                        style="@style/pattern_putaway_smallTv"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:text="@string/otherLabelPrinter" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/otherLabelPrinterEdi"
+                            style="@style/ediForSmallDialog" />
+
+                        <ImageView
+                            android:id="@+id/clearImgOtherLabelPrinter"
+                            style="@style/imgClose"
+                            android:elevation="@dimen/clearImgElevation" />
+
+                    </RelativeLayout>
+
+
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settingGeneralRelHeight2"
+                android:layout_below="@+id/rel2"
+                android:layout_marginTop="@dimen/marginTopRelInSetting"
+                android:background="@drawable/shape_background_rect_white_6"
+                android:elevation="@dimen/lowElevation">
+
+                <TextView
+                    android:id="@+id/title3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settingGeneralHeaderHeight"
+                    android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+                    android:gravity="start|center"
+                    android:paddingStart="@dimen/edi_login_marginTop"
+                    android:paddingEnd="@dimen/edi_login_marginTop"
+                    android:text="@string/serials"
+                    android:textColor="@color/black" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title4"
+                        style="@style/pattern_putaway_smallTv"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:text="@string/UnvalidChar" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/unValidEdi"
+                            style="@style/ediForSmallDialog"
+                            android:hint="" />
+
+                        <ImageView
+                            android:id="@+id/clearImgUnValid"
+                            style="@style/imgClose"
+                            android:elevation="@dimen/clearImgElevation" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/title5"
+                        style="@style/pattern_putaway_smallTv"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:text="@string/maxSerialLength" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/serial_len_ediMax"
+                            style="@style/ediForSmallDialog"
+                            android:hint=""
+                            android:inputType="number" />
+
+                        <ImageView
+                            android:id="@+id/clearImgSerialLenMax"
+                            style="@style/imgClose"
+                            android:elevation="@dimen/clearImgElevation" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/title6"
+                        style="@style/pattern_putaway_smallTv"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:text="@string/minSerialLen" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/serial_len_ediMin"
+                            style="@style/ediForSmallDialog"
+                            android:hint=""
+                            android:inputType="number" />
+
+                        <ImageView
+                            android:id="@+id/clearImgSerialLenMin"
+                            style="@style/imgClose"
+                            android:elevation="@dimen/clearImgElevation" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <include
+        android:id="@+id/submit"
+        layout="@layout/layout_print_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/printHeight"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
+</layout>

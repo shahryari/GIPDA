@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:background="@drawable/shape_background_rect_white_6"
+        android:layout_width="match_parent"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_marginBottom="@dimen/edi_login_marginTop"
+        android:id="@+id/rel0"
+        android:elevation="@dimen/lowElevation"
+        android:minHeight="@dimen/pattern_location_transfer_Height"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pattern_receive">
+
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/location_code" />
+
+            <TextView
+                android:id="@+id/locationCode"
+                style="@style/pattern_transfer_tvMain_yellow"
+                android:text="@string/tools_a220820_023535" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/product_title" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/product_code" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/productTitle"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/tools_tdru4204745" />
+
+                <TextView
+                    android:id="@+id/productCode"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/_097110478112" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/InventoryType" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/locationType" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/type"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:layout_gravity="left"
+                    tools:text="@string/tools_GoodSet" />
+
+                <TextView
+                    android:id="@+id/locationType"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:text="@string/pa" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/ownerCode" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ownerCode"
+                style="@style/pattern_receieve_tv1"
+                android:text="@string/gin" />
+
+
+        </LinearLayout>
+
+        <include android:id="@+id/rel1"
+            layout="@layout/layout_count_two_tv_number" />
+
+
+
+    </RelativeLayout>
+</layout>

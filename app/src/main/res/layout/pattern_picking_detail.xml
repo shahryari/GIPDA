@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:background="@drawable/shape_background_rect_white_6"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="@dimen/marginTop_flag"
+    android:elevation="@dimen/lowElevation"
+    android:padding="@dimen/padding_pattern_receive"
+    tools:layout_height="@dimen/pattern_receive_detail_height"
+    android:minHeight="@dimen/pattern_receive_detail_height"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@id/rel1"
+        android:layout_width="@dimen/rel1PickingDetailPatternWidth"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv1"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_alignStart="@+id/productTitle"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:text="@string/product_title" />
+
+        <TextView
+            android:id="@+id/productTitle"
+            style="@style/pattern_receieve_tv1"
+            android:layout_below="@+id/tv1"
+            android:layout_width="match_parent"
+            android:gravity="left"
+            android:text="@string/tools_a220820_023535"
+            />
+
+
+        <TextView
+            android:id="@+id/tv2"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_below="@+id/productTitle"
+            android:layout_alignStart="@+id/productTitle"
+            android:layout_gravity="center"
+            android:text="@string/product_code" />
+
+        <TextView
+            android:id="@+id/productCode"
+            style="@style/pattern_receieve_tv1"
+            android:layout_below="@id/tv2"
+            android:text="@string/tools_tdru4204745"  />
+
+
+        <RelativeLayout
+            android:layout_below="@id/productCode"
+            android:layout_alignStart="@+id/productTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rel3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv3"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_gravity="center"
+                    android:text="@string/invType" />
+
+
+                <TextView
+                    android:id="@+id/invTypeTitle"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_below="@id/tv3"
+                    android:layout_marginStart="0dp"
+                    android:text="@string/tools_tdru4204745" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rel4"
+                android:layout_marginStart="@dimen/margin20"
+                android:layout_toEndOf="@id/rel3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv4"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_gravity="center"
+                    android:text="@string/owner" />
+
+
+                <TextView
+                    android:id="@+id/ownerCode"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_below="@id/tv4"
+                    android:layout_marginStart="0dp"
+                    android:text="@string/tools_tdru4204745" />
+
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/view"
+        android:background="@color/gray70"
+        android:layout_toEndOf="@+id/rel1"
+        android:layout_width="@dimen/_1sdp"
+        android:layout_height="match_parent"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rel2"
+        android:layout_toEndOf="@+id/view"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv6"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_marginStart="0dp"
+                    android:text="@string/quantity_"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/quantity"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_toEndOf="@+id/tv6"
+                    android:textColor="@color/mainYellow"
+                    android:gravity="start"
+                    tools:text="10" />
+
+            </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+    <ProgressBar
+        android:id="@+id/progress"
+        tools:visibility="gone"
+        android:padding="@dimen/paddingOfDetailProgressBar"
+        style="@style/progressStyle" />
+
+</RelativeLayout>
+</layout>

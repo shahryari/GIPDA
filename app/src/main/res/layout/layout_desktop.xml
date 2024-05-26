@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <RelativeLayout
+        android:padding="@dimen/padding_all"
+        android:layout_width="match_parent"
+        tools:background="@color/mainBackground"
+        tools:backgroundTint="@color/mainBackground"
+        android:layout_height="match_parent"
+        tools:showIn="@layout/fragment_desktop">
+
+        <RelativeLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/heightOfDashboard"
+            android:paddingStart="@dimen/padding_rel_loginToolbar"
+            android:paddingEnd="@dimen/padding_rel_loginToolbar">
+
+
+            <TextView
+                android:id="@+id/appDescriptionTv"
+                style="@style/desktop_tv"
+                android:layout_alignParentBottom="true"
+                android:text="@string/appDesc" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rel2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel1"
+            android:layout_marginTop="@dimen/desktopMargintTop"
+            android:clipToPadding="false"
+            android:padding="@dimen/padding_rel_login">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_centerInParent="true" />
+
+            <RelativeLayout
+                android:id="@+id/relReceive"
+                style="@style/desktop_rel"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@id/view">
+
+
+                <TextView
+                    android:id="@+id/receivingCount"
+                    style="@style/desktop_tv_number"
+                    tools:text="@string/_0" />
+
+                <TextView
+                    style="@style/desktop_tv"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/receiving" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relPutaway"
+                style="@style/desktop_rel"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@id/view">
+
+                <TextView
+                    style="@style/desktop_tv"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/putaway" />
+
+                <TextView
+                    android:id="@+id/putawayCount"
+                    style="@style/desktop_tv_number"
+                    tools:text="@string/_0" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relTransfer"
+                style="@style/desktop_rel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/desktop_rel_height2"
+                android:layout_below="@+id/relPutaway"
+                android:layout_alignStart="@+id/relReceive"
+                android:layout_alignEnd="@id/relPutaway"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp">
+
+                <TextView
+                    style="@style/desktop_tv"
+                    android:layout_alignParentBottom="false"
+                    android:layout_centerInParent="true"
+                    android:text="@string/transfer" />
+
+                <TextView
+                    android:id="@+id/transferCount"
+                    style="@style/desktop_tv_number"
+                    tools:text="@string/_0" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relPicking"
+                style="@style/desktop_rel"
+                android:layout_below="@+id/relTransfer"
+                android:layout_toStartOf="@id/view">
+
+
+                <TextView
+                    style="@style/desktop_tv"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/picking" />
+
+                <TextView
+                    android:id="@+id/pickingCount"
+                    style="@style/desktop_tv_number"
+                    tools:text="@string/_0" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relShipping"
+                style="@style/desktop_rel"
+                android:layout_below="@+id/relTransfer"
+                android:layout_toEndOf="@id/view"
+                android:backgroundTint="@color/mainYellow">
+
+
+                <TextView
+                    style="@style/desktop_tv"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/shipping" />
+
+                <TextView
+                    android:id="@+id/shippingCount"
+                    style="@style/desktop_tv_number"
+                    android:backgroundTint="@color/white"
+                    tools:text="@string/_0" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/relCargo"
+                style="@style/desktop_rel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/desktop_rel_height3"
+                android:layout_below="@+id/relPicking"
+                android:layout_alignStart="@+id/relPicking"
+                android:layout_alignEnd="@id/relPicking"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp">
+
+                <TextView
+                    style="@style/desktop_tv"
+                    android:layout_alignParentBottom="false"
+                    android:layout_centerInParent="true"
+                    android:text="@string/cargo" />
+
+                <TextView
+                    android:id="@+id/cargoCount"
+                    style="@style/desktop_tv_number"
+                    tools:text="@string/_0" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/relMyCargo"
+                style="@style/desktop_rel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/desktop_rel_height3"
+                android:layout_below="@+id/relPicking"
+                android:layout_alignStart="@+id/relShipping"
+                android:layout_alignEnd="@id/relShipping"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp">
+
+                <TextView
+                    style="@style/desktop_tv"
+                    android:layout_alignParentBottom="false"
+                    android:layout_centerInParent="true"
+                    android:elevation="@dimen/_1sdp"
+                    android:text="@string/myCargo" />
+
+                <TextView
+                    android:id="@+id/myCargoCount"
+                    style="@style/desktop_tv_number"
+                    tools:text="@string/_0" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_200sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+</layout>

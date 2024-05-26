@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="@dimen/layoutCountTwoWidth"
+        android:background="@drawable/shape_count_two_top_left_corner_6"
+        android:layout_height="@dimen/countTwoTvNumberHeight">
+
+        <TextView
+            android:id="@+id/realinventory"
+            style="@style/twoTvStyle"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/labelTop"
+            style="@style/twoTvStyle"
+            android:layout_alignParentStart="true"
+            android:text="@string/real" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/layoutCountTwoWidth"
+        android:paddingStart="@dimen/marginTop5ForLayouts"
+        android:background="@drawable/shape_count_two_bottom_right_corner_6"
+        android:layout_height="@dimen/countTwoTvNumberHeight">
+
+        <TextView
+            android:id="@+id/availableinventory"
+            android:layout_alignParentEnd="true"
+            style="@style/twoTvStyle" />
+
+
+        <TextView
+            android:id="@+id/labelBottom"
+            style="@style/twoTvStyle"
+            android:layout_alignParentStart="true"
+            android:text="@string/available" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+</layout>

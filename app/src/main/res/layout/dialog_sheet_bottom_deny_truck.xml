@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sheetAlertDenyConfirm">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/mainBackground"
+            android:layout_height="@dimen/sheetAlertDenyConfirm">
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/serial_scan_top_bar_height"
+                android:background="@color/gray91"
+                android:padding="@dimen/padding_headers">
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/headers_title"
+                    android:text="@string/ship" />
+
+
+                <ImageView
+                    android:id="@+id/closeImg"
+                    style="@style/imgClose1" />
+
+
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/rel2"
+                layout="@layout/layout_spinner_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rel1"
+                android:layout_marginStart="@dimen/edi_login_marginTop"
+                android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                android:layout_marginEnd="@dimen/marginSheetEnd" />
+
+
+            <include
+                android:id="@+id/okCanselBtn"
+                layout="@layout/layout_cansel_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/rel2"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/marginTop5ForLayouts" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:visibility="gone"
+                style="@style/progressStyle"
+                android:elevation="@dimen/progressElevation"
+                android:padding="@dimen/paddingOFSheetProgress" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

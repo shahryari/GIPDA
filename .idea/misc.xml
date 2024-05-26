@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable-v24/ic_run_svgrepo_com.xml" value="0.171" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/background_rect_white_8.xml" value="0.186" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic__023164_barcode_fill_icon.xml" value="0.2335" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic__52469_arrow_up_icon.xml" value="0.18" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic__542502_truck_loading_icon.xml" value="0.1255" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic__787567_wrong_delete_remove_trash_minus_icon.xml" value="0.1795" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.2515" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic_component_1___2.xml" value="0.16" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic_layer1.xml" value="0.2595" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic_packaging_delivery27.xml" value="0.188" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/ic_run_svgrepo_com.xml" value="0.171" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_circle_border_gray_solid_white.xml" value="0.186" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_rect_border_gray_solid_white.xml" value="0.147" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_rect_border_gray_solid_white_half.xml" value="0.147" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_rect_border_gray_solid_white_half2.xml" value="0.125" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_rect_border_half_top_solid_yellow.xml" value="0.175" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_rect_gray_3.xml" value="0.1395" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_rect_white_6.xml" value="0.2365" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_rect_white_6_half.xml" value="0.138" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_background_rect_white_6_half_right.xml" value="0.166" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_circle_white_drawer.xml" value="0.1475" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_count_two_bottom_left_corner_6.xml" value="0.1295" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_count_two_bottom_right_corner_6.xml" value="0.1445" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_count_two_top_left_corner_6.xml" value="0.1445" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_quarter_circle.xml" value="0.186" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_rect_filter.xml" value="0.115" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_rect_filter_clear.xml" value="0.115" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_rect_left_corner_just.xml" value="0.166" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/drawable/shape_rect_right_corner_just.xml" value="0.166" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout-land/fragment_detail_cargo.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout-land/pattern_cargo_detail.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout-land/pattern_receiving_detail_header.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout-sw600dp/fragment_detail_cargo.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout-sw600dp/fragment_detail_cargo_tablet.xml" value="0.190625" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout-sw600dp/pattern_cargo_detail.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/activity_main.xml" value="0.10400000000000001" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/activity_test.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/activity_test2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/desktop_fragment.xml" value="0.152" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_back_press.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_cancel_shipping.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_count.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_modify_transfer.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_pick_finish.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_put_away.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_serial_scan.xml" value="0.136" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_sheet_bottom.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_sheet_bottom_deny_truck.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_sheet_bottom_ship.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_sheet_destiny_location.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_sheet_inv_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_sheet_offline_sumbit.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_sheet_sort_filter.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_sheet_task_type.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_shipping_detail_scan.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_transfer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/dialog_unit_of_measure.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/diaolog_change_base_url.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_desktop.xml" value="0.10400000000000001" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_detail_cargo.xml" value="0.136" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_detail_cargo_tablet.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_detail_receiving.xml" value="0.10400000000000001" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_insert_serial.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_inventory_by.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_offline_serial.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_pickput_daily_report.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_product_without_master.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_receiving.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_rework.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_setting.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/fragment_tracking.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/imageview_close.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/img_filter.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_cancel_shipping.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_cansel_confirm.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_cansel_ok.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_count_two_tv_number.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_desktop.xml" value="0.12" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_drawer.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_inventory_top_info.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_loading_btn.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_pick_finish_top_info.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_print_tv.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_putaway_top_info.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_scanner.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_serial_scan_top_info.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_snack_bar.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_spinner_field.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_transfer_top_info.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/layout_white_field.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/login_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_cargo.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_cargo_detail.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_cargo_driver.xml" value="0.144" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_check_truck.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_destination_location.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_inv_type.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_location_transfer.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_location_transfer_task.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_pallet.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_picking.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_pickput_report.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_product.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_product_without_transfer.xml" value="0.2" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_putaway_detail.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_receiving.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_receiving_detail_header.xml" value="0.1" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_receiving_detail_info.xml" value="0.4247104247104247" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_serial.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_serial_inventory.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_shipping_detail.xml" value="0.10400000000000001" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_simple_spinner.xml" value="0.176" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_task_type.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/pattern_warehouse.xml" value="0.264" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/receiving_detail_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/receiving_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/sheet_sort_filter.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/toolbar_customer_top.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/layout/toolbar_main_top.xml" value="0.136" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.124" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.141" />
+        <entry key="..\:/Java/Android Studio/A_KOTLIN_EDUCATION/WareHouseManagment/app/src/main/res/xml/provider_paths.xml" value="0.25416666666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="corretto-11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:minHeight="@dimen/palletHeight"
+       android:layout_height="wrap_content">
+
+
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:minHeight="@dimen/palletHeight"
+           android:layout_height="wrap_content">
+
+         <LinearLayout
+           android:orientation="vertical"
+           android:foreground="?attr/selectableItemBackground"
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="match_parent">
+               <TextView
+                   android:id="@+id/tv1"
+                   style="@style/pattern_putaway_smallTv"
+                   android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                   android:text="@string/warehouseName" />
+
+
+               <TextView
+                   android:id="@+id/wareHouseName"
+                   style="@style/pattern_receieve_tv1"
+                   tools:text="@string/tools_a220820_023535" />
+
+
+       </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin2"
+           android:orientation="vertical"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="match_parent">
+
+           <TextView
+               android:id="@+id/tv2"
+               style="@style/pattern_putaway_smallTv"
+               android:layout_marginStart="@dimen/marginStartLocationTransfer"
+               android:layout_marginTop="0dp"
+               android:text="@string/warehouseCode" />
+
+
+           <TextView
+               android:id="@+id/warehouseCode"
+               style="@style/pattern_receieve_tv1"
+               tools:text="@string/tools_a220820_023535" />
+
+       </LinearLayout>
+
+       </LinearLayout>
+       <View
+           android:background="@color/gray70"
+           android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+           android:layout_height="@dimen/view_height1"/>
+
+
+   </RelativeLayout>
+
+
+
+
+
+
+
+
+</layout>

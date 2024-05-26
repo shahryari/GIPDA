@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="@dimen/edi_login_corner"
+        android:elevation="@dimen/MediumElevation"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/backPressHeightDialog">
+
+        <RelativeLayout
+            android:padding="@dimen/_20sdp"
+            android:background="@drawable/shape_background_rect_white_6"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_210sdp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="@dimen/iconBackPress"
+                android:layout_height="@dimen/iconBackPress"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_run_svgrepo_com"
+                app:tint="@color/mainYellow" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/marginTopBackPress"
+                android:fontFamily="@font/bold"
+                android:text="@string/are_you_sure_you_want_to_exit"
+                android:textColor="@color/mainYellow"
+                android:textSize="@dimen/titleBackPressSize" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/marginTopBackPress"
+                android:layout_alignStart="@+id/title"
+                android:layout_alignEnd="@+id/title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/marginTopBackPress">
+
+                <TextView
+                    android:id="@+id/yes"
+                    android:layout_width="@dimen/yesWidth"
+                    android:layout_height="@dimen/yesHight"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/shape_background_rect_border_gray_solid_white"
+                    android:fontFamily="@font/medium"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="@string/yes"
+                    android:textColor="@color/mainYellow"
+                    android:textSize="@dimen/titleBackPressSize" />
+
+                <TextView
+                    android:id="@+id/no"
+                    android:layout_width="@dimen/yesWidth"
+                    android:layout_height="@dimen/yesHight"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/shape_background_rect_border_gray_solid_white"
+                    android:fontFamily="@font/medium"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="@string/no"
+                    android:textColor="@color/mainYellow"
+                    android:textSize="@dimen/titleBackPressSize" />
+
+
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

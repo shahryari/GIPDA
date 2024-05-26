@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/shape_background_rect_white_6"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/edi_login_marginTop"
+        android:elevation="@dimen/lowElevation"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/pattern_putaway_detail_height">
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pattern_putawayDetail">
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginTop="0dp"
+                android:text="@string/location_code" />
+
+            <TextView
+                android:id="@+id/locationCode"
+                style="@style/pattern_putaway_MediumTv"
+                android:text="@string/a_38_26_03" />
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/product_title" />
+
+            <TextView
+                android:id="@+id/productTitle"
+                style="@style/pattern_putaway_MediumTv"
+                android:text="@string/location_code" />
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/product_code" />
+
+            <TextView
+                android:id="@+id/productCode"
+                style="@style/pattern_putaway_MediumTv"
+                android:text="@string/_093210081118" />
+
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/invType" />
+
+            <TextView
+                android:id="@+id/tv3"
+                style="@style/pattern_putaway_MediumTv2"
+                android:layout_above="@+id/relCount"
+                android:layout_gravity="start"
+                android:text="@string/tools_GoodSet" />
+
+
+            <RelativeLayout
+                android:id="@+id/relCount"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pattern_putaway_detail_relCount"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true">
+
+
+                <TextView
+                    android:id="@+id/countTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/margin_low_2"
+                    android:text="@string/count2" />
+
+
+                <TextView
+                    android:id="@+id/quantity"
+                    style="@style/pattern_putaway_MediumTv"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/countTitle"
+                    android:text="@string/tools_10"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/pattern_putaway_countFont" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_alignTop="@id/lin1"
+            android:layout_alignBottom="@id/lin1"
+            android:layout_toEndOf="@+id/lin1"
+            android:background="@color/mainBackground"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_toEndOf="@+id/view"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pattern_receive">
+
+            <TextView
+                android:id="@+id/dockCode"
+                style="@style/pattern_putaway_MediumTv2"
+                android:layout_alignParentTop="true"
+                android:text="@string/tools_gr01" />
+
+            <TextView
+                style="@style/pattern_putaway_MediumTv2"
+                android:layout_below="@+id/dockCode"
+                android:text="@string/tools_TDRU4204745" />
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+    </RelativeLayout>
+</layout>

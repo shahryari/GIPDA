@@ -1,0 +1,449 @@
+package com.example.warehousemanagment.model.data
+
+import PickingDetailModel
+import com.example.warehousemanagment.model.constants.ApiUtils
+import com.example.warehousemanagment.model.constants.Utils
+import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
+import com.example.warehousemanagment.model.models.cargo_folder.cargo.CargoModel
+import com.example.warehousemanagment.model.models.cargo_folder.cargo_detail.CargoDetailModel
+import com.example.warehousemanagment.model.models.check_truck.CheckTruckModel
+import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCheckTruckModel
+import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
+import com.example.warehousemanagment.model.models.insert_serial.InsertSerialModel
+import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
+import com.example.warehousemanagment.model.models.insert_serial.ProductModel
+import com.example.warehousemanagment.model.models.insert_serial.WarehouseModel
+import com.example.warehousemanagment.model.models.inventory.CompleteInventoryModifyModel
+import com.example.warehousemanagment.model.models.inventory.inventory.InventoryModifedModel
+import com.example.warehousemanagment.model.models.inventory.InventoryVerifyWithoutComp
+import com.example.warehousemanagment.model.models.login.CatalogModel
+import com.example.warehousemanagment.model.models.login.DashboardInfoModel
+import com.example.warehousemanagment.model.models.receive.add_detail_serial.AddReceivingDetailSerialModel
+import com.example.warehousemanagment.model.models.login.current_user.CurrentUserModel
+import com.example.warehousemanagment.model.models.login.login.LoginModel
+import com.example.warehousemanagment.model.models.my_cargo.my_cargo.MyCargoModel
+import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailModel
+import com.example.warehousemanagment.model.models.notif.NotificationModel
+import com.example.warehousemanagment.model.models.picking.CompletePickingModel
+import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
+import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
+import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
+import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
+import com.example.warehousemanagment.model.models.receive.confirm.ConfirmReceiveDetailModel
+import com.example.warehousemanagment.model.models.receive.count.ReceiveDetailCountModel
+import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
+import com.example.warehousemanagment.model.models.receive.receiveDetail.ReceiveDetailModel
+import com.example.warehousemanagment.model.models.receive.receiving.ReceivingModel
+import com.example.warehousemanagment.model.models.receive.receiving_detail_serials.ReceivingDetailSerialModel
+import com.example.warehousemanagment.model.models.receive.remove_serial.RemoveSerialModel
+import com.example.warehousemanagment.model.models.report_inventory.LocationInventoryByProduct
+import com.example.warehousemanagment.model.models.report_inventory.pickput.PickAndPutModel
+import com.example.warehousemanagment.model.models.report_inventory.report_location.ReportLocationInventory
+import com.example.warehousemanagment.model.models.report_inventory.serial_inventory.SerialInventoryModel
+import com.example.warehousemanagment.model.models.report_inventory.serial_inventory_product.SerialInvProductModel
+import com.example.warehousemanagment.model.models.revoke.RevokeModel
+import com.example.warehousemanagment.model.models.rework.ReworkModel
+import com.example.warehousemanagment.model.models.shipping.*
+import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailModel
+import com.example.warehousemanagment.model.models.shipping.left_dock.LeftDockModel
+import com.example.warehousemanagment.model.models.shipping.shipping_truck.ShippingTruckModel
+import com.example.warehousemanagment.model.models.stock.StockLocationInsertModel
+import com.example.warehousemanagment.model.models.stock.StockTakingCountModel
+import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
+import com.example.warehousemanagment.model.models.tracking.LabellingModel
+import com.example.warehousemanagment.model.models.transfer_task.*
+import com.example.warehousemanagment.model.models.transfer_task.location_transfer.LocationTransferTaskModel
+import com.example.warehousemanagment.model.models.transfer_task.source_location.SourceLocationTransferModel
+import com.example.warehousemanagment.model.models.wait_to_load.TruckLoadingAssignModel
+import com.example.warehousemanagment.model.models.wait_to_load.wait_truck.WaitTruckLoadingModel
+import com.example.warehousemanagment.model.models.without_master.ProductWithoutMasterModel
+import com.example.warehousemanagment.model.models.without_master.UnitOfMeasureSubmitModel
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import com.test.StockTakeModel
+import com.test.StockTakingLocationModel
+import io.reactivex.Observable
+import io.reactivex.Single
+import retrofit2.http.*
+
+interface DataSource
+{
+    fun login(baseUrl:String,jsonObject: JsonObject): Single<LoginModel>
+
+    fun dashboardInfo(baseUrl:String,cookie:String): Observable<List<DashboardInfoModel>>
+
+    fun getCurrentUser(baseUrl:String,cookie:String): Observable<CurrentUserModel>
+
+    fun catalogList(baseUrl:String,cookie:String): Observable<List<CatalogModel>>
+    //----------------------Receiving-----------------------------------------------
+    fun getReceivingList(baseUrl:String,cookie:String, jsonObject: JsonObject,
+                         page:Int,
+                         rows:Int,
+                         sort:String,
+                         asc:String): Observable<ReceivingModel>
+
+
+    fun getReceiveDetailList(baseUrl:String,jsonObject: JsonObject,
+                             page:Int,
+                             rows:Int,
+                             sort:String,
+                             asc:String,
+                             cookie:String):
+            Observable<ReceiveDetailModel>
+
+
+    fun getReceiveDetailSerialList(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Observable<List<ReceivingDetailSerialModel>>
+
+
+    fun addReceiveDetailSerial(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Single<AddReceivingDetailSerialModel>
+
+
+    fun removeSerial(baseUrl:String,jsonObject: JsonObject,cookie:String): Observable<RemoveSerialModel>
+
+
+    fun countReceiveDetail(baseUrl:String,jsonObject: JsonObject
+                           ,cookie:String): Observable<ReceiveDetailCountModel>
+
+    fun confirmReceiveDetail(baseUrl:String,jsonObject: JsonObject
+                             , cookie:String): Observable<ConfirmReceiveDetailModel>
+
+    //-----------------------Putaway--------------------------------------------------
+
+    fun putawayTruckList(baseUrl:String,cookie:String,jsonObject: JsonObject,
+                         page:Int,
+                         rows:Int,
+                         sort:String,
+                         asc:String): Observable<PutawayTruckModel>
+
+    fun putawayTruckDetail(baseUrl:String,jsonObject: JsonObject,
+                           page:Int,
+                           rows:Int,
+                           sort:String,
+                           asc:String,cookie:String):
+            Observable<PutawayTruckDetailModel>
+
+    fun completePutawayModel(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Observable<CompletePutawayModel>
+
+    //-----------------------Picking-----------------------------------------------
+
+
+    fun pickTruckList(baseUrl:String,jsonObject: JsonObject,
+                      page:Int,
+                      rows:Int,
+                      sort:String,
+                      asc:String, cookie:String): Observable<PickingTruckModel>
+
+
+
+    fun pickTruckDetailList(baseUrl:String,jsonObject: JsonObject,
+                      page:Int,
+                      rows:Int,
+                      sort:String,
+                      asc:String, cookie:String): Observable<PickingDetailModel>
+
+
+
+    fun completePicking(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Observable<CompletePickingModel>
+
+    //-----------------------CheckTruck-------------------------------------------
+
+    fun checkTruckList(baseUrl:String,cookie:String):
+            Observable<List<CheckTruckModel>>
+
+    fun confirmCheckTruck(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Observable<ConfirmCheckTruckModel>
+
+    fun denyCheckTruck(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Observable<DenyCheckTruckModel>
+    //-------------------------Shipping-------------------------------------------------
+
+    fun shippingTruckList(baseUrl:String,jsonObject: JsonObject,
+                          page:Int,
+                          rows:Int,
+                          sort:String,
+                          asc:String, cookie: String): Observable<ShippingTruckModel>
+
+
+    fun getShippingDetail(baseUrl:String,jsonObject: JsonObject,
+                          page:Int,
+                          rows:Int,
+                          sort:String,
+                          asc:String,
+                          cookie:String):Observable<ShippingDetailModel>
+
+    fun getShippingSerials(baseUrl:String,jsonObject: JsonObject,
+                          cookie:String):Observable<List<ShippingSerialModel>>
+
+    fun insertShippingDetail(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Observable<AddShippingSerialModel>
+
+    fun removeShippingSerial(baseUrl:String,jsonObject: JsonObject,
+                           cookie:String):Observable<RemoveShippingSerialModel>
+
+
+    fun loadingFinish(baseUrl:String,jsonObject: JsonObject,
+                      cookie:String):Observable<LoadingFinishModel>
+
+    fun revokLocation(url:String ,jsonObject: JsonObject,
+                      cookie:String):Single<List<DestinyLocationTransfer>>
+
+    fun revoke(url:String, jsonObject: JsonObject,
+                cookie:String):Single<RevokeModel>
+    //----------------------------Cargo----------------------------
+    fun getCargoList(url:String ,jsonObject: JsonObject,
+                     page:Int,
+                     rows:Int,
+                     sort:String,
+                     order:String,
+                     cookie:String):Single<CargoModel>
+
+    fun getCargoDetailList(url:String ,jsonObject: JsonObject,
+                     page:Int,
+                     rows:Int,
+                     sort:String,
+                     order:String,
+                     cookie:String):Single<CargoDetailModel>
+
+    fun driverTaskSubmit(url: String,jsonObject: JsonObject,cookie:String)
+            :Single<DriverTaskDoneModel>
+
+    fun driverTaskRemove(url: String,jsonObject: JsonObject,cookie:String)
+            :Single<DriverTaskDoneModel>
+
+
+    fun changeDriverTaskDone(url: String, jsonObject: JsonObject, cookie:String)
+            :Single<DriverTaskDoneModel>
+
+    fun getMyCargoList(url:String ,jsonObject: JsonObject,
+                     page:Int,
+                     rows:Int,
+                     sort:String,
+                     order:String,
+                     cookie:String):Single<MyCargoModel>
+
+    fun getMyCargoDetailList(url:String ,jsonObject: JsonObject,
+                           page:Int,
+                           rows:Int,
+                           sort:String,
+                           order:String,
+                           cookie:String):Single<MyCargoDetailModel>
+
+
+    fun cargoDetailWorkerSubmit( url: String, jsonObject: JsonObject,
+                                cookie:String)
+            :Single<DriverTaskDoneModel>
+
+
+    fun cargoDetailWorkerRemove( url: String, jsonObject: JsonObject,cookie:String)
+            :Single<DriverTaskDoneModel>
+
+    //----------------------------ShippingCansel---------------------------------------------------
+
+    fun shippingCanselTruckList(baseUrl:String,jsonObject: JsonObject,
+                                page:Int,
+                                rows:Int,
+                                sort:String,
+                                asc:String, cookie:String):Observable<ShippingTruckModel>
+
+    fun getCanselShippingDetail(baseUrl:String,jsonObject: JsonObject,
+                                page:Int,
+                                rows:Int,
+                                sort:String,
+                                asc:String,
+                               cookie:String):Observable<ShippingDetailModel>
+
+    fun getCanselShippingSerials(baseUrl:String,jsonObject: JsonObject,
+                                 cookie:String):Observable<List<ShippingSerialModel>>
+
+    fun insertCanselShippingDetail(baseUrl:String,jsonObject: JsonObject,
+                                    cookie:String):Single<AddShippingSerialModel>
+
+    fun removeCanselShippingSerial(baseUrl:String,jsonObject: JsonObject,
+                                    cookie:String):Observable<RemoveShippingSerialModel>
+
+    fun loadingCanselFinish(baseUrl:String,jsonObject: JsonObject,
+                            cookie:String):Observable<LoadingFinishModel>
+
+    //----------Transfer------------------------------------------
+
+    fun sourceLocationTransfer(baseUrl:String,jsonObject: JsonObject,
+                               cookie:String,
+                               page:Int,
+                               rows:Int,
+                               sort:String,
+                               asc:String,):Observable<SourceLocationTransferModel>
+
+    fun destinationLocationTransfer(baseUrl:String,jsonObject: JsonObject,
+                                    cookie:String):Observable<List<DestinyLocationTransfer>>
+
+    fun submitLocationTransfer(baseUrl:String,jsonObject: JsonObject,
+                              cookie:String):Observable<LocationTransferSubmit>
+
+    fun locationTransferTaskList(baseUrl:String,jsonObject: JsonObject,
+                                 page:Int,
+                                 rows:Int,
+                                 sort:String,
+                                 asc:String,
+                                 cookie:String):
+            Observable<LocationTransferTaskModel>
+
+    fun completeLocationTransfer(baseUrl:String,jsonObject: JsonObject,
+                                 cookie:String):Observable<CompleteLocationTransfer>
+
+    fun inventoryModifiedTask(baseUrl:String,jsonObject: JsonObject,
+                              page:Int,
+                              rows:Int,
+                              sort:String,
+                              asc:String,
+                              cookie:String):Observable<InventoryModifedModel>
+
+    fun completeInventoryModify(baseUrl:String,jsonObject: JsonObject,
+                                cookie:String):Observable<CompleteInventoryModifyModel>
+
+    fun inventoryModifyWitoutComp(baseUrl:String,jsonObject: JsonObject,
+                                cookie:String):Observable<InventoryVerifyWithoutComp>
+
+    //------------------------ReportLocation----------------------------------------------
+
+    fun reportLocationInventory(baseUrl:String,jsonObject: JsonObject,
+                                page:Int,
+                                rows:Int,
+                                sort:String,
+                                order:String,
+                                cookie:String):Observable<ReportLocationInventory>
+
+    fun reportLocationInventByProduct(baseUrl:String,jsonObject: JsonObject,
+                                     cookie:String):Observable<List<LocationInventoryByProduct>>
+
+    fun reportSerialInventory(baseUrl:String,jsonObject: JsonObject,
+                               page:Int,
+                                rows:Int,
+                               sort:String,
+                               order:String,
+                               cookie:String)
+            :Observable<SerialInventoryModel>
+
+    fun reportSerialInventoryProduct(url:String,jsonObject: JsonObject,
+                                     page:Int,
+                                     rows:Int,
+                                     sort:String,
+                                     order:String,
+                                     cookie:String)
+            :Observable<SerialInvProductModel>
+
+    fun pickAndPutReport(baseUrl:String,jsonObject: JsonObject, page:Int,
+                         rows:Int,
+                         sort:String,
+                         order:String,
+                         cookie:String):Observable<PickAndPutModel>
+
+    //---------------------Product Without Master------------------------------------------
+
+    fun getProductWithoutMaster(baseUrl:String,jsonObject: JsonObject,
+                                page:Int,
+                                rows:Int,
+                                sort:String,
+                                order:String,
+                                cookie:String):
+                 Observable<List<ProductWithoutMasterModel>>
+
+    fun unitOfMeasureSubmtit(baseUrl:String,jsonObject: JsonObject, cookie:String):
+            Observable<UnitOfMeasureSubmitModel>
+
+    fun palletList(baseUrl: String,cookie:String):Observable<List<PalletModel>>
+
+    //-------------------------------------------------------------------------------------
+
+    fun waitTruckLoading(baseUrl:String,jsonObject: JsonObject,
+                         page:Int,
+                         rows:Int,
+                         sort:String,
+                         order:String,
+                         cookie: String):Observable<WaitTruckLoadingModel>
+
+    fun truckLoadingAssign(baseUrl:String,jsonObject: JsonObject,cookie: String)
+            :Observable<TruckLoadingAssignModel>
+    //------------------------------------------------------------------------------------
+    fun getWarehouse(baseUrl:String,cookie: String):Observable<List<WarehouseModel>>
+    fun getOwner( baseUrl:String,cookie: String):Observable<List<OwnerModel>>
+    fun getProducts(baseUrl:String,jsonObject: JsonObject,
+                   cookie: String):Observable<List<ProductModel>>
+    fun insertSerial(
+        baseUrl:String,
+        jsonArray: JsonArray,
+        cookie: String):Observable<InsertSerialModel>
+    //Notification---------------------------------------------
+
+    fun notif(baseUrl:String,cookie: String):Single<List<NotificationModel>>
+
+    //-----------------Tracking------------------------------
+    fun getTrackingProducts(
+        baseUrl:String,
+        jsonObject: JsonObject,cookie: String): Single<List<ProductModel>>
+
+    fun getSerialInfo(baseUrl:String,jsonObject: JsonObject, cookie: String):
+            Single<GetSerialInfoModel>
+
+    fun labelling(
+        baseUrl:String,
+        jsonArray: JsonArray,
+       cookie: String):
+            Single<LabellingModel>
+
+    fun rework(
+        baseUrl:String,
+         jsonObject: JsonObject, cookie: String):
+            Single<ReworkModel>
+
+    fun getCustomers(
+        url:String,
+        jsonObject: JsonObject,
+         cookie: String):
+            Observable<List<CustomerModel>>
+
+    fun leftDock(
+        url:String ,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<LeftDockModel>
+
+    //---Stock----------------------------
+    fun stockTakingList(url:String,jsonObject: JsonObject,
+                        page:Int,
+                        rows:Int,
+                        sort:String,
+                        order:String,
+                        cookie: String,)
+            :Observable<StockTakeModel>
+
+
+    fun stockTakingLocationList(
+        url:String,
+        jsonObject: JsonObject,
+        page:Int,
+        rows:Int,
+        sort:String,
+        order:String,
+        cookie: String,
+    ):Observable<StockTakingLocationModel>
+
+    fun stockTakingLocationInsert(
+        url:String ,
+        jsonObject: JsonObject,
+        cookie: String,
+    ):Single<StockLocationInsertModel>
+
+    fun stockTakingCount(
+        url:String ,
+        jsonObject: JsonObject,
+        cookie: String,
+    ):Single<StockTakingCountModel>
+
+}
+
+
+

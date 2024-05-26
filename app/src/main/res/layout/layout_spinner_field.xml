@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/_2sdp"
+    android:background="@drawable/shape_background_rect_border_gray_solid_white"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/view_height1"
+    android:paddingTop="@dimen/view_height1"
+    android:paddingEnd="@dimen/margin_start_icon_tv"
+    android:paddingBottom="@dimen/view_height1"
+    tools:showIn="@layout/dialog_sheet_bottom_deny_truck">
+
+    <ImageView
+        android:id="@+id/selectReason"
+        android:layout_width="@dimen/arrowUpIcon"
+        android:layout_height="@dimen/arrowUpIcon"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic__52469_arrow_up_icon" />
+
+    <TextView
+        android:id="@+id/tv"
+        style="@style/ediForUnitEdi"
+        android:focusable="false"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
+        android:paddingStart="0dp"
+        android:background="@null"
+        tools:hint="hint"
+        android:gravity="center|start"  />
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/searchSerialEdi"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:gravity="end"
+        android:elevation="@dimen/_10sdp"
+        android:prompt="@string/reason"
+        android:spinnerMode="dropdown"
+        android:text="@string/reason" />
+
+
+</RelativeLayout>
+</layout>

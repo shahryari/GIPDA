@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="@dimen/edi_login_corner"
+        android:elevation="@dimen/MediumElevation"
+        android:background="@drawable/shape_background_rect_border_gray_solid_white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_change_base_url">
+
+
+        <RelativeLayout
+            android:background="@drawable/shape_background_rect_border_gray_solid_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_change_base_url">
+
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/serial_scan_top_bar_height"
+                android:layout_marginStart="@dimen/view_height1"
+                android:layout_marginTop="@dimen/view_height1"
+                android:layout_marginEnd="@dimen/view_height1"
+                android:layout_marginBottom="@dimen/view_height1"
+                android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+                android:padding="@dimen/padding_headers">
+
+                <TextView
+                    style="@style/headers_title"
+                    android:text="@string/userDomain" />
+
+
+                <ImageView
+                    android:id="@+id/closeImg"
+                    style="@style/imgClose1" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_below="@id/rel1"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/domainEdi"
+                    style="@style/ediForSmallDialog"
+                    android:hint="@string/userDomain"
+                    android:paddingEnd="@dimen/paddingEndEdi" />
+
+
+                <ImageView
+                    android:id="@+id/clearImg"
+                    style="@style/imgClose"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/marginImgClearEnd"
+                    android:elevation="@dimen/MediumElevation" />
+
+            </RelativeLayout>
+
+
+            <include
+                android:id="@+id/rel4"
+                layout="@layout/layout_cansel_ok"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/canselConfirmRel"
+                android:layout_alignParentBottom="true" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

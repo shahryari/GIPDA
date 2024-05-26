@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">@color/mainYellow</color>
+    <color name="purple_500">@color/mainYellow</color>
+    <color name="purple_700">@color/mainYellow</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="mainBackground">#F2F2F2</color>
+    <color name="grayB4">#B4B4B4</color>
+    <color name="grayBD">#BDBDBD</color>
+    <color name="grayCB">#CBCBCB</color>
+    <color name="gray71">#717171</color>
+    <color name="gray70">#707070</color>
+
+    <color name="mainYellow">#FFD541</color>
+    <color name="paleYellow2">#F3E2A7</color>
+
+
+    <color name="paleYellow">#E6DBB5</color>
+    <color name="tools_backgroundTint">#701717</color>
+    <color name="gray70_alpha53">#88707070</color>
+    <color name="simpleBlue">#2980B9</color>
+    <color name="semiBlue">#899AA6</color>
+    <color name="gray95">#959595</color>
+    <color name="grayB5">#B5B5B5</color>
+    <color name="gray70_alpha70">#B3707070</color>
+    <color name="gray91">#919190</color>
+    <color name="grayAA">#AAAAAA</color>
+    <color name="grayC6">#c6c6c6</color>
+    <color name="gray87">#878787</color>
+    <color name="gray5D">#5D5C5C</color>
+    <color name="gray9C">#9C9C9C</color>
+    <color name="red">#F2203D</color>
+    <color name="progressBackground">#0DF4FF58</color>
+    <color name="blue">#0080FF</color>
+    <color name="orange">#F2AC20</color>
+    <color name="orange2">#F57C00</color>
+    <color name="clearRectBorder">#FCDA64</color>
+    <color name="filterSolid">#F2AC20</color>
+    <color name="lowOrange">#78F2AC20</color>
+    <color name="green">#27AE60</color>
+    <color name="progressYellow">#DAC614</color>
+    <color name="pink">#F89797</color>
+    <color name="lowPink">#F5C9C9</color>
+
+
+</resources>

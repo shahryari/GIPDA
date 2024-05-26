@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/relProfile"
+        android:elevation="@dimen/_5sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/profileImg"
+            android:layout_marginTop="@dimen/padding_all"
+            android:layout_marginStart="@dimen/padding_all"
+            android:layout_width="@dimen/drawer_icon_size"
+            android:layout_height="@dimen/drawer_icon_size"
+            android:src="@drawable/png_profile"
+            android:background="@drawable/shape_background_circle_border_gray_solid_white"
+            />
+
+        <TextView
+            android:id="@+id/profileName"
+            style="@style/desktop_tv"
+            android:layout_below="@+id/profileImg"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/padding_all"
+            tools:text="@string/tools_mahdi_ahmadi" />
+
+        <TextView
+            android:id="@+id/wareHouseName"
+            style="@style/desktop_tv"
+            android:layout_below="@+id/profileName"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/padding_all"
+            tools:text="@string/tools_mahdi_ahmadi" />
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relProfile"
+        android:layout_marginStart="@dimen/minus_margin_drawer"
+        android:layout_marginTop="@dimen/_minus50sdp"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_path_1"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/receiveExapnd"
+                style="@style/drawer_rel"
+                android:layout_marginTop="@dimen/margin_drawer_first_rel_top"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/drawer_img"
+                    android:src="@drawable/ic_packaging_delivery27" />
+
+                <TextView
+                    style="@style/drawer_tv"
+                    android:text="@string/receiving" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linReceiving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/relReceive"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/receiving" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/relPutaway"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/putaway" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/shippingExpand"
+                style="@style/drawer_rel"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/drawer_img"
+                    android:src="@drawable/ic_packaging_delivery_1" />
+
+                <TextView
+                    style="@style/drawer_tv"
+                    android:text="@string/shipping" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linShipping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/relPicking"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/picking" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linCargoDetail"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/cargoDetail" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linMyCargo"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/myCargo" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linWaitForLoading"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/waite_for_loading" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/relShipping"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/shipping" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/relCanselShipping"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/cancelShipping" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/transferExpand"
+                style="@style/drawer_rel"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/drawer_img"
+                    android:src="@drawable/png_drawer_transfer" />
+
+                <TextView
+                    style="@style/drawer_tv"
+                    android:text="@string/transfer" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linLocationTransfer"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/locationTransfer" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linTransferTask"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/transferTask" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linInventoryModify"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/inventTypeModifyTask" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--            this check truck has to be remove from goToFragment()-->
+            <LinearLayout
+                android:id="@+id/relCheckTruck"
+                style="@style/drawer_rel"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    style="@style/drawer_img"
+                    android:src="@drawable/ic__177623_checklist_checkmark_done_list_icon" />
+
+                <TextView
+                    style="@style/drawer_tv"
+                    android:text="@string/checkTruck" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/reportExpand"
+                style="@style/drawer_rel"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/drawer_img"
+                    android:src="@drawable/ic__541745_chart_bar_icon" />
+
+                <TextView
+                    style="@style/drawer_tv"
+                    android:text="@string/report" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linLocationInventory"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/location_inventory" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linPutPick"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/put_pick_daily" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linSerialInventory"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/serial_inventory" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/generalExpand"
+                style="@style/drawer_rel"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/drawer_img"
+                    android:src="@drawable/ic__471082_base_data_document_office_page_icon" />
+
+                <TextView
+                    style="@style/drawer_tv"
+                    android:text="@string/general" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linGeneral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linProductWithoutMaster"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/productWithouMaster" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/serials"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/insertSerial" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linOfflineScanSerial"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/offlineSerials" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linTrackingSerial"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/trackingSerial" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linRework"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/rework" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linStockTake"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/stockTake" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/relSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relLogout"
+        android:layout_alignStart="@+id/relLogout"
+        android:layout_marginBottom="@dimen/marginSettingBottom"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/drawer_img"
+            android:src="@drawable/ic__694732_media_player_music_setting_icon"
+            app:tint="@color/white" />
+
+
+        <TextView
+            style="@style/drawer_tv"
+            android:text="@string/setting" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/relLogout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/marginTop5ForLayouts"
+        android:layout_marginBottom="@dimen/marginLogoutBottom"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/drawer_img"
+            android:src="@drawable/ic__654372_arrow_close_door_exit_out_icon"
+            app:tint="@color/white" />
+
+
+        <TextView
+            style="@style/drawer_tv"
+            android:text="@string/logout" />
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        style="@style/drawer_tv"
+        android:layout_margin="@dimen/marginTop5ForLayouts"
+        android:textColor="@color/white"
+        tools:text="@string/version" />
+
+
+
+</RelativeLayout>
+</layout>

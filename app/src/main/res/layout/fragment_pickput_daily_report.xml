@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rel0"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        tools:background="@color/mainBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/printTv"
+            android:paddingStart="@dimen/padding_all"
+            android:paddingTop="@dimen/padding_all"
+            android:paddingEnd="@dimen/padding_all">
+
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                style="@style/relSearchMainEdi"
+                android:layout_alignParentTop="true">
+
+                <EditText
+                    android:id="@+id/serialEdi"
+                    style="@style/searchMainEdi"
+                    android:layout_toStartOf="@+id/date"
+                    android:hint="@string/serial" />
+
+                <ImageView
+                    android:id="@+id/serialClearImg"
+                    style="@style/imgClose"
+                    android:layout_alignParentEnd="true" />
+
+
+                <ImageView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:src="@drawable/ic__351904_filter_filtering_filters_funnel_sort_icon" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel1"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/rel3"
+                    style="@style/relSearchMainEdi"
+                    android:layout_below="@+id/rel2">
+
+                    <EditText
+                        android:id="@+id/locationCode"
+                        style="@style/searchMainEdi"
+                        android:layout_toStartOf="@+id/locationClearImg"
+                        android:hint="@string/location_code" />
+
+                    <ImageView
+                        android:id="@+id/locationClearImg"
+                        style="@style/imgClose" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel2"
+                    style="@style/relSearchMainEdi"
+                    android:layout_below="@+id/rel1">
+
+                    <EditText
+                        android:id="@+id/productTitleEdi"
+                        style="@style/searchMainEdi"
+                        android:layout_toStartOf="@+id/productTitleClearImg"
+                        android:hint="@string/product_title" />
+
+                    <ImageView
+                        android:id="@+id/productTitleClearImg"
+                        style="@style/imgClose" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rel4"
+                    style="@style/relSearchMainEdi"
+                    android:layout_below="@+id/rel2">
+
+                    <EditText
+                        android:id="@+id/ownerCode"
+                        style="@style/searchMainEdi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="@string/ownerCode" />
+
+                    <ImageView
+                        android:id="@+id/ownerCodeImg"
+                        style="@style/imgClose" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rel5"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    style="@style/relSearchMainEdi"
+                    android:layout_below="@+id/rel4">
+
+                    <EditText
+                        android:id="@+id/productCode"
+                        style="@style/searchMainEdi"
+                        android:layout_toStartOf="@+id/productCodeImg"
+                        android:hint="@string/product_code" />
+
+                    <ImageView
+                        android:id="@+id/productCodeImg"
+                        style="@style/imgClose" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rel6"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    style="@style/relSearchMainEdi"
+                    android:layout_below="@+id/rel5">
+
+                    <EditText
+                        android:id="@+id/invTypeId"
+                        style="@style/searchMainEdi"
+                        android:layout_toStartOf="@+id/invTypeImg"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="@string/invType" />
+
+                    <ImageView
+                        android:id="@+id/invTypeImg"
+                        style="@style/imgClose" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rel7"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    style="@style/relSearchMainEdi"
+                    android:layout_below="@+id/rel5">
+
+                    <EditText
+                        android:id="@+id/taskTypeId"
+                        style="@style/searchMainEdi"
+                        android:layout_toStartOf="@+id/taskTypeImg"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="@string/taskType" />
+
+                    <ImageView
+                        android:id="@+id/taskTypeImg"
+                        style="@style/imgClose" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lin1"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/paddingTopBottomOptionsRel"
+                android:paddingBottom="@dimen/paddingTopBottomOptionsRel">
+
+                <RelativeLayout
+                    android:id="@+id/relFilter"
+                    style="@style/pickputRelRect"
+                    android:background="@drawable/shape_rect_left_corner_just"
+                    android:backgroundTint="@color/lowPink">
+
+                    <ImageView
+                        style="@style/pickputRectImg"
+                        android:src="@drawable/png_search"
+                        app:tint="@color/black" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relSetting"
+                    style="@style/pickputRelRect"
+                    android:background="@drawable/shape_rect_right_corner_just"
+                    android:backgroundTint="@color/pink">
+
+                    <ImageView
+                        style="@style/pickputRectImg"
+                        android:src="@drawable/ic__351904_filter_filtering_filters_funnel_sort_icon"
+                        app:tint="@color/black" />
+
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/setting"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/pattern_pickput_report" />
+
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/progressStyle"
+            android:padding="@dimen/paddingOfDialogProgress"
+            tools:visibility="gone" />
+
+
+        <include
+            android:id="@+id/printTv"
+            layout="@layout/layout_print_tv" />
+
+
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+
+</layout>

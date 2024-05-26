@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <EditText
+        android:id="@+id/quantity"
+        style="@style/ediForSmallDialog"
+        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+        android:hint="@string/Quantity" />
+
+    <ImageView
+        android:id="@+id/clearImg"
+        style="@style/imgClose"
+        android:layout_marginEnd="@dimen/clearImgMarginEnd"
+        android:elevation="@dimen/clearImgElevation" />
+
+</RelativeLayout>
+</layout>

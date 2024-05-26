@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/relMoreInfo"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/paddingSerialInfoLayout"
+        android:paddingEnd="@dimen/paddingSerialInfoLayout">
+
+        <TextView
+            android:id="@+id/title1"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:text="@string/number" />
+
+        <TextView
+            android:id="@+id/productTitle"
+            style="@style/pattern_receieve_tv1"
+            android:text="@string/tools_Panel_HV36MNQ1" />
+
+        <TextView
+            style="@style/pattern_putaway_smallTv"
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:text="@string/product_code" />
+
+        <TextView
+            android:id="@+id/productCode"
+            style="@style/pattern_receieve_tv1"
+            android:text="@string/tools_30203001769" />
+
+
+        <TextView
+            android:id="@+id/tv1"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:text="@string/invType" />
+
+        <TextView
+            android:id="@+id/invType"
+            style="@style/pattern_receieve_tv1"
+            tools:text="@string/tools_GoodSet" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv2"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/owner" />
+
+            <TextView
+                android:id="@+id/ownerCode"
+                style="@style/pattern_receieve_tv1"
+                android:layout_below="@+id/tv2"
+                tools:text="@string/ownerCode" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/add"
+        style="@style/btnSubmitCansel"
+        android:layout_alignBottom="@id/rel1"
+        android:layout_alignStart="@id/relMoreInfo"
+        android:background="@drawable/shape_background_rect_gray_3"
+        android:backgroundTint="@color/mainYellow"
+        android:text="@string/add" />
+
+
+    <RelativeLayout
+        android:id="@+id/relMoreInfo"
+        android:layout_width="@dimen/layout_top_info_scan_more"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/rel1"
+        android:layout_alignParentEnd="true"
+        android:paddingEnd="@dimen/paddingEndInfo"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/rel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/tv5"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_alignParentStart="true"
+                android:text="@string/Quantity"
+                android:textColor="@color/gray70" />
+
+
+            <TextView
+                android:id="@+id/quantity"
+                style="@style/pattern_receieve_tv1"
+                android:layout_below="@+id/tv5"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:text="@string/tools_6"
+                android:textColor="@color/black" />
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/customerTitle"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_below="@+id/rel2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:layout_marginTop="0dp"
+            android:text="@string/customerFullName" />
+
+
+        <TextView
+            android:id="@+id/customerFullName"
+            style="@style/pattern_receieve_tv1"
+            android:layout_below="@+id/customerTitle"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@color/black"
+            tools:text="@string/majidbagheri" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iconBarcode"
+        style="@style/barcodeImg"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
+
+
+    <TextView
+        android:id="@+id/addSerial"
+        style="@style/tv_add"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/relMoreInfo"
+        android:layout_alignStart="@+id/relMoreInfo"
+        android:layout_alignEnd="@+id/rel1"
+        android:layout_marginStart="@dimen/padding_pattern_receive" />
+
+    <RelativeLayout
+        android:id="@+id/relInputSerial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rel1">
+
+        <EditText
+            android:id="@+id/serialEdi"
+            style="@style/ediForSmallDialog"
+            android:hint="@string/input_serial" />
+
+        <ImageView
+            android:id="@+id/clearImg"
+            style="@style/imgClose"
+            android:layout_marginEnd="@dimen/clearImgMarginEnd"
+            android:elevation="@dimen/clearImgElevation" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relQuantity"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relInputSerial">
+
+        <EditText
+            android:id="@+id/quantityEdi"
+            style="@style/ediForSmallDialog"
+            android:hint="@string/quantity" />
+
+        <ImageView
+            android:id="@+id/quantityclearImg"
+            style="@style/imgClose"
+            android:layout_marginEnd="@dimen/clearImgMarginEnd"
+            android:elevation="@dimen/clearImgElevation" />
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>
+</layout>

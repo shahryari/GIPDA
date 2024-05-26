@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<androidx.cardview.widget.CardView
+    app:cardCornerRadius="@dimen/edi_login_corner"
+    android:elevation="@dimen/MediumElevation"
+    android:background="@drawable/shape_background_rect_border_gray_solid_white"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dialog_unitOfMeasure">
+
+
+    <RelativeLayout
+        android:background="@drawable/shape_background_rect_border_gray_solid_white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_unitOfMeasure">
+
+
+        <RelativeLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/serial_scan_top_bar_height"
+            android:layout_marginStart="@dimen/view_height1"
+            android:layout_marginTop="@dimen/view_height1"
+            android:layout_marginEnd="@dimen/view_height1"
+            android:layout_marginBottom="@dimen/view_height1"
+            android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+            android:padding="@dimen/padding_headers">
+
+            <TextView
+                style="@style/headers_title"
+                android:text="@string/unitMeasure" />
+
+
+            <ImageView
+                android:id="@+id/closeImg"
+                style="@style/imgClose1" />
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/title1"
+            android:layout_below="@id/rel1"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:text="@string/product_title" />
+
+        <TextView
+            android:id="@+id/tv1"
+            style="@style/pattern_receieve_tv1"
+            android:layout_below="@id/title1"
+            android:text="@string/tools_Panel_HV36MNQ1" />
+
+
+        <TextView
+            android:id="@+id/goodId"
+            style="@style/ediForUnitEdi"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv1"
+            android:layout_marginBottom="0dp"
+            android:background="@null"
+            android:gravity="center|start"
+            android:hint="@string/ea" />
+
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/goodId"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/marginTop5ForLayouts"
+            android:paddingEnd="@dimen/marginTop5ForLayouts">
+
+            <EditText
+                android:id="@+id/lenghtEdi"
+                style="@style/ediFieldTransfer"
+                android:hint="@string/length" />
+
+            <EditText
+                android:id="@+id/widthEdi"
+                style="@style/ediFieldTransfer"
+                android:layout_margin="@dimen/marginTop5ForLayouts"
+                android:hint="@string/width" />
+
+            <EditText
+                android:id="@+id/heightEdi"
+                style="@style/ediFieldTransfer"
+                android:hint="@string/height" />
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_height1"
+            android:layout_below="@id/lin1"
+            android:layout_marginStart="@dimen/marginUnitTopTv"
+            android:layout_marginEnd="@dimen/marginUnitTopTv"
+            android:background="@color/gray70" />
+
+
+        <TextView
+            android:id="@+id/pa"
+            style="@style/ediForUnitEdi"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view1"
+            android:layout_marginBottom="0dp"
+            android:background="@null"
+            android:gravity="center|start"
+            android:hint="@string/pa" />
+
+        <RelativeLayout
+            android:id="@+id/lin3"
+            android:layout_below="@+id/pa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/palletTv"
+                style="@style/ediForUnitEdi"
+                android:focusable="false"
+                android:gravity="center|start"
+                android:hint="@string/selectPallet" />
+
+            <ImageView
+                android:id="@+id/selectReason"
+                android:layout_width="@dimen/arrowUpIcon"
+                android:layout_height="@dimen/arrowUpIcon"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/marginImgClearEnd"
+                android:elevation="@dimen/clearImgElevation"
+                android:src="@drawable/ic__52469_arrow_up_icon" />
+
+
+
+
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/lin2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lin3"
+            android:layout_marginTop="@dimen/marginUnitTopTv"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/marginTop5ForLayouts"
+            android:paddingEnd="@dimen/marginTop5ForLayouts">
+
+
+            <EditText
+                android:id="@+id/palletLayer"
+                style="@style/ediFieldTransfer"
+                android:layout_marginEnd="@dimen/margin_low_2"
+                android:hint="@string/palletLayer" />
+
+            <EditText
+                android:id="@+id/quantityPerLayer"
+                android:layout_marginStart="@dimen/margin_low_2"
+                style="@style/ediFieldTransfer"
+                android:hint="@string/quantityPerLayer" />
+
+
+        </LinearLayout>
+
+
+        <include
+            android:id="@+id/rel4"
+            layout="@layout/layout_cansel_ok"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/canselConfirmRel"
+            android:layout_alignParentBottom="true" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/progressStyle"
+            android:visibility="gone"
+            android:padding="@dimen/paddingOfFragmentProgress"  />
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
+
+</layout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/paddingSerialInfoLayout"
+            android:paddingEnd="@dimen/paddingSerialInfoLayout">
+
+
+            <TextView
+                android:id="@+id/tv1"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/product_title" />
+
+            <TextView
+                android:id="@+id/productTitle"
+                android:layout_below="@+id/tv1"
+                style="@style/pattern_receieve_tv1"
+                android:text="@string/tools_Panel_HV36MNQ1" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel2"
+            android:layout_below="@id/rel3"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/locationDestiny"
+                style="@style/ediForSmallDialog"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="0dp"
+                android:gravity="start|center"
+                android:hint="@string/destinationLocation" />
+
+            <ImageView
+                android:id="@+id/clearImgLocation"
+                style="@style/imgClose"
+                android:layout_marginEnd="@dimen/clearImgMarginEnd"
+                android:elevation="@dimen/clearImgElevation" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel1">
+
+            <EditText
+                android:id="@+id/quantity"
+                style="@style/ediForSmallDialog"
+                android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                android:hint="@string/Quantity"
+                android:inputType="number" />
+
+            <ImageView
+                android:id="@+id/clearImg"
+                style="@style/imgClose"
+                android:layout_marginEnd="@dimen/clearImgMarginEnd"
+                android:elevation="@dimen/clearImgElevation" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rel4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel2">
+
+            <TextView
+                android:id="@+id/availableinventory"
+                style="@style/ediForSmallDialog"
+                android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                android:gravity="center|start" />
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    app:cardCornerRadius="@dimen/edi_login_corner"
+    android:layout_height="@dimen/dialog_change_product_height">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_change_product_height">
+
+        <RelativeLayout
+            android:id="@+id/relHeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/serial_scan_top_bar_height"
+            android:layout_marginStart="@dimen/view_height1"
+            android:layout_marginTop="@dimen/view_height1"
+            android:layout_marginEnd="@dimen/view_height1"
+            android:layout_marginBottom="@dimen/view_height1"
+            android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+            android:padding="@dimen/padding_headers">
+
+            <TextView
+                android:id="@+id/dialogTitle"
+                style="@style/headers_title"
+                android:text="@string/changeProduct" />
+
+
+            <ImageView
+                android:id="@+id/closeImg"
+                style="@style/imgClose1" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title1"
+            android:layout_below="@+id/relHeader"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:text="@string/location_code" />
+
+
+        <TextView
+            android:id="@+id/locationCodeTitle"
+            android:layout_marginStart="@dimen/marginTop5ForLayouts"
+            android:layout_below="@+id/title1"
+            style="@style/pattern_receieve_tv1"
+            tools:text="@string/tools_Panel_HV36MNQ1" />
+
+
+        <RelativeLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/locationCodeTitle">
+
+            <EditText
+                android:id="@+id/locationCode"
+                style="@style/ediForSmallDialog"
+                android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                android:hint="@string/location_code"
+                android:inputType="text" />
+
+            <ImageView
+                android:id="@+id/clearImgLocation"
+                style="@style/imgClose"
+                android:layout_marginEnd="@dimen/clearImgMarginEnd"
+                android:elevation="@dimen/clearImgElevation" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel2"
+            android:layout_below="@id/rel1"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/product"
+                style="@style/ediForSmallDialog"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="0dp"
+                android:gravity="start|center"
+                android:hint="@string/product" />
+
+            <ImageView
+                android:id="@+id/clearImgProduct"
+                style="@style/imgClose"
+                android:layout_marginEnd="@dimen/clearImgMarginEnd"
+                android:elevation="@dimen/clearImgElevation" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel3"
+            android:layout_below="@id/rel2"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/quantity"
+                style="@style/ediForSmallDialog"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="0dp"
+                android:inputType="number"
+                android:gravity="start|center"
+                android:hint="@string/quantity" />
+
+            <ImageView
+                android:id="@+id/clearImgQuanitity"
+                style="@style/imgClose"
+                android:layout_marginEnd="@dimen/clearImgMarginEnd"
+                android:elevation="@dimen/clearImgElevation" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel4"
+            android:layout_below="@id/rel3"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/ownerCode"
+                android:focusable="false"
+                android:clickable="true"
+                style="@style/ediForSmallDialog"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="0dp"
+                android:gravity="start|center"
+                android:hint="@string/ownerCode" />
+
+            <ImageView
+                android:id="@+id/clearImgOwnerCode"
+                style="@style/imgClose"
+                android:layout_marginEnd="@dimen/clearImgMarginEnd"
+                android:elevation="@dimen/clearImgElevation" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel5"
+            android:layout_below="@id/rel4"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/invType"
+                style="@style/ediForSmallDialog"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="0dp"
+                android:clickable="true"
+                android:focusable="false"
+                android:gravity="start|center"
+                android:hint="@string/invType" />
+
+            <ImageView
+                android:id="@+id/clearImgInvType"
+                style="@style/imgClose"
+                android:layout_marginEnd="@dimen/clearImgMarginEnd"
+                android:elevation="@dimen/clearImgElevation" />
+
+        </RelativeLayout>
+
+
+        <include
+            android:id="@+id/relConfirm"
+            android:layout_alignParentBottom="true"
+            layout="@layout/layout_cansel_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/canselConfirmRel"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_change_product_height"
+            android:padding="@dimen/paddingOfFragmentProgress"
+            android:visibility="invisible"
+            tools:visibility="visible" />
+
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+
+</layout>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:background="@drawable/shape_background_rect_white_6"
+        android:layout_width="match_parent"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_marginBottom="@dimen/edi_login_marginTop"
+        android:id="@+id/rel0"
+        android:elevation="@dimen/lowElevation"
+        android:layout_height="wrap_content"
+        tools:layout_height="wrap_content"
+        android:minHeight="@dimen/pattern_location_transfer_Height">
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pattern_receive">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/source_location_code" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/destinationlcationcode" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/locationFrom"
+                    style="@style/pattern_transfer_tvMain_yellow"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/tools_a220820_023535" />
+
+                <TextView
+                    android:id="@+id/locationTo"
+                    style="@style/pattern_transfer_tvMain_yellow"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/tools_a220820_023535"
+                    android:textColor="@color/green" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/product_title" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/product_code" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/productTitle"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/tools_tdru4204745" />
+
+                <TextView
+                    android:id="@+id/productCode"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/_097110478112" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/date" />
+
+                <TextView
+                    android:id="@+id/uomTitle"
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/serialNumber" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/date"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:text="@string/tools_GoodSet" />
+
+                <TextView
+                    android:id="@+id/uomTv"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    tools:text="@string/pa" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linInvTitle"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/first_invtype_title" />
+
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/InventoryType" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linInv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/firstInvTypeTitle"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    tools:text="@string/gin" />
+
+
+                <TextView
+                    android:id="@+id/invTypeTitle"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    tools:text="@string/pa" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/ownerCode" />
+
+                <TextView
+                    style="@style/pattern_putaway_smallHint"
+                    android:text="@string/InventoryType" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ownerCode"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/gin" />
+
+
+
+                <TextView
+                    android:id="@+id/invType"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    tools:text="@string/pa" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin1">
+
+            <include
+                android:id="@+id/rel5"
+                layout="@layout/layout_count_two_tv_number" />
+
+
+            <RelativeLayout
+                android:id="@+id/relQuantity"
+                android:layout_width="@dimen/layoutCountTwoWidth"
+                android:paddingStart="@dimen/marginTop5ForLayouts"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/shape_count_two_bottom_left_corner_6"
+                android:layout_height="@dimen/countTwoTvNumberHeight">
+
+                <TextView
+                    android:id="@+id/quantity"
+                    style="@style/twoTvStyle"
+                    android:textColor="@color/white"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    style="@style/twoTvStyle"
+                    android:textColor="@color/white"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/Quantity2" />
+
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+</layout>

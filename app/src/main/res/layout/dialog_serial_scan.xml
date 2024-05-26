@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<androidx.cardview.widget.CardView
+    app:cardCornerRadius="@dimen/edi_login_corner"
+    android:elevation="@dimen/MediumElevation"
+    android:background="@drawable/shape_background_rect_border_gray_solid_white"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dialog_serial_height">
+
+
+<RelativeLayout
+    android:background="@drawable/shape_background_rect_border_gray_solid_white"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dialog_serial_height">
+
+
+    <RelativeLayout
+        android:id="@+id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/serial_scan_top_bar_height"
+        android:layout_marginStart="@dimen/view_height1"
+        android:layout_marginTop="@dimen/view_height1"
+        android:layout_marginEnd="@dimen/view_height1"
+        android:layout_marginBottom="@dimen/view_height1"
+        android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+        android:padding="@dimen/padding_headers">
+
+        <TextView
+            style="@style/headers_title"
+            android:text="@string/serial_scan" />
+
+
+        <ImageView
+            android:id="@+id/closeImg"
+            style="@style/imgClose1" />
+
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/layoutTopInfo"
+        layout="@layout/layout_serial_scan_top_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel1"
+        android:layout_marginTop="@dimen/marginTop5ForLayouts" />
+
+    <RelativeLayout
+        android:layout_below="@+id/layoutTopInfo"
+        android:layout_above="@+id/rel4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rel2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/serials_height_header"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/edi_login_marginTop"
+            android:layout_marginEnd="@dimen/edi_login_marginTop"
+            android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+            android:paddingStart="@dimen/padding_headers_startEnd"
+            android:paddingTop="@dimen/padding_headers_topBottom"
+            android:paddingEnd="@dimen/padding_headers_startEnd"
+            android:paddingBottom="@dimen/padding_headers_topBottom">
+
+            <TextView
+                style="@style/headers_title"
+                android:layout_centerVertical="true"
+                android:text="@string/serials" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relReceive"
+            android:layout_below="@id/rel2"
+            style="@style/searchSerialRel">
+
+            <EditText
+                android:id="@+id/searchEdi"
+                style="@style/searchSerialEdi"
+                android:layout_toStartOf="@+id/clearImg" />
+
+
+            <ImageView
+                android:layout_toStartOf="@+id/searchIcon"
+                android:layout_marginEnd="@dimen/marginTop5ForLayouts"
+                android:layout_alignParentEnd="false"
+                android:id="@+id/clearImg"
+                style="@style/imgClose"/>
+
+            <ImageView
+                android:id="@+id/searchIcon"
+                style="@style/searchSerialIcon" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_below="@+id/relReceive"
+            android:layout_width="match_parent"
+            android:layout_alignStart="@id/relReceive"
+            android:layout_alignEnd="@id/relReceive"
+            android:layout_height="@dimen/view_height1"
+            android:background="@color/gray70_alpha70" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/serialsCount"
+            android:layout_below="@id/view1"
+            android:layout_marginStart="@dimen/edi_login_marginTop"
+            android:layout_marginEnd="@dimen/edi_login_marginTop"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/pattern_serial" />
+
+        <TextView
+            android:id="@+id/serialsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/relReceive"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/padding_headers_startEnd"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            android:layout_marginEnd="@dimen/padding_headers_startEnd"
+            android:fontFamily="@font/medium"
+            android:text="@string/tools_scannedItems"
+            android:textColor="@color/gray70"
+            android:textSize="@dimen/serial_serachFont" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/progressStyle"
+            android:padding="@dimen/paddingOfDialogProgress"
+            tools:visibility="gone" />
+
+    </RelativeLayout>
+
+
+    <include
+        android:id="@+id/rel4"
+        layout="@layout/layout_cansel_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/canselConfirmRel"
+        android:layout_alignParentBottom="true" />
+
+    <ProgressBar
+        android:id="@+id/progressAll"
+        style="@style/progressStyle"
+        android:padding="@dimen/paddingOfFragmentProgress"
+        tools:visibility="gone" />
+
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
+        android:id="@+id/scannerView"
+        android:elevation="@dimen/scannerElevation"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:showIn="@layout/fragment_detail_receiving"  />
+
+
+</RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
+
+</layout>

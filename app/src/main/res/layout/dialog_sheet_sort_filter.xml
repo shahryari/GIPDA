@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:id="@+id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/serial_scan_top_bar_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/gray91"
+        android:padding="@dimen/padding_headers">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/headers_title"
+            android:text="@string/sortBy" />
+
+
+        <ImageView
+            android:id="@+id/closeImg"
+            style="@style/imgClose1" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relProdcutCode"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relSheetSortHeigth" >
+
+            <TextView
+                android:id="@+id/productCode"
+                style="@style/dialogSheetSortItemTv"
+                android:text="@string/product_code" />
+
+            <ImageView
+                android:id="@+id/productCodeImg"
+                style="@style/dialogSheetSortItemImg" />
+
+
+            <View
+                style="@style/dialogSheetSortItemView" />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relProductTitle"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relSheetSortHeigth" >
+
+            <TextView
+                android:id="@+id/productTitle"
+                android:text="@string/product_title"
+                style="@style/dialogSheetSortItemTv" />
+
+            <ImageView
+                android:id="@+id/productTitleImg"
+                style="@style/dialogSheetSortItemImg" />
+
+
+            <View style="@style/dialogSheetSortItemView" />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relOwnerCode"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relSheetSortHeigth" >
+
+            <TextView
+                android:id="@+id/ownerCode"
+                android:text="@string/ownerCode"
+                style="@style/dialogSheetSortItemTv" />
+
+            <ImageView
+                android:id="@+id/ownerCOdeImg"
+                style="@style/dialogSheetSortItemImg" />
+
+
+            <View style="@style/dialogSheetSortItemView" />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relLocationCode"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relSheetSortHeigth" >
+
+            <TextView
+                android:id="@+id/locationCode"
+                android:text="@string/location_code"
+                style="@style/dialogSheetSortItemTv" />
+
+            <ImageView
+                android:id="@+id/locationCodeImg"
+                style="@style/dialogSheetSortItemImg" />
+
+
+            <View
+                style="@style/dialogSheetSortItemView" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rel5"
+            android:foreground="?attr/selectableItemBackground"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relSheetSortHeigth" >
+
+            <TextView
+                android:id="@+id/title5"
+                android:text="@string/createdOn"
+                style="@style/dialogSheetSortItemTv" />
+
+            <ImageView
+                android:id="@+id/img5"
+                style="@style/dialogSheetSortItemImg" />
+
+
+            <View
+                style="@style/dialogSheetSortItemView" />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rel6"
+            android:foreground="?attr/selectableItemBackground"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relSheetSortHeigth" >
+
+            <TextView
+                android:id="@+id/title6"
+                android:text="@string/createdOn"
+                style="@style/dialogSheetSortItemTv" />
+
+            <ImageView
+                android:id="@+id/img6"
+                style="@style/dialogSheetSortItemImg" />
+
+
+            <View
+                style="@style/dialogSheetSortItemView" />
+
+
+        </RelativeLayout>
+        
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relSheetSortHeigth">
+
+            <TextView
+                android:id="@+id/asc"
+                android:gravity="center"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_gravity="center"
+                android:text="@string/Ascending"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_marginStart="0dp"
+                style="@style/dialogSheetSortItemTv"/>
+
+            <TextView
+                android:id="@+id/desc"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:foreground="?attr/selectableItemBackground"
+                android:text="@string/Descending"
+                android:background="@color/white"
+                android:layout_marginStart="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                style="@style/dialogSheetSortItemTv"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+
+</layout>

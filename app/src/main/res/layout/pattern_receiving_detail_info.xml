@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:background="@drawable/shape_background_rect_white_6"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="@dimen/marginTop_flag"
+    android:elevation="@dimen/lowElevation"
+    android:padding="@dimen/padding_pattern_receive"
+    tools:layout_height="@dimen/pattern_receive_detail_height"
+    android:minHeight="@dimen/pattern_receive_detail_height"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv1"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_alignStart="@+id/productTitle"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:text="@string/product_title" />
+
+    <TextView
+        android:id="@+id/productTitle"
+        style="@style/pattern_receieve_tv1"
+        android:layout_below="@+id/tv1"
+        android:layout_toStartOf="@+id/rel2"
+        android:layout_width="match_parent"
+        android:gravity="left"
+        android:text="@string/tools_a220820_023535"
+       />
+
+
+    <TextView
+        android:id="@+id/tv2"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_below="@+id/productTitle"
+        android:layout_alignStart="@+id/productTitle"
+        android:layout_gravity="center"
+        android:text="@string/product_code" />
+
+    <TextView
+        android:id="@+id/productCode"
+        style="@style/pattern_receieve_tv1"
+        android:layout_below="@id/tv2"
+        android:text="@string/tools_tdru4204745"  />
+
+
+    <TextView
+        android:id="@+id/tv3"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_below="@id/productCode"
+        android:layout_alignStart="@+id/productTitle"
+        android:layout_gravity="center"
+        android:text="@string/invType" />
+
+
+    <TextView
+        android:id="@+id/invTypeTitle"
+        style="@style/pattern_receieve_tv1"
+        android:layout_below="@id/tv3"
+        android:text="@string/tools_tdru4204745" />
+
+
+    <ImageView
+        android:id="@+id/imgBackground"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_centerInParent="true"
+        android:alpha=".4"
+        android:rotation="-45"
+        android:src="@drawable/ic__023164_barcode_fill_icon"
+        app:tint="@color/red" />
+
+    <RelativeLayout
+        android:id="@+id/rel2"
+        android:layout_width="@dimen/PatternReceivingDetailInfoWidth"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/patternReceiveBoxMarginEnd"
+        android:minHeight="@dimen/pattern_receive_detail_height">
+
+        <ImageView
+            android:id="@+id/box"
+            android:layout_width="@dimen/pattern_receiving_detail_Icon1"
+            android:layout_height="@dimen/pattern_receiving_detail_Icon1"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_start_icon_tv"
+            android:src="@drawable/png_box" />
+
+        <RelativeLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/box"
+
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv6"
+                style="@style/pattern_receieve_tv1"
+                android:layout_marginStart="0dp"
+                android:text="@string/row"
+                android:textColor="@color/gray70" />
+
+            <TextView
+                android:id="@+id/row"
+                style="@style/pattern_receieve_tv1"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/tv6"
+                android:gravity="start"
+                android:text="@string/_2" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lin2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lin1"
+            android:layout_alignStart="@id/lin1"
+            android:layout_alignEnd="@id/lin1"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv7"
+                style="@style/pattern_receieve_tv1"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:text="@string/qir"
+                android:textColor="@color/gray70" />
+
+            <TextView
+                android:id="@+id/qri"
+                style="@style/pattern_receieve_tv1"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/tv7"
+                android:gravity="start"
+                android:text="@string/_2" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/pattern_receieve_tv1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:text="@string/pa"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/iconHand"
+        android:layout_width="@dimen/pattern_receiving_detail_imgsmall_size"
+        android:layout_height="@dimen/pattern_receiving_detail_imgsmall_size"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/rel2"
+        android:padding="@dimen/padding_serialIcons"
+        android:src="@drawable/ic__688087_ic_fluent_text_word_count_icon" />
+
+
+    <ImageView
+        android:id="@+id/iconBarcode"
+        android:layout_width="@dimen/pattern_receiving_detail_imgsmall_size"
+        android:layout_height="@dimen/pattern_receiving_detail_imgsmall_size"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/margin_start_icon_tv"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_toStartOf="@+id/iconHand"
+        android:padding="@dimen/padding_serialIcons"
+        android:src="@drawable/ic__023164_barcode_fill_icon" />
+
+
+    <ProgressBar
+        android:id="@+id/progress"
+        tools:visibility="gone"
+        android:padding="@dimen/paddingOfDetailProgressBar"
+        style="@style/progressStyle" />
+
+</RelativeLayout>
+</layout>

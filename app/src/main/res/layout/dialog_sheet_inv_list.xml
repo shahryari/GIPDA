@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/invSheetHeight">
+
+        <RelativeLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/serial_scan_top_bar_height"
+            android:layout_alignParentTop="true"
+            android:background="@color/gray91"
+            android:padding="@dimen/padding_headers">
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/headers_title"
+                android:text="@string/invType" />
+
+
+            <ImageView
+                android:id="@+id/closeImg"
+                style="@style/imgClose1" />
+
+
+        </RelativeLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel1"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/pattern_inv_type" />
+
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/progressStyle"
+            android:visibility="gone"
+            android:padding="@dimen/paddingOfDialogProgress" />
+
+    </RelativeLayout>
+</layout>

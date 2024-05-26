@@ -1,0 +1,482 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.WareHouseManagment" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/mainYellow</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="desktop_rel">
+        <item name="android:background">@drawable/shape_background_rect_white_6</item>
+        <item name="android:layout_width">@dimen/desktop_rel_height</item>
+        <item name="android:layout_height">@dimen/desktop_rel_height</item>
+        <item name="android:layout_marginEnd">@dimen/desktop_rel_margin</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:layout_marginStart">@dimen/desktop_rel_margin</item>
+        <item name="android:layout_marginBottom">@dimen/desktop_rel_margin</item>
+        <item name="android:layout_marginTop">@dimen/desktop_rel_margin</item>
+        <item name="android:paddingBottom">@dimen/padding_desktop_rel</item>
+        <item name="android:elevation">@dimen/desktop_relElevation</item>
+        <item name="android:clipToOutline">true</item>
+    </style>
+
+    <style name="desktop_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/desktop_tv_size</item>
+        <item name="android:textColor">@color/gray70</item>
+    </style>
+    <style name="desktop_tv_number">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/shape_quarter_circle</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:textSize">@dimen/desktop_tv_size</item>
+        <item name="android:textColor">@color/gray70</item>
+        <item name="android:paddingBottom">@dimen/padding_tv_number</item>
+        <item name="android:paddingEnd">@dimen/padding_tv_number</item>
+    </style>
+
+    <style name="drawer_rel">
+        <item name="android:layout_marginTop">@dimen/margin_drawer_rel_top</item>
+        <item name="android:layout_marginStart">@dimen/margin_drawer_rel_start</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+    <style name="drawer_sub_rel">
+        <item name="android:layout_marginTop">@dimen/margin_drawer_sub_rel_top</item>
+        <item name="android:layout_marginStart">@dimen/margin_drawer_sub_rel_start</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="drawer_img">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">@dimen/drawer_img_size</item>
+        <item name="android:layout_height">@dimen/drawer_img_size</item>
+    </style>
+
+
+    <style name="drawer_sub_img">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">@dimen/drawer_sub_img_size</item>
+        <item name="android:layout_height">@dimen/drawer_sub_img_size</item>
+    </style>
+
+    <style name="drawer_tv" parent="desktop_tv">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">@dimen/margin_drawer_rel_top</item>
+    </style>
+
+    <style name="drawer_sub_tv" parent="drawer_tv">
+        <item name="android:textSize">@dimen/desktop_subtv_size</item>
+    </style>
+
+    <style name="menu_img">
+        <item name="android:id">@id/menuImg</item>
+        <item name="android:padding">@dimen/menuImgPadding</item>
+        <item name="android:layout_width">@dimen/back_img_login</item>
+        <item name="android:layout_height">@dimen/back_img_login</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:src">@drawable/ic_baseline_menu_24</item>
+        <item name="tint">@color/gray70</item>
+    </style>
+
+    <style name="pattern_receieve_tv1">
+        <item name="android:textSize">@dimen/pattern_receive_fontSize1</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginStart">@dimen/padding_pattern_receive</item>
+        <item name="android:layout_marginBottom">@dimen/margin_pattern_receive_bottom</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="pattern_transfer_tvMain_yellow">
+        <item name="android:textSize">@dimen/pattern_receive_fontSize1</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:layout_marginStart">@dimen/padding_pattern_receive</item>
+        <item name="android:layout_marginBottom">@dimen/margin_pattern_receive</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="tv_add">
+        <item name="android:textSize">@dimen/pattern_receive_fontSize1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/shape_background_rect_white_6</item>
+        <item name="android:backgroundTint">@color/mainYellow</item>
+        <item name="android:paddingEnd">@dimen/paddingEnd_tv_as_button</item>
+        <item name="android:paddingStart">@dimen/paddingEnd_tv_as_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingTop">@dimen/paddingTop_tv_as_button</item>
+        <item name="android:paddingBottom">@dimen/paddingTop_tv_as_button</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:text">@string/add</item>
+
+    </style>
+    <style name="headers_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/headerTitleSize</item>
+
+    </style>
+
+    <style name="imgClose1" >
+        <item name="android:src">@drawable/ic__787567_wrong_delete_remove_trash_minus_icon</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:padding">@dimen/imgClosePadding</item>
+        <item name="android:layout_width">@dimen/imgCloseSize1</item>
+        <item name="android:layout_height">@dimen/imgCloseSize1</item>
+
+    </style>
+
+    <style name="imgClose">
+        <item name="android:src">@drawable/ic_layer1</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:padding">@dimen/imgClosePadding</item>
+        <item name="android:layout_width">@dimen/imgCloseSize</item>
+        <item name="android:layout_height">@dimen/imgCloseSize</item>
+        <item name="android:layout_marginEnd">@dimen/clearImgMarginEnd</item>
+        <item name="android:elevation">@dimen/clearImgElevation</item>
+
+    </style>
+
+    <style name="btnSubmitCansel">
+        <item name="android:layout_width">@dimen/canselConfirmBtnWidth</item>
+        <item name="android:layout_height">@dimen/canselConfirmBtnHeight</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">@dimen/margin_start_cansel</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:text">@string/cancel</item>
+        <item name="android:textColor">@color/gray70</item>
+
+
+    </style>
+    <style name="pattern_putaway_smallTv">
+        <item name="android:textSize">@dimen/pattern_putaway_detail_smallFont</item>
+        <item name="android:textColor">@color/gray70</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:gravity">start</item>
+        <item name="android:layout_marginTop">@dimen/maginVeryLow_1</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+    <style name="pattern_putaway_smallHint" parent="pattern_putaway_smallTv">
+        <item name="android:layout_marginStart">@dimen/marginStartLocationTransfer</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+
+    </style>
+    <style name="pattern_putaway_MediumTv">
+        <item name="android:textSize">@dimen/pattern_putaway_detail_MediumFont</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:gravity">start</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+    <style name="pattern_putaway_MediumTv2">
+        <item name="android:textSize">@dimen/pattern_putaway_detail_MediumFont</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+    <style name="ediForSmallDialog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/searchSerialEdi</item>
+        <item name="android:layout_marginStart">@dimen/edi_login_marginTop</item>
+        <item name="android:layout_marginTop">@dimen/marginTop5ForLayouts</item>
+        <item name="android:layout_marginEnd">@dimen/edi_login_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/marginTop5ForLayouts</item>
+        <item name="android:background">@drawable/shape_background_rect_border_gray_solid_white</item>
+        <item name="android:elevation">@dimen/MediumElevation</item>
+        <item name="android:maxLength">500</item>
+        <item name="android:textSize">@dimen/ediForSmallDialogFontSize</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:inputType">text</item>
+        <item name="android:paddingStart">@dimen/margin_start_icon_tv</item>
+        <item name="android:paddingEnd">@dimen/serialEdiPaddingEnd</item>
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:textColor">@color/gray70</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:textColorHint">@color/grayB4</item>
+
+    </style>
+
+    <style name="ediForUnitEdi" parent="ediForSmallDialog">
+
+        <item name="android:layout_marginStart">@dimen/marginTop5ForLayouts</item>
+        <item name="android:layout_marginEnd">@dimen/marginTop5ForLayouts</item>
+
+    </style>
+
+
+    <style name="progressStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@color/progressBackground</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@color/progressYellow</item>
+        <item name="android:visibility">invisible</item>
+
+    </style>
+
+    <style name="searchSerialEdi">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">@dimen/marginTop5ForLayouts</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:maxLength">50</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/gray70</item>
+        <item name="android:textColorHint">@color/gray70_alpha53</item>
+        <item name="android:textSize">@dimen/serial_serachFont</item>
+
+    </style>
+
+    <style name="searchSerialIcon">
+        <item name="android:layout_width">@dimen/imgSearch</item>
+        <item name="android:layout_height">@dimen/imgSearch</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:src">@drawable/png_search</item>
+
+    </style>
+    <style name="searchSerialRel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/serials_height_header</item>
+        <item name="android:layout_marginStart">@dimen/edi_login_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/edi_login_marginTop</item>
+        <item name="android:paddingStart">@dimen/padding_headers_startEnd</item>
+        <item name="android:paddingEnd">@dimen/padding_headers_startEnd</item>
+
+    </style>
+
+    <style name="twoTvStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/countTwoTvNumberHeight</item>
+        <item name="android:minWidth">@dimen/countTwoTvNumberWidth</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/two_tv_fontSize</item>
+        <item name="android:text">@string/_5</item>
+        <item name="android:textColor">@color/gray70</item>
+
+    </style>
+
+    <style name="searchMainEdi">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">@dimen/margin_start_icon_edi</item>
+        <item name="android:layout_marginEnd">@dimen/margin_start_icon_edi</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:inputType">textNoSuggestions|text</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/gray71</item>
+        <item name="android:textColorHint">@color/grayBD</item>
+        <item name="android:textSize">@dimen/searchFontSize</item>
+
+    </style>
+
+    <style name="relSearchMainEdi">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/mainToolbar</item>
+        <item name="android:layout_marginBottom">@dimen/marginTop5ForLayouts</item>
+        <item name="android:background">@drawable/shape_background_rect_white_6</item>
+        <item name="android:elevation">@dimen/lowElevation</item>
+        <item name="android:paddingStart">@dimen/padding_main_toolbar</item>
+        <item name="android:paddingEnd">@dimen/padding_main_toolbar</item>
+
+    </style>
+
+    <style name="ediFieldTransfer">
+        <item name="android:background">@drawable/shape_background_rect_border_gray_solid_white</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">10</item>
+        <item name="android:textSize">@dimen/unitOfMeasureEdiSize</item>
+        <item name="maxLines">1</item>
+        <item name="android:textColor">@color/gray70</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:elevation">@dimen/MediumElevation</item>
+        <item name="android:layout_height">@dimen/searchSerialEdi</item>
+        <item name="android:textColorHint">@color/gray70_alpha53</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+    <style name="pickputRelRect">
+        <item name="android:layout_width">@dimen/relFilterWidth</item>
+        <item name="android:layout_height">@dimen/relFilterHeight</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/shape_rect_clear</item>
+        <item name="android:paddingStart">@dimen/paddingFilterStartEnd</item>
+        <item name="android:paddingEnd">@dimen/paddingFilterStartEnd</item>
+
+    </style>
+
+    <style name="chosenLocationCodeTv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textColor">@color/gray70</item>
+        <item name="android:textSize">@dimen/fieldPutPickSubSize</item>
+
+    </style>
+
+    <style name="chosenLocationCodeCheck">
+        <item name="android:background">@drawable/shape_rect_clear</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">@dimen/marginTop5ForLayouts</item>
+        <item name="android:layout_width">@dimen/dimenCheckBox</item>
+        <item name="android:checkable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:layout_height">@dimen/dimenCheckBox</item>
+
+    </style>
+    <style name="relSubPickput">
+        <item name="android:layout_marginStart">@dimen/marginRelSubPickput</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:layout_height">@dimen/chosenLocationHeight</item>
+
+    </style>
+
+    <style name="pickputRectImg">
+        <item name="android:layout_width">@dimen/searchImgWidth</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+
+
+    </style>
+    <style name="pickputRectTv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:textColor">@color/gray70</item>
+        <item name="android:textSize">@dimen/filterFontSize</item>
+
+    </style>
+
+    <style name="barcodeImg">
+        <item name="android:layout_width">@dimen/barcodeSize</item>
+        <item name="android:layout_height">@dimen/barcodeSize</item>
+        <item name="android:layout_marginEnd">@dimen/margin_start_icon_tv</item>
+        <item name="android:layout_below">@+id/relMoreInfo</item>
+        <item name="android:layout_alignStart">@id/relMoreInfo</item>
+        <item name="android:layout_marginTop">@dimen/marginTop5ForLayouts</item>
+        <item name="android:padding">@dimen/padding_serialIcons</item>
+        <item name="android:src">@drawable/ic__023164_barcode_fill_icon</item>
+
+    </style>
+
+    <style name="dialogSheetSortItemTv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">@dimen/paddingRelSheetSort</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:text">@string/tools_205QWZC16766</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/sortByItems</item>
+
+    </style>
+    <style name="dialogSheetSortItemImg">
+        <item name="android:tint">@color/mainYellow</item>
+        <item name="android:src">@drawable/ic_baseline_check_24</item>
+        <item name="android:layout_width">@dimen/sortConfirmIcon</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_height">@dimen/sortConfirmIcon</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">@dimen/paddingRelSheetSort</item>
+    </style>
+
+    <style name="dialogSheetSortItemView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/view_height1</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@color/gray70_alpha70</item>
+
+
+    </style>
+
+</resources>

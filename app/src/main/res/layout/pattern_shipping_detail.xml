@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:background="@drawable/shape_background_rect_white_6"
+    android:elevation="@dimen/lowElevation"
+    android:layout_marginBottom="@dimen/smallPadding"
+    android:padding="@dimen/smallPadding"
+    android:layout_height="wrap_content"
+    tools:layout_height="wrap_content"
+    android:minHeight="@dimen/shippingDetailHeight">
+
+    <TextView
+        android:id="@+id/tv1"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_alignParentTop="true"
+        android:text="@string/product_title" />
+
+    <TextView
+        android:id="@+id/productTitle"
+        style="@style/pattern_putaway_MediumTv"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tv1"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="@dimen/marginTop5ForLayouts"
+        android:layout_toStartOf="@+id/rel1"
+        android:gravity="left"
+        android:text="@string/tools_GPA_MB560N" />
+
+    <TextView
+        android:id="@+id/tv2"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_below="@id/productTitle"
+        android:text="@string/product_code" />
+
+    <TextView
+        android:id="@+id/productCode"
+        style="@style/pattern_putaway_MediumTv"
+        android:layout_below="@+id/tv2"
+        android:layout_alignParentStart="true"
+        android:text="@string/tools_GPA_MB560N"
+        android:textSize="@dimen/productCodeSize" />
+
+    <TextView
+        android:id="@+id/tv3"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_below="@+id/productCode"
+        android:text="@string/invType" />
+
+    <TextView
+        android:id="@+id/type"
+        style="@style/pattern_putaway_MediumTv"
+        android:layout_below="@+id/tv3"
+        android:layout_alignParentStart="true"
+        android:text="@string/tools_GoodSet"
+        android:textColor="@color/black"
+        android:textSize="@dimen/pattern_shipping_detailSmallFont" />
+
+    <TextView
+        android:id="@+id/tv4"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_below="@+id/type"
+        android:text="@string/owner" />
+
+    <TextView
+        android:id="@+id/ownerCode"
+        style="@style/pattern_putaway_MediumTv"
+        android:layout_below="@+id/tv4"
+        android:layout_alignParentStart="true"
+        tools:text="@string/tools_GoodSet"
+        android:textColor="@color/black"
+        android:textSize="@dimen/pattern_shipping_detailSmallFont" />
+
+
+    <TextView
+        android:id="@+id/tv5"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_below="@+id/ownerCode"
+        android:text="@string/date" />
+
+    <TextView
+        android:id="@+id/date"
+        style="@style/pattern_putaway_MediumTv"
+        android:layout_below="@+id/tv5"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/pattern_shipping_detailSmallFont"
+        tools:text="@string/date" />
+
+    <LinearLayout
+        android:id="@+id/rel1"
+        android:layout_width="@dimen/patternShippingNumbersWidth"
+        android:layout_height="@dimen/patternShippingNumbersHeight"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/smallPadding"
+        android:paddingEnd="@dimen/smallPadding">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/smallPadding"
+            android:paddingEnd="@dimen/smallPadding"
+            android:background="@color/mainYellow"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingLow2">
+
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_gravity="center"
+                android:text="@string/Quantity"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center|end"
+                android:fontFamily="@font/bold"
+                android:gravity="end"
+                android:text="@string/_6"
+                android:textColor="@color/black"
+                android:textSize="@dimen/patternShippingDetailNumber" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_height1"
+            android:background="@color/white" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/smallPadding"
+            android:paddingEnd="@dimen/smallPadding"
+            android:orientation="horizontal"
+            android:background="@color/mainYellow"
+            android:padding="@dimen/paddingLow2">
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_gravity="center"
+                android:text="@string/scanCount"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/shippingCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:fontFamily="@font/bold"
+                android:text="@string/_6"
+                android:textColor="@color/black"
+                android:textSize="@dimen/patternShippingDetailNumber" />
+
+
+        </RelativeLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_height1"
+            android:background="@color/white" />
+
+
+        <RelativeLayout
+            android:id="@+id/relCancelCount"
+            android:paddingStart="@dimen/smallPadding"
+            android:paddingEnd="@dimen/smallPadding"
+            android:layout_width="wrap_content"
+            android:background="@color/mainYellow"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingLow2">
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:text="@string/cancelCount"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/cancelCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:fontFamily="@font/bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/patternShippingDetailNumber"
+                tools:text="@string/_6" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relClose"
+        android:layout_width="@dimen/patternShippingNumbersWidth"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+        android:background="@color/orange2"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/marginTop5ForLayouts"
+        android:paddingEnd="@dimen/marginTop5ForLayouts">
+
+        <ImageView
+            android:id="@+id/closeImg"
+            android:layout_width="@dimen/imgCloseSize"
+            android:layout_height="@dimen/imgCloseSize"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:paddingStart="@dimen/marginTop5ForLayouts"
+            android:src="@drawable/ic__787567_wrong_delete_remove_trash_minus_icon"
+            app:tint="@color/white" />
+
+        <TextView
+            style="@style/pattern_putaway_MediumTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/paddingLow2"
+            android:paddingEnd="@dimen/marginTop5ForLayouts"
+            android:text="@string/cancel"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lin1"
+        android:layout_width="@dimen/shippingDetailCustomerWidth"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv6"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_gravity="center"
+            android:text="@string/customerFullName" />
+
+        <TextView
+            android:id="@+id/customerFullName"
+            style="@style/pattern_putaway_MediumTv"
+            android:layout_gravity="center"
+            android:text="@string/tools_kashan" />
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/iconBarcode"
+        android:layout_width="@dimen/pattern_receiving_detail_imgsmall_size"
+        android:layout_height="@dimen/pattern_receiving_detail_imgsmall_size"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/margin_start_icon_tv"
+        android:layout_toStartOf="@+id/lin1"
+        android:padding="@dimen/padding_serialIcons"
+        android:visibility="invisible"
+        android:src="@drawable/ic__023164_barcode_fill_icon" />
+
+
+    <ImageView
+        android:id="@+id/imgBackground"
+        android:layout_width="@dimen/imgBarcodeSize"
+        android:layout_height="@dimen/imgBarcodeSize"
+        android:layout_centerInParent="true"
+        android:alpha=".4"
+        android:rotation="-45"
+        android:src="@drawable/ic__023164_barcode_fill_icon"
+        app:tint="@color/red" />
+
+
+</RelativeLayout>
+</layout>

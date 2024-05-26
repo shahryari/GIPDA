@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/serial_scan_top_bar_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/gray91"
+        android:padding="@dimen/padding_headers">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/headers_title"
+            android:text="@string/taskType" />
+
+
+        <ImageView
+            android:id="@+id/closeImg"
+            style="@style/imgClose1" />
+
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/taskRv"
+
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/pattern_task_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
+</layout>

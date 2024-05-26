@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sheetAlertSheetHeight">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/mainBackground"
+            android:layout_height="@dimen/sheetAlertSheetHeight">
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/serial_scan_top_bar_height"
+                android:background="@color/gray91"
+                android:padding="@dimen/padding_headers">
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/headers_title"
+                    android:text="@string/ship" />
+
+
+                <ImageView
+                    android:id="@+id/closeImg"
+                    style="@style/imgClose1" />
+
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tv3"
+                style="@style/pattern_receieve_tv1"
+                android:layout_below="@+id/rel1"
+                android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                android:text="@string/tools_GPA_MB560N"
+                android:textColor="@color/gray70_alpha53" />
+
+            <TextView
+                android:id="@+id/tv4"
+                style="@style/pattern_receieve_tv1"
+                android:layout_below="@+id/tv3"
+                android:text="@string/tools_GoodSet"
+                android:textColor="@color/gray70_alpha53" />
+
+            <EditText
+                android:id="@+id/serialEdi"
+                style="@style/ediForSmallDialog"
+                android:layout_below="@id/tv4"
+                android:layout_alignStart="@+id/tv4"
+                android:layout_alignEnd="@+id/tv5"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                android:layout_marginEnd="0dp"
+                android:hint="@string/location_code" />
+
+            <TextView
+                android:id="@+id/tv5"
+                style="@style/pattern_receieve_tv1"
+                android:layout_below="@+id/rel1"
+                android:layout_alignTop="@+id/tv3"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/marginSheetEnd"
+                android:text="@string/tools_GoodSet"
+                android:textColor="@color/gray5D" />
+
+            <include
+                android:id="@+id/okCanselBtn"
+                layout="@layout/layout_cansel_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv3"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/marginTop5ForLayouts" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

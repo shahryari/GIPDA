@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@+id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_desktopFragment"
+            app:destination="@id/desktopFragment"
+            />
+
+    </fragment>
+    <fragment
+        android:id="@+id/desktopFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.DesktopFragment"
+        android:label="DesktopFragment" >
+
+        <action
+            android:id="@+id/action_desktopFragment_to_pickingListFragment"
+            app:destination="@id/pickingFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_putawayFragment"
+            app:destination="@id/putawayFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_receivingFragment"
+            app:destination="@id/receivingFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_shippingFragment"
+            app:destination="@id/shippingFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_canselShippingFragment"
+            app:destination="@id/canselShippingFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_checkTruckFragment"
+            app:destination="@id/checkTruckFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_locationTransferTaskFragment"
+            app:destination="@id/locationTransferTaskFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_inventoryModifiedTaskFragment"
+            app:destination="@id/inventoryModifiedTaskFragment" />
+
+
+        <action
+            android:id="@+id/action_desktopFragment_to_pickputDailyReportFragment"
+            app:destination="@id/pickputDailyReportFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_insertSerialFragment"
+            app:destination="@id/insertSerialFragment" />
+
+        <action
+            android:id="@+id/action_desktopFragment_to_offlineSerialFragment"
+            app:destination="@id/offlineSerialFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_trackingFragment"
+            app:destination="@id/trackingFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_productWithoutMasterFragment"
+            app:destination="@id/productWithoutMasterFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_waitForLoadingFragment"
+            app:destination="@id/waitForLoadingFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_locationInventoryReportFragment"
+            app:destination="@id/locationInventoryReportFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_cargoFragment"
+            app:destination="@id/cargoFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_myCargoFragment"
+            app:destination="@id/myCargoFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/receivingFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.ReceivingFragment"
+        android:label="ReceivingFragment" >
+        <action
+            android:id="@+id/action_receivingFragment_to_receivingDetailFragment"
+            app:destination="@id/receivingDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receivingDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.ReceivingDetailFragment"
+        android:label="ReceivingDetailFragment" />
+    <fragment
+        android:id="@+id/putawayFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.PutawayFragment"
+        android:label="PutawayFragment" >
+        <action
+            android:id="@+id/action_putawayFragment_to_putawayDetailFragment"
+            app:destination="@id/putawayDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/putawayDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.PutawayDetailFragment"
+        android:label="PutawayDetailFragment" />
+    <fragment
+        android:id="@+id/pickingFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.PickingFragment"
+        android:label="PickingListFragment" >
+        <action
+            android:id="@+id/action_pickingFragment_to_pickingDetailFragment"
+            app:destination="@id/pickingDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shippingFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.ShippingFragment"
+        android:label="ShippingFragment" >
+        <action
+            android:id="@+id/action_shippingFragment_to_sheepingDetailFragment"
+            app:destination="@id/sheepingDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sheepingDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.ShippingDetailFragment"
+        android:label="SheepingDetailFragment" />
+    <fragment
+        android:id="@+id/canselShippingFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.CanselShippingFragment"
+        android:label="CanselShippingFragment" >
+        <action
+            android:id="@+id/action_canselShippingFragment_to_canselShippingDetailFragment"
+            app:destination="@id/canselShippingDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/canselShippingDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.CanselShippingDetailFragment"
+        android:label="CanselShippingDetailFragment" />
+    <fragment
+        android:id="@+id/manualLocationTransferFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.ManualLocationTransferFragment"
+        android:label="ManualLocationTransferFragment" />
+    <fragment
+        android:id="@+id/checkTruckFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.CheckTruckFragment"
+        android:label="CheckTruckFragment" />
+    <fragment
+        android:id="@+id/locationTransferTaskFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.TransferTaskFragment"
+        android:label="LocationTransferTaskFragment" />
+    <fragment
+        android:id="@+id/inventoryModifiedTaskFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.InventoryModifiedTaskFragment"
+        android:label="InventoryModifiedTaskFragment" />
+    <fragment
+        android:id="@+id/inventoryBySerialFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.InventoryBySerialFragment"
+        android:label="inventoryBySerialFragment" />
+
+
+    <fragment
+        android:id="@+id/inventoryBySerialProductFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.InventoryBySerialProductFragment"
+        android:label="InventoryBySerialProductFragment" >
+        <action
+            android:id="@+id/action_inventoryBySerialProductFragment_to_inventoryBySerialFragment"
+            app:destination="@id/inventoryBySerialFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pickputDailyReportFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.PickputDailyReportFragment"
+        android:label="PickputDailyReportFragment" />
+
+
+    <fragment
+        android:id="@+id/insertSerialFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.InsertSerialFragment"
+        android:label="InsertSerialFragment" />
+    <fragment
+        android:id="@+id/offlineSerialFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.OfflineSerialFragment"
+        android:label="OfflineSerialFragment" />
+    <fragment
+        android:id="@+id/trackingFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.TrackingFragment"
+        android:label="TrackingFragment" />
+    <fragment
+        android:id="@+id/productWithoutMasterFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.ProductWithoutMasterFragment"
+        android:label="ProductWithoutMasterFragment" />
+    <fragment
+        android:id="@+id/waitForLoadingFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.WaitForLoadingFragment"
+        android:label="WaitForLoadingFragment" />
+    <fragment
+        android:id="@+id/locationInventoryReportFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.LocationInventoryReportFragment"
+        android:label="LocationInventoryReportFragment" />
+
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.SettingFragment"
+        android:label="SettingFragment" />
+    <fragment
+        android:id="@+id/reworkFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.ReworkFragment"
+        android:label="ReworkFragment" />
+    <fragment
+        android:id="@+id/cargoFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.CargoFragment"
+        android:label="CargoFragment" >
+        <action
+            android:id="@+id/action_cargoFragment_to_cargoDetailFragment"
+            app:destination="@id/cargoDetailFragment" />
+        <action
+            android:id="@+id/action_cargoFragment_to_myCargoFragment"
+            app:destination="@id/myCargoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cargoDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.CargoDetailFragment"
+        android:label="CargoDetailFragment" >
+        <action
+            android:id="@+id/action_cargoDetailFragment_to_myCargoFragment"
+            app:destination="@id/myCargoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myCargoFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.MyCargoFragment"
+        android:label="MyCargoFragment" >
+        <action
+            android:id="@+id/action_myCargoFragment_to_myCargoDetailFragment"
+            app:destination="@id/myCargoDetailFragment" />
+        <action
+            android:id="@+id/action_myCargoFragment_to_cargoFragment"
+            app:destination="@id/cargoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myCargoDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.MyCargoDetailFragment"
+        android:label="MyCargoDetailFragment" >
+        <action
+            android:id="@+id/action_myCargoDetailFragment_to_cargoFragment"
+            app:destination="@id/cargoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockTakeFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.StockTakeFragment"
+        android:label="StockTakeFragment" >
+        <action
+            android:id="@+id/action_stockTakeFragment_to_stockTakeLocationFragment"
+            app:destination="@id/stockTakeLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockTakeLocationFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.StockTakeLocationFragment"
+        android:label="StockTakeLocationFragment" />
+    <fragment
+        android:id="@+id/pickingDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.PickingDetailFragment"
+        android:label="PickingDetailFragment" />
+
+
+</navigation>

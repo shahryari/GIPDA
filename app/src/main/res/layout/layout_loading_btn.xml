@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:background="@drawable/shape_background_rect_white_6"
+        android:backgroundTint="@color/mainYellow"
+        android:id="@+id/rel"
+        android:elevation="@dimen/edi_login_elevation"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/login_btn_height" >
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/white"
+            android:padding="@dimen/progress_padding"
+            android:background="@drawable/shape_background_rect_white_6"
+            android:backgroundTint="@color/paleYellow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_btn_height" />
+
+
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_btn_height"
+            android:layout_centerInParent="true"
+            android:clickable="false"
+            android:enabled="false"
+            android:fontFamily="@font/medium"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/submit_tv_sizes" />
+
+    </RelativeLayout>
+</layout>

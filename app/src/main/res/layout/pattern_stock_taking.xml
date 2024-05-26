@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:elevation="@dimen/MediumElevation"
+    android:orientation="vertical"
+    android:foreground="?attr/selectableItemBackground"
+    android:background="@drawable/shape_background_rect_white_6"
+    android:padding="@dimen/marginTop5ForLayouts"
+    android:layout_marginBottom="@dimen/marginTop5ForLayouts"
+    android:layout_height="@dimen/stockTakingHeight">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:textSize="@dimen/stockTvSize"
+                android:layout_marginEnd="@dimen/marginStartLocationTransfer"
+                android:text="@string/title_"/>
+            <TextView
+                android:id="@+id/title"
+                style="@style/pattern_putaway_smallTv"
+                android:textColor="@color/progressYellow"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/stockTvSize"
+                android:layout_marginEnd="@dimen/marginStartLocationTransfer"
+                tools:text="stock Taking 2023"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:textSize="@dimen/stockTvSize"
+                android:layout_marginEnd="@dimen/marginStartLocationTransfer"
+                android:text="@string/warehouse_"/>
+            <TextView
+                android:id="@+id/warhouseName"
+                style="@style/pattern_putaway_smallTv"
+                android:textColor="@color/black"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/stockTvSize"
+                android:layout_marginEnd="@dimen/marginStartLocationTransfer"
+                tools:text="100"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+</layout>

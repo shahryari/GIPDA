@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/shape_background_rect_white_6"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/edi_login_marginTop"
+        android:elevation="@dimen/lowElevation"
+        android:minHeight="@dimen/pattern_picking_height"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="@dimen/pattern_receive_info_width"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pattern_putawayDetail">
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginTop="0dp"
+                android:text="@string/location_code" />
+
+            <TextView
+                android:id="@+id/locationCode"
+                style="@style/pattern_putaway_MediumTv"
+                tools:text="@string/a_38_26_03" />
+
+
+
+        </LinearLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_alignTop="@id/lin1"
+            android:layout_alignBottom="@id/lin1"
+            android:layout_toEndOf="@+id/lin1"
+            android:background="@color/mainBackground"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/view"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pattern_receive">
+
+
+            <TextView
+                android:id="@+id/title1"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:text="@string/quantity" />
+
+            <TextView
+                android:id="@+id/quantity"
+                style="@style/pattern_putaway_MediumTv2"
+                android:layout_below="@+id/title1"
+                android:textColor="@color/mainYellow"
+                tools:text="@string/tools_gr01" />
+
+
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+</layout>

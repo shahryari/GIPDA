@@ -266,6 +266,7 @@ class PickingDetailFragment() :
             progress = progressBar,
             callBack={
                 mySheetAlertDialog?.dismiss()
+                refreshReceiveDetail()
             }
         )
     }

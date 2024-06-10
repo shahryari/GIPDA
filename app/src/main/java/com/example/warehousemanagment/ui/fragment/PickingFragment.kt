@@ -35,10 +35,6 @@ class PickingFragment( )
     var lastReceivingPosition=0
     var chronometer: CountDownTimer?=null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
@@ -65,15 +61,13 @@ class PickingFragment( )
 
     private fun observeCount()
     {
-        viewModel.getPickCount().observe(viewLifecycleOwner,object :Observer<Int>
-        {
-            override fun onChanged(it: Int)
-            {
-                setBelowCount(requireActivity(), getString(R.string.tools_you_have),
-                    it, getString(R.string.truckToPick))
-            }
-
-        })
+        viewModel.getPickCount().observe(viewLifecycleOwner
+        ) { it ->
+            setBelowCount(
+                requireActivity(), getString(R.string.tools_you_have),
+                it, getString(R.string.truckToPick)
+            )
+        }
 
     }
 

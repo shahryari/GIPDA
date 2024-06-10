@@ -54,7 +54,7 @@ class DesktopFragment() : BaseFragment<DesktopViewModel, FragmentDesktopBinding>
             navController?.navigate(R.id.action_desktopFragment_to_receivingFragment)
         }
         b.layoutDesktop.relTransfer.setOnClickListener {
-            navController?.navigate(R.id.action_desktopFragment_to_locationTransferTaskFragment)
+            navController?.navigate(R.id.action_desktopFragment_to_waitForLoadingFragment)
         }
         b.layoutDesktop.relPicking.setOnClickListener {
             navController?.navigate(R.id.action_desktopFragment_to_pickingListFragment)
@@ -126,9 +126,9 @@ class DesktopFragment() : BaseFragment<DesktopViewModel, FragmentDesktopBinding>
 
 
 
-        if (model.optBoolean("receiving")==false)
+        if (!model.optBoolean("receiving"))
             receivingCat+=1
-        if (model.optBoolean("putaway")==false)
+        if (!model.optBoolean("putaway"))
             receivingCat+=1
 
 

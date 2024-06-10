@@ -1,6 +1,5 @@
 package com.example.warehousemanagment.ui.fragment
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.InputType
@@ -40,8 +39,6 @@ import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.receive.confirm.ConfirmReceiveDetailModel
-import com.example.warehousemanagment.model.models.receive.count.ReceiveDetailCountModel
 import com.example.warehousemanagment.model.models.receive.receiveDetail.ReceiveDetailRow
 import com.example.warehousemanagment.model.models.receive.receiving_detail_serials.ReceivingDetailSerialModel
 import com.example.warehousemanagment.model.models.receive.remove_serial.RemoveSerialModel
@@ -126,15 +123,13 @@ class ReceivingDetailFragment() :
     }
 
     private fun observeReceiveCount() {
-        viewModel.getDetailCount().observe(viewLifecycleOwner, object : Observer<Int> {
-            override fun onChanged(it: Int) {
-                setBelowCount(
-                    requireActivity(), getString(R.string.tools_you_have),
-                    it, getString(R.string.productsToReceive)
-                )
-
-            }
-        })
+        viewModel.getDetailCount().observe(viewLifecycleOwner
+        ) { it ->
+            setBelowCount(
+                requireActivity(), getString(R.string.tools_you_have),
+                it, getString(R.string.productsToReceive)
+            )
+        }
     }
 
     private fun showFilterSheetDialog() {
@@ -225,7 +220,7 @@ class ReceivingDetailFragment() :
     fun scanBarcodeWithPhone(scannerView: ZXingScannerView) {
         scannerView.visibility = View.VISIBLE
         initRequestPermission(requireActivity(), Utils.QSCANNER_PERMISSIONS, Utils.REQUEST_CAMERA)
-        if (hasPermissions(requireActivity(), *Utils.QSCANNER_PERMISSIONS) == true) {
+        if (hasPermissions(requireActivity(), *Utils.QSCANNER_PERMISSIONS)) {
             scannerView.setResultHandler(this)
             scannerView.startCamera()
         } else initRequestPermission(
@@ -240,23 +235,20 @@ class ReceivingDetailFragment() :
         val rawResult = result.text
         val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle(getString(R.string.scanResults))
-        builder.setPositiveButton(getString(R.string.ok), object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface, which: Int) {
-                scanDialogBinding?.scannerView?.resumeCameraPreview(this@ReceivingDetailFragment)
-                log("rawResult", rawResult)
-                scanDialogBinding?.scannerView?.stopCamera()
-                scanDialogBinding?.scannerView?.visibility = View.GONE
+        builder.setPositiveButton(getString(R.string.ok)
+        ) { _, _ ->
+            scanDialogBinding?.scannerView?.resumeCameraPreview(this@ReceivingDetailFragment)
+            log("rawResult", rawResult)
+            scanDialogBinding?.scannerView?.stopCamera()
+            scanDialogBinding?.scannerView?.visibility = View.GONE
 
-                scanDialogBinding?.layoutTopInfo?.serialEdi?.setText(rawResult)
-            }
-        })
-        builder.setNegativeButton(getString(R.string.cancel),
-            object : DialogInterface.OnClickListener {
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-                    scanDialogBinding?.scannerView?.stopCamera()
-                    scanDialogBinding?.scannerView?.visibility = View.GONE
-                }
-            })
+            scanDialogBinding?.layoutTopInfo?.serialEdi?.setText(rawResult)
+        }
+        builder.setNegativeButton(getString(R.string.cancel)
+        ) { _, _ ->
+            scanDialogBinding?.scannerView?.stopCamera()
+            scanDialogBinding?.scannerView?.visibility = View.GONE
+        }
 
         builder.setMessage(result.text)
         val dialog = builder.create()
@@ -311,7 +303,7 @@ class ReceivingDetailFragment() :
                 }
 
                 override fun reachToEnd(position: Int) {
-                    receivePage = receivePage + 1
+                    receivePage += 1
                     viewModel.setReceiveDetailsList(
                         pref.getDomain(),
                         receivingId,
@@ -351,7 +343,7 @@ class ReceivingDetailFragment() :
         invtypeTitle: String
     ) {
         val dialogBinding = DialogCountBinding.inflate(
-            LayoutInflater.from(requireActivity()), null
+            LayoutInflater.from(requireActivity())
         )
         val countDialog = createAlertDialog(
             dialogBinding,
@@ -360,7 +352,7 @@ class ReceivingDetailFragment() :
 
 
         initCountDialog(dialogBinding, productTitle, productCode, invtypeTitle)
-        dialogBinding.layoutTopInfo.ownerCode.setText(ownerCode)
+        dialogBinding.layoutTopInfo.ownerCode.text = ownerCode
 
         clearEdi(dialogBinding.layoutTopInfo.clearImg, dialogBinding.layoutTopInfo.serialEdi)
 
@@ -370,7 +362,7 @@ class ReceivingDetailFragment() :
         dialogBinding.rel4.confirm.setOnClickListener()
         {
             val count = textEdi(dialogBinding.layoutTopInfo.serialEdi)
-            if (count.length != 0) {
+            if (count.isNotEmpty()) {
                 showConfrimHandDialog(
                     receivingDetailID, count, workerTaskID, dialogBinding, countDialog,
                     getString(R.string.count), getString(R.string.areYouSureCount)
@@ -417,15 +409,11 @@ class ReceivingDetailFragment() :
             pref.getTokenGlcTest(), dialogBinding.progress
         )
         viewModel.getReceiveDetailCount()
-            .observe(viewLifecycleOwner, object : Observer<ReceiveDetailCountModel> {
-                override fun onChanged(it: ReceiveDetailCountModel) {
-                    countDialog.dismiss()
-                    mySheetAlertDialog?.dismiss()
-                    refreshReceiveDetail()
-
-                }
-
-            })
+            .observe(viewLifecycleOwner) {
+                countDialog.dismiss()
+                mySheetAlertDialog?.dismiss()
+                refreshReceiveDetail()
+            }
     }
 
     private fun showScanDialog(
@@ -435,7 +423,7 @@ class ReceivingDetailFragment() :
         invtypeTitle: String
     ) {
         scanDialogBinding = DialogSerialScanBinding
-            .inflate(LayoutInflater.from(requireActivity()), null)
+            .inflate(LayoutInflater.from(requireActivity()))
         scanDialog?.dismiss()
         scanDialog = createAlertDialog(
             scanDialogBinding!!,
@@ -468,6 +456,7 @@ class ReceivingDetailFragment() :
         )
 
 
+        scanDialogBinding!!.layoutTopInfo.serialEdi.requestFocus()
 
         checkEnterKey(scanDialogBinding!!.layoutTopInfo.serialEdi)
         {
@@ -494,7 +483,6 @@ class ReceivingDetailFragment() :
         }
 
 
-        scanDialogBinding!!.layoutTopInfo.serialEdi.requestFocus()
 
 
     }
@@ -510,7 +498,7 @@ class ReceivingDetailFragment() :
                     textEdi(scanDialogBinding!!.layoutTopInfo.serialEdi),
                     pref.getUnValidChars(), pref.getSerialLenMax(),
                     pref.getSerialLenMin(), requireActivity()
-                ) == true
+                )
             ) {
                 addSerial(
                     scanDialogBinding!!, receivingDetailId,
@@ -537,7 +525,7 @@ class ReceivingDetailFragment() :
                 pref.getDomain(), receivingDetailId, textEdi(serialEdi), productId, token, progress
             )
             {
-                if (it.isSucceed == true) {
+                if (it.isSucceed) {
                     serialEdi.setText("")
                     viewModel.setSerialList(
                         pref.getDomain(), receivingDetailId, pref.getTokenGlcTest(), progress
@@ -573,26 +561,23 @@ class ReceivingDetailFragment() :
         dialogBinding: DialogSerialScanBinding,
         productId: String, receivingDetailId: String, workerTaskId: String
     ) {
-        viewModel.getSerialsList().observe(viewLifecycleOwner,
-            object : Observer<List<ReceivingDetailSerialModel>> {
-                override fun onChanged(serialList: List<ReceivingDetailSerialModel>) {
-                    showSerialAdapter(
-                        dialogBinding.rv, serialList, dialogBinding.searchEdi,
-                        productId, dialogBinding, workerTaskId
+        viewModel.getSerialsList().observe(viewLifecycleOwner
+        ) { serialList ->
+            showSerialAdapter(
+                dialogBinding.rv, serialList, dialogBinding.searchEdi,
+                productId, dialogBinding, workerTaskId
+            )
+            showSerialsSize(serialList, dialogBinding.serialsCount)
+
+            dialogBinding.rel4.confirm.setOnClickListener()
+            {
+                if (serialList.isNotEmpty())
+                    onConfirmSeiralsClick(
+                        receivingDetailId, workerTaskId, serialList.size, dialogBinding
                     )
-                    showSerialsSize(serialList, dialogBinding.serialsCount)
-
-                    dialogBinding.rel4.confirm.setOnClickListener()
-                    {
-                        if (serialList.size != 0)
-                            onConfirmSeiralsClick(
-                                receivingDetailId, workerTaskId, serialList.size, dialogBinding
-                            )
-                        else toast(getString(R.string.thereIsNoSerial), requireActivity())
-                    }
-
-                }
-            })
+                else toast(getString(R.string.thereIsNoSerial), requireActivity())
+            }
+        }
     }
 
     private fun onConfirmSeiralsClick(
@@ -777,16 +762,13 @@ class ReceivingDetailFragment() :
     }
 
     private fun observeConfirm(mySheetAlertDialog: SheetAlertDialog?) {
-        viewModel.getConfirmReceiveDetail().observe(viewLifecycleOwner,
-            object : Observer<ConfirmReceiveDetailModel> {
-                override fun onChanged(it: ConfirmReceiveDetailModel) {
-                    mySheetAlertDialog?.dismiss()
-                    scanDialog?.dismiss()
+        viewModel.getConfirmReceiveDetail().observe(viewLifecycleOwner
+        ) {
+            scanDialog?.dismiss()
+            mySheetAlertDialog?.dismiss()
 
-                    refreshReceiveDetail()
-                }
-
-            })
+            refreshReceiveDetail()
+        }
     }
 
     private fun showDeleteSheetDialog(

@@ -432,7 +432,7 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
     private fun setVersionName() {
         val sb = StringBuilder()
         sb.append(getString(R.string.version))
-        sb.append(BuildConfig.VERSION_NAME)
+        sb.append("${BuildConfig.VERSION_CODE}.${BuildConfig.VERSION_NAME}")
         b.drawerLayout.version.text = sb.toString()
     }
 

@@ -47,5 +47,9 @@ data class MyCargoDetailRow(
     @SerializedName("IsDone")
     val isDone:Boolean,
     @SerializedName("HasLowPriorityTitle")
-    val hasLowPriorityTitle:String ?
+    val hasLowPriorityTitle:String?,
+    @SerializedName("ItemLocationID")
+    val itemLocationId: String,
+    @SerializedName("ShippingAddressID")
+    val shippingAddressId: String
 )

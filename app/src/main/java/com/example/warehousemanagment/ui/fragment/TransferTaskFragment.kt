@@ -8,22 +8,31 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.DialogTransferBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.transfer_task.location_transfer.LocationTransferRow
 import com.example.warehousemanagment.ui.adapter.LocationTransTaskAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.TransferTaskViewModel
 
 
 class TransferTaskFragment
-    : BaseFragment<TransferTaskViewModel,FragmentReceivingBinding>()
+    : BaseFragment<TransferTaskViewModel, FragmentReceivingBinding>()
 {
     var sortType=Utils.CREATED_ON
     var receivePage=Utils.PAGE_START

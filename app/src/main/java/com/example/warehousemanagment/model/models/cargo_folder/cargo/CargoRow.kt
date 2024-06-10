@@ -58,6 +58,8 @@ data class CargoRow(
     val shippingAddressID: String,
     @SerializedName("ShippingID")
     val shippingID: String,
+    @SerializedName("ShowAssignToMe")
+    val showAssignToMe: Boolean,
     @SerializedName("ShippingNumber")
     val shippingNumber: String,
     @SerializedName("TaskTypeID")
@@ -72,4 +74,12 @@ data class CargoRow(
     val workerTaskID: String,
     @SerializedName("WorkerFullNameShip")
     val workerFullNameShip:String,
+    @SerializedName("Total")
+    val total: Int,
+    @SerializedName("DoneCount")
+    val doneCount: Int,
+    @SerializedName("SumQuantity")
+    val sumQuantity: Int,
+    @SerializedName("SumDoneQuantity")
+    val sumDonQuantity: Int
 )

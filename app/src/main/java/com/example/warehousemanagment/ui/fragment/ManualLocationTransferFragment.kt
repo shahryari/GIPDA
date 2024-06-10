@@ -1,38 +1,43 @@
 package com.example.warehousemanagment.ui.fragment
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.DialogTransferBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkEnterKey
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.createAlertDialog
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
 import com.example.warehousemanagment.model.models.transfer_task.source_location.SourceLocationRow
-import com.example.warehousemanagment.ui.adapter.DestinyLocationAdapter
 import com.example.warehousemanagment.ui.adapter.ManualLocationTransAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
-import com.example.warehousemanagment.ui.dialog.SheetDestinationLocationDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.ManualLocationTransViewModel
 
 
 class ManualLocationTransferFragment :
-    BaseFragment<ManualLocationTransViewModel,FragmentReceivingBinding>()
+    BaseFragment<ManualLocationTransViewModel, FragmentReceivingBinding>()
 {
 
     var sortType:String=Utils.LOCATION_CODE_SORT

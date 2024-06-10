@@ -10,26 +10,43 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
 import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
 import com.example.warehousemanagment.databinding.FragmentInsertSerialBinding
 import com.example.warehousemanagment.databinding.PatternWarehouseBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkEnterKey
+import com.example.warehousemanagment.model.classes.checkIfIsValidChars
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.search
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.insert_serial.*
+import com.example.warehousemanagment.model.models.insert_serial.InsertedSerialModel
+import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
+import com.example.warehousemanagment.model.models.insert_serial.ProductModel
+import com.example.warehousemanagment.model.models.insert_serial.WarehouseModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
-import com.example.warehousemanagment.ui.adapter.*
+import com.example.warehousemanagment.ui.adapter.InsertedSerialAdapter
+import com.example.warehousemanagment.ui.adapter.OwnerAdapter
+import com.example.warehousemanagment.ui.adapter.ProductAdapter
+import com.example.warehousemanagment.ui.adapter.WareHouseAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetInvDialog
 import com.example.warehousemanagment.ui.dialog.SheetPalletDialog
 import com.example.warehousemanagment.viewmodel.InsertSerialViewModel
 
 
-class InsertSerialFragment : BaseFragment<InsertSerialViewModel
-        ,FragmentInsertSerialBinding>()
+class InsertSerialFragment : BaseFragment<InsertSerialViewModel, FragmentInsertSerialBinding>()
 {
     private var wareHouseId:String ?=null
     private var ownerId:String?=null

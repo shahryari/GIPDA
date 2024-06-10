@@ -1,6 +1,9 @@
 package com.example.warehousemanagment.ui.activity
 
-import android.app.*
+import android.app.ActivityManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
@@ -12,6 +15,7 @@ import android.widget.LinearLayout
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
 import com.example.currencykotlin.model.di.component.ActivityComponent
@@ -20,10 +24,20 @@ import com.example.warehousemanagment.BuildConfig
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.ActivityMainBinding
 import com.example.warehousemanagment.databinding.DialogBackPressBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.databinding.DialogSheetUpdateBinding
+import com.example.warehousemanagment.model.classes.createAlertDialog
+import com.example.warehousemanagment.model.classes.dismissSheet
+import com.example.warehousemanagment.model.classes.expandOrDecrease
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.getDimen
+import com.example.warehousemanagment.model.classes.getSpanTv
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.data.MySharedPref
+import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.service.MyNotification
+import com.example.warehousemanagment.ui.dialog.SheetUpdate
 import com.example.warehousemanagment.viewmodel.MainViewModel
 
 
@@ -58,7 +72,6 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
 
 
 
-
         startTimerForGettingData(delay = pref.getServicePriod()*60*1000L)
         {
             viewModel.notif(pref.getDomain(),pref.getTokenGlcTest())
@@ -74,6 +87,12 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
                     model.transferCount.toString()
                             +" "+"TransferCount"+"",)
                 startNotif("",sb)
+            }
+        }
+
+        viewModel.getUpdateInfo().observe(this){
+            if (it.version > BuildConfig.VERSION_CODE) {
+                showUpdateSheetDialog(it)
             }
         }
 
@@ -288,8 +307,27 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         }
 
 
+
+
     }
 
+    private fun showUpdateSheetDialog(versionInfoModel: VersionInfoModel) {
+        val sheet = SheetUpdate(object :SheetUpdate.OnClickListener {
+            override fun init(binding: DialogSheetUpdateBinding) {
+                binding.update.visibility = View.VISIBLE
+                binding.close.setOnClickListener {
+                    finish()
+                }
+            }
+
+            override fun onUpdate() {
+                val intent = Intent(Intent.ACTION_VIEW,versionInfoModel.downloadUrl.toUri())
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                startActivity(intent)
+            }
+        })
+        sheet.show(supportFragmentManager,"")
+    }
     private fun startNotif(title:String,desc:String)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -331,7 +369,7 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         val intent = Intent(this, myNotification::class.java)
 //        stopService(intent)
 
-        if (isMyServiceRunning(myNotification::class.java) == false) {
+        if (!isMyServiceRunning(myNotification::class.java)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //             Context.startForegroundService(intent)
               startForegroundService( intent)
@@ -435,7 +473,7 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
     }
 
     private fun showFinishDialog() {
-        val dialogBinding = DialogBackPressBinding.inflate(LayoutInflater.from(this), null)
+        val dialogBinding = DialogBackPressBinding.inflate(LayoutInflater.from(this))
         val finishDialog = createAlertDialog(
             dialogBinding,
             R.drawable.shape_background_rect_border_gray_solid_white, this
@@ -520,6 +558,12 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
 
     override fun setupComponent(component: ActivityComponent) {
         component.inject(this)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUpdateInfo(pref.getDomain(),pref.getTokenGlcTest())
     }
 
 

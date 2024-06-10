@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:foreground="?attr/selectableItemBackground"
         android:layout_marginBottom="@dimen/edi_login_marginTop"
+
         android:id="@+id/rel0"
         android:elevation="@dimen/lowElevation"
         android:minHeight="@dimen/pattern_cargo_detail_height"
@@ -44,27 +45,7 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/margin_low_2"
-                    android:orientation="vertical">
 
-                    <TextView
-                        style="@style/pattern_putaway_smallTv"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/marginStartLocationTransfer"
-                        android:text="@string/invType" />
-
-
-                    <TextView
-                        android:id="@+id/invType"
-                        style="@style/pattern_receieve_tv1"
-                        android:layout_gravity="center"
-                        tools:text="@string/tools_GoodSet" />
-
-                </LinearLayout>
 
 
             </RelativeLayout>
@@ -102,6 +83,24 @@
                 style="@style/pattern_receieve_tv1"
                 tools:text="true" />
 
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/invType" />
+
+
+            <TextView
+                android:id="@+id/invType"
+                style="@style/pattern_receieve_tv1"
+                tools:text="@string/tools_GoodSet" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_160sdp"
+                android:padding="@dimen/paddingOFSheetProgress"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
 
         </LinearLayout>
@@ -140,24 +139,31 @@
                 tools:text="@string/tools_mohammad" />
 
 
-            <RelativeLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/relCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/customerFullName"
+                android:layout_below="@+id/locationCode"
                 android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
                 android:layout_gravity="center"
+                android:background="@drawable/shape_background_rect_white_6"
+                android:layout_marginTop="@dimen/marginTopRelInfoTv"
+                android:backgroundTint="@color/mainYellow"
                 android:layout_marginBottom="@dimen/marginTop5ForLayouts"
-                android:padding="@dimen/paddingLow2">
+                android:paddingStart="@dimen/paddingEndEdi"
+                android:paddingEnd="@dimen/paddingEndEdi">
 
 
                 <TextView
                     android:id="@+id/tv7"
-                    style="@style/pattern_receieve_tv1"
+                    style="@style/pattern_putaway_smallTv"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/count"
+                    android:text="@string/quantity"
+                    android:layout_marginEnd="@dimen/margin_low_2"
                     android:layout_marginBottom="0dp"
+                    android:layout_gravity="center"
                     android:textColor="@color/gray70" />
 
 
@@ -167,20 +173,21 @@
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="0dp"
                     android:layout_toEndOf="@+id/tv7"
-                    android:textColor="@color/mainYellow"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
                     android:textSize="@dimen/submit_tv_sizes"
                     tools:text="@string/_2" />
 
 
-            </RelativeLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
                 android:id="@+id/locationCodeTv"
                 style="@style/pattern_putaway_smallTv"
-                android:layout_below="@+id/relCount"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:layout_below="@+id/customerFullName"
                 android:layout_marginTop="0dp"
+                android:layout_centerHorizontal="true"
                 android:text="@string/locationCode" />
 
 
@@ -196,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/locationCode"
+                android:layout_below="@id/relCount"
                 android:layout_gravity="end"
                 tools:visibility="visible"
                 android:visibility="gone"
@@ -212,10 +219,44 @@
                 android:textSize="@dimen/assignSize" />
 
             <TextView
+                android:id="@+id/isDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/done_switch"
+                android:background="@drawable/shape_background_rect_white_6"
+                android:backgroundTint="#57C184"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:paddingStart="@dimen/paddingEndEdi"
+                android:paddingTop="@dimen/marginTop5ForLayouts"
+                android:paddingEnd="@dimen/paddingEndEdi"
+                android:paddingBottom="@dimen/marginTop5ForLayouts"
+                android:textSize="@dimen/assignSize"
+                android:text="@string/done"
+                android:visibility="gone"
+                tools:visibility="visible" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                app:switchMinWidth="@dimen/_50sdp"
+                android:padding="@dimen/marginEndFilterRel"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/remove"
+                android:id="@+id/done_switch"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:track="@drawable/tick"
+                android:thumb="@drawable/circle"
+                android:layout_centerHorizontal="true"
+                android:checked="true"/>
+
+            <TextView
                 android:id="@+id/remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/locationCode"
+                android:layout_below="@id/done"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="end"
                 android:background="@drawable/shape_background_rect_white_6"
@@ -234,14 +275,6 @@
 
 
         </RelativeLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:padding="@dimen/paddingOFSheetProgress"
-            android:layout_height="@dimen/_160sdp"
-            android:visibility="gone"
-            tools:visibility="visible" />
 
 
     </RelativeLayout>

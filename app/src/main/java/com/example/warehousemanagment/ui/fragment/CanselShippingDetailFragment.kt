@@ -4,36 +4,51 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
-import com.example.warehousemanagment.databinding.*
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.databinding.DialogSerialScanBinding
+import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
+import com.example.warehousemanagment.databinding.FragmentDetailReceivingBinding
+import com.example.warehousemanagment.databinding.PatternShippingDetailBinding
+import com.example.warehousemanagment.model.classes.checkEnterKey
+import com.example.warehousemanagment.model.classes.checkIfIsValidChars
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.createAlertDialog
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.search
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
-import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailRow
-import com.example.warehousemanagment.ui.adapter.CustomerAdapter
 import com.example.warehousemanagment.ui.adapter.ShipingDetailAdapter
 import com.example.warehousemanagment.ui.adapter.ShippingSerialAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
-import com.example.warehousemanagment.ui.dialog.SheetPalletDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.CanselShippingDetailViewModel
-import java.lang.StringBuilder
 
 
 class CanselShippingDetailFragment :
-    BaseFragment<CanselShippingDetailViewModel,FragmentDetailReceivingBinding>()
+    BaseFragment<CanselShippingDetailViewModel, FragmentDetailReceivingBinding>()
 {
     lateinit var shippingId:String
     var quantitySerial:Int=0

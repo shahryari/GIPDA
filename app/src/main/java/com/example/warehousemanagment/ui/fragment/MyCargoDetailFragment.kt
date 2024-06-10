@@ -9,23 +9,33 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentDetailCargoBinding
 import com.example.warehousemanagment.databinding.PatternCargoDetailBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.initShortCut
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailRow
 import com.example.warehousemanagment.ui.adapter.MyCargoDetailAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.MyCargoDetailViewModel
 
 
 class MyCargoDetailFragment :
-    BaseFragment<MyCargoDetailViewModel,FragmentDetailCargoBinding>()
+    BaseFragment<MyCargoDetailViewModel, FragmentDetailCargoBinding>()
 {
 
     var sortType=Utils.LOCATION_CODE_SORT
@@ -54,6 +64,7 @@ class MyCargoDetailFragment :
 
         observeReceiveList()
         observeReceiveCount()
+        observeCargo()
 
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
 
@@ -66,7 +77,7 @@ class MyCargoDetailFragment :
             hideKeyboard(requireActivity())
             showSubmitTaskToDoneSheet()
         }
-        b.receiveItem.assign.setOnClickListener {
+        b.receiveItem.removeAssign?.setOnClickListener {
             hideKeyboard(requireActivity())
             showDriverTaskRemoveSheet()
         }
@@ -123,8 +134,8 @@ class MyCargoDetailFragment :
             onErrorCallback = {mySheetAlertDialog?.dismiss()}
         ) {
             mySheetAlertDialog?.dismiss()
-
-            refreshCargoDetail()
+            navController?.popBackStack()
+//            refreshCargoDetail()
         }
     }
 
@@ -166,7 +177,7 @@ class MyCargoDetailFragment :
     private fun driverTaskRemove(
         shippingAddressId:String,
         progressBar: ProgressBar,
-        mySheetAlertDialog: SheetConfirmDialog?
+        mySheetAlertDialog: SheetConfirmDialog?,
     ) {
         viewModel.driverTaskRemove(
             url = pref.getDomain(),
@@ -176,8 +187,8 @@ class MyCargoDetailFragment :
             onErrorCallback = {mySheetAlertDialog?.dismiss()}
         ) {
             mySheetAlertDialog?.dismiss()
-
-            refreshCargoDetail()
+            navController?.popBackStack()
+//            refreshCargoDetail()
         }
     }
 
@@ -197,6 +208,8 @@ class MyCargoDetailFragment :
 
                 binding.rel5.visibility=View.VISIBLE
                 binding.title5.text=getString(R.string.hasPriority)
+                binding.rel6.visibility = View.VISIBLE
+                binding.title6.text = getString(R.string.done)
 
             }
 
@@ -289,6 +302,14 @@ class MyCargoDetailFragment :
                 }
             }
 
+            override fun onRel6Click() {
+
+                if (sortType!=Utils.Done) {
+                    sortType = Utils.Done
+                    refreshCargoDetail()
+                }
+            }
+
         })
         sheet.show(this.getParentFragmentManager(), "")
 
@@ -299,6 +320,7 @@ class MyCargoDetailFragment :
         receivePage = Utils.PAGE_START
         viewModel.clearReceiveList()
         setReceiveData()
+        setCargo()
     }
 
     private fun observeReceiveCount()
@@ -318,18 +340,14 @@ class MyCargoDetailFragment :
     private fun observeReceiveList()
     {
         viewModel.getCargoDetailList()
-            .observe(viewLifecycleOwner, object : Observer<List<MyCargoDetailRow>>
-            {
-                override fun onChanged(it: List<MyCargoDetailRow>)
-                {
-                    if (view!=null && isAdded)
-                    {
-                        b.swipeLayout.isRefreshing=false
-                        lastReceivingPosition=it.size-1
-                        showCargoDetailList(it)
-                    }
+            .observe(viewLifecycleOwner
+            ) { it ->
+                if (view != null && isAdded) {
+                    b.swipeLayout.isRefreshing = false
+                    lastReceivingPosition = it.size - 1
+                    showCargoDetailList(it)
                 }
-            })
+            }
     }
     private fun showCargoDetailList(list:List<MyCargoDetailRow>)
     {
@@ -346,19 +364,20 @@ class MyCargoDetailFragment :
 
            override fun reachToEnd(position: Int)
            {
-               receivePage=receivePage+1
+               receivePage += 1
                setReceiveData()
            }
 
            override fun onDoneClick(
-               binding: PatternCargoDetailBinding,
+               b: PatternCargoDetailBinding,
                model: MyCargoDetailRow,
            )
            {
                 viewModel.cargoDetailWorkerSubmit(
                     url = pref.getDomain(),
-                    shippingAddressDetailId =model.shippingAddressDetailID,
-                    progressBar= binding.progressBar!!,
+                    itemLocationId = model.itemLocationId,
+                    shippingAddressId = model.shippingAddressId,
+                    progressBar= b.progressBar!!,
                     cookie=pref.getTokenGlcTest(),
                 ){
                    refreshCargoDetail()
@@ -367,12 +386,14 @@ class MyCargoDetailFragment :
 
            }
 
-           override fun onRemoveClick(binding: PatternCargoDetailBinding, model: MyCargoDetailRow)
+           override fun onRemoveClick(b: PatternCargoDetailBinding, model: MyCargoDetailRow)
            {
                viewModel.cargoDetailWorkerRemove(
                    url = pref.getDomain(),
                    shippingAddressDetailId =model.shippingAddressDetailID,
-                   progressBar= binding.progressBar!!,
+                   itemLocationId = model.itemLocationId,
+                   shippingAddressId = model.shippingAddressId,
+                   progressBar= b.progressBar!!,
                    cookie=pref.getTokenGlcTest(),
                ){
                    refreshCargoDetail()
@@ -393,6 +414,46 @@ class MyCargoDetailFragment :
 
     }
 
+    private fun observeCargo() {
+        viewModel.getCargo().observe(this) {
+
+            shippingNumber = it.shippingNumber
+            customerFullName = it.customerFullName
+            driverFullName = it.driverFullName
+
+            b.receiveItem.recevieNumber.text =shippingNumber
+            b.receiveItem.containerNumber.text =shippingNumber
+            b.receiveItem.driverFullName.text =driverFullName
+
+            b.receiveItem.qtyLay?.visibility = View.VISIBLE
+
+            b.receiveItem.totalTv?.text = it.total.toString()
+            b.receiveItem.doneTv?.text = it.doneCount.toString()
+            b.receiveItem.qtyTv?.text = it.sumQuantity.toString()
+            b.receiveItem.doneQtyTv?.text = it.sumDonQuantity.toString()
+
+            b.receiveItem.plaque.text = getBuiltString(it.plaqueNumberThird,
+                it.plaqueNumberSecond, it.plaqueNumberFirst
+            )
+            b.receiveItem.plaqueYear.text =it.plaqueNumberFourth
+
+
+
+            b.receiveItem.date?.text = it.createdOnString
+            b.receiveItem.cartType?.text = it.carTypeTitle
+//
+        }
+    }
+
+    private fun setCargo() {
+        viewModel.setCargo(
+            pref.getDomain(),
+            shippingAddressId,
+            pref.getTokenGlcTest(),
+            b.progressBar
+        )
+    }
+
     private fun setReceiveData()
     {
         viewModel.setCargoDetailList(
@@ -405,7 +466,7 @@ class MyCargoDetailFragment :
             shippingAddressId = shippingAddressId,
             b.progressBar,
             b.swipeLayout,
-
+            customerName = textEdi(b.searchEdi)
         )
     }
 
@@ -428,38 +489,36 @@ class MyCargoDetailFragment :
     {
         setToolbarTitle(requireActivity(),getString(R.string.mycargoDetail))
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
-        b.receiveItem?.title1?.text=getString(R.string.shippingNumber2)
+        b.receiveItem.title1?.text=getString(R.string.shippingNumber2)
+
+        b.rel2.visibility = View.VISIBLE
 
 
         shippingAddressId=arguments?.getString(Utils.ShippingAddressId,"").toString()
-        shippingNumber=arguments?.getString(Utils.ShippingNumber,"").toString()
-        customerFullName=arguments?.getString(Utils.CUSTOMER_FULL_NAME,"").toString()
-        driverFullName=arguments?.getString(Utils.DriverFullName,"").toString()
+//        shippingNumber=arguments?.getString(Utils.ShippingNumber,"").toString()
+//        customerFullName=arguments?.getString(Utils.CUSTOMER_FULL_NAME,"").toString()
+//        driverFullName=arguments?.getString(Utils.DriverFullName,"").toString()
 
 
-        b.receiveItem?.recevieNumber?.text=shippingNumber
-        b.receiveItem?.containerNumber?.text=shippingNumber
-        b.receiveItem?.driverFullName?.text=driverFullName
+//
+//        val plaque1=arguments?.getString(Utils.PLAQUE_1)
+//        val plaque2=arguments?.getString(Utils.PLAQUE_2)
+//        val plaque3=arguments?.getString(Utils.PLAQUE_3)
+//        val plaque4=arguments?.getString(Utils.PLAQUE_4)
+//        val total = arguments?.getInt(Utils.total) ?: 0
+//        val doneCount = arguments?.getInt(Utils.Done) ?: 0
+//        val sumQuantity = arguments?.getInt(Utils.doneQuantity) ?: 0
+//        val sumDoneQuantity = arguments?.getInt(Utils.sumDoneQuantity) ?: 0
 
 
-        val plaque1=arguments?.getString(Utils.PLAQUE_1)
-        val plaque2=arguments?.getString(Utils.PLAQUE_2)
-        val plaque3=arguments?.getString(Utils.PLAQUE_3)
-        val plaque4=arguments?.getString(Utils.PLAQUE_4)
-        b.receiveItem?.plaque?.setText(
-            getBuiltString(plaque3.toString(),plaque2.toString(),plaque1.toString()))
-        b.receiveItem?.plaqueYear?.text=plaque4
+//        val carType:String=arguments?.getString(Utils.CarType,"").toString()
+//        val date:String=arguments?.getString(Utils.Date,"").toString()
 
-        val carType:String=arguments?.getString(Utils.CarType,"").toString()
-        val date:String=arguments?.getString(Utils.Date,"").toString()
-
-
-        b.receiveItem.date?.setText(date)
-        b.receiveItem.cartType?.setText(carType)
 
         b.receiveItem.relAssignFinish.visibility=View.VISIBLE
 
-        b.receiveItem.assign.setText(getString(R.string.notAssign))
+
+        b.receiveItem.removeAssign?.visibility = View.VISIBLE
 
 
     }
@@ -472,8 +531,8 @@ class MyCargoDetailFragment :
          return R.layout.fragment_detail_cargo
     }
 
-    override fun setupComponent(component: FragmentComponent) {
-        component.inject(this)
+    override fun setupComponent(fragmentComponent: FragmentComponent) {
+        fragmentComponent.inject(this)
     }
 
 

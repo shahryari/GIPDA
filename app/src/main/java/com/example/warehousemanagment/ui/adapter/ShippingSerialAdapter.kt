@@ -2,13 +2,10 @@ package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternSerialBinding
-import com.example.warehousemanagment.model.models.receive.receiving_detail_serials.ReceivingDetailSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 
 class ShippingSerialAdapter(): RecyclerView.Adapter<ShippingSerialAdapter.MyViewHolder>()
@@ -33,8 +30,8 @@ class ShippingSerialAdapter(): RecyclerView.Adapter<ShippingSerialAdapter.MyView
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val model=arrayList.get(position)
-        holder.b.title.setText(model.serialNumber)
+        val model= arrayList[position]
+        holder.b.title.text = model.serialNumber
 
 
         holder.b.delete.setOnClickListener {

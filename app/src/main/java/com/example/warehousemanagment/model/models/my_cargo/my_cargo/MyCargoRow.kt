@@ -73,4 +73,12 @@ data class MyCargoRow(
     val workerTaskID: String,
     @SerializedName("WorkerFullNameShip")
     val workerFullNameShip:String,
+    @SerializedName("Total")
+    val total: Int,
+    @SerializedName("DoneCount")
+    val doneCount: Int,
+    @SerializedName("SumQuantity")
+    val sumQuantity: Int,
+    @SerializedName("SumDoneQuantity")
+    val sumDonQuantity: Int
 )

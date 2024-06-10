@@ -1,26 +1,25 @@
 package com.example.warehousemanagment.ui.fragment
 
 import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startForegroundService
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.FragmentDesktopBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.check401Error
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.hideView
+import com.example.warehousemanagment.model.classes.log
+import com.example.warehousemanagment.model.classes.setDescAndCopyRight
+import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.constants.Utils
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.viewmodel.DesktopViewModel
 import org.json.JSONObject
 
 
-class DesktopFragment() : BaseFragment<DesktopViewModel,FragmentDesktopBinding>()
+class DesktopFragment() : BaseFragment<DesktopViewModel, FragmentDesktopBinding>()
 {
 
 

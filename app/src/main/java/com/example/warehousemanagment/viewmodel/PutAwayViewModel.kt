@@ -3,23 +3,21 @@ package com.example.warehousemanagment.viewmodel
 import android.app.Application
 import android.content.Context
 import android.widget.ProgressBar
-import androidx.compose.runtime.key
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
-import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckRow
-import com.example.warehousemanagment.model.models.receive.receiving.RowReceivingModel
 import com.google.gson.JsonObject
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
-import org.reactivestreams.Subscription
-import java.util.concurrent.Flow
 
 class PutAwayViewModel(application: Application,context: Context): AndroidViewModel(application)
 {
@@ -66,7 +64,7 @@ class PutAwayViewModel(application: Application,context: Context): AndroidViewMo
             repository.putawayTruckList(baseUrl,cookie,jsonObject,page, rows, sort, asc).subscribe({
                 showSimpleProgress(false,progressBar)
                 swipeLayout.isRefreshing=false
-                if (it.rows.size!=0)
+                if (it.rows.isNotEmpty())
                 {
 
                     tempList.addAll(it.rows)

@@ -14,14 +14,27 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
-import com.example.warehousemanagment.databinding.*
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
+import com.example.warehousemanagment.databinding.FragmentOfflineSerialBinding
+import com.example.warehousemanagment.model.classes.Common
+import com.example.warehousemanagment.model.classes.checkEnterKey
+import com.example.warehousemanagment.model.classes.checkIfIsValidChars
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.hideView
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.log
+import com.example.warehousemanagment.model.classes.search
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.receive.receiving_detail_serials.ReceivingDetailSerialModel
 import com.example.warehousemanagment.ui.adapter.SerialAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetOfflineSubmitDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
@@ -30,10 +43,10 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 
-class OfflineSerialFragment : BaseFragment<OfflineSerialViewModel,FragmentOfflineSerialBinding>()
+class OfflineSerialFragment : BaseFragment<OfflineSerialViewModel, FragmentOfflineSerialBinding>()
 {
     var chronometer:CountDownTimer ?=null
     val PERMISSION_ALL = 1

@@ -1,9 +1,7 @@
 package com.example.warehousemanagment.ui.fragment
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
@@ -12,9 +10,7 @@ import android.print.*
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import androidx.core.app.ActivityCompat
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
 import com.example.warehousemanagment.databinding.FragmentReworkBinding
@@ -23,6 +19,7 @@ import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.rework.ReworkModel
 import com.example.warehousemanagment.ui.adapter.PDFDocumentAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetInvDialog
 import com.example.warehousemanagment.viewmodel.ReworkViewModel
 import com.google.zxing.BarcodeFormat
@@ -48,7 +45,7 @@ import java.util.*
 
 
 class ReworkFragment
-    : BaseFragment<ReworkViewModel,FragmentReworkBinding>()
+    : BaseFragment<ReworkViewModel, FragmentReworkBinding>()
 {
     val MULTI_CENTI=28.333F
     var invTypeId=Utils.MINUS_ONE

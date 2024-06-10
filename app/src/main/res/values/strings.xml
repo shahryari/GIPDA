@@ -241,7 +241,7 @@
     <string name="recevieNumber">Receive Number</string>
     <string name="productTitle">Product Title</string>
     <string name="createdOn">Created On</string>
-    <string name="driverFullName">Driver FullName</string>
+    <string name="driverFullName">Driver</string>
     <string name="docTime">Dock Assign Time</string>
     <string name="customerFullName">Customer Full Name</string>
     <string name="carControll">Car Control</string>
@@ -330,7 +330,7 @@
     <string name="close">Close</string>
     <string name="sourceLocation">Source Location</string>
     <string name="product">Product</string>
-    <string name="customerName">Customer Name</string>
+    <string name="customerName">Customer</string>
     <string name="incorrectBar">بارچینی نادرست</string>
     <string name="wrongStimate">تخمین اشتباه</string>
     <string name="wrongNeed">مغایرت ماشین با اعلام نیاز</string>
@@ -340,16 +340,16 @@
     <string name="quantityBiggerThan">"Quantity is bigger than "</string>
     <string name="container">Container</string>
     <string name="driverTaskSubmit">Driver Task Submit</string>
-    <string name="DoyouWantDriverTask">Do you want to submit this Driver Task</string>
-    <string name="Assign">Assign</string>
+    <string name="DoyouWantDriverTask">Are you sure to assign cargo to yourself?</string>
+    <string name="Assign">Assign to me</string>
     <string name="finish">Finish</string>
     <string name="cancelCount">Cancel Count</string>
     <string name="myCargo">My Cargo</string>
     <string name="mycargoDetail">My Cargo Detail</string>
     <string name="submitTaskToDone">Submit Task to Done</string>
-    <string name="DoYouWantSubmitToDone">Do you want to submit this task to Done?</string>
+    <string name="DoYouWantSubmitToDone">Are you sure to remove cargo from yourself?</string>
     <string name="notAssign">Not Assign</string>
-    <string name="workerFullNameShip">Worker Full Name</string>
+    <string name="workerFullNameShip">Worker</string>
     <string name="removeDriverTask">Remove Driver Task</string>
     <string name="doYouWantToRemoveTask">Do you want to remove this driver task ?</string>
     <string name="done">Done</string>
@@ -370,4 +370,16 @@
     <string name="quantity_">Quantity :</string>
     <string name="hasPriority">Has Low Priority Title</string>
     <string name="pickingDetail">Picking Detail</string>
+    <string name="open">Open</string>
+    <string name="update_your_app">Update your app</string>
+    <string name="update_message">Your version is old, please update your app.</string>
+    <string name="your_version">Your Version:</string>
+    <string name="current_version">Current Version:</string>
+    <string name="dock">Dock</string>
+    <string name="total">Total</string>
+    <string name="qty">Qty</string>
+    <string name="removeFromMe">Remove from me</string>
+    <string name="choose_customer">Choose Customer</string>
+    <string name="not_done">Not Done</string>
+    <string name="choose_color">Choose Color</string>
 </resources>

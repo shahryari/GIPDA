@@ -1,4 +1,4 @@
-package com.example.kotlin_wallet.ui.base
+package com.example.warehousemanagment.ui.base
 
 import android.app.Activity
 import android.os.Bundle
@@ -55,7 +55,7 @@ abstract class BaseFragment<V: AndroidViewModel,B: ViewDataBinding>() : Fragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        b= DataBindingUtil.inflate(inflater,getLayout(),container,false)
+        b = DataBindingUtil.inflate(inflater,getLayout(),container,false)
         init()
 
         return b.root

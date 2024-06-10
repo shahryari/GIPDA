@@ -1,13 +1,14 @@
 package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternShippingDetailBinding
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailRow
 
 class ShipingDetailAdapter(): RecyclerView.Adapter<ShipingDetailAdapter.MyViewHolder>()
@@ -32,7 +33,7 @@ class ShipingDetailAdapter(): RecyclerView.Adapter<ShipingDetailAdapter.MyViewHo
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int)
     {
-        val model=arrayList.get(position)
+        val model= arrayList[position]
 
         onCallBackListener.init(holder.b)
         holder.itemView.setOnClickListener {
@@ -46,11 +47,20 @@ class ShipingDetailAdapter(): RecyclerView.Adapter<ShipingDetailAdapter.MyViewHo
         holder.b.ownerCode.text=model.ownerCode
         holder.b.date.text=model.taskTimeString
 
+        holder.b.colorLay.visibility = View.VISIBLE
+        holder.b.customerColor.backgroundTintList = ColorStateList.valueOf(if (model.customerColorCode!=null )
+            Color.parseColor(model.customerColorCode)
+        else
+            Color.TRANSPARENT)
+        holder.b.customerName.text = model.customerFullName
+
+        holder.b.lin1.visibility = View.GONE
+
         holder.b.relClose.setOnClickListener {
             onCallBackListener.onCloseClick(model)
         }
 
-        if (model.serializable==false)
+        if (!model.serializable)
         {
             holder.b.imgBackground.visibility=View.INVISIBLE
         } else{

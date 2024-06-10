@@ -3,31 +3,39 @@ package com.example.warehousemanagment.ui.fragment
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentPickputDailyReportBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.chronometer
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.log
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
 import com.example.warehousemanagment.model.models.report_inventory.serial_inventory.SerialInventoryRows
 import com.example.warehousemanagment.ui.adapter.ProductAdapter
 import com.example.warehousemanagment.ui.adapter.SerialInventoryReportAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetPalletDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.InventorySerialViewModel
-import java.time.Duration
 
 
 class InventoryBySerialFragment :

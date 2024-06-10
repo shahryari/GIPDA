@@ -12,14 +12,25 @@ import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DiaologChangeBaseUrlBinding
 import com.example.warehousemanagment.databinding.FragmentLoginBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.NavigationUtils
+import com.example.warehousemanagment.model.classes.changeBackgroundTint
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.createAlertDialog
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.hideView
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.log
+import com.example.warehousemanagment.model.classes.setDescAndCopyRight
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.login.login.Permissions
 import com.example.warehousemanagment.model.models.login.login.LoginModel
+import com.example.warehousemanagment.model.models.login.login.Permissions
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.viewmodel.LoginViewModel
 
 

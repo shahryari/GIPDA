@@ -12,10 +12,26 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
-import com.example.warehousemanagment.databinding.*
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
+import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
+import com.example.warehousemanagment.databinding.DialogSheetTaskTypeBinding
+import com.example.warehousemanagment.databinding.FragmentPickputDailyReportBinding
+import com.example.warehousemanagment.databinding.PatternWarehouseBinding
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.chronometer
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.getDimen
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.search
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
@@ -25,6 +41,7 @@ import com.example.warehousemanagment.model.models.report_inventory.pickput.Pick
 import com.example.warehousemanagment.ui.adapter.OwnerAdapter
 import com.example.warehousemanagment.ui.adapter.PickPutAdapter
 import com.example.warehousemanagment.ui.adapter.ProductAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetPalletDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.ui.dialog.SheetTaskDialog
@@ -34,11 +51,12 @@ import ir.hamsaa.persiandatepicker.api.PersianPickerDate
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener
 import ir.hamsaa.persiandatepicker.util.PersianCalendar
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 
 class PickputDailyReportFragment :
-    BaseFragment<PickputDailyReportViewModel,FragmentPickputDailyReportBinding>()
+    BaseFragment<PickputDailyReportViewModel, FragmentPickputDailyReportBinding>()
 {
     var subSettingHeight=0
     var sortType:String=Utils.LOCATION_CODE_SORT

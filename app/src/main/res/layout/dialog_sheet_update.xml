@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sheetAlertDenyConfirm">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/mainBackground"
+            android:layout_height="@dimen/sheetAlertDenyConfirm">
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/serial_scan_top_bar_height"
+                android:background="@color/gray91"
+                android:padding="@dimen/padding_headers">
+
+                <TextView
+                    style="@style/headers_title"
+                    android:text="@string/update_your_app" />
+
+            </RelativeLayout>
+
+
+
+
+            <TextView
+                android:id="@+id/msgTv"
+                style="@style/pattern_receieve_tv1"
+                android:layout_width="match_parent"
+                android:layout_below="@id/rel1"
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="@string/update_message" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:layout_below="@id/msgTv"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/close"
+                    android:text="@string/close"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/grayAA"/>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/update"
+                    android:backgroundTint="@color/mainYellow"
+                    android:layout_marginStart="@dimen/margin_start_cansel"
+                    android:textColor="@color/black"
+                    android:text="@string/common_google_play_services_update_button" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

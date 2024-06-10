@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/shape_background_rect_white_6"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:foreground="?attr/selectableItemBackground"
     android:layout_marginBottom="@dimen/edi_login_marginTop"
-    android:padding="@dimen/paddingLow2"
     android:id="@+id/rel0"
     android:elevation="@dimen/lowElevation"
+    android:paddingHorizontal="@dimen/paddingLow2"
     android:minHeight="@dimen/receive_detail_headerHeight"
     android:layout_height="wrap_content">
 
@@ -43,14 +43,16 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="0dp"
+            android:id="@+id/bol_lay"
             android:layout_height="wrap_content">
 
 
             <TextView
                 android:id="@+id/title2"
                 style="@style/pattern_putaway_smallTv"
+                android:layout_height="23dp"
                 android:layout_marginStart="@dimen/marginStartLocationTransfer"
-                android:text="@string/containerNumber" />
+                android:text="@string/bolNumber" />
 
             <TextView
                 android:id="@+id/containerNumber"
@@ -60,6 +62,30 @@
 
 
         </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:id="@+id/bol_lay2"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/btitle2"
+            style="@style/pattern_putaway_smallTv"
+            android:layout_height="23dp"
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:text="@string/bolNumber" />
+
+        <TextView
+            android:id="@+id/containerNumber2"
+            style="@style/pattern_receieve_tv1"
+            tools:text="@string/tools_tdru4204745" />
+
 
 
     </LinearLayout>
@@ -156,8 +182,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginTop5ForLayouts"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/view"
+            android:id="@+id/driver_lay"
             android:orientation="vertical" >
 
 
@@ -198,10 +223,29 @@
         android:visibility="gone"
         tools:visibility="visible"
         android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/marginTopRelInfoTv"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/assign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="start"
+            android:background="@drawable/shape_background_rect_white_6"
+            android:backgroundTint="@color/green"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingStart="@dimen/paddingEndEdi"
+            android:paddingTop="@dimen/marginTop5ForLayouts"
+            android:paddingEnd="@dimen/paddingEndEdi"
+            android:paddingBottom="@dimen/marginTop5ForLayouts"
+            android:text="@string/Assign"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textSize="@dimen/assignSize" />
+        <TextView
+            android:id="@+id/removeAssign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -213,7 +257,9 @@
             android:paddingTop="@dimen/marginTop5ForLayouts"
             android:paddingEnd="@dimen/paddingEndEdi"
             android:paddingBottom="@dimen/marginTop5ForLayouts"
-            android:text="@string/Assign"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:text="@string/removeFromMe"
             android:textColor="@color/white"
             android:textSize="@dimen/assignSize" />
 
@@ -239,6 +285,176 @@
 
 
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/choose_color_layout"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+        tools:visibility="visible"
+        android:background="@drawable/shape_background_gray_half"
+        android:backgroundTint="@color/yellowGray">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_customer"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:id="@+id/choose_customer_btn"
+            android:textSize="@dimen/two_tv_fontSize"
+            android:padding="@dimen/marginTop5ForLayouts"
+            android:background="@drawable/shape_count_two_bottom_left_corner_6"
+            android:backgroundTint="#5B36CC"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingEnd="@dimen/marginTop5ForLayouts"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tools_mohammad"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dirverTvSize"
+                android:textStyle="bold"
+                android:id="@+id/driver_full_name_btm"
+                android:layout_marginEnd="@dimen/marginEndFilterRel"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:tint="@color/black"
+                android:src="@drawable/truck"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/qty_lay"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:background="@drawable/shape_background_gray_half"
+        android:backgroundTint="@color/yellowGray"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_background_gray_half"
+            android:paddingHorizontal="@dimen/marginTopRelInfoTv"
+            android:backgroundTint="@color/yellowGray"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/total"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/total_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:paddingHorizontal="@dimen/marginTopRelInfoTv"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/done"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/done_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:paddingHorizontal="@dimen/marginTopRelInfoTv"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/qty"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="128"
+                android:id="@+id/qty_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:paddingHorizontal="@dimen/marginTopRelInfoTv"
+            android:layout_margin="@dimen/margin_low_2"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="Done Qty"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/done_qty_tv"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>
 </layout>

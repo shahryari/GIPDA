@@ -8,18 +8,24 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckRow
 import com.example.warehousemanagment.ui.adapter.PutAwayAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.PutAwayViewModel
 
-class PutawayFragment : BaseFragment<PutAwayViewModel,FragmentReceivingBinding>()
+class PutawayFragment : BaseFragment<PutAwayViewModel, FragmentReceivingBinding>()
 {
     var sortType=Utils.DockAssignTime
     var receivePage=Utils.PAGE_START
@@ -194,20 +200,14 @@ class PutawayFragment : BaseFragment<PutAwayViewModel,FragmentReceivingBinding>(
     private fun observePutaway()
     {
         viewModel.getPutawayTruckList()
-            .observe(viewLifecycleOwner, object : Observer<List<PutawayTruckRow>>
-            {
-                override fun onChanged(it: List<PutawayTruckRow>)
-                {
-                    if (view != null && isAdded)
-                    {
-                        b.swipeLayout.isRefreshing=false
-                        lastReceivingPosition=it.size-1
-                        showPutawayList(it)
-                    }
-
+            .observe(viewLifecycleOwner
+            ) { it ->
+                if (view != null && isAdded) {
+                    b.swipeLayout.isRefreshing = false
+                    lastReceivingPosition = it.size - 1
+                    showPutawayList(it)
                 }
-
-            })
+            }
     }
 
     private fun showPutawayList(list: List<PutawayTruckRow>)
@@ -223,10 +223,10 @@ class PutawayFragment : BaseFragment<PutAwayViewModel,FragmentReceivingBinding>(
                 val bundle = Bundle()
                 bundle.putString(Utils.RECEIVING_ID,model.receivingID)
                 bundle.putString(Utils.RECEIVE_NUMBER, model.receivingNumber)
-                bundle.putString(Utils.DRIVE_FULLNAME, model?.driverFullName?.toString())
+                bundle.putString(Utils.DRIVE_FULLNAME, model.driverFullName)
                 bundle.putString(Utils.DOCK_CODE, model.dockCode)
                 bundle.putString(Utils.CREATED_ON,model.createdOnString)
-                bundle.putString(Utils.CAR_TYPE_TITLE,model?.carTypeTitle?.toString())
+                bundle.putString(Utils.CAR_TYPE_TITLE, model.carTypeTitle.toString())
                 bundle.putString(Utils.CONTAINER_NUMBER,model.containerNumber)
 
                 bundle.putString(Utils.PLAQUE_1,model.plaqueNumberFirst)

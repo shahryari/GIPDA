@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
@@ -22,11 +21,12 @@ import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.ui.adapter.StockTakingAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.StockTakeViewModel
 import com.test.StockTrackRow
 
-class StockTakeFragment : BaseFragment<StockTakeViewModel,FragmentReceivingBinding>()
+class StockTakeFragment : BaseFragment<StockTakeViewModel, FragmentReceivingBinding>()
 {
     var sortType= Utils.CREATED_ON
     var stockPage= Utils.PAGE_START

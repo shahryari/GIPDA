@@ -9,25 +9,32 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
 import com.example.warehousemanagment.databinding.PatternReceivingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.shipping.shipping_truck.ShippingTruckRow
 import com.example.warehousemanagment.ui.adapter.ShippingAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetDenyAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetDenyApproveAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.ShippingViewModel
 
-class ShippingFragment: BaseFragment<ShippingViewModel,FragmentReceivingBinding>()
+class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding>()
 {
     var sortType=Utils.DockAssignTime
     var receivePage=Utils.PAGE_START

@@ -1,5 +1,6 @@
 package com.example.warehousemanagment.ui.fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
@@ -8,21 +9,28 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.initShortCut
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.cargo_folder.cargo.CargoRow
 import com.example.warehousemanagment.ui.adapter.CargoAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.CargoViewModel
 import com.squareup.picasso.Picasso
 
-class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
+class CargoFragment : BaseFragment<CargoViewModel, FragmentReceivingBinding>()
 {
 
     var sortType=Utils.NOT_ASSIGN
@@ -30,16 +38,33 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
     var receiveOrder=Utils.ASC_ORDER
     var lastReceivingPosition=0
     var chronometer: CountDownTimer?=null
+    var isDone = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+        b.tabs.visibility = View.VISIBLE
 
+        b.closeTabLayout.setOnClickListener {
+            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            isDone = true
+            refreshReceive()
+        }
+        b.openTabLayout.setOnClickListener {
+            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            isDone = false
+            refreshReceive()
+        }
         b.swipeLayout.setOnRefreshListener()
         {
             refreshReceive()
         }
-
         refreshReceive()
 
         observeReceiveList()
@@ -63,12 +88,12 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
         {
             override fun initView(binding: DialogSheetSortFilterBinding)
             {
-                binding.rel5.visibility=View.VISIBLE
+                binding.rel5.visibility=View.GONE
                 binding.locationCode.text=getString(R.string.notAssign)
                 binding.ownerCode.text=getString(R.string.dockAssignTime)
                 binding.productCode.text=getString(R.string.shippingNumber2)
                 binding.productTitle.text=getString(R.string.driverFullName)
-                binding.title5.text=getString(R.string.done)
+//                binding.title5.text=getString(R.string.done)
 
             }
 
@@ -157,10 +182,10 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
             }
 
             override fun onRel5Click() {
-                if (sortType != Utils.Done) {
-                    sortType = Utils.Done
-                    refreshReceive()
-                }
+//                if (sortType != Utils.Done) {
+//                    sortType = Utils.Done
+//                    refreshReceive()
+//                }
             }
 
         })
@@ -177,33 +202,27 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
 
     private fun observeReceiveCount()
     {
-        viewModel.getCargoCount().observe(viewLifecycleOwner,object :Observer<Int>
-        {
-            override fun onChanged(it: Int)
-            {
-                setBelowCount(requireActivity(), getString(R.string.tools_you_have),
-                    it, getString(R.string.tools_you_have_3_trcuk_to_receive))
-            }
-
-        })
+        viewModel.getCargoCount().observe(viewLifecycleOwner
+        ) {
+            setBelowCount(
+                requireActivity(), getString(R.string.tools_you_have),
+                it, getString(R.string.tools_you_have_3_trcuk_to_receive)
+            )
+        }
 
     }
 
     private fun observeReceiveList()
     {
         viewModel.getCargoList()
-            .observe(viewLifecycleOwner, object : Observer<List<CargoRow>>
-            {
-                override fun onChanged(it: List<CargoRow>)
-                {
-                    if (view!=null && isAdded)
-                    {
-                        b.swipeLayout.isRefreshing=false
-                        lastReceivingPosition=it.size-1
-                        showCargoList(it)
-                    }
+            .observe(viewLifecycleOwner
+            ) {
+                if (view != null && isAdded) {
+                    b.swipeLayout.isRefreshing = false
+                    lastReceivingPosition = it.size - 1
+                    showCargoList(it)
                 }
-            })
+            }
     }
     private fun showCargoList(list:List<CargoRow>)
     {
@@ -220,7 +239,12 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
            {
                val bundle = Bundle()
                bundle.putString(Utils.ShippingAddressId, model.shippingAddressID)
-               bundle.putString(Utils.ShippingNumber, model.shippingNumber)
+               bundle.putString(Utils.BOLNumber, model.bOLNumber)
+               bundle.putString(Utils.ShippingNumber,model.shippingNumber)
+               bundle.putInt(Utils.total,model.total)
+               bundle.putInt(Utils.Done,model.doneCount)
+               bundle.putInt(Utils.doneQuantity,model.sumQuantity)
+               bundle.putInt(Utils.sumDoneQuantity,model.sumDonQuantity)
                bundle.putString(Utils.CUSTOMER_FULL_NAME, model.customerFullName)
                bundle.putString(Utils.DriverFullName, model.driverFullName)
                bundle.putString(Utils.CarType, model.carTypeTitle)
@@ -229,6 +253,8 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
                bundle.putString(Utils.PLAQUE_2, model.plaqueNumberSecond)
                bundle.putString(Utils.PLAQUE_3, model.plaqueNumberThird)
                bundle.putString(Utils.PLAQUE_4, model.plaqueNumberFourth)
+               bundle.putBoolean(Utils.showAssignToMe,model.showAssignToMe)
+               bundle.putBoolean(Utils.IsDone,model.isDone)
 
                pref.saveAdapterPosition(position)
 
@@ -240,7 +266,7 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
 
            override fun reachToEnd(position: Int)
            {
-               receivePage=receivePage+1
+               receivePage += 1
                setReceiveData()
            }
 
@@ -269,7 +295,9 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
     {
         viewModel.setCargoList(
             pref.getDomain(),
-            pref.getTokenGlcTest(), textEdi(b.mainToolbar.searchEdi),
+            pref.getTokenGlcTest(),
+            isDone,
+            textEdi(b.mainToolbar.searchEdi),
             receivePage, Utils.ROWS, sortType, receiveOrder,b.progressBar,
             b.swipeLayout
         )
@@ -298,7 +326,9 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
 
 
 
+
     }
+
 
 
 
@@ -308,8 +338,8 @@ class CargoFragment : BaseFragment<CargoViewModel,FragmentReceivingBinding>()
          return R.layout.fragment_receiving
     }
 
-    override fun setupComponent(component: FragmentComponent) {
-        component.inject(this)
+    override fun setupComponent(fragmentComponent: FragmentComponent) {
+        fragmentComponent.inject(this)
     }
 
 

@@ -11,22 +11,33 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
 import com.example.warehousemanagment.databinding.FragmentTrackingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.chronometer
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.hideView
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.search
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
 import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
 import com.example.warehousemanagment.ui.adapter.ProductAdapter
 import com.example.warehousemanagment.ui.adapter.TrackingSerialAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetPalletDialog
 import com.example.warehousemanagment.viewmodel.TrackingViewModel
 
 
-class TrackingFragment : BaseFragment<TrackingViewModel,FragmentTrackingBinding>()
+class TrackingFragment : BaseFragment<TrackingViewModel, FragmentTrackingBinding>()
 {
 
     private var productCode:String=""

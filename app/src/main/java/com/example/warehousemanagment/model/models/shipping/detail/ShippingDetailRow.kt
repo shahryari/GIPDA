@@ -39,5 +39,11 @@ data class ShippingDetailRow(
     @SerializedName("TaskTimeString")
     val taskTimeString:String ,
     @SerializedName("CancelCount")
-    val cancelCount:Int ?
+    val cancelCount:Int ?,
+    @SerializedName("CustomerColorID")
+    val customerColorId: Int?,
+    @SerializedName("CustomerColorCode")
+    val customerColorCode: String?,
+    @SerializedName("CustomerColorName")
+    val customerColorName: String?
 )

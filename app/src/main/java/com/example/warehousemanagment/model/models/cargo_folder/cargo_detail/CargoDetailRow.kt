@@ -45,5 +45,7 @@ data class CargoDetailRow(
     @SerializedName("WarehouseID")
     val warehouseID: String,
     @SerializedName("HasLowPriorityTitle")
-    val hasLowPriorityTitle:String ?
+    val hasLowPriorityTitle:String?,
+    @SerializedName("IsDone")
+    val isDone: Boolean
 )

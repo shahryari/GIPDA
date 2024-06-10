@@ -7,13 +7,11 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogChangeProductBinding
 import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
@@ -29,9 +27,7 @@ import com.example.warehousemanagment.model.classes.createAlertDialog
 import com.example.warehousemanagment.model.classes.getBuiltString
 import com.example.warehousemanagment.model.classes.hideKeyboard
 import com.example.warehousemanagment.model.classes.hideShortCut
-import com.example.warehousemanagment.model.classes.isStockMessageEqualMinusOne
 import com.example.warehousemanagment.model.classes.lenEdi
-import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.search
 import com.example.warehousemanagment.model.classes.setBelowCount
 import com.example.warehousemanagment.model.classes.setToolbarBackground
@@ -48,6 +44,7 @@ import com.example.warehousemanagment.model.models.stock.stock_take_location.Sto
 import com.example.warehousemanagment.ui.adapter.OwnerAdapter
 import com.example.warehousemanagment.ui.adapter.ProductAdapter
 import com.example.warehousemanagment.ui.adapter.StockTakingLocationAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetInvDialog
 import com.example.warehousemanagment.ui.dialog.SheetPalletDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog

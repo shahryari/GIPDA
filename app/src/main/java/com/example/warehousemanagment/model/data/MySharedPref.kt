@@ -2,7 +2,6 @@ package com.example.warehousemanagment.model.data
 
 import android.content.Context
 import com.example.warehousemanagment.model.constants.Utils
-import java.lang.StringBuilder
 
 
 class MySharedPref(context:Context)
@@ -74,7 +73,6 @@ class MySharedPref(context:Context)
         pref.edit().putInt(Utils.ADAPTER_POSITION,0).apply()
     }
     fun getSavedAdapterPosition(): Int {
-        return pref.getInt(Utils.ADAPTER_POSITION,0)
         return pref.getInt(Utils.ADAPTER_POSITION,0)
     }
     fun saveDomain(domain:String)

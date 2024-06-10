@@ -1,8 +1,11 @@
 package com.example.warehousemanagment.model.data
 
 import PickingDetailModel
+import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
+import com.example.warehousemanagment.model.models.cargo_folder.SetShippingAddressColorModel
 import com.example.warehousemanagment.model.models.cargo_folder.cargo.CargoModel
+import com.example.warehousemanagment.model.models.cargo_folder.cargo.CargoRow
 import com.example.warehousemanagment.model.models.cargo_folder.cargo_detail.CargoDetailModel
 import com.example.warehousemanagment.model.models.check_truck.CheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCheckTruckModel
@@ -12,11 +15,10 @@ import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
 import com.example.warehousemanagment.model.models.insert_serial.WarehouseModel
 import com.example.warehousemanagment.model.models.inventory.CompleteInventoryModifyModel
-import com.example.warehousemanagment.model.models.inventory.inventory.InventoryModifedModel
 import com.example.warehousemanagment.model.models.inventory.InventoryVerifyWithoutComp
+import com.example.warehousemanagment.model.models.inventory.inventory.InventoryModifedModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.login.DashboardInfoModel
-import com.example.warehousemanagment.model.models.receive.add_detail_serial.AddReceivingDetailSerialModel
 import com.example.warehousemanagment.model.models.login.current_user.CurrentUserModel
 import com.example.warehousemanagment.model.models.login.login.LoginModel
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo.MyCargoModel
@@ -27,9 +29,9 @@ import com.example.warehousemanagment.model.models.picking.picking.PickingTruckM
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
+import com.example.warehousemanagment.model.models.receive.add_detail_serial.AddReceivingDetailSerialModel
 import com.example.warehousemanagment.model.models.receive.confirm.ConfirmReceiveDetailModel
 import com.example.warehousemanagment.model.models.receive.count.ReceiveDetailCountModel
-import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
 import com.example.warehousemanagment.model.models.receive.receiveDetail.ReceiveDetailModel
 import com.example.warehousemanagment.model.models.receive.receiving.ReceivingModel
 import com.example.warehousemanagment.model.models.receive.receiving_detail_serials.ReceivingDetailSerialModel
@@ -41,7 +43,13 @@ import com.example.warehousemanagment.model.models.report_inventory.serial_inven
 import com.example.warehousemanagment.model.models.report_inventory.serial_inventory_product.SerialInvProductModel
 import com.example.warehousemanagment.model.models.revoke.RevokeModel
 import com.example.warehousemanagment.model.models.rework.ReworkModel
-import com.example.warehousemanagment.model.models.shipping.*
+import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
+import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
+import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
+import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailModel
 import com.example.warehousemanagment.model.models.shipping.left_dock.LeftDockModel
 import com.example.warehousemanagment.model.models.shipping.shipping_truck.ShippingTruckModel
@@ -49,7 +57,10 @@ import com.example.warehousemanagment.model.models.stock.StockLocationInsertMode
 import com.example.warehousemanagment.model.models.stock.StockTakingCountModel
 import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
 import com.example.warehousemanagment.model.models.tracking.LabellingModel
-import com.example.warehousemanagment.model.models.transfer_task.*
+import com.example.warehousemanagment.model.models.transfer_task.CompleteLocationTransfer
+import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
+import com.example.warehousemanagment.model.models.transfer_task.LocationTransferSubmit
+import com.example.warehousemanagment.model.models.transfer_task.PalletModel
 import com.example.warehousemanagment.model.models.transfer_task.location_transfer.LocationTransferTaskModel
 import com.example.warehousemanagment.model.models.transfer_task.source_location.SourceLocationTransferModel
 import com.example.warehousemanagment.model.models.wait_to_load.TruckLoadingAssignModel
@@ -279,6 +290,34 @@ class MyRepository() :DataSource
 
     override fun revoke(url: String, jsonObject: JsonObject, cookie: String): Single<RevokeModel> {
         return apiDataSource.revoke(url, jsonObject, cookie)
+    }
+
+    override fun getCustomerInShipping(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<List<CustomerInShipping>> {
+        return apiDataSource.getCustomerInShipping(url, jsonObject, cookie)
+    }
+
+    override fun setShippingColor(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SetShippingAddressColorModel> {
+        return apiDataSource.setShippingColor(url, jsonObject, cookie)
+    }
+
+    override fun getColorList(url: String, cookie: String): Single<List<ColorModel>> {
+        return apiDataSource.getColorList(url, cookie)
+    }
+
+    override fun getCargoItem(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<CargoRow> {
+        return apiDataSource.getCargoItem(url, jsonObject, cookie)
     }
 
     override fun getCargoList(
@@ -728,5 +767,9 @@ class MyRepository() :DataSource
         cookie: String
     ): Single<StockTakingCountModel> {
         return apiDataSource.stockTakingCount(url, jsonObject, cookie)
+    }
+
+    override fun getCurrentVersionInfo(url: String, cookie: String): Single<VersionInfoModel> {
+        return apiDataSource.getCurrentVersionInfo(url,cookie)
     }
 }

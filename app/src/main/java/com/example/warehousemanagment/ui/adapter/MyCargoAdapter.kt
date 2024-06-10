@@ -9,10 +9,8 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.PatternCargoBinding
-import com.example.warehousemanagment.databinding.PatternReceivingBinding
 import com.example.warehousemanagment.model.classes.getBuiltString
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.cargo_folder.cargo.CargoRow
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo.MyCargoRow
 
 class MyCargoAdapter(): RecyclerView.Adapter<MyCargoAdapter.MyViewHolder>()
@@ -37,25 +35,31 @@ class MyCargoAdapter(): RecyclerView.Adapter<MyCargoAdapter.MyViewHolder>()
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int)
     {
-        val model=arrayList.get(position)
+        val model= arrayList[position]
         holder.b.lastName.visibility= View.VISIBLE
-        holder.b.workerFullName.setText(model.workerFullNameShip)
-        holder.b.recevieNumber.setText(model.shippingNumber)
-        holder.b.dockCode.setText(model.dockCode)
-        holder.b.date.setText(model.createdOnString)
+        holder.b.workerFullName.text = model.workerFullNameShip
+        holder.b.recevieNumber.text = model.shippingNumber
+        holder.b.dockCode.text = model.dockCode
+        holder.b.date.text = model.createdOnString
 
-        holder.b.type.setText(model?.carTypeTitle?.toString())
-        holder.b.containerNumber.setText(model.bOLNumber)
-        holder.b.driverFullName.setText(model.driverFullName.toString())
-        holder.b.title1.setText(context.getString(R.string.shippingNumber2))
-        holder.b.title2.setText(context.getString(R.string.bolNumber))
-
-
-        holder.b.plaque.setText(getBuiltString(
+        holder.b.type.text = model.carTypeTitle
+        holder.b.containerNumber.text = model.bOLNumber
+        holder.b.driverFullName.text = model.driverFullName.toString()
+        holder.b.title1.text = context.getString(R.string.shippingNumber2)
+        holder.b.title2.text = context.getString(R.string.bolNumber)
+        holder.b.qtyLay.visibility = View.VISIBLE
+        holder.b.plaque.text = getBuiltString(
             model.plaqueNumberThird,
-            model.plaqueNumberSecond, model.plaqueNumberFirst!!
-        ))
+            model.plaqueNumberSecond, model.plaqueNumberFirst
+        )
         holder.b.plaqueYear.text=model.plaqueNumberFourth
+
+        holder.b.done.visibility = if (model.isDone) View.VISIBLE else View.GONE
+
+        holder.b.totalTv.text = model.total.toString()
+        holder.b.doneTv.text = model.doneCount.toString()
+        holder.b.qtyTv.text = model.sumQuantity.toString()
+        holder.b.doneQtyTv.text = model.sumDonQuantity.toString()
 
         holder.itemView.setOnClickListener {
             onCallBackListener.onClick(model,position,holder.b.progressBar)
@@ -64,7 +68,7 @@ class MyCargoAdapter(): RecyclerView.Adapter<MyCargoAdapter.MyViewHolder>()
             onCallBackListener.reachToEnd(position)
         }
 
-        if (!model.driverImageUrl.equals("")){
+        if (model.driverImageUrl != ""){
             onCallBackListener.setImage(model.driverImageUrl,holder.b.img)
         }else holder.b.img.setImageResource(R.drawable.driver_default)
 

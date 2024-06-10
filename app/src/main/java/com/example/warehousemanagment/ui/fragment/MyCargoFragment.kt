@@ -10,14 +10,22 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.initShortCut
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo.MyCargoRow
 import com.example.warehousemanagment.ui.adapter.MyCargoAdapter
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.MyCargoViewModel
 import com.squareup.picasso.Picasso
@@ -60,13 +68,11 @@ class MyCargoFragment : BaseFragment<MyCargoViewModel, FragmentReceivingBinding>
         sheet = SheetSortFilterDialog(object : SheetSortFilterDialog.OnClickListener {
             override fun initView(binding: DialogSheetSortFilterBinding) {
                 binding.relLocationCode.visibility =View.GONE
-                binding.rel5.visibility=View.VISIBLE
-                binding.rel6.visibility=View.VISIBLE
+                binding.rel5.visibility=View.GONE
                 binding.ownerCode.text = getString(R.string.dockAssignTime)
                 binding.productCode.text = getString(R.string.shippingNumber2)
                 binding.productTitle.text = getString(R.string.driverFullName)
                 binding.title5.text=getString(R.string.done)
-                binding.title6.text=getString(R.string.remove)
 
             }
 
@@ -151,12 +157,6 @@ class MyCargoFragment : BaseFragment<MyCargoViewModel, FragmentReceivingBinding>
                 }
             }
 
-            override fun onRel6Click() {
-                if (sortType != Utils.Remove) {
-                    sortType = Utils.Remove
-                    refreshReceive()
-                }
-            }
 
         })
         sheet.show(this.getParentFragmentManager(), "")
@@ -207,15 +207,19 @@ class MyCargoFragment : BaseFragment<MyCargoViewModel, FragmentReceivingBinding>
                 override fun onClick(model: MyCargoRow, position: Int, progressBar: ProgressBar) {
                     val bundle = Bundle()
                     bundle.putString(Utils.ShippingAddressId, model.shippingAddressID)
-                    bundle.putString(Utils.ShippingNumber, model.shippingNumber)
-                    bundle.putString(Utils.CUSTOMER_FULL_NAME, model.customerFullName)
-                    bundle.putString(Utils.DriverFullName, model.driverFullName)
-                    bundle.putString(Utils.CarType, model.carTypeTitle)
-                    bundle.putString(Utils.Date, model.createdOnString)
-                    bundle.putString(Utils.PLAQUE_1, model.plaqueNumberFirst)
-                    bundle.putString(Utils.PLAQUE_2, model.plaqueNumberSecond)
-                    bundle.putString(Utils.PLAQUE_3, model.plaqueNumberThird)
-                    bundle.putString(Utils.PLAQUE_4, model.plaqueNumberFourth)
+//                    bundle.putString(Utils.ShippingNumber, model.shippingNumber)
+//                    bundle.putString(Utils.CUSTOMER_FULL_NAME, model.customerFullName)
+//                    bundle.putString(Utils.DriverFullName, model.driverFullName)
+//                    bundle.putString(Utils.CarType, model.carTypeTitle)
+//                    bundle.putString(Utils.Date, model.createdOnString)
+//                    bundle.putString(Utils.PLAQUE_1, model.plaqueNumberFirst)
+//                    bundle.putString(Utils.PLAQUE_2, model.plaqueNumberSecond)
+//                    bundle.putString(Utils.PLAQUE_3, model.plaqueNumberThird)
+//                    bundle.putString(Utils.PLAQUE_4, model.plaqueNumberFourth)
+//                    bundle.putInt(Utils.total,model.total)
+//                    bundle.putInt(Utils.Done,model.doneCount)
+//                    bundle.putInt(Utils.doneQuantity,model.sumQuantity)
+//                    bundle.putInt(Utils.sumDoneQuantity,model.sumDonQuantity)
 
                     pref.saveAdapterPosition(position)
 
@@ -228,7 +232,7 @@ class MyCargoFragment : BaseFragment<MyCargoViewModel, FragmentReceivingBinding>
                 }
 
                 override fun reachToEnd(position: Int) {
-                    receivePage = receivePage + 1
+                    receivePage += 1
                     setReceiveData()
                 }
 
@@ -278,7 +282,6 @@ class MyCargoFragment : BaseFragment<MyCargoViewModel, FragmentReceivingBinding>
 
     override fun init() {
         setToolbarTitle(requireActivity(), getString(R.string.myCargo))
-
         setToolbarBackground(b.mainToolbar.rel2, requireActivity())
 
 

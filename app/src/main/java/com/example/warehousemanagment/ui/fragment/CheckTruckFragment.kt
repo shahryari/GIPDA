@@ -1,6 +1,5 @@
 package com.example.warehousemanagment.ui.fragment
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -9,10 +8,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.search
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.check_truck.CheckTruckModel
@@ -20,11 +23,10 @@ import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCh
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.ui.adapter.CheckTruckAdapter
-import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetCheckTruckAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetDenyAlertDialog
 import com.example.warehousemanagment.viewmodel.CheckTruckViewModel
-import java.lang.StringBuilder
 
 class CheckTruckFragment :
     BaseFragment<CheckTruckViewModel, FragmentReceivingBinding>()

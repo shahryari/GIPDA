@@ -50,6 +50,7 @@ class CargoViewModel(application: Application, context: Context): AndroidViewMod
     fun setCargoList(
         baseUrl:String,
         cookie: String,
+        isDone: Boolean,
         keyword: String,
         page: Int,
         rows: Int,
@@ -64,10 +65,13 @@ class CargoViewModel(application: Application, context: Context): AndroidViewMod
             showSimpleProgress(true,progressBar)
             val jsonObject=JsonObject()
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
-            repository.getCargoList(baseUrl,jsonObject,page, rows, sort, asc,cookie).subscribe({
+            jsonObject.addProperty(ApiUtils.isDone,isDone)
+            repository.getCargoList(
+                baseUrl,jsonObject,page, rows, sort, asc,cookie
+            ).subscribe({
                 showSimpleProgress(false,progressBar)
                 swipeLayout.isRefreshing=false
-                if (it.rows.size>0)
+                if (it.rows.isNotEmpty())
                 {
                     tempList.addAll(it.rows)
                     cargoList.value= tempList

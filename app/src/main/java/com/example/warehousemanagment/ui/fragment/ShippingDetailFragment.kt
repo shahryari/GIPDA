@@ -5,35 +5,68 @@ import android.os.CountDownTimer
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
-import com.example.warehousemanagment.databinding.*
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.databinding.DialogCancelShippingBinding
+import com.example.warehousemanagment.databinding.DialogChooseColorBinding
+import com.example.warehousemanagment.databinding.DialogSerialScanBinding
+import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
+import com.example.warehousemanagment.databinding.DialogSheetChooseCustomerBinding
+import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
+import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
+import com.example.warehousemanagment.databinding.FragmentDetailReceivingBinding
+import com.example.warehousemanagment.databinding.LayoutCancelShippingBinding
+import com.example.warehousemanagment.databinding.PatternShippingDetailBinding
+import com.example.warehousemanagment.model.classes.GridSpacingItemDecoration
+import com.example.warehousemanagment.model.classes.checkEnterKey
+import com.example.warehousemanagment.model.classes.checkIfIsValidChars
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.chronometer
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.createAlertDialog
+import com.example.warehousemanagment.model.classes.getBuiltString
+import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.search
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.login.CatalogModel
-import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
-import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailModel
+import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
+import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailRow
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
+import com.example.warehousemanagment.ui.adapter.ColorAdapter
 import com.example.warehousemanagment.ui.adapter.DestinyLocationAdapter
 import com.example.warehousemanagment.ui.adapter.ShipingDetailAdapter
 import com.example.warehousemanagment.ui.adapter.ShippingSerialAdapter
-import com.example.warehousemanagment.ui.dialog.*
+import com.example.warehousemanagment.ui.base.BaseFragment
+import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
+import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
+import com.example.warehousemanagment.ui.dialog.SheetCustomer
+import com.example.warehousemanagment.ui.dialog.SheetDestinationLocationDialog
+import com.example.warehousemanagment.ui.dialog.SheetInvDialog
+import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.ShippingDetailViewModel
-import java.lang.StringBuilder
 
 
 class ShippingDetailFragment :
-    BaseFragment<ShippingDetailViewModel,FragmentDetailReceivingBinding>()
+    BaseFragment<ShippingDetailViewModel, FragmentDetailReceivingBinding>()
 {
     lateinit var shippingId:String
     var quantitySerial:Int=0
@@ -53,6 +86,8 @@ class ShippingDetailFragment :
 
         shippingId= arguments?.getString(Utils.ShippingId).toString()
 
+        setCustomerList()
+        setColorList()
         setShippingDetail()
 
         b.swipeLayout.setOnRefreshListener {
@@ -64,6 +99,27 @@ class ShippingDetailFragment :
 
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
         clearEdi(b.mainToolbar2.clearImg,b.mainToolbar2.searchEdi)
+        var customerList : List<CustomerInShipping> = emptyList()
+        viewModel.getCustomerList().observe(this){
+            customerList = it
+        }
+        b.receiveItem.chooseCustomerBtn?.setOnClickListener {
+            showChooseCustomerSheet(customerList){customer->
+                viewModel.getColorList().observe(this){
+                    showColorDialog(it,customer.customerName){color->
+                        viewModel.setShippingColor(
+                            baseUrl = pref.getDomain(),
+                            customer.shippingAddressId,
+                            color.customerColorId,
+                            pref.getTokenGlcTest(),
+                            onSuccess = {
+                                refresh()
+                            }
+                        )
+                    }
+                }
+            }
+        }
 
         b.filterImg.img.setOnClickListener {
             showFilterSheetDialog()
@@ -90,17 +146,14 @@ class ShippingDetailFragment :
 
     private fun observeShippingCount()
     {
-        viewModel.getShippingCount().observe(viewLifecycleOwner,
-        object :Observer<ShippingDetailModel>
-        {
-            override fun onChanged(it: ShippingDetailModel)
-            {
-                setBelowCount(requireActivity(), getString(R.string.tools_you_have),
-                    it.total, " "+getString(R.string.productsAnd)+" "+
-                             it.remain+ " "+getString(R.string.Items))
-            }
-
-        })
+        viewModel.getShippingCount().observe(viewLifecycleOwner
+        ) { it ->
+            setBelowCount(
+                requireActivity(), getString(R.string.tools_you_have),
+                it.total, " " + getString(R.string.productsAnd) + " " +
+                        it.remain + " " + getString(R.string.Items)
+            )
+        }
 
     }
 
@@ -204,27 +257,85 @@ class ShippingDetailFragment :
         receivePage = Utils.PAGE_START
         viewModel.clearList()
         setShippingDetail()
+        setCustomerList()
     }
 
     private fun observeShippingDetail()
     {
-        viewModel.getShippingDetail().observe(viewLifecycleOwner,
-            object : Observer<List<ShippingDetailRow>>
-            {
-                override fun onChanged(it: List<ShippingDetailRow>)
-                {
-                    if (isAdded && view != null)
-                    {
-                        b.swipeLayout.isRefreshing=false
+        viewModel.getShippingDetail().observe(viewLifecycleOwner
+        ) { it ->
+            if (isAdded && view != null) {
+                b.swipeLayout.isRefreshing = false
 
-                        lastPosition=it.size-1
-                        showShippingDetailList(it)
+                lastPosition = it.size - 1
+                showShippingDetailList(it)
 
-                    }
-                }
-            })
+            }
+        }
     }
 
+    private fun showChooseCustomerSheet(
+        customerList: List<CustomerInShipping>,
+        onChooseColorClick: (CustomerInShipping)->Unit
+    ) {
+        val sheet = SheetCustomer(
+            customerList,
+            object : SheetCustomer.OnClickListener{
+                override fun onChooseColorClick(customer: CustomerInShipping) {
+                    onChooseColorClick(customer)
+                }
+
+                override fun onClearColorClick(customer: CustomerInShipping) {
+                    viewModel.setShippingColor(
+                        baseUrl = pref.getDomain(),
+                        customer.shippingAddressId,
+                        0,
+                        pref.getTokenGlcTest(),
+                        onSuccess = {
+                            refresh()
+                        }
+                    )
+                }
+
+                override fun init(binding: DialogSheetChooseCustomerBinding) {
+                    binding.searchEdi.doAfterTextChanged {
+                        setCustomerList(it.toString())
+                    }
+                }
+            }
+        )
+
+        sheet.show(parentFragmentManager,"")
+    }
+
+    private fun showColorDialog(
+        colorList: List<ColorModel>,
+        customerName: String,
+        onColorSelect: (ColorModel)->Unit
+    ) {
+        val dialogBinding = DialogChooseColorBinding.inflate(layoutInflater)
+
+        val adapter = ColorAdapter(requireContext(), colorList)
+        val layoutManage = GridLayoutManager(requireContext(),3)
+        dialogBinding.colorList.addItemDecoration(GridSpacingItemDecoration(3,30,includeEdge = true))
+        dialogBinding.colorList.layoutManager = layoutManage
+        dialogBinding.colorList.adapter = adapter
+        dialogBinding.customerName.text = customerName
+
+        val dialog = createAlertDialog(dialogBinding,R.drawable.shape_background_rect_border_gray_solid_white, requireActivity())
+        dialogBinding.rel4.confirm.setOnClickListener {
+            if (adapter.selected!=null) {
+                onColorSelect(adapter.selected!!)
+                dialog.dismiss()
+            }
+        }
+        dialogBinding.closeImg.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialogBinding.rel4.cansel.setOnClickListener {
+            dialog.dismiss()
+        }
+    }
     private fun showShippingDetailList(list: List<ShippingDetailRow>)
     {
         if(lastPosition-Utils.ROWS<=0)
@@ -237,7 +348,7 @@ class ShippingDetailFragment :
                 override fun onClick(model:ShippingDetailRow)
                 {
 
-                    if (model.serializable==true) {
+                    if (model.serializable) {
                         showScanDialog(model)
                     }
                     else
@@ -256,7 +367,7 @@ class ShippingDetailFragment :
 
                 override fun reachToEnd(position: Int)
                 {
-                    receivePage=receivePage+1
+                    receivePage += 1
                     setShippingDetail()
                 }
 
@@ -280,7 +391,7 @@ class ShippingDetailFragment :
 
 
         val dialogBinding = DialogCancelShippingBinding.inflate(
-            LayoutInflater.from(requireActivity()), null
+            LayoutInflater.from(requireActivity())
         )
         val dialog = createAlertDialog(
             dialogBinding,
@@ -405,19 +516,19 @@ class ShippingDetailFragment :
                 }
 
                 override fun setRvData(rv: RecyclerView, progressBar: ProgressBar
-                                       , countTv:TextView, searchLocationDestiny:EditText)
+                                       , countTv:TextView, searchEdi:EditText)
                 {
-                    searchLocationDestiny.doAfterTextChanged()
+                    searchEdi.doAfterTextChanged()
                     {
 
                         hideKeyboard(requireActivity())
-                        if (lenEdi(searchLocationDestiny)==0){
+                        if (lenEdi(searchEdi)==0){
                             locationDestinyId=null
                             viewModel.setClearList()
                         }else{
                             viewModel.setClearList()
                             searchForDesiniation(locationDestiny,progressBar,rv, countTv, model, sheet,
-                                textEdi(searchLocationDestiny))
+                                textEdi(searchEdi))
                         }
                     }
 
@@ -428,13 +539,13 @@ class ShippingDetailFragment :
                     rv: RecyclerView,
                     progressBar: ProgressBar,
                     countTv: TextView,
-                    searchLocationDestiny: EditText
+                    searchEdi: EditText
                 ) {
-                    searchLocationDestiny.setText(locationDestiny.text)
+                    searchEdi.setText(locationDestiny.text)
                     hideKeyboard(requireActivity())
                     viewModel.setClearList()
                     searchForDesiniation(locationDestiny,progressBar,rv, countTv, model, sheet,
-                        textEdi(searchLocationDestiny))
+                        textEdi(searchEdi))
                 }
 
 
@@ -469,17 +580,13 @@ class ShippingDetailFragment :
         sheet: SheetDestinationLocationDialog?,
     )
     {
-        viewModel.getRevokLocation().observe(viewLifecycleOwner,
-            object : Observer<List<DestinyLocationTransfer>>
-            {
-                override fun onChanged(it: List<DestinyLocationTransfer>)
-                {
-                    hideKeyboard(requireActivity())
-                    countTv.text= getBuiltString(getString(R.string.tools_scannedItems),it.size.toString())
-                    showDestinationList(rv, it, sheet, locationDestiny)
-                }
-
-            })
+        viewModel.getRevokLocation().observe(viewLifecycleOwner
+        ) { it ->
+            hideKeyboard(requireActivity())
+            countTv.text =
+                getBuiltString(getString(R.string.tools_scannedItems), it.size.toString())
+            showDestinationList(rv, it, sheet, locationDestiny)
+        }
     }
 
     private fun showDestinationList(
@@ -538,7 +645,7 @@ class ShippingDetailFragment :
     private fun showScanDialog(model: ShippingDetailRow)
     {
         val dialogBinding = DialogSerialScanBinding.inflate(
-            LayoutInflater.from(requireActivity()), null
+            LayoutInflater.from(requireActivity())
         )
         val dialog = createAlertDialog(
             dialogBinding,
@@ -607,10 +714,11 @@ class ShippingDetailFragment :
 
             if (quantitySerial < model.quantity)
             {
-                    if ( checkIfIsValidChars(
+                    if (checkIfIsValidChars(
                             textEdi(dialogBinding.layoutTopInfo.serialEdi),
                             pref.getUnValidChars(),pref.getSerialLenMax(),
-                            pref.getSerialLenMin(),requireActivity()) == true)
+                            pref.getSerialLenMin(),requireActivity())
+                    )
                     {
                         addSerial(
                             model.shippingAddressDetailID,
@@ -638,6 +746,22 @@ class ShippingDetailFragment :
             pref.getTokenGlcTest(),b.progressBar,b.swipeLayout)
     }
 
+    private fun setCustomerList(keyword: String = "") {
+        viewModel.setCustomerList(
+            pref.getDomain(),
+            keyword,
+            shippingId,
+            pref.getTokenGlcTest()
+        )
+    }
+
+    private fun setColorList() {
+        viewModel.setColorList(
+            pref.getDomain(),
+            pref.getTokenGlcTest()
+        )
+    }
+
 
 
     private fun addSerial(
@@ -658,7 +782,7 @@ class ShippingDetailFragment :
             {
 
                 serialEdi.setText("")
-                if(it.isSucceed==true)
+                if(it.isSucceed)
                 {
                     serialEdi.requestFocus()
                     viewModel.setShippingSerials(
@@ -674,23 +798,19 @@ class ShippingDetailFragment :
 
     private fun observeSerialList(dialogBinding: DialogSerialScanBinding,serialEdi:EditText)
     {
-        viewModel.getShippingSerials().observe(viewLifecycleOwner,
-            object : Observer<List<ShippingSerialModel>>
-            {
-                override fun onChanged(it: List<ShippingSerialModel>)
-                {
-                    quantitySerial=it.size
-                    showSerialsSize(it, dialogBinding.serialsCount)
-                    showSerialList(dialogBinding, it)
-                }
-            })
+        viewModel.getShippingSerials().observe(viewLifecycleOwner
+        ) { it ->
+            quantitySerial = it.size
+            showSerialsSize(it, dialogBinding.serialsCount)
+            showSerialList(dialogBinding, it)
+        }
     }
     private fun showSerialsSize(serialList: List<ShippingSerialModel>, serialsCount:TextView)
     {
         val sb = StringBuilder()
         sb.append(getString(R.string.tools_scannedItems))
         sb.append(serialList.size)
-        serialsCount.setText(sb.toString())
+        serialsCount.text = sb.toString()
     }
 
 
@@ -770,16 +890,14 @@ class ShippingDetailFragment :
         mySheetAlertDialog: SheetAlertDialog
     ) {
         mySheetAlertDialog.dismiss()
-        viewModel.getRemovingSerialResult().observe(viewLifecycleOwner,
-            object : Observer<RemoveShippingSerialModel> {
-                override fun onChanged(t: RemoveShippingSerialModel)
-                {
-                    dispose()
-                    viewModel.setShippingSerials(
-                        pref.getDomain(),model.shippingAddressDetailID,
-                        pref.getTokenGlcTest())
-                }
-            })
+        viewModel.getRemovingSerialResult().observe(viewLifecycleOwner
+        ) {
+            dispose()
+            viewModel.setShippingSerials(
+                pref.getDomain(), model.shippingAddressDetailID,
+                pref.getTokenGlcTest()
+            )
+        }
     }
 
     private fun initSheepingDialog(
@@ -799,7 +917,10 @@ class ShippingDetailFragment :
 
     private fun showConfirmSheetDialog(
         title: String, desc: String,
-        shippingAddressDetailID: String, dialog: AlertDialog?, quantity: Int,visibility:Boolean)
+        shippingAddressDetailID: String,
+        dialog: AlertDialog?,
+        quantity: Int,
+        visibility:Boolean)
     {
         var mySheetAlertDialog:SheetConfirmDialog ?=null
         mySheetAlertDialog= SheetConfirmDialog(title,desc
@@ -808,9 +929,9 @@ class ShippingDetailFragment :
                     mySheetAlertDialog?.dismiss()
                 }
 
-                override fun onOkClick(progress: ProgressBar, expectedCount: String)
+                override fun onOkClick(progress: ProgressBar, toInt: String)
                 {
-                    if (visibility==false)
+                    if (!visibility)
                     {
                         viewModel.setLoadingFinish(
                             pref.getDomain(),shippingAddressDetailID,pref.getTokenGlcTest(), progress,)
@@ -820,7 +941,7 @@ class ShippingDetailFragment :
                         }
                     }else
                     {
-                        if (expectedCount.length!=0 && expectedCount.toInt() ==quantity)
+                        if (toInt.isNotEmpty() && toInt.toInt() ==quantity)
                         {
                             viewModel.setLoadingFinish(
                                 pref.getDomain(),shippingAddressDetailID,pref.getTokenGlcTest(), progress)
@@ -883,23 +1004,27 @@ class ShippingDetailFragment :
 
     override fun init()
     {
-        b.receiveItem.title2?.text=getString(R.string.bolNumber)
+        b.receiveItem.btitle2?.text=getString(R.string.bolNumber)
+        b.receiveItem.bolLay?.visibility = View.GONE
+        b.receiveItem.bolLay2?.visibility = View.VISIBLE
+        b.receiveItem.driverLay?.visibility = View.GONE
+        b.receiveItem.chooseColorLayout?.visibility = View.VISIBLE
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
-        activity?.findViewById<TextView>(R.id.title)?.setText(getString(R.string.shippingDetail))
+        activity?.findViewById<TextView>(R.id.title)?.text = getString(R.string.shippingDetail)
 
-        b.receiveItem.driverFullName.text=arguments?.getString(Utils.DRIVE_FULLNAME)
+        b.receiveItem.driverFullNameBtm?.text=arguments?.getString(Utils.DRIVE_FULLNAME)
         b.receiveItem.recevieNumber.text=arguments?.getString(Utils.ShippingNumber)
-        b.receiveItem.containerNumber.text=arguments?.getString(Utils.BOLNumber)
+        b.receiveItem.containerNumber2?.text=arguments?.getString(Utils.BOLNumber)
 
         val plaque1=arguments?.getString(Utils.PLAQUE_1)
         val plaque2=arguments?.getString(Utils.PLAQUE_2)
         val plaque3=arguments?.getString(Utils.PLAQUE_3)
         val plaque4=arguments?.getString(Utils.PLAQUE_4)
-        b.receiveItem.plaque.setText(getBuiltString(plaque3.toString(),plaque2.toString(),plaque1.toString()))
+        b.receiveItem.plaque.text = getBuiltString(plaque3.toString(),plaque2.toString(),plaque1.toString())
         b.receiveItem.plaqueYear.text=plaque4
 
        b.receiveItem.title1?.text=getString(R.string.shippingNumber2)
-       b.mainToolbar2.searchEdi.setHint(getString(R.string.customers))
+        b.mainToolbar2.searchEdi.hint = getString(R.string.customers)
         b.mainToolbar2.rel2.visibility=View.VISIBLE
 
 
@@ -915,8 +1040,8 @@ class ShippingDetailFragment :
         return R.layout.fragment_detail_receiving
     }
 
-    override fun setupComponent(component: FragmentComponent) {
-        component.inject(this)
+    override fun setupComponent(fragmentComponent: FragmentComponent) {
+        fragmentComponent.inject(this)
     }
 
 

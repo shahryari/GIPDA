@@ -7,16 +7,16 @@
     android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <RelativeLayout
-        android:paddingBottom="@dimen/padding_all"
-        android:paddingEnd="@dimen/padding_all"
-        android:paddingStart="@dimen/padding_all"
+
         android:clipToPadding="false"
         android:clipChildren="false"
         tools:background="@color/mainBackground"
+        android:paddingBottom="@dimen/padding_all"
+        android:paddingEnd="@dimen/padding_all"
+        android:paddingStart="@dimen/padding_all"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
         <include
@@ -35,9 +35,9 @@
             android:layout_below="@id/mainToolbar"
             android:layout_marginTop="@dimen/marginTop5ForLayouts" />
 
-       <include
-           android:id="@+id/filterImg"
-           layout="@layout/img_filter"/>
+        <include
+            android:id="@+id/filterImg"
+            layout="@layout/img_filter"/>
 
         <include
             android:id="@+id/receiveItem"
@@ -46,6 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/mainToolbar2"
             android:layout_marginTop="@dimen/marginTopRelInfoTv" />
+
+
 
         <RelativeLayout
             android:id="@+id/rel1"
@@ -70,6 +72,7 @@
                 android:layout_marginBottom="@dimen/margin_start_icon_tv"
                 android:layout_toEndOf="@+id/view1"
                 android:fontFamily="@font/medium"
+                android:textColor="@color/black"
                 android:text="@string/items"
                 android:textSize="@dimen/itemDetailReceive" />
 
@@ -85,6 +88,13 @@
 
         </RelativeLayout>
 
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/progressStyle"
+            android:background="@null"
+            android:padding="@dimen/paddingOfFragmentProgress"
+            tools:visibility="gone" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
@@ -93,16 +103,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/pattern_receiving_detail_info" />
 
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/progressStyle"
-            android:background="@null"
-            android:padding="@dimen/paddingOfFragmentProgress"
-            tools:visibility="gone" />
-
     </RelativeLayout>
-
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

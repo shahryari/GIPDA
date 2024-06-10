@@ -1,10 +1,13 @@
 package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.PatternCargoDetailBinding
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailRow
@@ -49,21 +52,37 @@ class MyCargoDetailAdapter(): RecyclerView.Adapter<MyCargoDetailAdapter.MyViewHo
         if (position==arrayList.size-1 && arrayList.size>= Utils.ROWS){
             onCallBackListener.reachToEnd(position)
         }
+//
+//        if(!model.isDone)
+//        {
+//            holder.b.done?.visibility= View.VISIBLE
+//            holder.b.remove?.visibility=View.GONE
+//        }else{
+//            holder.b.done?.visibility= View.GONE
+//            holder.b.remove?.visibility=View.VISIBLE
+//        }
+//
+//        holder.b.done?.setOnClickListener {
+//            onCallBackListener.onDoneClick(holder.b,model)
+//        }
+//        holder.b.remove?.setOnClickListener {
+//            onCallBackListener.onRemoveClick(holder.b,model)
+//        }
 
-        if(model.isDone==false)
-        {
-            holder.b.done?.visibility= View.VISIBLE
-            holder.b.remove?.visibility=View.GONE
-        }else{
-            holder.b.done?.visibility= View.GONE
-            holder.b.remove?.visibility=View.VISIBLE
-        }
+        val colorList = ColorStateList.valueOf(ContextCompat.getColor(context,if (holder.b.doneSwitch?.isChecked == true) R.color.green else R.color.red))
 
-        holder.b.done?.setOnClickListener {
-            onCallBackListener.onDoneClick(holder.b,model)
-        }
-        holder.b.remove?.setOnClickListener {
-            onCallBackListener.onRemoveClick(holder.b,model)
+        holder.b.doneSwitch?.visibility = View.VISIBLE
+        holder.b.doneSwitch?.isChecked = model.isDone
+
+        holder.b.doneSwitch?.trackDrawable = ContextCompat.getDrawable(context, R.drawable.tick)
+        holder.b.doneSwitch?.thumbDrawable = ContextCompat.getDrawable(context, R.drawable.circle)
+
+        holder.b.doneSwitch?.setOnCheckedChangeListener { _, checked ->
+            if (checked) {
+                onCallBackListener.onDoneClick(holder.b,model)
+            } else {
+                onCallBackListener.onRemoveClick(holder.b,model)
+            }
         }
 
 

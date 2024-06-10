@@ -15,18 +15,20 @@ import android.text.style.StyleSpan
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
-import co.pushe.plus.utils.HttpUtils
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.model.constants.Utils
@@ -39,7 +41,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.File
-import java.util.*
+import java.util.Collections
 
 
 fun setDescAndCopyRight(copyRightTv: TextView, appDescriptionTv: TextView,context: Context)
@@ -170,10 +172,10 @@ fun createAlertDialog(dialogBinding: ViewDataBinding, background:Int,context: Co
 {
     val builder = AlertDialog.Builder(context)
     builder.setView(dialogBinding.root)
-    var dialog:AlertDialog?=null
+    val dialog:AlertDialog?
     dialog = builder.create()
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-    dialog.getWindow()
+    dialog.window
         ?.setBackgroundDrawableResource(background)
     dialog.show()
 

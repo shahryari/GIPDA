@@ -22,7 +22,8 @@ class CargoDetailViewModel(application: Application, context: Context): AndroidV
     private val repository=MyRepository( )
     private var context: Context=context
     private var cargoDetailList: MutableLiveData<List<CargoDetailRow>>
-    = MutableLiveData<List<CargoDetailRow>>()
+            = MutableLiveData<List<CargoDetailRow>>()
+
 
     private var tempList=ArrayList<CargoDetailRow>()
 
@@ -44,6 +45,8 @@ class CargoDetailViewModel(application: Application, context: Context): AndroidV
     fun getCargoDetailList(): MutableLiveData<List<CargoDetailRow>>  {
         return cargoDetailList
     }
+
+
     fun setCargoDetailList(
         baseUrl:String,
         cookie: String,
@@ -69,7 +72,7 @@ class CargoDetailViewModel(application: Application, context: Context): AndroidV
                 .subscribe({
                 showSimpleProgress(false,progressBar)
                 swipeLayout.isRefreshing=false
-                if (it.cargoDetailRows.size>0)
+                if (it.cargoDetailRows.isNotEmpty())
                 {
                     tempList.addAll(it.cargoDetailRows)
                     cargoDetailList.value= tempList

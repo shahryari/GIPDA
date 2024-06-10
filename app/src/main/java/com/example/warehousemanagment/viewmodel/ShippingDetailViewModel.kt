@@ -3,7 +3,11 @@ package com.example.warehousemanagment.viewmodel
 import android.app.Application
 import android.content.Context
 import android.widget.ProgressBar
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.model.classes.log
@@ -15,14 +19,12 @@ import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
-import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailModel
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
-import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
+import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
+import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
+import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailRow
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
-import com.example.warehousemanagment.model.models.transfer_task.source_location.SourceLocationRow
-import com.example.warehousemanagment.ui.dialog.SheetDenyAlertDialog
-import com.example.warehousemanagment.ui.dialog.SheetDenyApproveAlertDialog
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -40,6 +42,8 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
     private var loadinFinish=MutableLiveData<LoadingFinishModel>()
     private var addSerialModel=MutableLiveData<AddShippingSerialModel>()
     private var shippingCount=MutableLiveData<ShippingDetailModel>()
+    private var customerList = MutableLiveData<List<CustomerInShipping>>()
+    private var colorList = MutableLiveData<List<ColorModel>>()
     private var tempList=ArrayList<ShippingDetailRow>()
 
     private var disposable: CompositeDisposable = CompositeDisposable()
@@ -51,6 +55,15 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
             tempList.clear()
             shippingDetailList.value=tempList
         }
+        customerList.value = emptyList()
+    }
+
+    fun getCustomerList() : LiveData<List<CustomerInShipping>> {
+        return customerList.distinctUntilChanged()
+    }
+
+    fun getColorList() : LiveData<List<ColorModel>> {
+        return colorList.distinctUntilChanged()
     }
     fun getShippingCount(): LiveData<ShippingDetailModel> {
         return shippingCount.distinctUntilChanged()
@@ -247,6 +260,69 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
                 ).let { }
         }
     }
+
+    fun setCustomerList(
+        baseUrl: String,
+        keyword: String,
+        shippingId: String,
+        cookie: String
+    ) {
+        viewModelScope.launch {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("ShippingID",shippingId)
+            jsonObject.addProperty(ApiUtils.Keyword,keyword)
+            repository.getCustomerInShipping(baseUrl,jsonObject,cookie)
+                .subscribe(
+                    {
+                        customerList.value=it
+                        log("customer in shipping", it.toString())
+                    },
+                    {
+                        showErrorMsg(it, "customer in shipping", context)
+                    },{},{
+                        disposable.add(it)
+                    }
+                )
+        }
+    }
+
+    fun setColorList(
+        baseUrl: String,
+        cookie: String
+    ) {
+        viewModelScope.launch {
+            repository.getColorList(baseUrl,cookie)
+                .subscribe(
+                    {
+                        colorList.value = it
+                    },
+                    {
+                        showErrorMsg(it, "color list", context)
+                    }
+                )
+        }
+    }
+
+    fun setShippingColor(
+        baseUrl: String,
+        shippingAddressId: String,
+        colorId: Int,
+        cookie: String,
+        onSuccess: ()->Unit
+    ) {
+        viewModelScope.launch {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("ShippingAddressID",shippingAddressId)
+            jsonObject.addProperty("CustomerColorID",colorId)
+            repository.setShippingColor(baseUrl,jsonObject,cookie).subscribe(
+                {onSuccess()},
+                {
+                    showErrorMsg(it,"set shipping color",context)
+                }
+            )
+        }
+    }
+
     fun setShippingList(
         baseUrl:String,
         shippingId: String,

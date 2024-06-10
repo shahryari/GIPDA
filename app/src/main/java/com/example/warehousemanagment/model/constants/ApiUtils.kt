@@ -5,6 +5,7 @@ class ApiUtils
     companion object
     {
         val Keyword: String="Keyword"
+        val isDone: String = "IsDone"
         val TRANSFER_TYPE: Int=1
         val ReceivingDetailID="ReceivingDetailID"
         const val ReceivingID="ReceivingID"

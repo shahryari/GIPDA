@@ -2,6 +2,7 @@ package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternCargoDetailBinding
@@ -30,7 +31,7 @@ class CargoDetailAdapter(): RecyclerView.Adapter<CargoDetailAdapter.MyViewHolder
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int)
     {
-        val model=arrayList.get(position)
+        val model= arrayList[position]
 
         holder.b.customerFullName.text=model.customerFullName
         holder.b.ownerCode.text=model.ownerCode
@@ -40,6 +41,8 @@ class CargoDetailAdapter(): RecyclerView.Adapter<CargoDetailAdapter.MyViewHolder
         holder.b.count.text=model.quantity.toString()
         holder.b.locationCode?.text=model.locationCode
         holder.b.hasPriority?.text=model.hasLowPriorityTitle
+
+        holder.b.isDone?.visibility = if (model.isDone) View.VISIBLE else View.GONE
 
 
         holder.itemView.setOnClickListener {

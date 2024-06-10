@@ -2,31 +2,31 @@ package com.example.warehousemanagment.ui.fragment
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
-import com.example.warehousemanagment.databinding.DialogPickFinishBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.setBelowCount
+import com.example.warehousemanagment.model.classes.setToolbarBackground
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingRow
 import com.example.warehousemanagment.ui.adapter.PickingListAdapter
-import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.PickingListViewModel
 
 class PickingFragment( )
-    : BaseFragment<PickingListViewModel,FragmentReceivingBinding>()
+    : BaseFragment<PickingListViewModel, FragmentReceivingBinding>()
 {
 
     var sortType= Utils.TaskTime

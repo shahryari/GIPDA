@@ -4,16 +4,22 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.kotlin_wallet.ui.base.BaseFragment
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.FragmentSettingBinding
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.hideView
+import com.example.warehousemanagment.model.classes.lenEdi
+import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.textEdi
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.BarcodeModel
+import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetBarcodeDialog
 import com.example.warehousemanagment.viewmodel.SettingViewModel
 
-class SettingFragment : BaseFragment<SettingViewModel,FragmentSettingBinding>()
+class SettingFragment : BaseFragment<SettingViewModel, FragmentSettingBinding>()
 {
     var barcodeType=1
 

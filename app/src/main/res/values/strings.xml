@@ -347,7 +347,7 @@
     <string name="myCargo">My Cargo</string>
     <string name="mycargoDetail">My Cargo Detail</string>
     <string name="submitTaskToDone">Submit Task to Done</string>
-    <string name="DoYouWantSubmitToDone">Are you sure to remove cargo from yourself?</string>
+    <string name="DoYouWantSubmitToDone"> Are you sure you have finished your cargo?</string>
     <string name="notAssign">Not Assign</string>
     <string name="workerFullNameShip">Worker</string>
     <string name="removeDriverTask">Remove Driver Task</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
 
@@ -86,7 +85,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/relTransfer"
+                android:id="@+id/relWaitForLoading"
                 style="@style/desktop_rel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/desktop_rel_height2"
@@ -100,7 +99,7 @@
                     style="@style/desktop_tv"
                     android:layout_alignParentBottom="false"
                     android:layout_centerInParent="true"
-                    android:text="@string/transfer" />
+                    android:text="@string/waite_for_loading" />
 
                 <TextView
                     android:id="@+id/transferCount"
@@ -112,7 +111,7 @@
             <RelativeLayout
                 android:id="@+id/relPicking"
                 style="@style/desktop_rel"
-                android:layout_below="@+id/relTransfer"
+                android:layout_below="@+id/relCargo"
                 android:layout_toStartOf="@id/view">
 
 
@@ -132,7 +131,7 @@
             <RelativeLayout
                 android:id="@+id/relShipping"
                 style="@style/desktop_rel"
-                android:layout_below="@+id/relTransfer"
+                android:layout_below="@+id/relMyCargo"
                 android:layout_toEndOf="@id/view"
                 android:backgroundTint="@color/mainYellow">
 
@@ -156,22 +155,22 @@
                 android:id="@+id/relCargo"
                 style="@style/desktop_rel"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/desktop_rel_height3"
-                android:layout_below="@+id/relPicking"
+                android:layout_below="@+id/relWaitForLoading"
                 android:layout_alignStart="@+id/relPicking"
                 android:layout_alignEnd="@id/relPicking"
                 android:layout_marginStart="0dp"
+                android:backgroundTint="@color/mainYellow"
                 android:layout_marginEnd="0dp">
 
                 <TextView
                     style="@style/desktop_tv"
-                    android:layout_alignParentBottom="false"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
                     android:text="@string/cargo" />
 
                 <TextView
                     android:id="@+id/cargoCount"
                     style="@style/desktop_tv_number"
+                    android:backgroundTint="@color/white"
                     tools:text="@string/_0" />
 
             </RelativeLayout>
@@ -181,8 +180,7 @@
                 android:id="@+id/relMyCargo"
                 style="@style/desktop_rel"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/desktop_rel_height3"
-                android:layout_below="@+id/relPicking"
+                android:layout_below="@+id/relWaitForLoading"
                 android:layout_alignStart="@+id/relShipping"
                 android:layout_alignEnd="@id/relShipping"
                 android:layout_marginStart="0dp"
@@ -190,8 +188,7 @@
 
                 <TextView
                     style="@style/desktop_tv"
-                    android:layout_alignParentBottom="false"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
                     android:elevation="@dimen/_1sdp"
                     android:text="@string/myCargo" />
 

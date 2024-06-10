@@ -158,7 +158,7 @@
     <string name="serial">Serial</string>
     <string name="scan_serial">Scan Serial</string>
     <string name="trackingSerial">Tracking Serial</string>
-    <string name="waite_for_loading">Wait for loading</string>
+    <string name="waite_for_loading">Wait For Loading</string>
     <string name="atLeast1Item">You have to fill at least 1 Item</string>
     <string name="sort">Sort</string>
     <string name="order">Order</string>

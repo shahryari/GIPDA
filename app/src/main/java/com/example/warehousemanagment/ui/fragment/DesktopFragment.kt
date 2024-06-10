@@ -53,7 +53,7 @@ class DesktopFragment() : BaseFragment<DesktopViewModel, FragmentDesktopBinding>
         b.layoutDesktop.relReceive.setOnClickListener {
             navController?.navigate(R.id.action_desktopFragment_to_receivingFragment)
         }
-        b.layoutDesktop.relTransfer.setOnClickListener {
+        b.layoutDesktop.relWaitForLoading.setOnClickListener {
             navController?.navigate(R.id.action_desktopFragment_to_waitForLoadingFragment)
         }
         b.layoutDesktop.relPicking.setOnClickListener {

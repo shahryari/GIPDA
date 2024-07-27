@@ -14,8 +14,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogCancelShippingBinding
 import com.example.warehousemanagment.databinding.DialogChooseColorBinding
 import com.example.warehousemanagment.databinding.DialogSerialScanBinding
@@ -23,6 +23,7 @@ import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetChooseCustomerBinding
 import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
+import com.example.warehousemanagment.databinding.DialogSheetTaskTypeBinding
 import com.example.warehousemanagment.databinding.FragmentDetailReceivingBinding
 import com.example.warehousemanagment.databinding.LayoutCancelShippingBinding
 import com.example.warehousemanagment.databinding.PatternShippingDetailBinding
@@ -49,6 +50,7 @@ import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
+import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailRow
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
 import com.example.warehousemanagment.ui.adapter.ColorAdapter
@@ -57,6 +59,7 @@ import com.example.warehousemanagment.ui.adapter.ShipingDetailAdapter
 import com.example.warehousemanagment.ui.adapter.ShippingSerialAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
+import com.example.warehousemanagment.ui.dialog.SheetChooseCustomerDialog
 import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
 import com.example.warehousemanagment.ui.dialog.SheetCustomer
 import com.example.warehousemanagment.ui.dialog.SheetDestinationLocationDialog
@@ -76,6 +79,8 @@ class ShippingDetailFragment :
     var receivePage=Utils.PAGE_START
     var receiveOrder=Utils.ASC_ORDER
     var lastPosition=0
+    var customers: List<CustomerModel> = emptyList()
+    var selectedCustomers: List<CustomerModel> = emptyList()
 
     var reasonId:Int ?=null
     var locationDestinyId:String ?=null
@@ -86,7 +91,7 @@ class ShippingDetailFragment :
 
         shippingId= arguments?.getString(Utils.ShippingId).toString()
 
-        setCustomerList()
+        setCustomerColorList()
         setColorList()
         setShippingDetail()
 
@@ -96,15 +101,16 @@ class ShippingDetailFragment :
 
         observeShippingDetail()
         observeShippingCount()
+        setCustomerList()
+        observeCustomerList()
 
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
-        clearEdi(b.mainToolbar2.clearImg,b.mainToolbar2.searchEdi)
-        var customerList : List<CustomerInShipping> = emptyList()
-        viewModel.getCustomerList().observe(this){
-            customerList = it
+        var customerColorList : List<CustomerInShipping> = emptyList()
+        viewModel.getCustomerColorList().observe(this){
+            customerColorList = it
         }
         b.receiveItem.chooseCustomerBtn?.setOnClickListener {
-            showChooseCustomerSheet(customerList){customer->
+            showChooseCustomerSheet(customerColorList){ customer->
                 viewModel.getColorList().observe(this){
                     showColorDialog(it,customer.customerName){color->
                         viewModel.setShippingColor(
@@ -125,22 +131,46 @@ class ShippingDetailFragment :
             showFilterSheetDialog()
         }
 
-        onChangeCustomerName()
 
-
-
-    }
-
-    private fun onChangeCustomerName()
-    {
-        b.mainToolbar2.searchEdi.doAfterTextChanged()
-        {
-            startTimerForGettingData()
-            {
-                refresh()
-            }
+        b.searchEdi.setOnClickListener {
+            showCustomerListSheetDialog()
         }
+
+        b.clearImg.setOnClickListener {
+            selectedCustomers = emptyList()
+            b.searchEdi.setText("")
+            refresh()
+        }
+
+
     }
+
+
+    private fun showCustomerListSheetDialog() {
+        var sheet: SheetChooseCustomerDialog? = null
+        sheet = SheetChooseCustomerDialog(
+            customers,selectedCustomers,object : SheetChooseCustomerDialog.OnClickListener{
+                override fun onCloseClick() {
+                    sheet?.dismiss()
+                }
+
+                override fun onItemClick(customers: List<CustomerModel>) {
+                    b.searchEdi.setText(customers.joinToString(",") { it.customerFullName })
+                    selectedCustomers = customers
+                    refresh()
+                    sheet?.dismiss()
+                }
+
+                override fun init(binding: DialogSheetTaskTypeBinding) {
+
+                }
+
+            }
+        )
+
+        sheet.show(parentFragmentManager,"dialog")
+    }
+
 
 
 
@@ -257,7 +287,7 @@ class ShippingDetailFragment :
         receivePage = Utils.PAGE_START
         viewModel.clearList()
         setShippingDetail()
-        setCustomerList()
+        setCustomerColorList()
     }
 
     private fun observeShippingDetail()
@@ -299,7 +329,7 @@ class ShippingDetailFragment :
 
                 override fun init(binding: DialogSheetChooseCustomerBinding) {
                     binding.searchEdi.doAfterTextChanged {
-                        setCustomerList(it.toString())
+                        setCustomerColorList(it.toString())
                     }
                 }
             }
@@ -658,7 +688,7 @@ class ShippingDetailFragment :
         viewModel.setShippingSerials(
             pref.getDomain(),model.shippingAddressDetailID,
             pref.getTokenGlcTest())
-        observeSerialList(dialogBinding,dialogBinding.layoutTopInfo.serialEdi)
+        observeSerialList(dialogBinding)
 
         clearEdi(
             dialogBinding.layoutTopInfo.clearImg,
@@ -741,13 +771,13 @@ class ShippingDetailFragment :
         viewModel.setShippingList(
             pref.getDomain(),shippingId,
             textEdi(b.mainToolbar.searchEdi),
-            customerName = textEdi(b.mainToolbar2.searchEdi),
+            customers = selectedCustomers.joinToString(","){it.customerID},
            receivePage,Utils.ROWS,sortType,receiveOrder,
             pref.getTokenGlcTest(),b.progressBar,b.swipeLayout)
     }
 
-    private fun setCustomerList(keyword: String = "") {
-        viewModel.setCustomerList(
+    private fun setCustomerColorList(keyword: String = "") {
+        viewModel.setCustomerColorList(
             pref.getDomain(),
             keyword,
             shippingId,
@@ -796,7 +826,7 @@ class ShippingDetailFragment :
 
     }
 
-    private fun observeSerialList(dialogBinding: DialogSerialScanBinding,serialEdi:EditText)
+    private fun observeSerialList(dialogBinding: DialogSerialScanBinding)
     {
         viewModel.getShippingSerials().observe(viewLifecycleOwner
         ) { it ->
@@ -913,6 +943,20 @@ class ShippingDetailFragment :
         dialogBinding.layoutTopInfo.ownerCode.text=model.ownerCode
     }
 
+    private fun observeCustomerList(){
+        viewModel.getCustomerList().observe(viewLifecycleOwner){
+            customers = it
+        }
+    }
+
+    private fun setCustomerList(){
+        viewModel.setCustomerList(
+            pref.getDomain(),
+            shippingId,
+            pref.getTokenGlcTest()
+        )
+    }
+
 
 
     private fun showConfirmSheetDialog(
@@ -974,7 +1018,7 @@ class ShippingDetailFragment :
 
                 override fun init(binding: DialogSheetBottomBinding)
                 {
-                    if(visibility==true)
+                    if(visibility)
                         binding.rel2.visibility=View.VISIBLE
                     else binding.rel2.visibility=View.GONE
                 }
@@ -1012,6 +1056,9 @@ class ShippingDetailFragment :
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
         activity?.findViewById<TextView>(R.id.title)?.text = getString(R.string.shippingDetail)
 
+        b.mainToolbar2.rel2.visibility = View.GONE
+        b.rel2.visibility = View.VISIBLE
+
         b.receiveItem.driverFullNameBtm?.text=arguments?.getString(Utils.DRIVE_FULLNAME)
         b.receiveItem.recevieNumber.text=arguments?.getString(Utils.ShippingNumber)
         b.receiveItem.containerNumber2?.text=arguments?.getString(Utils.BOLNumber)
@@ -1020,12 +1067,26 @@ class ShippingDetailFragment :
         val plaque2=arguments?.getString(Utils.PLAQUE_2)
         val plaque3=arguments?.getString(Utils.PLAQUE_3)
         val plaque4=arguments?.getString(Utils.PLAQUE_4)
+        val total = arguments?.getInt(Utils.total) ?: 0
+        val doneCount = arguments?.getInt(Utils.Done) ?: 0
+        val sumQuantity = arguments?.getInt(Utils.doneQuantity) ?: 0
+        val sumDoneQuantity = arguments?.getInt(Utils.sumDoneQuantity) ?: 0
+        val customerCount = arguments?.getInt(Utils.customerCount) ?: 0
+
         b.receiveItem.plaque.text = getBuiltString(plaque3.toString(),plaque2.toString(),plaque1.toString())
         b.receiveItem.plaqueYear.text=plaque4
+        b.receiveItem.qtyLay?.visibility = View.VISIBLE
+        b.receiveItem.qtyLay?.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+        b.receiveItem.qtyTv?.text = sumQuantity.toString()
+        b.receiveItem.totalTv?.text = total.toString()
+        b.receiveItem.doneQtyTv?.text = sumDoneQuantity.toString()
+        b.receiveItem.doneTv?.text = doneCount.toString()
+        b.receiveItem.lineCustomerCount?.visibility = View.VISIBLE
+        b.receiveItem.customerCount?.text = customerCount.toString()
 
-       b.receiveItem.title1?.text=getString(R.string.shippingNumber2)
-        b.mainToolbar2.searchEdi.hint = getString(R.string.customers)
-        b.mainToolbar2.rel2.visibility=View.VISIBLE
+        b.receiveItem.title1?.text=getString(R.string.shippingNumber2)
+        b.searchEdi.hint = getString(R.string.customers)
+        b.rel2.visibility=View.VISIBLE
 
 
     }

@@ -64,4 +64,14 @@ data class ShippingTruckRow(
     val dockAssignTime:String,
     @SerializedName("DockAssignTimeString")
     val dockAssignTimeString:String ,
+    @SerializedName("Total")
+    val total: Int,
+    @SerializedName("DoneCount")
+    val doneCount: Int,
+    @SerializedName("SumQuantity")
+    val sumQuantity: Int,
+    @SerializedName("SumDoneQuantity")
+    val sumDonQuantity: Int,
+    @SerializedName("CustomerCount")
+    val customerCount: Int
 )

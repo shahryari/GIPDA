@@ -8,11 +8,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
 import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
@@ -83,7 +82,8 @@ class LocationInventoryReportFragment :
         b.swipeLayout.setOnRefreshListener()
         {
             if (checkAreEmptyFields(b.locationCode,b.productTitleEdi,
-                    b.ownerCode,b.productCode,b.invTypeId)==true)
+                    b.ownerCode,b.productCode,b.invTypeId)
+            )
             {
                 b.swipeLayout.isRefreshing=false
                 reset()
@@ -102,7 +102,8 @@ class LocationInventoryReportFragment :
         b.relFilter.setOnClickListener()
         {
             if (checkAreEmptyFields(b.locationCode,b.productTitleEdi,
-                    b.ownerCode,b.productCode,b.invTypeId)==true){
+                    b.ownerCode,b.productCode,b.invTypeId)
+            ){
                 toast( getString(R.string.atLeast1Item),requireActivity())
             }else{
                 refresh()
@@ -173,43 +174,40 @@ class LocationInventoryReportFragment :
         binding: DialogSheetDestinyLocationBinding
     )
     {
-        viewModel.getOwners().observe(viewLifecycleOwner,
-            object : Observer<List<OwnerModel>>
-            {
-                override fun onChanged(list: List<OwnerModel>)
-                {
-                    arrCounts.text= getBuiltString(getString(R.string.tools_scannedItems),
-                        " ",list.size.toString())
-                    val adapter = OwnerAdapter(list, requireActivity(),
-                        object : OwnerAdapter.OnCallBackListener
-                        {
-                            override fun onClick(model: OwnerModel)
-                            {
-                                sheet?.dismiss()
-                                ownerId = model.ownerInfoID
-                                tv.text = model.ownerCode
+        viewModel.getOwners().observe(viewLifecycleOwner
+        ) { list ->
+            arrCounts.text = getBuiltString(
+                getString(R.string.tools_scannedItems),
+                " ", list.size.toString()
+            )
+            val adapter = OwnerAdapter(list, requireActivity(),
+                object : OwnerAdapter.OnCallBackListener {
+                    override fun onClick(model: OwnerModel) {
+                        sheet?.dismiss()
+                        ownerId = model.ownerInfoID
+                        tv.text = model.ownerCode
 
-                            }
-
-                            override fun init(binding: PatternWarehouseBinding)
-                            {
-
-                            }
-
-                        })
-                    rv.adapter = adapter
-
-
-                    clearEdi(binding.clearImg,binding.searchEdi)
-                    binding.searchEdi.doAfterTextChanged {
-                        adapter.setFilter(search(textEdi(binding.searchEdi),list,
-                            SearchFields.OwnerCode,
-                        SearchFields.OwnerInfoFullName))
                     }
 
-                }
+                    override fun init(binding: PatternWarehouseBinding) {
 
-            })
+                    }
+
+                })
+            rv.adapter = adapter
+
+
+            clearEdi(binding.clearImg, binding.searchEdi)
+            binding.searchEdi.doAfterTextChanged {
+                adapter.setFilter(
+                    search(
+                        textEdi(binding.searchEdi), list,
+                        SearchFields.OwnerCode,
+                        SearchFields.OwnerInfoFullName
+                    )
+                )
+            }
+        }
     }
 
     private fun getProductSheetData(tv: TextView, title: String)
@@ -238,37 +236,34 @@ class LocationInventoryReportFragment :
         searchEdi: EditText
     )
     {
-        viewModel.getProductsList().observe(viewLifecycleOwner,
-            object : Observer<List<ProductModel>>
-            {
-                override fun onChanged(list: List<ProductModel>)
-                {
-                    arrCounts.text= getBuiltString(getString(R.string.tools_scannedItems)," ",list.size.toString())
-                    val adapter = ProductAdapter(list, requireActivity(),
-                        object : ProductAdapter.OnCallBackListener
-                        {
-                            override fun onClick(model: ProductModel)
-                            {
-                                sheet?.dismiss()
-                                tv.text=model.productTitle
-                                chronometer?.cancel()
-                            }
-
-                        })
-                    rv.adapter = adapter
-
-                    searchEdi.doAfterTextChanged {
-                        adapter.setFilter(
-                            search(textEdi(searchEdi),list,
-                            SearchFields.ProductCode,
-                            SearchFields.ProductTitle,
-                            SearchFields.OwnerCode)
-                        )
-
-
+        viewModel.getProductsList().observe(viewLifecycleOwner
+        ) { list ->
+            arrCounts.text =
+                getBuiltString(getString(R.string.tools_scannedItems), " ", list.size.toString())
+            val adapter = ProductAdapter(list, requireActivity(),
+                object : ProductAdapter.OnCallBackListener {
+                    override fun onClick(model: ProductModel) {
+                        sheet?.dismiss()
+                        tv.text = model.productTitle
+                        chronometer?.cancel()
                     }
-                }
-            })
+
+                })
+            rv.adapter = adapter
+
+            searchEdi.doAfterTextChanged {
+                adapter.setFilter(
+                    search(
+                        textEdi(searchEdi), list,
+                        SearchFields.ProductCode,
+                        SearchFields.ProductTitle,
+                        SearchFields.OwnerCode
+                    )
+                )
+
+
+            }
+        }
     }
 
 
@@ -434,27 +429,21 @@ class LocationInventoryReportFragment :
     fun observeReport()
     {
         viewModel.getReportLocationList().
-        observe(viewLifecycleOwner,object :Observer<List<LocationInventoryRows>>
-        {
-            override fun onChanged(it: List<LocationInventoryRows>)
-            {
-                lastPosition=it.size-1
-                showLocationList(it)
-            }
-        })
+        observe(viewLifecycleOwner
+        ) { it ->
+            lastPosition = it.size - 1
+            showLocationList(it)
+        }
     }
     fun observeLocationCount()
     {
         viewModel.getLocationCount().
-        observe(viewLifecycleOwner,object :Observer<Int>
-        {
-            override fun onChanged(it:Int)
-            {
-                setBelowCount(requireActivity(), getString(R.string.tools_you_have),
-                    it, getString(R.string.location_inventory))
-
-            }
-        })
+        observe(viewLifecycleOwner) { it ->
+            setBelowCount(
+                requireActivity(), getString(R.string.tools_you_have),
+                it, getString(R.string.location_inventory)
+            )
+        }
     }
 
 

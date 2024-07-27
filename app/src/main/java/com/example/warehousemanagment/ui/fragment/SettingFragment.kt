@@ -3,8 +3,8 @@ package com.example.warehousemanagment.ui.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.FragmentSettingBinding
 import com.example.warehousemanagment.model.classes.clearEdi
 import com.example.warehousemanagment.model.classes.hideShortCut

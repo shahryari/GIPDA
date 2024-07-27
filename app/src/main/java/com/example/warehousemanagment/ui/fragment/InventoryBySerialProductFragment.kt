@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentPickputDailyReportBinding
 import com.example.warehousemanagment.model.classes.checkTick

@@ -205,6 +205,10 @@
         android:name="com.example.warehousemanagment.ui.fragment.ReworkFragment"
         android:label="ReworkFragment" />
     <fragment
+        android:id="@+id/dockFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.DockFragment"
+        android:label="DockFragment"/>
+    <fragment
         android:id="@+id/cargoFragment"
         android:name="com.example.warehousemanagment.ui.fragment.CargoFragment"
         android:label="CargoFragment" >

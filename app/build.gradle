@@ -18,7 +18,7 @@ android {
         applicationId "com.example.warehousemanagment"
         minSdk 21
         targetSdk 32
-        versionCode 1
+        versionCode 4
         versionName "16.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

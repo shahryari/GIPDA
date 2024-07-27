@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
@@ -23,12 +23,13 @@ import com.example.warehousemanagment.model.classes.setToolbarBackground
 import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.shipping.shipping_truck.ShippingTruckRow
 import com.example.warehousemanagment.ui.adapter.ShippingAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
+import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
+import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
 import com.example.warehousemanagment.ui.dialog.SheetDenyAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetDenyApproveAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
@@ -53,16 +54,47 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
 
         observeShipping()
         observeCountOfList()
+        observeTruckLoadingRemove()
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
 
         b.filterImg.img.setOnClickListener() {
             showFilterSheetDialog()
         }
 
-
-
     }
 
+    fun showConfirmDialog(shippingAddressId: String){
+        var sheet: SheetConfirmDialog? = null
+        sheet = SheetConfirmDialog(
+            getString(R.string.remove),
+            getString(R.string.areYouSureToRemove),
+            object : SheetConfirmDialog.OnClickListener{
+                override fun onCanselClick() {
+                    sheet?.dismiss()
+                }
+
+                override fun onOkClick(progress: ProgressBar, toInt: String) {
+                    viewModel.removeTruckLoading(pref.getDomain(),shippingAddressId,pref.getTokenGlcTest())
+                }
+
+                override fun onCloseClick() {
+                    sheet?.dismiss()
+                }
+
+                override fun hideCansel(cansel: TextView) {
+                }
+
+                override fun onDismiss() {
+                    sheet?.dismiss()
+                }
+
+                override fun init(binding: DialogSheetBottomBinding) {
+                }
+
+            }
+        )
+        sheet.show(parentFragmentManager,"")
+    }
 
     private fun showFilterSheetDialog()
     {
@@ -173,15 +205,13 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
 
     private fun observeCountOfList()
     {
-        viewModel.getShippingCount().observe(viewLifecycleOwner,object :Observer<Int>
-        {
-            override fun onChanged(it: Int)
-            {
-                setBelowCount(requireActivity(), getString(R.string.tools_you_have),
-                    it, getString(R.string.truckToShip))
-            }
-
-        })
+        viewModel.getShippingCount().observe(viewLifecycleOwner
+        ) { it ->
+            setBelowCount(
+                requireActivity(), getString(R.string.tools_you_have),
+                it, getString(R.string.truckToShip)
+            )
+        }
     }
 
     private fun setShippingData()
@@ -206,6 +236,44 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
         }
     }
 
+    private fun observeTruckLoadingRemove(){
+        viewModel.getTruckLoadingRemoved().observe(viewLifecycleOwner){
+            showAlertDialog(it.messages.firstOrNull()?:"")
+            refresh()
+        }
+    }
+
+    fun showAlertDialog(message: String){
+        var sheet : SheetAlertDialog? = null
+        sheet = SheetAlertDialog(
+            "Remove",
+            message,
+            object: SheetAlertDialog.OnClickListener{
+                override fun onCanselClick() {
+                    sheet?.dismiss()
+                }
+
+                override fun onOkClick(progress: ProgressBar, toInt: String) {
+                    sheet?.dismiss()
+                }
+
+                override fun onCloseClick() {
+                    sheet?.dismiss()
+                }
+
+                override fun hideCansel(cansel: TextView) {
+                    cansel.visibility = View.GONE
+                }
+
+                override fun onDismiss() {
+                    sheet?.dismiss()
+                }
+
+            }
+        )
+        sheet.show(parentFragmentManager,"")
+    }
+
     private fun showShippingList(list: List<ShippingTruckRow>)
     {
         if(lastPosition-Utils.ROWS<=0)
@@ -223,6 +291,7 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
                         binding.leftDock.visibility = View.VISIBLE
                     }
                     binding.leftDock.text = getString(R.string.leftDock)
+                    binding.lineCustomerCount.visibility = View.VISIBLE
                 }
 
                 override fun onClick(model: ShippingTruckRow, position: Int)
@@ -248,8 +317,17 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
                         bundle.putString(Utils.PLAQUE_3,model.plaqueNumberThird)
                         bundle.putString(Utils.PLAQUE_4,model.plaqueNumberFourth)
                         bundle.putString(Utils.PLAQUE,model.plaqueNumber)
+                        bundle.putInt(Utils.total,model.total)
+                        bundle.putInt(Utils.Done,model.doneCount)
+                        bundle.putInt(Utils.doneQuantity,model.sumQuantity)
+                        bundle.putInt(Utils.sumDoneQuantity,model.sumDonQuantity)
+                        bundle.putInt(Utils.customerCount,model.customerCount)
 
                         pref.saveAdapterPosition(position)
+
+                        
+
+
 
                         navController?.navigate(R.id.action_shippingFragment_to_sheepingDetailFragment,bundle)
                     }
@@ -259,7 +337,7 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
 
                 override fun reachToEnd(position: Int)
                 {
-                    receivePage=receivePage+1
+                    receivePage += 1
                     setShippingData()
                 }
 
@@ -276,6 +354,10 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
                         shippingAddressId =model.shippingAddressID
                     )
 
+                }
+
+                override fun onTruckLoadingRemove(shippingAddressId: String) {
+                    showConfirmDialog(shippingAddressId)
                 }
             })
         b.rv.adapter = adapter
@@ -413,8 +495,8 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
             ,object : SheetDenyApproveAlertDialog.OnClickListener
             {
                 override fun init(binding: DialogSheetBottomBinding) {
-                    binding.okCanselBtn.ok.setText(getString(R.string.ok))
-                    binding.okCanselBtn.cansel.setText(getString(R.string.cancel))
+                    binding.okCanselBtn.ok.text = getString(R.string.ok)
+                    binding.okCanselBtn.cansel.text = getString(R.string.cancel)
                 }
 
                 override fun onDenyClick()
@@ -459,13 +541,11 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
 
 
     private fun getConfirmResult(mySheetAlertDialog: SheetDenyApproveAlertDialog?) {
-        viewModel.getConfirmResult().observe(viewLifecycleOwner, object :
-            Observer<ConfirmCheckTruckModel> {
-            override fun onChanged(it: ConfirmCheckTruckModel) {
-                mySheetAlertDialog?.dismiss()
-            }
-
-        })
+        viewModel.getConfirmResult().observe(viewLifecycleOwner
+        ) {
+            mySheetAlertDialog?.dismiss()
+            setShippingData()
+        }
     }
 
     override fun onDestroy()
@@ -488,7 +568,6 @@ class ShippingFragment: BaseFragment<ShippingViewModel, FragmentReceivingBinding
     {
         setToolbarTitle(requireActivity(),getString(R.string.shipping))
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
-
     }
 
 

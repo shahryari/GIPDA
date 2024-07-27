@@ -35,6 +35,36 @@
             android:layout_below="@id/mainToolbar"
             android:layout_marginTop="@dimen/marginTop5ForLayouts" />
 
+        <RelativeLayout
+            android:id="@+id/rel2"
+
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/mainToolbar"
+            android:layout_below="@id/mainToolbar2"
+            android:layout_marginTop="@dimen/marginTop5ForLayouts"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="@style/relSearchMainEdi">
+
+
+
+            <EditText
+                android:id="@+id/searchEdi"
+                style="@style/searchMainEdi"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="@string/customers"
+                android:layout_toStartOf="@+id/clearImg"
+                />
+
+            <ImageView
+                android:id="@+id/clearImg"
+                android:clickable="true"
+                android:focusable="true"
+                style="@style/imgClose" />
+        </RelativeLayout>
+
+
         <include
             android:id="@+id/filterImg"
             layout="@layout/img_filter"/>
@@ -44,7 +74,7 @@
             layout="@layout/pattern_receiving_detail_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mainToolbar2"
+            android:layout_below="@+id/rel2"
             android:layout_marginTop="@dimen/marginTopRelInfoTv" />
 
 

@@ -1,23 +1,13 @@
 package com.example.kotlin_wallet.ui.base
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.WindowInsets
-import android.view.WindowManager
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.lifecycleScope
 import com.example.currencykotlin.model.di.component.ActivityComponent
 import com.example.currencykotlin.model.di.component.DaggerActivityComponent
-import com.example.currencykotlin.model.di.module.ActivityModule
-import com.example.warehousemanagment.model.data.MySharedPref
-import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.launch
+import com.example.warehousemanagment.dagger.module.ActivityModule
 import javax.inject.Inject
 
 abstract class BaseActivity<V: AndroidViewModel,B: ViewDataBinding> : AppCompatActivity()

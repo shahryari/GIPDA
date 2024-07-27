@@ -1,6 +1,6 @@
 package com.example.currencykotlin.model.di.component
 
- import com.example.currencykotlin.model.di.module.ActivityModule
+ import com.example.warehousemanagment.dagger.module.ActivityModule
  import com.example.warehousemanagment.ui.activity.MainActivity
  import dagger.Component
 import javax.inject.Singleton

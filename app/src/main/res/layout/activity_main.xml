@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_summary"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
+            android:background="@color/yellowGray"
             android:elevation="@dimen/lowElevation"
             android:gravity="center"
             android:paddingStart="@dimen/margin_start_icon_tv"

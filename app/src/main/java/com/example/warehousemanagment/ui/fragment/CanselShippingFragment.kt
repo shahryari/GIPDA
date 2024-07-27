@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
 import com.example.warehousemanagment.databinding.PatternReceivingBinding
@@ -216,7 +216,7 @@ class CanselShippingFragment: BaseFragment<CanselShippingViewModel, FragmentRece
             object : ShippingAdapter.OnCallBackListener
             {
                 override fun init(binding: PatternReceivingBinding, currentStatusCode: String) {
-
+                    binding.lineCustomerCount.visibility = View.GONE
                 }
 
                 override fun onClick(model: ShippingTruckRow, position: Int)
@@ -248,6 +248,9 @@ class CanselShippingFragment: BaseFragment<CanselShippingViewModel, FragmentRece
 
                 override fun onLeftDockClick(model: ShippingTruckRow) {
 
+                }
+
+                override fun onTruckLoadingRemove(shippingAddressId: String) {
                 }
             })
         b.rv.adapter = adapter

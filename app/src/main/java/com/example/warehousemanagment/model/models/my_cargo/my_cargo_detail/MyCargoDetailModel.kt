@@ -7,5 +7,7 @@ data class MyCargoDetailModel(
     @SerializedName("rows")
     val myCargoDetailRow: List<MyCargoDetailRow>,
     @SerializedName("total")
-    val total: Int
+    val total: Int,
+    @SerializedName("sumQuantity")
+    val sumQuantity: Int
 )

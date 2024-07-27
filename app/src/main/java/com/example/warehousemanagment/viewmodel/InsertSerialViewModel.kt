@@ -3,14 +3,19 @@ package com.example.warehousemanagment.viewmodel
 import android.app.Application
 import android.content.Context
 import android.widget.ProgressBar
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.data.MyRepository
-import com.example.warehousemanagment.model.models.insert_serial.*
+import com.example.warehousemanagment.model.models.insert_serial.InsertedSerialModel
+import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
+import com.example.warehousemanagment.model.models.insert_serial.ProductModel
+import com.example.warehousemanagment.model.models.insert_serial.WarehouseModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -169,8 +174,8 @@ class InsertSerialViewModel(application: Application,context: Context)
         invList.add(CatalogModel(valueField =1 , title = context.getString(R.string.healty)))
         invList.add(CatalogModel(valueField =2 , title = context.getString(R.string.defection)))
         invList.add(CatalogModel(valueField =3 , title = context.getString(R.string.toredPaper)))
-        invList.add(CatalogModel(valueField =4, title = context.getString(R.string.null2)))
-        invList.add(CatalogModel(valueField =5 , title = context.getString(R.string.null2)))
+        invList.add(CatalogModel(valueField =4, title = context.getString(R.string.return_value)))
+        invList.add(CatalogModel(valueField =5 , title = context.getString(R.string.openPack)))
         return invList
     }
 

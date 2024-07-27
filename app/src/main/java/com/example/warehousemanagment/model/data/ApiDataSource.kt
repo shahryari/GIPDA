@@ -1,6 +1,7 @@
 package com.example.warehousemanagment.model.data
 
 import PickingDetailModel
+import com.example.warehousemanagment.model.models.LocationModel
 import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
 import com.example.warehousemanagment.model.models.cargo_folder.SetShippingAddressColorModel
@@ -10,6 +11,8 @@ import com.example.warehousemanagment.model.models.cargo_folder.cargo_detail.Car
 import com.example.warehousemanagment.model.models.check_truck.CheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
+import com.example.warehousemanagment.model.models.dock.DockModel
+import com.example.warehousemanagment.model.models.dock.SetUseDockModel
 import com.example.warehousemanagment.model.models.insert_serial.InsertSerialModel
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
@@ -47,6 +50,7 @@ import com.example.warehousemanagment.model.models.shipping.AddShippingSerialMod
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
@@ -349,12 +353,38 @@ class ApiDataSource() :DataSource
         return apiProvider().getColors(url+"CustomerColorList",cookie).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun getShippingDetailCustomers(url: String, jsonObject: JsonObject, cookie: String) : Single<List<CustomerModel>> {
+        return apiProvider().getShippingDetailCustomers(url+"ShippingDetailCustomers",jsonObject,cookie)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+
+    override fun truckLoadingRemove(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<TruckLoadingRemoveModel> {
+        return apiProvider().truckLoadingRemove(url+"TruckLoadingRemove",jsonObject,cookie)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun getCargoItem(
         url: String,
         jsonObject: JsonObject,
         cookie: String
     ): Single<CargoRow> {
         return apiProvider().getCargoItem(url+"CargoGetItem",jsonObject,cookie).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getCargoDetailLocation(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<List<LocationModel>> {
+        return apiProvider().getCargoDetailLocation(url+"MyCargoDetailLocation",jsonObject,cookie)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun getCargoList(
@@ -906,5 +936,29 @@ class ApiDataSource() :DataSource
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun getDocks(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<DockModel> {
+        return apiProvider().getDocks(url+"Docks",jsonObject,page,rows,sort, order, cookie)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+
+    override fun setUseDock(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SetUseDockModel> {
+        return apiProvider().setUseDock(url+"SetUseDock",jsonObject,cookie)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 
 }

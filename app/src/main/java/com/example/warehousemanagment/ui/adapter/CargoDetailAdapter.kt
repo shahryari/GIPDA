@@ -44,6 +44,9 @@ class CargoDetailAdapter(): RecyclerView.Adapter<CargoDetailAdapter.MyViewHolder
 
         holder.b.isDone?.visibility = if (model.isDone) View.VISIBLE else View.GONE
 
+        holder.b.doneByLay?.visibility = if(model.isDone) View.VISIBLE else View.GONE
+        holder.b.doneBy?.text = model.doneBy
+
 
         holder.itemView.setOnClickListener {
             onCallBackListener.onClick(model,position)

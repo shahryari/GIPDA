@@ -1,7 +1,40 @@
-package com.example.currencykotlin.model.di.component
+package com.example.warehousemanagment.dagger.component
 
-import com.example.currencykotlin.model.di.module.FragmentModule
-import com.example.warehousemanagment.ui.fragment.*
+import com.example.warehousemanagment.dagger.module.FragmentModule
+import com.example.warehousemanagment.ui.fragment.CanselShippingDetailFragment
+import com.example.warehousemanagment.ui.fragment.CanselShippingFragment
+import com.example.warehousemanagment.ui.fragment.CargoDetailFragment
+import com.example.warehousemanagment.ui.fragment.CargoFragment
+import com.example.warehousemanagment.ui.fragment.CheckTruckFragment
+import com.example.warehousemanagment.ui.fragment.DesktopFragment
+import com.example.warehousemanagment.ui.fragment.DockFragment
+import com.example.warehousemanagment.ui.fragment.InsertSerialFragment
+import com.example.warehousemanagment.ui.fragment.InventoryBySerialFragment
+import com.example.warehousemanagment.ui.fragment.InventoryBySerialProductFragment
+import com.example.warehousemanagment.ui.fragment.InventoryModifiedTaskFragment
+import com.example.warehousemanagment.ui.fragment.LocationInventoryReportFragment
+import com.example.warehousemanagment.ui.fragment.LoginFragment
+import com.example.warehousemanagment.ui.fragment.ManualLocationTransferFragment
+import com.example.warehousemanagment.ui.fragment.MyCargoDetailFragment
+import com.example.warehousemanagment.ui.fragment.MyCargoFragment
+import com.example.warehousemanagment.ui.fragment.OfflineSerialFragment
+import com.example.warehousemanagment.ui.fragment.PickingDetailFragment
+import com.example.warehousemanagment.ui.fragment.PickingFragment
+import com.example.warehousemanagment.ui.fragment.PickputDailyReportFragment
+import com.example.warehousemanagment.ui.fragment.ProductWithoutMasterFragment
+import com.example.warehousemanagment.ui.fragment.PutawayDetailFragment
+import com.example.warehousemanagment.ui.fragment.PutawayFragment
+import com.example.warehousemanagment.ui.fragment.ReceivingDetailFragment
+import com.example.warehousemanagment.ui.fragment.ReceivingFragment
+import com.example.warehousemanagment.ui.fragment.ReworkFragment
+import com.example.warehousemanagment.ui.fragment.SettingFragment
+import com.example.warehousemanagment.ui.fragment.ShippingDetailFragment
+import com.example.warehousemanagment.ui.fragment.ShippingFragment
+import com.example.warehousemanagment.ui.fragment.StockTakeFragment
+import com.example.warehousemanagment.ui.fragment.StockTakeLocationFragment
+import com.example.warehousemanagment.ui.fragment.TrackingFragment
+import com.example.warehousemanagment.ui.fragment.TransferTaskFragment
+import com.example.warehousemanagment.ui.fragment.WaitForLoadingFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -11,6 +44,9 @@ interface FragmentComponent
 {
     fun inject(fragment:LoginFragment)
     fun inject(fragment:DesktopFragment)
+
+    fun inject(fragment: DockFragment)
+
     fun inject(fragment:ReceivingFragment)
     fun inject(fragment: ReceivingDetailFragment)
     fun inject(fragment: PutawayFragment)

@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.currencykotlin.model.di.component.DaggerFragmentComponent
-import com.example.currencykotlin.model.di.component.FragmentComponent
-import com.example.currencykotlin.model.di.module.FragmentModule
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.DaggerFragmentComponent
+import com.example.warehousemanagment.dagger.component.FragmentComponent
+import com.example.warehousemanagment.dagger.module.FragmentModule
 import com.example.warehousemanagment.model.classes.dismissSheet
 import com.example.warehousemanagment.model.data.MySharedPref
 import javax.inject.Inject

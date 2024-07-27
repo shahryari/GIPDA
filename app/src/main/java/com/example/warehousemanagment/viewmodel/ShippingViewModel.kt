@@ -3,7 +3,11 @@ package com.example.warehousemanagment.viewmodel
 import android.app.Application
 import android.content.Context
 import android.widget.ProgressBar
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.model.classes.log
@@ -14,6 +18,7 @@ import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
+import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.shipping_truck.ShippingTruckRow
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
@@ -26,6 +31,7 @@ class ShippingViewModel(application: Application,context: Context): AndroidViewM
     private var shippingList= MutableLiveData<List<ShippingTruckRow>>()
     private var denyModel=MutableLiveData<DenyCheckTruckModel>()
     private var confirmModel=MutableLiveData<ConfirmCheckTruckModel>()
+    private var truckLoadingRemoveModel = MutableLiveData<TruckLoadingRemoveModel>()
 
     private var tempList=ArrayList<ShippingTruckRow>()
     private var shippingCount=MutableLiveData<Int>()
@@ -38,6 +44,10 @@ class ShippingViewModel(application: Application,context: Context): AndroidViewM
     }
     fun getDenyModel(): MutableLiveData<DenyCheckTruckModel> {
         return denyModel
+    }
+
+    fun getTruckLoadingRemoved():LiveData<TruckLoadingRemoveModel>{
+        return truckLoadingRemoveModel.distinctUntilChanged()
     }
 
 
@@ -74,6 +84,26 @@ class ShippingViewModel(application: Application,context: Context): AndroidViewM
     }
 
 
+    fun removeTruckLoading(
+        baseUrl: String,
+        shippingAddressId: String,
+        cookie: String
+    ){
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("ShippingAddressID",shippingAddressId)
+        repository.truckLoadingRemove(
+            baseUrl,
+            jsonObject,
+            cookie
+        ).subscribe(
+            {truckLoadingRemoveModel.value = it},
+            {
+                showErrorMsg(it, "shippingList", context)
+            }
+        ).let {  }
+    }
+
+
     fun setShippingList(
         baseUrl:String,
         keyword: String,
@@ -93,10 +123,10 @@ class ShippingViewModel(application: Application,context: Context): AndroidViewM
                     {
                         swipeLayout.isRefreshing=false
                         showSimpleProgress(false,progressBar)
-                        if (it.shippingTruckRows.size!=0)
+                        if (it.shippingTruckRows.isNotEmpty())
                         {
                             tempList.addAll(it.shippingTruckRows)
-                            shippingList.value=tempList
+                            shippingList.postValue(tempList)
                         }
                         shippingCount.value=it.total
                         log("shippingList", it.toString())

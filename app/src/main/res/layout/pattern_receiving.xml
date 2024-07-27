@@ -16,7 +16,7 @@
     <LinearLayout
         android:id="@+id/lin1"
         android:layout_width="@dimen/pattern_receive_info_width"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/padding_pattern_receive">
 
@@ -173,8 +173,31 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/view"
+        android:id="@+id/lin0"
         android:orientation="vertical"
         android:padding="@dimen/padding_pattern_receive">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/lineCustomerCount"
+            android:visibility="gone"
+            android:padding="@dimen/paddingTop_tv_as_button"
+            android:background="@drawable/shape_rect_main_all"
+            tools:visibility="visible"
+            android:orientation="vertical">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_gravity="center"
+                android:text="@string/customerCount" />
+            <TextView
+                android:id="@+id/customerCount"
+                style="@style/pattern_receieve_tv1"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                tools:text="@string/tools_10_08_2022_08_22" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/img"
@@ -221,6 +244,20 @@
             android:layout_marginEnd="0dp"
             android:text="@string/print" />
 
+        <TextView
+            android:id="@+id/remove"
+            style="@style/btnSubmitCansel"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/marginTopRelInfoTv"
+            tools:visibility="visible"
+            android:gravity="center"
+            android:background="@drawable/shape_background_rect_gray_3"
+            android:backgroundTint="@color/red"
+            android:textColor="@color/white"
+            android:layout_marginEnd="0dp"
+            android:text="@string/remove" />
+
 
 
     </LinearLayout>
@@ -244,6 +281,130 @@
         android:padding="@dimen/paddingOfFragmentProgress"
         android:visibility="invisible"
         tools:visibility="visible" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lin1"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_background_gray_half"
+        android:backgroundTint="@color/yellowGray"
+        android:id="@+id/qty_lay"
+        android:visibility="gone"
+        tools:visibility="gone"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_background_gray_half"
+            android:backgroundTint="@color/yellowGray"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/total"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/total_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/done"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/done_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/qty"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="128"
+                android:id="@+id/qty_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:layout_margin="@dimen/margin_low_2"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="Done Qty"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/done_qty_tv"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 </RelativeLayout>
 </layout>

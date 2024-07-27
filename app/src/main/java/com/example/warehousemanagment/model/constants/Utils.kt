@@ -10,6 +10,7 @@ class Utils
         val Done: String="Done"
         val IsDone: String = "is Done"
         val StockMinusResId="stockMinusResId"
+        val customerCount="CustomerCount"
         val PRODUCT_TYPE_SORT: String="produtType"
         val StockTurnTitle: String="StockTurnTitle"
         val StockTurnCode: String="StockTurnCode"
@@ -26,8 +27,8 @@ class Utils
         val sumDoneQuantity: String = "Done Qty"
         val showAssignToMe: String = "Show Assign To Me"
 //      val FIRST_DOMAIN: String="http://81.12.116.91:8080/mobile/v1/"
-        val FIRST_DOMAIN: String="http://gi.bitfinity.ir/mobile/v1/"
-//        val FIRST_DOMAIN: String="http://tms.goldiran.ir/mobile/v1/"
+//        val FIRST_DOMAIN: String="https://gi.bitfinity.ir/mobile/v1/"
+        val FIRST_DOMAIN: String="https://tms.goldiran.ir/mobile/v1/"
 //        val FIRST_DOMAIN:String="http://gi.namipaya.com/mobile/v1/"
 
         val ERROR_401: Int=401
@@ -84,6 +85,9 @@ class Utils
         val CUSTOMER_FULL_NAME: String="CustomerFullName"
         val DockAssignTime="DockAssignTime"
         val DriverFullName="DriverFullName"
+        val DockCode="DockCode"
+        val CreatedOn="CreatedOn"
+        val UseDock="UseDock"
         val REQUEST_CAMERA: Int=1000
         val RESULT_SCANNER:String="resultScanner"
         val PLAQUE="plaque"
@@ -104,7 +108,7 @@ class Utils
         val EXPAND_DURATION: Long=600
         val DRAWER_SUB_REPORT_RATIO: Double=.15
         val DRAWER_SUB_TRANSFER_RATIO: Double=.15
-        val DRAWER_SUB_GENERAL_RATIO: Double=0.26
+        val DRAWER_SUB_GENERAL_RATIO: Double=0.3
         val DRAWER_SUB_RECEIVE_RATIO: Double=.1005
         val DRAWER_SUB_SHIPPING_RATIO: Double=.240
         val Quantity: String="Quantity"

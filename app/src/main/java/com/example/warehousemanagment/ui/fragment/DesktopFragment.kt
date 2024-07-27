@@ -4,8 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.FragmentDesktopBinding
 import com.example.warehousemanagment.model.classes.check401Error
 import com.example.warehousemanagment.model.classes.hideShortCut
@@ -78,7 +78,7 @@ class DesktopFragment() : BaseFragment<DesktopViewModel, FragmentDesktopBinding>
         viewModel.setDashboard(pref.getDomain(),pref.getTokenGlcTest())
             .subscribe({
                 b.swipeLayout.isRefreshing=false
-                val model = it.get(0)
+                val model = it[0]
                 b.layoutDesktop.receivingCount.text = model.receivingCount.toString()
                 b.layoutDesktop.pickingCount.text = model.pickingCount.toString()
                 b.layoutDesktop.putawayCount.text = model.putawayCount.toString()
@@ -132,40 +132,40 @@ class DesktopFragment() : BaseFragment<DesktopViewModel, FragmentDesktopBinding>
             receivingCat+=1
 
 
-        if (model.optBoolean("picking")==false)
+        if (!model.optBoolean("picking"))
             shippingCat+=1
-        if (model.optBoolean("waitForLoading")==false)
+        if (!model.optBoolean("waitForLoading"))
             shippingCat+=1
-        if (model.optBoolean("shipping")==false)
+        if (!model.optBoolean("shipping"))
             shippingCat+=1
-        if (model.optBoolean("shippingCancel")==false)
+        if (!model.optBoolean("shippingCancel"))
             shippingCat+=1
 
 
 
-        if (model.optBoolean("locationTransfer")==false)
+        if (!model.optBoolean("locationTransfer"))
             transferCat+=1
-        if (model.optBoolean("transferTask")==false)
+        if (!model.optBoolean("transferTask"))
             transferCat+=1
-        if (model.optBoolean("inventoryTypeModifyTask")==false)
+        if (!model.optBoolean("inventoryTypeModifyTask"))
             transferCat+=1
 
 
-        if (model.optBoolean("locationInventory")==false)
+        if (!model.optBoolean("locationInventory"))
             reportCat+=1
-        if (model.optBoolean("pickPutReport")==false)
+        if (!model.optBoolean("pickPutReport"))
             reportCat+=1
-        if (model.optBoolean("serialReport")==false)
+        if (!model.optBoolean("serialReport"))
             reportCat+=1
 
 
-        if (model.optBoolean("productWithoutMaster")==false)
+        if (!model.optBoolean("productWithoutMaster"))
             generalCat+=1
-        if (model.optBoolean("insertSerial")==false)
+        if (!model.optBoolean("insertSerial"))
             generalCat+=1
-        if (model.optBoolean("offlineSerial")==false)
+        if (!model.optBoolean("offlineSerial"))
             generalCat+=1
-        if (model.optBoolean("trackingSerial")==false)
+        if (!model.optBoolean("trackingSerial"))
             generalCat+=1
 
 

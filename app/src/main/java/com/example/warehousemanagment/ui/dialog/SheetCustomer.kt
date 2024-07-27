@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.warehousemanagment.databinding.DialogSheetChooseCustomerBinding
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
-import com.example.warehousemanagment.ui.adapter.ChooseCustomerAdapter
+import com.example.warehousemanagment.ui.adapter.ChooseCustomerColorAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SheetCustomer() : BottomSheetDialogFragment() {
@@ -23,8 +23,8 @@ class SheetCustomer() : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = DialogSheetChooseCustomerBinding.inflate(inflater)
-        val adapter = ChooseCustomerAdapter(
-            customerList,requireContext(),object : ChooseCustomerAdapter.OnCallBackListener {
+        val adapter = ChooseCustomerColorAdapter(
+            customerList,requireContext(),object : ChooseCustomerColorAdapter.OnCallBackListener {
                 override fun onClick(model: CustomerInShipping) {
                     onClickListener.onChooseColorClick(model)
                     dismiss()

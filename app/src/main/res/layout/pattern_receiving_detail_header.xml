@@ -17,10 +17,11 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:id="@+id/linNumber"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_weight="1.1"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
@@ -66,27 +67,34 @@
 
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/bol_lay2"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_height="wrap_content">
 
 
-        <TextView
-            android:id="@+id/btitle2"
-            style="@style/pattern_putaway_smallTv"
-            android:layout_height="23dp"
-            android:layout_marginStart="@dimen/marginStartLocationTransfer"
-            android:text="@string/bolNumber" />
+            <TextView
+                android:id="@+id/btitle2"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/bolNumber" />
 
-        <TextView
-            android:id="@+id/containerNumber2"
-            style="@style/pattern_receieve_tv1"
-            tools:text="@string/tools_tdru4204745" />
+            <TextView
+                android:id="@+id/containerNumber2"
+                style="@style/pattern_receieve_tv1"
+                tools:text="@string/tools_tdru4204745" />
 
 
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -176,6 +184,36 @@
             </LinearLayout>
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:id="@+id/lineCustomerCount"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:visibility="gone"
+            android:padding="@dimen/paddingTop_tv_as_button"
+            android:background="@drawable/shape_rect_main_all"
+            tools:visibility="visible"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/customerCount" />
+
+            <TextView
+                android:id="@+id/customerCount"
+                style="@style/pattern_receieve_tv1"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                tools:text="@string/tools_tdru4204745" />
+
+
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -285,13 +323,135 @@
 
 
     </RelativeLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/qty_lay"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+        android:background="@drawable/shape_background_gray_half"
+        android:backgroundTint="@color/yellowGray"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_background_gray_half"
+            android:backgroundTint="@color/yellowGray"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/total"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/total_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/done"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/done_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="@string/qty"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="128"
+                android:id="@+id/qty_tv"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/yellowGray"
+            android:layout_margin="@dimen/margin_low_2"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/pattern_putaway_smallTv"
+                android:text="Done Qty"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
+                android:textColor="@color/black"
+                />
+            <TextView
+                style="@style/pattern_putaway_MediumTv"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/marginMedium"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="9"
+                android:id="@+id/done_qty_tv"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/choose_color_layout"
         android:orientation="horizontal"
         android:visibility="gone"
-        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+        android:layout_marginTop="@dimen/margin_low_2"
         tools:visibility="visible"
         android:background="@drawable/shape_background_gray_half"
         android:backgroundTint="@color/yellowGray">
@@ -331,130 +491,6 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </LinearLayout>
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/qty_lay"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:background="@drawable/shape_background_gray_half"
-        android:backgroundTint="@color/yellowGray"
-        android:orientation="horizontal">
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_background_gray_half"
-            android:paddingHorizontal="@dimen/marginTopRelInfoTv"
-            android:backgroundTint="@color/yellowGray"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/pattern_putaway_smallTv"
-                android:text="@string/total"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
-                android:textColor="@color/black"
-                />
-            <TextView
-                style="@style/pattern_putaway_MediumTv"
-                android:textStyle="bold"
-                android:layout_marginEnd="@dimen/marginMedium"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:text="9"
-                android:id="@+id/total_tv"
-                />
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/yellowGray"
-            android:paddingHorizontal="@dimen/marginTopRelInfoTv"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/pattern_putaway_smallTv"
-                android:text="@string/done"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
-                android:textColor="@color/black"
-                />
-            <TextView
-                style="@style/pattern_putaway_MediumTv"
-                android:textStyle="bold"
-                android:layout_marginEnd="@dimen/marginMedium"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:text="9"
-                android:id="@+id/done_tv"
-                />
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/yellowGray"
-            android:paddingHorizontal="@dimen/marginTopRelInfoTv"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/pattern_putaway_smallTv"
-                android:text="@string/qty"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
-                android:textColor="@color/black"
-                />
-            <TextView
-                style="@style/pattern_putaway_MediumTv"
-                android:textStyle="bold"
-                android:layout_marginEnd="@dimen/marginMedium"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:text="128"
-                android:id="@+id/qty_tv"
-                />
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/yellowGray"
-            android:paddingHorizontal="@dimen/marginTopRelInfoTv"
-            android:layout_margin="@dimen/margin_low_2"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/pattern_putaway_smallTv"
-                android:text="Done Qty"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="@dimen/marginTopRelInfoTv"
-                android:textColor="@color/black"
-                />
-            <TextView
-                style="@style/pattern_putaway_MediumTv"
-                android:textStyle="bold"
-                android:layout_marginEnd="@dimen/marginMedium"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:text="9"
-                android:id="@+id/done_qty_tv"
-                />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>
 </layout>

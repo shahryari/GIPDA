@@ -234,8 +234,8 @@ class StockTakeLocationViewModel(application: Application, context: Context):
         invList.add(CatalogModel(valueField =1 , title = context.getString(R.string.healty)))
         invList.add(CatalogModel(valueField =2 , title = context.getString(R.string.defection)))
         invList.add(CatalogModel(valueField =3 , title = context.getString(R.string.toredPaper)))
-        invList.add(CatalogModel(valueField =4, title = context.getString(R.string.null2)))
-        invList.add(CatalogModel(valueField =5 , title = context.getString(R.string.null2)))
+        invList.add(CatalogModel(valueField =4, title = context.getString(R.string.return_value)))
+        invList.add(CatalogModel(valueField =5 , title = context.getString(R.string.openPack)))
         return invList
     }
 

@@ -10,8 +10,8 @@ import android.print.*
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
 import com.example.warehousemanagment.databinding.FragmentReworkBinding
 import com.example.warehousemanagment.model.classes.*

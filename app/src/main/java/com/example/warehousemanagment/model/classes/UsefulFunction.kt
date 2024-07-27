@@ -78,6 +78,18 @@ fun getSpanTv2(start:Int,end:Int,color:Int,str:String,fontSize:Int): SpannableSt
     return spannable
 }
 
+fun getSpanTv3(start1: Int,end1: Int, start2: Int, end2: Int, color: Int, str: String, fontSize: Int) : SpannableString{
+    val spannable = SpannableString(str)
+    spannable.setSpan(StyleSpan(Typeface.BOLD),start1,end1,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    spannable.setSpan(ForegroundColorSpan(color), start1, end1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    spannable.setSpan( AbsoluteSizeSpan(fontSize), start1, end1 , SPAN_INCLUSIVE_INCLUSIVE)
+
+    spannable.setSpan(StyleSpan(Typeface.BOLD),start2,end2,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    spannable.setSpan(ForegroundColorSpan(color), start2, end2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    spannable.setSpan( AbsoluteSizeSpan(fontSize), start2, end2 , SPAN_INCLUSIVE_INCLUSIVE);
+    return spannable
+}
+
 
 fun textEdi(edi:EditText): String {
     return edi.text.toString()
@@ -93,7 +105,7 @@ fun logErr(tag:String,title:String){
 }
 var snackbar:Snackbar ?= null
 var mySheetAlertDialog: SheetAlertDialog?=null
-fun toast(msg:String,context: Context)
+fun toast(msg:String,context: Context,onDismiss:()->Unit = {})
 {
 
     mySheetAlertDialog= SheetAlertDialog(context.getString(R.string.message),msg
@@ -116,7 +128,7 @@ fun toast(msg:String,context: Context)
             }
 
             override fun onDismiss() {
-
+                onDismiss()
             }
 
         })
@@ -221,6 +233,29 @@ fun hideShortCut(context:Context){
 }
 
 
+fun setBelowCount(context: Context, str1: String, count1: Int, str2: String,count2: Int,str3: String) {
+    val sb= StringBuilder()
+    sb.append(str1)
+    sb.append(" ")
+    sb.append(count1)
+    sb.append(" ")
+    sb.append(str2)
+    sb.append(" ")
+    sb.append(count2)
+    sb.append(" ")
+    sb.append(str3)
+
+    val coloredCount=getSpanTv3(
+        sb.indexOf(count1.toString()),
+        sb.indexOf(count1.toString())+
+            count1.toString().length,
+        sb.indexOf(count2.toString()),
+        sb.indexOf(count2.toString())+
+                count2.toString().length,
+        ContextCompat.getColor(context, R.color.black),
+        sb.toString(),context.getResources().getDimensionPixelSize(R.dimen.belowTitleFontSize)+5)
+    (context as Activity).findViewById<TextView>(R.id.summaryTv)?.text = coloredCount
+}
 fun setBelowCount(context: Context, str1: String, count: Int, str2: String)
 {
     val sb= StringBuilder()
@@ -233,8 +268,8 @@ fun setBelowCount(context: Context, str1: String, count: Int, str2: String)
     val coloredCount=getSpanTv2(sb.indexOf(count.toString()),sb.indexOf(count.toString())+
             count.toString().length,
         ContextCompat.getColor(context, R.color.black),
-        sb.toString(),context.getResources().getDimensionPixelSize(R.dimen.belowTitleFontSize)+10)
-    (context as Activity).findViewById<TextView>(R.id.summaryTv)?.setText(coloredCount)
+        sb.toString(),context.getResources().getDimensionPixelSize(R.dimen.belowTitleFontSize)+5)
+    (context as Activity).findViewById<TextView>(R.id.summaryTv)?.text = coloredCount
 }
 
 
@@ -247,7 +282,7 @@ fun hideActivityView(context:Context, id:Int, visiblity:Int){
     (context as Activity).findViewById<View>(id)?.visibility=visiblity
 }
 
-fun showErrorMsg(it:Throwable,logTitle:String,context: Context)
+fun showErrorMsg(it:Throwable,logTitle:String,context: Context,onDismiss: () -> Unit = {})
 {
     if (it is HttpException)
     {
@@ -258,13 +293,13 @@ fun showErrorMsg(it:Throwable,logTitle:String,context: Context)
 
         logErr(logTitle,errorMsg)
 //        log("test",jsonObj.optString("Message").toString())
-        if (jsonObj.optString("Message").toString().length!=0)
+        if (jsonObj.optString("Message").toString().isNotEmpty())
         {
             toast(jsonObj.optString("Message").toString(),context)
             log("test",jsonObj.optString("Message").toString())
         }else{
             toast(jsonObj.optString("Messages").toString().replace("[","")
-                .replace("]",""),context)
+                .replace("]",""),context,onDismiss)
         }
     }else {
         logErr(logTitle,it.toString())
@@ -294,7 +329,7 @@ fun isStockMessageEqualMinusOne(it:Throwable,logTitle:String,): Boolean {
 
 
 
-fun clearEdi(img: ImageView, edi:EditText)
+fun     clearEdi(img: ImageView, edi:EditText)
 {
     edi.requestFocus()
 

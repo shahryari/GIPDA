@@ -34,7 +34,23 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/pattern_task_type"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/_300sdp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+        android:id="@+id/relOkCancel"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/okCanselBtn"
+            layout="@layout/layout_cansel_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/marginTop5ForLayouts" />
+    </LinearLayout>
 
 
 </LinearLayout>

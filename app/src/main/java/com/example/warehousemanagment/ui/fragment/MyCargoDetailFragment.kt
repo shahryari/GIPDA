@@ -7,11 +7,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
+import com.example.warehousemanagment.databinding.DialogSheetTaskTypeBinding
 import com.example.warehousemanagment.databinding.FragmentDetailCargoBinding
 import com.example.warehousemanagment.databinding.PatternCargoDetailBinding
 import com.example.warehousemanagment.model.classes.checkTick
@@ -26,9 +26,11 @@ import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
+import com.example.warehousemanagment.model.models.LocationModel
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailRow
 import com.example.warehousemanagment.ui.adapter.MyCargoDetailAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
+import com.example.warehousemanagment.ui.dialog.SheetChooseLocationDialog
 import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.MyCargoDetailViewModel
@@ -38,7 +40,7 @@ class MyCargoDetailFragment :
     BaseFragment<MyCargoDetailViewModel, FragmentDetailCargoBinding>()
 {
 
-    var sortType=Utils.LOCATION_CODE_SORT
+    var sortType=Utils.Done
     var receivePage=Utils.PAGE_START
     var receiveOrder=Utils.ASC_ORDER
     var lastReceivingPosition=0
@@ -47,6 +49,8 @@ class MyCargoDetailFragment :
     lateinit var shippingNumber:String
     lateinit var customerFullName:String
     lateinit var driverFullName:String
+    private var locations: List<LocationModel> = emptyList()
+    private var selectedLocation: List<String> = emptyList()
 
 
 
@@ -61,6 +65,9 @@ class MyCargoDetailFragment :
         }
 
         refreshCargoDetail()
+
+        setLocations()
+        observeLocations()
 
         observeReceiveList()
         observeReceiveCount()
@@ -82,6 +89,11 @@ class MyCargoDetailFragment :
             showDriverTaskRemoveSheet()
         }
 
+        b.searchEdi.setOnClickListener {
+            showLocationSheetDialog()
+        }
+
+
     }
 
 
@@ -97,7 +109,7 @@ class MyCargoDetailFragment :
                 }
 
                 override fun onOkClick(progress: ProgressBar, expectedCount: String) {
-                    SubmitTaskToDone(shippingAddressId, progress, mySheetAlertDialog)
+                    submitTaskToDone(shippingAddressId, progress, mySheetAlertDialog)
                 }
 
 
@@ -121,7 +133,7 @@ class MyCargoDetailFragment :
         mySheetAlertDialog.show(getParentFragmentManager(), "")
     }
 
-    private fun SubmitTaskToDone(
+    private fun submitTaskToDone(
         shippingAddressId:String,
         progressBar: ProgressBar,
         mySheetAlertDialog: SheetConfirmDialog?
@@ -192,6 +204,31 @@ class MyCargoDetailFragment :
         }
     }
 
+    private fun showLocationSheetDialog() {
+        var sheet: SheetChooseLocationDialog? = null
+        sheet = SheetChooseLocationDialog(
+            locations.map { it.locationCode },selectedLocation,object :SheetChooseLocationDialog.OnClickListener{
+                override fun onCloseClick() {
+                    sheet?.dismiss()
+                }
+
+                override fun onItemClick(locations: List<String>) {
+                    b.searchEdi.setText(locations.joinToString(","))
+                    selectedLocation = locations
+                    refreshCargoDetail()
+                    sheet?.dismiss()
+                }
+
+                override fun init(binding: DialogSheetTaskTypeBinding) {
+
+                }
+
+            }
+        )
+
+        sheet.show(parentFragmentManager,"dialog")
+    }
+
 
 
     private fun showFilterSheetDialog()
@@ -221,6 +258,7 @@ class MyCargoDetailFragment :
                     Utils.ShippingNumber->checkTick(binding.productCodeImg,binding)
                     Utils.CUSTOMER_FULL_NAME->checkTick(binding.productTitleImg,binding)
                     Utils.HAS_PRIORITY -> checkTick(binding.img5,binding)
+                    Utils.Done -> checkTick(binding.img6,binding)
                 }
             }
 
@@ -317,7 +355,7 @@ class MyCargoDetailFragment :
 
     private fun refreshCargoDetail()
     {
-        receivePage = Utils.PAGE_START
+        receivePage=Utils.PAGE_START
         viewModel.clearReceiveList()
         setReceiveData()
         setCargo()
@@ -325,18 +363,26 @@ class MyCargoDetailFragment :
 
     private fun observeReceiveCount()
     {
-        viewModel.getCargoCount().observe(viewLifecycleOwner,object :Observer<Int>
-        {
-            override fun onChanged(it: Int)
-            {
-                setBelowCount(requireActivity(), getString(R.string.tools_you_have),
-                    it, getString(R.string.tools_you_have_3_trcuk_to_receive))
-            }
-
-        })
+        viewModel.getCargoCount().observe(viewLifecycleOwner
+        ) { it ->
+            setBelowCount(
+                requireActivity(),
+                getString(R.string.tools_you_have),
+                it.first,
+                getString(R.string.product)+" "+getString(R.string.and),
+                it.second,
+                getString(R.string.items)
+            )
+        }
 
     }
 
+    private fun observeLocations() {
+        viewModel.getLocations()
+            .observe(viewLifecycleOwner){
+                locations = it
+            }
+    }
     private fun observeReceiveList()
     {
         viewModel.getCargoDetailList()
@@ -395,6 +441,7 @@ class MyCargoDetailFragment :
                    shippingAddressId = model.shippingAddressId,
                    progressBar= b.progressBar!!,
                    cookie=pref.getTokenGlcTest(),
+                   {refreshCargoDetail()}
                ){
                    refreshCargoDetail()
                }
@@ -445,6 +492,14 @@ class MyCargoDetailFragment :
         }
     }
 
+    private fun setLocations() {
+        viewModel.setLocations(
+            pref.getDomain(),
+            shippingAddressId,
+            pref.getTokenGlcTest()
+        )
+    }
+
     private fun setCargo() {
         viewModel.setCargo(
             pref.getDomain(),
@@ -466,7 +521,8 @@ class MyCargoDetailFragment :
             shippingAddressId = shippingAddressId,
             b.progressBar,
             b.swipeLayout,
-            customerName = textEdi(b.searchEdi)
+//            customerName = textEdi(b.searchEdi)
+            selectedLocation.joinToString(",")
         )
     }
 
@@ -494,6 +550,11 @@ class MyCargoDetailFragment :
         b.rel2.visibility = View.VISIBLE
 
 
+
+        b.receiveItem.linNumber?.visibility = View.GONE
+
+
+
         shippingAddressId=arguments?.getString(Utils.ShippingAddressId,"").toString()
 //        shippingNumber=arguments?.getString(Utils.ShippingNumber,"").toString()
 //        customerFullName=arguments?.getString(Utils.CUSTOMER_FULL_NAME,"").toString()
@@ -519,6 +580,14 @@ class MyCargoDetailFragment :
 
 
         b.receiveItem.removeAssign?.visibility = View.VISIBLE
+
+
+        b.clearImg.setOnClickListener {
+            selectedLocation = emptyList()
+            b.searchEdi.setText("")
+            refreshCargoDetail()
+        }
+
 
 
     }

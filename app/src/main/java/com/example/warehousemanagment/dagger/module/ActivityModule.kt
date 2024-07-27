@@ -1,8 +1,7 @@
-package com.example.currencykotlin.model.di.module
+package com.example.warehousemanagment.dagger.module
 
 import android.app.Application
 import android.content.Context
-import com.example.warehousemanagment.model.data.MySharedPref
 import com.example.warehousemanagment.viewmodel.MainViewModel
 import dagger.Module
 import dagger.Provides

@@ -3,6 +3,7 @@ package com.example.warehousemanagment.model.data
 import PickingDetailModel
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.constants.Utils
+import com.example.warehousemanagment.model.models.LocationModel
 import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
 import com.example.warehousemanagment.model.models.cargo_folder.SetShippingAddressColorModel
@@ -12,6 +13,8 @@ import com.example.warehousemanagment.model.models.cargo_folder.cargo_detail.Car
 import com.example.warehousemanagment.model.models.check_truck.CheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
+import com.example.warehousemanagment.model.models.dock.DockModel
+import com.example.warehousemanagment.model.models.dock.SetUseDockModel
 import com.example.warehousemanagment.model.models.insert_serial.InsertSerialModel
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
@@ -49,6 +52,7 @@ import com.example.warehousemanagment.model.models.shipping.AddShippingSerialMod
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
@@ -288,10 +292,18 @@ interface ApiService
     @POST//CustomerColorList
     fun getColors(@Url url: String, @Header(Utils.COOKIE) cookie: String) : Single<List<ColorModel>>
 
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//ShippingDetailCustomers
+    fun getShippingDetailCustomers(@Url url: String, @Body jsonObject: JsonObject, @Header(Utils.COOKIE) cookie: String) : Single<List<CustomerModel>>
+
 
     @Headers(Utils.CONTENT_TYPE)
     @POST//SetShippingAddressColor
     fun setShippingAddressColor(@Url url: String, @Body jsonObject: JsonObject, @Header(Utils.COOKIE) cookie: String) : Single<SetShippingAddressColorModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//TruckLoadingRemove
+    fun truckLoadingRemove(@Url url: String, @Body jsonObject: JsonObject, @Header(Utils.COOKIE) cookie: String) : Single<TruckLoadingRemoveModel>
     //----------------------------ShippingCansel---------------------------------------------------
 
     @Headers(Utils.CONTENT_TYPE)
@@ -447,6 +459,9 @@ interface ApiService
                      @Header(ApiUtils.Order) order:String,
                      @Header(Utils.COOKIE) cookie:String):Single<CargoModel>
 
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun getCargoDetailLocation(@Url url: String, @Body jsonObject: JsonObject, @Header(Utils.COOKIE) cookie: String) : Single<List<LocationModel>>
 
     @Headers(Utils.CONTENT_TYPE)
     @POST//CargoGetItem
@@ -687,6 +702,23 @@ interface ApiService
         @Header(Utils.COOKIE) cookie: String
     ) : Single<VersionInfoModel>
 
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun getDocks(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(ApiUtils.Page) page:Int,
+        @Header(ApiUtils.Rows) rows:Int,
+        @Header(ApiUtils.Sort) sort:String,
+        @Header(ApiUtils.Order) order:String,
+        @Header(Utils.COOKIE) cookie: String,
+    ) : Observable<DockModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun setUseDock(@Url url: String,@Body jsonObject: JsonObject,@Header(Utils.COOKIE) cookie: String) : Single<SetUseDockModel>
 
 
 }

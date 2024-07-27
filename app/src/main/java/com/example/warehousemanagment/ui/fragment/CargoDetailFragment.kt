@@ -7,10 +7,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
+import com.example.warehousemanagment.databinding.DialogSheetTaskTypeBinding
 import com.example.warehousemanagment.databinding.FragmentDetailCargoBinding
 import com.example.warehousemanagment.model.classes.checkTick
 import com.example.warehousemanagment.model.classes.clearEdi
@@ -24,9 +25,11 @@ import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
+import com.example.warehousemanagment.model.models.LocationModel
 import com.example.warehousemanagment.model.models.cargo_folder.cargo_detail.CargoDetailRow
 import com.example.warehousemanagment.ui.adapter.CargoDetailAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
+import com.example.warehousemanagment.ui.dialog.SheetChooseLocationDialog
 import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.CargoDetailViewModel
@@ -48,6 +51,11 @@ class CargoDetailFragment :
     lateinit var customerFullName:String
     lateinit var driverFullName:String
     var isDone by Delegates.notNull<Boolean>()
+    private var locations: List<LocationModel> = emptyList()
+    private var selectedLocation: List<String> = emptyList()
+
+
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -64,6 +72,9 @@ class CargoDetailFragment :
         observeReceiveList()
         observeReceiveCount()
 
+        observeLocations()
+        setLocations()
+
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
 
         b.filterImg.img.setOnClickListener()
@@ -78,20 +89,70 @@ class CargoDetailFragment :
             showSubmitAssignSheet()
         }
 
-        onChangeCustomerName()
-
-    }
-
-    private fun onChangeCustomerName()
-    {
-        b.searchEdi.doAfterTextChanged()
-        {
-            startTimerForGettingData()
-            {
-                refreshCargoDetail()
-            }
+        b.searchEdi.setOnClickListener {
+            showLocationSheetDialog()
         }
+
+
+        b.clearImg.setOnClickListener {
+            selectedLocation = emptyList()
+            b.searchEdi.setText("")
+            refreshCargoDetail()
+        }
+//        onChangeCustomerName()
+
     }
+
+//    private fun onChangeCustomerName()
+//    {
+//        b.searchEdi.doAfterTextChanged()
+//        {
+//            startTimerForGettingData()
+//            {
+//                refreshCargoDetail()
+//            }
+//        }
+//    }
+
+    private fun showLocationSheetDialog() {
+        var sheet: SheetChooseLocationDialog? = null
+        sheet = SheetChooseLocationDialog(
+            locations.map { it.locationCode },selectedLocation,object : SheetChooseLocationDialog.OnClickListener{
+                override fun onCloseClick() {
+                    sheet?.dismiss()
+                }
+
+                override fun onItemClick(locations: List<String>) {
+                    b.searchEdi.setText(locations.joinToString(","))
+                    selectedLocation = locations
+                    refreshCargoDetail()
+                    sheet?.dismiss()
+                }
+
+                override fun init(binding: DialogSheetTaskTypeBinding) {
+
+                }
+
+            }
+        )
+
+        sheet.show(parentFragmentManager,"dialog")
+    }
+    private fun observeLocations() {
+        viewModel.getLocations()
+            .observe(viewLifecycleOwner){
+                locations = it
+            }
+    }
+
+    private fun setLocations() {
+        viewModel.setLocations(
+            pref.getDomain(),
+            shippingAddressId,
+            pref.getTokenGlcTest()
+        )
+    }
+
     private fun showSubmitAssignSheet()
     {
         var mySheetAlertDialog: SheetConfirmDialog? = null
@@ -143,8 +204,8 @@ class CargoDetailFragment :
             onErrorCallback = {mySheetAlertDialog?.dismiss()}
         ) {
             mySheetAlertDialog?.dismiss()
-
-            refreshCargoDetail()
+            navController?.popBackStack()
+//            refreshCargoDetail()
         }
     }
 
@@ -284,8 +345,12 @@ class CargoDetailFragment :
         viewModel.getCargoCount().observe(viewLifecycleOwner
         ) { it ->
             setBelowCount(
-                requireActivity(), getString(R.string.tools_you_have),
-                it, getString(R.string.tools_you_have_3_trcuk_to_receive)
+                requireActivity(),
+                getString(R.string.tools_you_have),
+                it.first,
+                getString(R.string.product)+" "+getString(R.string.and),
+                it.second,
+                getString(R.string.items)
             )
         }
 
@@ -343,7 +408,8 @@ class CargoDetailFragment :
             receivePage, Utils.ROWS, sortType, receiveOrder,
             shippingAddressId = shippingAddressId,b.progressBar,
             b.swipeLayout,
-            customerName = textEdi(b.searchEdi),
+//            customerName = textEdi(b.searchEdi),
+            selectedLocation.joinToString(",")
         )
     }
 

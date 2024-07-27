@@ -51,5 +51,7 @@ data class MyCargoDetailRow(
     @SerializedName("ItemLocationID")
     val itemLocationId: String,
     @SerializedName("ShippingAddressID")
-    val shippingAddressId: String
+    val shippingAddressId: String,
+    @SerializedName("CargoDoneBy")
+    val doneBy: String
 )

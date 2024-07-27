@@ -1,6 +1,7 @@
 package com.example.warehousemanagment.model.data
 
 import PickingDetailModel
+import com.example.warehousemanagment.model.models.LocationModel
 import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
 import com.example.warehousemanagment.model.models.cargo_folder.SetShippingAddressColorModel
@@ -10,6 +11,8 @@ import com.example.warehousemanagment.model.models.cargo_folder.cargo_detail.Car
 import com.example.warehousemanagment.model.models.check_truck.CheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCheckTruckModel
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
+import com.example.warehousemanagment.model.models.dock.DockModel
+import com.example.warehousemanagment.model.models.dock.SetUseDockModel
 import com.example.warehousemanagment.model.models.insert_serial.InsertSerialModel
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
@@ -47,6 +50,7 @@ import com.example.warehousemanagment.model.models.shipping.AddShippingSerialMod
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
@@ -300,6 +304,14 @@ class MyRepository() :DataSource
         return apiDataSource.getCustomerInShipping(url, jsonObject, cookie)
     }
 
+    override fun truckLoadingRemove(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<TruckLoadingRemoveModel> {
+        return apiDataSource.truckLoadingRemove(url, jsonObject, cookie)
+    }
+
     override fun setShippingColor(
         url: String,
         jsonObject: JsonObject,
@@ -312,12 +324,28 @@ class MyRepository() :DataSource
         return apiDataSource.getColorList(url, cookie)
     }
 
+    override fun getShippingDetailCustomers(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<List<CustomerModel>> {
+        return apiDataSource.getShippingDetailCustomers(url, jsonObject, cookie)
+    }
+
     override fun getCargoItem(
         url: String,
         jsonObject: JsonObject,
         cookie: String
     ): Single<CargoRow> {
         return apiDataSource.getCargoItem(url, jsonObject, cookie)
+    }
+
+    override fun getCargoDetailLocation(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<List<LocationModel>> {
+        return apiDataSource.getCargoDetailLocation(url, jsonObject, cookie)
     }
 
     override fun getCargoList(
@@ -771,5 +799,25 @@ class MyRepository() :DataSource
 
     override fun getCurrentVersionInfo(url: String, cookie: String): Single<VersionInfoModel> {
         return apiDataSource.getCurrentVersionInfo(url,cookie)
+    }
+
+    override fun getDocks(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<DockModel> {
+        return apiDataSource.getDocks(url, jsonObject, page, rows, sort, order, cookie)
+    }
+
+    override fun setUseDock(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SetUseDockModel> {
+        return apiDataSource.setUseDock(url, jsonObject, cookie)
     }
 }

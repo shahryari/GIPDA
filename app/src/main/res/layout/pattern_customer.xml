@@ -21,11 +21,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/choose_color"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:background="@drawable/shape_all_corner"
                     android:textAlignment="center"
+                    android:elevation="@dimen/marginTop5ForLayouts"
+                    android:paddingHorizontal="@dimen/padding_all"
+                    android:paddingVertical="@dimen/marginTop5ForLayouts"
+                    android:layout_margin="@dimen/marginTop5ForLayouts"
                     android:textColor="@color/black"
-                    android:id="@+id/choose_color_btn"
-                    android:paddingVertical="@dimen/marginMedium"
-                    android:paddingHorizontal="@dimen/marginTop5ForLayouts"/>
+                    style="@style/btnSubmitCansel"
+                    android:id="@+id/choose_color_btn"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -40,7 +46,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5">
+                android:layout_weight="4">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

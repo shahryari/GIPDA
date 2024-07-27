@@ -9,8 +9,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
 import com.example.warehousemanagment.model.classes.checkTick
@@ -206,7 +206,7 @@ class CargoFragment : BaseFragment<CargoViewModel, FragmentReceivingBinding>()
         ) {
             setBelowCount(
                 requireActivity(), getString(R.string.tools_you_have),
-                it, getString(R.string.tools_you_have_3_trcuk_to_receive)
+                it, getString(R.string.tools_you_have_3_cargos)
             )
         }
 

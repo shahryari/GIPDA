@@ -1,12 +1,44 @@
-package com.example.currencykotlin.model.di.module
+package com.example.warehousemanagment.dagger.module
 
 import android.app.Application
 import android.content.Context
 import com.example.warehousemanagment.model.data.DatabaseHelper
 import com.example.warehousemanagment.model.data.MySharedPref
+import com.example.warehousemanagment.viewmodel.CanselShippingDetailViewModel
+import com.example.warehousemanagment.viewmodel.CanselShippingViewModel
+import com.example.warehousemanagment.viewmodel.CargoDetailViewModel
+import com.example.warehousemanagment.viewmodel.CargoViewModel
+import com.example.warehousemanagment.viewmodel.CheckTruckViewModel
+import com.example.warehousemanagment.viewmodel.DesktopViewModel
+import com.example.warehousemanagment.viewmodel.DockViewModel
+import com.example.warehousemanagment.viewmodel.InsertSerialViewModel
+import com.example.warehousemanagment.viewmodel.InventoryByViewModel
 import com.example.warehousemanagment.viewmodel.InventoryModifiedTaskViewModel
-import com.example.warehousemanagment.viewmodel.*
-import com.test.StockTakingLocationModel
+import com.example.warehousemanagment.viewmodel.InventorySerialProductViewModel
+import com.example.warehousemanagment.viewmodel.InventorySerialViewModel
+import com.example.warehousemanagment.viewmodel.LocatoinInventoryReportViewModel
+import com.example.warehousemanagment.viewmodel.LoginViewModel
+import com.example.warehousemanagment.viewmodel.ManualLocationTransViewModel
+import com.example.warehousemanagment.viewmodel.MyCargoDetailViewModel
+import com.example.warehousemanagment.viewmodel.MyCargoViewModel
+import com.example.warehousemanagment.viewmodel.OfflineSerialViewModel
+import com.example.warehousemanagment.viewmodel.PickingDetailListViewModel
+import com.example.warehousemanagment.viewmodel.PickingListViewModel
+import com.example.warehousemanagment.viewmodel.PickputDailyReportViewModel
+import com.example.warehousemanagment.viewmodel.ProductWithoutMasterViewModel
+import com.example.warehousemanagment.viewmodel.PutAwayDetailViewModel
+import com.example.warehousemanagment.viewmodel.PutAwayViewModel
+import com.example.warehousemanagment.viewmodel.ReceivingDetailViewModel
+import com.example.warehousemanagment.viewmodel.ReceivingViewModel
+import com.example.warehousemanagment.viewmodel.ReworkViewModel
+import com.example.warehousemanagment.viewmodel.SettingViewModel
+import com.example.warehousemanagment.viewmodel.ShippingDetailViewModel
+import com.example.warehousemanagment.viewmodel.ShippingViewModel
+import com.example.warehousemanagment.viewmodel.StockTakeLocationViewModel
+import com.example.warehousemanagment.viewmodel.StockTakeViewModel
+import com.example.warehousemanagment.viewmodel.TrackingViewModel
+import com.example.warehousemanagment.viewmodel.TransferTaskViewModel
+import com.example.warehousemanagment.viewmodel.WaitForLoadingViewModel
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -241,4 +273,12 @@ class FragmentModule()
     fun PickingDetailViewModel(): PickingDetailListViewModel {
         return PickingDetailListViewModel(application,context)
     }
+
+    @Singleton
+    @Provides
+    fun dockViewModel() : DockViewModel {
+        return DockViewModel(application)
+    }
+
+
 }

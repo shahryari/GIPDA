@@ -8,9 +8,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
 import com.example.warehousemanagment.model.classes.checkTick
@@ -174,7 +173,7 @@ class MyCargoFragment : BaseFragment<MyCargoViewModel, FragmentReceivingBinding>
         ) { it ->
             setBelowCount(
                 requireActivity(), getString(R.string.tools_you_have),
-                it, getString(R.string.tools_you_have_3_trcuk_to_receive)
+                it, getString(R.string.tools_you_have_3_cargos)
             )
         }
 
@@ -182,15 +181,14 @@ class MyCargoFragment : BaseFragment<MyCargoViewModel, FragmentReceivingBinding>
 
     private fun observeReceiveList() {
         viewModel.getCargoList()
-            .observe(viewLifecycleOwner, object : Observer<List<MyCargoRow>> {
-                override fun onChanged(it: List<MyCargoRow>) {
-                    if (view != null && isAdded) {
-                        b.swipeLayout.isRefreshing = false
-                        lastReceivingPosition = it.size - 1
-                        showCargoList(it)
-                    }
+            .observe(viewLifecycleOwner
+            ) { it ->
+                if (view != null && isAdded) {
+                    b.swipeLayout.isRefreshing = false
+                    lastReceivingPosition = it.size - 1
+                    showCargoList(it)
                 }
-            })
+            }
     }
 
     private fun showCargoList(list: List<MyCargoRow>)

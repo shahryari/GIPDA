@@ -55,7 +55,7 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
     var subShippingExpanding = true
     var subTransferExpanding = true
 
-    val GENERAL_ITEMS = 5.0f
+    val GENERAL_ITEMS = 7.0f
     val REPORT_ITEMS = 3.0f
     val TRANSFER_ITEMS = 3.0f
     val SHIPPING_ITEMS = 4.0f
@@ -188,8 +188,9 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         b.drawerLayout.linRework.setOnClickListener {
             goToFragment(R.id.reworkFragment)
         }
-
-
+        b.drawerLayout.lineDocks.setOnClickListener {
+            goToFragment(R.id.dockFragment)
+        }
 
 
         b.drawerLayout.transferExpand.setOnClickListener()
@@ -439,13 +440,11 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
     private fun setProfileName() {
         val profileName = b.drawerLayout.profileName.text.toString()
         val end = profileName.indexOf(" ")
-        b.drawerLayout.profileName.setText(
-            getSpanTv(
-                0, end, ContextCompat.getColor(
-                    this,
-                    R.color.mainYellow
-                ), profileName
-            )
+        b.drawerLayout.profileName.text = getSpanTv(
+            0, end, ContextCompat.getColor(
+                this,
+                R.color.mainYellow
+            ), profileName
         )
     }
 

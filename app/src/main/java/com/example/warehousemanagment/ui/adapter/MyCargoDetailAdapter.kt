@@ -77,8 +77,11 @@ class MyCargoDetailAdapter(): RecyclerView.Adapter<MyCargoDetailAdapter.MyViewHo
         holder.b.doneSwitch?.trackDrawable = ContextCompat.getDrawable(context, R.drawable.tick)
         holder.b.doneSwitch?.thumbDrawable = ContextCompat.getDrawable(context, R.drawable.circle)
 
-        holder.b.doneSwitch?.setOnCheckedChangeListener { _, checked ->
-            if (checked) {
+        holder.b.doneByLay?.visibility = if (model.isDone) View.VISIBLE else View.GONE
+        holder.b.doneBy?.text = model.doneBy
+
+        holder.b.doneSwitch?.setOnClickListener {
+            if (!model.isDone) {
                 onCallBackListener.onDoneClick(holder.b,model)
             } else {
                 onCallBackListener.onRemoveClick(holder.b,model)

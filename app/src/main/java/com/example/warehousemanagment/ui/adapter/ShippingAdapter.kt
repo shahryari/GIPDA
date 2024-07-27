@@ -55,10 +55,17 @@ class ShippingAdapter(): RecyclerView.Adapter<ShippingAdapter.MyViewHolder>()
         )
         holder.b.dateTitle.text=context.getString(R.string.dockAssignTime)
 
+        holder.b.customerCount.text = model.customerCount.toString()
+
         holder.b.CurrentStatusCode.visibility=View.VISIBLE
         holder.b.CurrentStatusCodeTitle.visibility=View.VISIBLE
         holder.b.CurrentStatusCode.text=model.currentStatusCode
 
+        holder.b.qtyLay.visibility = View.VISIBLE
+        holder.b.totalTv.text = model.total.toString()
+        holder.b.doneTv.text = model.doneCount.toString()
+        holder.b.qtyTv.text = model.sumQuantity.toString()
+        holder.b.doneQtyTv.text = model.sumDonQuantity.toString()
 
         holder.b.plaqueYear.text=model.plaqueNumberFourth
 
@@ -69,6 +76,7 @@ class ShippingAdapter(): RecyclerView.Adapter<ShippingAdapter.MyViewHolder>()
                 model=model
             )
         }
+
 
         holder.itemView.setOnClickListener()
         {
@@ -84,8 +92,14 @@ class ShippingAdapter(): RecyclerView.Adapter<ShippingAdapter.MyViewHolder>()
 
         if (model.hasCheckTruck) {
             holder.b.imgBackground.visibility= View.VISIBLE
+        } else {
+            holder.b.imgBackground.visibility = View.GONE
         }
 
+        holder.b.remove.visibility = if (model.currentStatusCode == "CarControl") View.VISIBLE else View.GONE
+        holder.b.remove.setOnClickListener {
+            onCallBackListener.onTruckLoadingRemove(model.shippingAddressID)
+        }
 
     }
 
@@ -117,5 +131,7 @@ class ShippingAdapter(): RecyclerView.Adapter<ShippingAdapter.MyViewHolder>()
         fun reachToEnd(position: Int)
 
         fun onLeftDockClick(model: ShippingTruckRow)
+
+        fun onTruckLoadingRemove(shippingAddressId: String)
     }
 }

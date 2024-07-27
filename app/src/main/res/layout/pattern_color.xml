@@ -10,9 +10,8 @@
             android:layout_width="@dimen/_55sdp"
             android:layout_height="@dimen/_55sdp"
             android:layout_gravity="center"
-            android:id="@+id/color"
-            android:text="1234"/>
-        <ImageView
+            android:id="@+id/color" />
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:visibility="gone"
@@ -20,6 +19,6 @@
             android:layout_gravity="center"
             android:id="@+id/checked"
             android:src="@drawable/ic_baseline_check_24"
-            app:tint="@color/green"/>
+            app:tint="@color/black"/>
     </FrameLayout>
 </layout>

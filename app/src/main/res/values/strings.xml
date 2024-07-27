@@ -32,6 +32,7 @@
     <string name="tools_79">79</string>
     <string name="tools_you_have">you have </string>
     <string name="tools_you_have_3_trcuk_to_receive"> trcuks to receive.</string>
+    <string name="tools_you_have_3_cargos"> Cargos.</string>
     <string name="items">Items</string>
     <string name="tools_score_0">Score:0</string>
     <string name="pa">PA</string>
@@ -318,6 +319,7 @@
     <string name="put">Put</string>
     <string name="quantity">Quantity</string>
     <string name="customers">Customers</string>
+    <string name="customerCount">Customer Count</string>
     <string name="customerCode">Customer Code</string>
     <string name="taskTime">Task Time</string>
     <string name="productId">Product Id</string>
@@ -352,6 +354,7 @@
     <string name="workerFullNameShip">Worker</string>
     <string name="removeDriverTask">Remove Driver Task</string>
     <string name="doYouWantToRemoveTask">Do you want to remove this driver task ?</string>
+    <string name="areYouSureToRemove">Are you sure to remove?</string>
     <string name="done">Done</string>
     <string name="remove">Remove</string>
     <string name="stockTake">Stock Taking</string>
@@ -376,10 +379,15 @@
     <string name="your_version">Your Version:</string>
     <string name="current_version">Current Version:</string>
     <string name="dock">Dock</string>
+    <string name="docks">Docks.</string>
     <string name="total">Total</string>
     <string name="qty">Qty</string>
     <string name="removeFromMe">Remove from me</string>
     <string name="choose_customer">Choose Customer</string>
     <string name="not_done">Not Done</string>
     <string name="choose_color">Choose Color</string>
+    <string name="return_value">Return</string>
+    <string name="openPack">OpenPack</string>
+    <string name="done_by">Done By</string>
+    <string name="use">Use</string>
 </resources>

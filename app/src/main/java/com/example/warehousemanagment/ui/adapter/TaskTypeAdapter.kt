@@ -32,7 +32,7 @@ class TaskTypeAdapter(): RecyclerView.Adapter<TaskTypeAdapter.MyViewHolder>()
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val model=arrayList.get(position)
+        val model= arrayList[position]
         holder.itemView.setOnClickListener {
             val previousSelectedPosition = selectedPosition
             selectedPosition = position
@@ -40,7 +40,7 @@ class TaskTypeAdapter(): RecyclerView.Adapter<TaskTypeAdapter.MyViewHolder>()
             notifyItemChanged(selectedPosition)
             onCallBackListener.onClick(model)
         }
-        holder.b.pickTaskName.setText(model.title)
+        holder.b.pickTaskName.text = model.title
 
         if (position == selectedPosition) {
             holder.b.pickImg.visibility = View.VISIBLE

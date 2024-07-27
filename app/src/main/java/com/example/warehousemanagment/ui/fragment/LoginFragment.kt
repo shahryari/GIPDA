@@ -11,8 +11,8 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
-import com.example.currencykotlin.model.di.component.FragmentComponent
 import com.example.warehousemanagment.R
+import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DiaologChangeBaseUrlBinding
 import com.example.warehousemanagment.databinding.FragmentLoginBinding
 import com.example.warehousemanagment.model.classes.NavigationUtils

@@ -14,6 +14,7 @@ import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
+import com.example.warehousemanagment.model.models.LocationModel
 import com.example.warehousemanagment.model.models.cargo_folder.cargo.CargoRow
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailRow
 import com.google.gson.JsonObject
@@ -27,12 +28,15 @@ class MyCargoDetailViewModel(application: Application, context: Context): Androi
     private var cargoDetailList: MutableLiveData<List<MyCargoDetailRow>>
     = MutableLiveData<List<MyCargoDetailRow>>()
 
+    private val cargoDetailLocations: MutableLiveData<List<LocationModel>> = MutableLiveData<List<LocationModel>>()
+
     private var cargo: MutableLiveData<CargoRow> = MutableLiveData()
 
 
     private var tempList=ArrayList<MyCargoDetailRow>()
 
-    private var cargoCount=MutableLiveData<Int>()
+    private var cargoCount=MutableLiveData<Pair<Int,Int>>()
+
 
 
     fun clearReceiveList()
@@ -44,7 +48,9 @@ class MyCargoDetailViewModel(application: Application, context: Context): Androi
         }
 
     }
-    fun getCargoCount(): MutableLiveData<Int> {
+
+
+    fun getCargoCount(): MutableLiveData<Pair<Int,Int>> {
         return cargoCount
     }
     fun getCargoDetailList(): MutableLiveData<List<MyCargoDetailRow>>  {
@@ -53,6 +59,25 @@ class MyCargoDetailViewModel(application: Application, context: Context): Androi
 
     fun getCargo() : LiveData<CargoRow> {
         return cargo.distinctUntilChanged()
+    }
+
+    fun getLocations() : LiveData<List<LocationModel>> {
+        return cargoDetailLocations.distinctUntilChanged()
+    }
+
+    fun setLocations(baseUrl: String,shippingAddressId: String,cookie: String) {
+        viewModelScope.launch {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("ShippingAddressID",shippingAddressId)
+            repository.getCargoDetailLocation(baseUrl,jsonObject,cookie).subscribe(
+                {
+                    cargoDetailLocations.value = it
+                },
+                {
+                    showErrorMsg(it,"get locations",context)
+                }
+            )
+        }
     }
 
     fun setCargo(baseUrl : String,shippingAddressId: String,cookie: String,progressBar: ProgressBar) {
@@ -83,7 +108,7 @@ class MyCargoDetailViewModel(application: Application, context: Context): Androi
         shippingAddressId:String,
         progressBar: ProgressBar,
         swipeLayout: SwipeRefreshLayout,
-        customerName: String
+        location: String
     )
     {
         viewModelScope.launch()
@@ -92,17 +117,17 @@ class MyCargoDetailViewModel(application: Application, context: Context): Androi
             val jsonObject=JsonObject()
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
             jsonObject.addProperty("ShippingAddressID",shippingAddressId)
-            jsonObject.addProperty("CustomerFullName",customerName)
+            jsonObject.addProperty("LocationCode",location)
             repository.getMyCargoDetailList(baseUrl,jsonObject,page, rows, sort, asc,cookie).subscribe({
                 showSimpleProgress(false,progressBar)
                 swipeLayout.isRefreshing=false
                 if (it.myCargoDetailRow.isNotEmpty())
                 {
                     tempList.addAll(it.myCargoDetailRow)
-                    cargoDetailList.value= tempList
+                    cargoDetailList.postValue(tempList)
 
                 }
-                cargoCount.value=it.total
+                cargoCount.value= Pair(it.total,it.sumQuantity)
                 log("receiving",it.toString())
 
             },{
@@ -201,7 +226,8 @@ class MyCargoDetailViewModel(application: Application, context: Context): Androi
         shippingAddressId: String,
         progressBar: ProgressBar,
         cookie: String ,
-        callBack:()->Unit
+        callBack:()->Unit,
+        onErrorCallback: () -> Unit
     ){
         viewModelScope.launch()
         {
@@ -217,7 +243,9 @@ class MyCargoDetailViewModel(application: Application, context: Context): Androi
 
             },{
                 showSimpleProgress(false,progressBar)
-                showErrorMsg(it,"CargoDetailWorkerRemove", context )
+                showErrorMsg(it,"CargoDetailWorkerRemove", context ){
+                    onErrorCallback()
+                }
             } ).let {  }
         }
     }

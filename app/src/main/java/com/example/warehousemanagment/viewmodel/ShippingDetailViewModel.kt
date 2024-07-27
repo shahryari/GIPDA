@@ -22,6 +22,7 @@ import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerial
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
+import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailRow
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
@@ -37,12 +38,14 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
     private var shippingDetailList= MutableLiveData<List<ShippingDetailRow>>()
     private var revokLocation= MutableLiveData<List<DestinyLocationTransfer>>()
 
+    private var customerList = MutableLiveData<List<CustomerModel>>()
+
     private var shippingSerials=MutableLiveData<List<ShippingSerialModel>>()
     private var removeShippingModel=MutableLiveData<RemoveShippingSerialModel>()
     private var loadinFinish=MutableLiveData<LoadingFinishModel>()
     private var addSerialModel=MutableLiveData<AddShippingSerialModel>()
     private var shippingCount=MutableLiveData<ShippingDetailModel>()
-    private var customerList = MutableLiveData<List<CustomerInShipping>>()
+    private var customerColorList = MutableLiveData<List<CustomerInShipping>>()
     private var colorList = MutableLiveData<List<ColorModel>>()
     private var tempList=ArrayList<ShippingDetailRow>()
 
@@ -55,12 +58,17 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
             tempList.clear()
             shippingDetailList.value=tempList
         }
-        customerList.value = emptyList()
+        customerColorList.value = emptyList()
     }
 
-    fun getCustomerList() : LiveData<List<CustomerInShipping>> {
+    fun getCustomerColorList() : LiveData<List<CustomerInShipping>> {
+        return customerColorList.distinctUntilChanged()
+    }
+
+    fun getCustomerList() : LiveData<List<CustomerModel>>{
         return customerList.distinctUntilChanged()
     }
+
 
     fun getColorList() : LiveData<List<ColorModel>> {
         return colorList.distinctUntilChanged()
@@ -261,7 +269,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
         }
     }
 
-    fun setCustomerList(
+    fun setCustomerColorList(
         baseUrl: String,
         keyword: String,
         shippingId: String,
@@ -270,11 +278,11 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
         viewModelScope.launch {
             val jsonObject = JsonObject()
             jsonObject.addProperty("ShippingID",shippingId)
-            jsonObject.addProperty(ApiUtils.Keyword,keyword)
+            jsonObject.addProperty("CustomerName",keyword)
             repository.getCustomerInShipping(baseUrl,jsonObject,cookie)
                 .subscribe(
                     {
-                        customerList.value=it
+                        customerColorList.value=it
                         log("customer in shipping", it.toString())
                     },
                     {
@@ -284,6 +292,25 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
                     }
                 )
         }
+    }
+
+    fun setCustomerList(
+        baseUrl: String,
+        shippingId: String,
+        cookie: String
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("ShippingID",shippingId)
+        repository.getShippingDetailCustomers(
+            baseUrl,jsonObject,cookie
+        ).subscribe(
+            {
+                customerList.value = it
+            },
+            {
+                showErrorMsg(it, "customers", context)
+            }
+        ).let {  }
     }
 
     fun setColorList(
@@ -327,7 +354,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
         baseUrl:String,
         shippingId: String,
         keyword: String,
-        customerName:String,
+        customers:String,
         page: Int,
         rows: Int,
         sort: String,
@@ -339,14 +366,14 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
             showSimpleProgress(true,progressBar)
             val jsonObject=JsonObject()
             jsonObject.addProperty("ShippingID",shippingId)
-            jsonObject.addProperty("CustomerFullName",customerName)
+            jsonObject.addProperty("CustomerIDs",customers)
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
             repository.getShippingDetail(baseUrl,jsonObject,page, rows, sort, asc, cookie)
                 .subscribe(
                     {
                         swipeLayout.isRefreshing=false
                         showSimpleProgress(false,progressBar)
-                        if (it.shippingDetailRows.size!=0)
+                        if (it.shippingDetailRows.isNotEmpty())
                         {
                             tempList.addAll(it.shippingDetailRows)
                             shippingDetailList.value=(tempList)

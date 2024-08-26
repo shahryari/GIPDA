@@ -79,6 +79,10 @@
 
     </fragment>
     <fragment
+        android:id="@+id/waitForLoadingDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.WaitForLoadingDetailFragment"
+        android:label="WaitForLoadingDetailFragment"/>
+    <fragment
         android:id="@+id/receivingFragment"
         android:name="com.example.warehousemanagment.ui.fragment.ReceivingFragment"
         android:label="ReceivingFragment" >
@@ -189,7 +193,11 @@
     <fragment
         android:id="@+id/waitForLoadingFragment"
         android:name="com.example.warehousemanagment.ui.fragment.WaitForLoadingFragment"
-        android:label="WaitForLoadingFragment" />
+        android:label="WaitForLoadingFragment">
+        <action
+            android:id="@+id/action_waitForLoadingFragment_to_waitForLoadingDetailFragment"
+            app:destination="@id/waitForLoadingDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/locationInventoryReportFragment"
         android:name="com.example.warehousemanagment.ui.fragment.LocationInventoryReportFragment"

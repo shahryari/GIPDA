@@ -12,10 +12,7 @@ import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
-import com.example.warehousemanagment.model.models.inventory.CompleteInventoryModifyModel
-import com.example.warehousemanagment.model.models.inventory.inventory.InventoryModifyRow
 import com.example.warehousemanagment.model.models.wait_to_load.TruckLoadingAssignModel
-import com.example.warehousemanagment.model.models.wait_to_load.wait_truck.WaitTruckLoadingModel
 import com.example.warehousemanagment.model.models.wait_to_load.wait_truck.WaitTruckLoadingRow
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
@@ -59,6 +56,7 @@ class WaitForLoadingViewModel(application: Application,context:Context): Android
     fun setWaitForLoadingList(
         baseUrl:String,
         keyword: String,
+        isCompleted: Boolean,
         page: Int,
         rows: Int,
         sort: String,
@@ -73,12 +71,12 @@ class WaitForLoadingViewModel(application: Application,context:Context): Android
             showSimpleProgress(true,progressBar)
             val jsonObject= JsonObject()
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
-            repository.waitTruckLoading(baseUrl,jsonObject, page, rows, sort, order, cookie)
+            repository.waitTruckLoading(baseUrl,isCompleted,jsonObject, page, rows, sort, order, cookie)
                 .subscribe(
                     {
                         swipeLayout.isRefreshing=false
                         showSimpleProgress(false,progressBar)
-                        if (it.waitTruckRows.size>0)
+                        if (it.waitTruckRows.isNotEmpty())
                         {
                             tempList.addAll(it.waitTruckRows)
                              waitForLoadingList.value=tempList

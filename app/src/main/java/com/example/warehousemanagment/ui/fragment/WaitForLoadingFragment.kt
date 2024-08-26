@@ -1,12 +1,12 @@
 package com.example.warehousemanagment.ui.fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
@@ -21,7 +21,6 @@ import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.wait_to_load.TruckLoadingAssignModel
 import com.example.warehousemanagment.model.models.wait_to_load.wait_truck.WaitTruckLoadingRow
 import com.example.warehousemanagment.ui.adapter.WaitForLoadingAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
@@ -37,11 +36,45 @@ class WaitForLoadingFragment :
     var receivePage= Utils.PAGE_START
     var receiveOrder= Utils.ASC_ORDER
     var lastPosition=0
+    var isCompleted = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
+
+
+        if (isCompleted){
+            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        }
+        else {
+            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        }
+        b.closeTabLayout.setOnClickListener {
+            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            isCompleted = true
+            viewModel.clearReceiveList()
+            refresh()
+
+        }
+        b.openTabLayout.setOnClickListener {
+            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            viewModel.clearReceiveList()
+            isCompleted = false
+            refresh()
+        }
 
         b.swipeLayout.setOnRefreshListener()
         {
@@ -164,10 +197,17 @@ class WaitForLoadingFragment :
     private fun setWaitForLoading()
     {
         viewModel.setWaitForLoadingList(
-            pref.getDomain(),textEdi(b.mainToolbar.searchEdi),
-            receivePage, Utils.ROWS, sortType
-            , receiveOrder, pref.getTokenGlcTest(), b.progressBar
-            ,b.swipeLayout)
+            pref.getDomain(),
+            textEdi(b.mainToolbar.searchEdi),
+            isCompleted,
+            receivePage,
+            Utils.ROWS,
+            sortType,
+            receiveOrder,
+            pref.getTokenGlcTest(),
+            b.progressBar,
+            b.swipeLayout
+        )
     }
 
     private fun refresh()
@@ -180,31 +220,23 @@ class WaitForLoadingFragment :
 
     private fun observeWaitForLoadingList()
     {
-        viewModel.getWaitForLoadingList().observe(viewLifecycleOwner,
-            object :Observer<List<WaitTruckLoadingRow>>
-            {
-                override fun onChanged(it: List<WaitTruckLoadingRow> )
-                {
-
-                    b.swipeLayout.isRefreshing=false
-                    lastPosition=it.size-1
-                    showWaitsForLoadingList(it)
-                }
-            })
+        viewModel.getWaitForLoadingList().observe(viewLifecycleOwner
+        ) { it ->
+            b.swipeLayout.isRefreshing = false
+            lastPosition = it.size - 1
+            showWaitsForLoadingList(it)
+        }
 
     }
     private fun observeWaitCount()
     {
         viewModel.getWaifForLoadingCount()
-            .observe(viewLifecycleOwner, object : Observer<Int>
-            {
-                override fun onChanged(it: Int)
-                {
-                    setBelowCount(requireActivity(), getString(R.string.youHaveWaitedTruck),
-                        it, getString(R.string.waitedTruckToLoad))
-                }
-
-            })
+            .observe(viewLifecycleOwner) { it ->
+                setBelowCount(
+                    requireActivity(), getString(R.string.youHaveWaitedTruck),
+                    it, getString(R.string.waitedTruckToLoad)
+                )
+            }
     }
 
 
@@ -219,15 +251,31 @@ class WaitForLoadingFragment :
         {
             override fun onClick(model: WaitTruckLoadingRow)
             {
-                val sb= getBuiltString(getString(R.string.areYouSureTruck),
-                " ",model.shippingNumber," ", getString(R.string.shippingNumber),
-                " ",getString(R.string.and)," ",
-                    model.plaqueNumber.replaceFirst("-",""),
-                    " ",getString(R.string.plaquNumber))
+                if (isCompleted){
+                    val bundle=Bundle()
+                    bundle.putString(Utils.ShippingId,model.shippingID)
+                    bundle.putString(Utils.DRIVE_FULLNAME,model.driverFullName)
+                    bundle.putString(Utils.ShippingNumber,model.shippingNumber)
+                    bundle.putString(Utils.BOLNumber,model.bOLNumber)
 
-                showConfirmSheet(getString(R.string.confirmAssign),
-                            sb,
-                            model)
+                    bundle.putString(Utils.PLAQUE_1,model.plaqueNumberFirst)
+                    bundle.putString(Utils.PLAQUE_2,model.plaqueNumberSecond)
+                    bundle.putString(Utils.PLAQUE_3,model.plaqueNumberThird)
+                    bundle.putString(Utils.PLAQUE_4,model.plaqueNumberFourth)
+                    bundle.putString(Utils.PLAQUE,model.plaqueNumber)
+                    navController?.navigate(R.id.action_waitForLoadingFragment_to_waitForLoadingDetailFragment,bundle)
+                } else {
+                    val sb= getBuiltString(getString(R.string.areYouSureTruck),
+                        " ",model.shippingNumber," ", getString(R.string.shippingNumber),
+                        " ",getString(R.string.and)," ",
+                        model.plaqueNumber.replaceFirst("-",""),
+                        " ",getString(R.string.plaquNumber))
+
+                    showConfirmSheet(getString(R.string.confirmAssign),
+                        sb,
+                        model)
+                }
+
             }
 
             override fun reachToEnd(position: Int)
@@ -298,14 +346,8 @@ class WaitForLoadingFragment :
 
     private fun observeLoadingAssign(sheet: SheetAlertDialog?)
     {
-        viewModel.getLoadingAssignModel().observe(viewLifecycleOwner,
-            object :Observer<TruckLoadingAssignModel>{
-                override fun onChanged(it: TruckLoadingAssignModel)
-                {
-                    sheet?.dismiss()
-                }
-
-            })
+        viewModel.getLoadingAssignModel().observe(viewLifecycleOwner
+        ) { sheet?.dismiss() }
     }
 
     override fun onResume() {
@@ -326,6 +368,9 @@ class WaitForLoadingFragment :
     {
         setToolbarTitle(requireActivity(),getString(R.string.waite_for_loading))
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
+        b.tabs.visibility = View.VISIBLE
+        b.openTab.text = getString(R.string.truckInDock)
+        b.closeTab.text = getString(R.string.pickingComplete)
     }
 
 

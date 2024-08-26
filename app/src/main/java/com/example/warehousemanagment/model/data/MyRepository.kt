@@ -656,6 +656,7 @@ class MyRepository() :DataSource
 
     override fun waitTruckLoading(
         baseUrl:String,
+        isCompleted: Boolean,
         jsonObject: JsonObject,
         page:Int,
         rows:Int,
@@ -663,7 +664,7 @@ class MyRepository() :DataSource
         order:String,
         cookie: String
     ): Observable<WaitTruckLoadingModel> {
-        return apiDataSource.waitTruckLoading(baseUrl,jsonObject, page, rows, sort, order, cookie)
+        return apiDataSource.waitTruckLoading(baseUrl,isCompleted,jsonObject, page, rows, sort, order, cookie)
     }
 
     override fun truckLoadingAssign(

@@ -566,6 +566,18 @@ interface ApiService
                          @Header(Utils.COOKIE) cookie: String,)
         :Observable<WaitTruckLoadingModel>
 
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"WaitTruckLoadingNotAssign")
+    fun waitTruckLoadingNotAssign(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(ApiUtils.Page) page:Int,
+        @Header(ApiUtils.Rows) rows:Int,
+        @Header(ApiUtils.Sort) sort:String,
+        @Header(ApiUtils.Order) order:String,
+        @Header(Utils.COOKIE) cookie: String,
+    ) : Observable<WaitTruckLoadingModel>
+
 
 
     @Headers(Utils.CONTENT_TYPE)

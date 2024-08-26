@@ -36,10 +36,11 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
     private var context: Context=context
 
     private var shippingDetailList= MutableLiveData<List<ShippingDetailRow>>()
+    private var tempList=ArrayList<ShippingDetailRow>()
+
     private var revokLocation= MutableLiveData<List<DestinyLocationTransfer>>()
 
     private var customerList = MutableLiveData<List<CustomerModel>>()
-
     private var shippingSerials=MutableLiveData<List<ShippingSerialModel>>()
     private var removeShippingModel=MutableLiveData<RemoveShippingSerialModel>()
     private var loadinFinish=MutableLiveData<LoadingFinishModel>()
@@ -47,7 +48,6 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
     private var shippingCount=MutableLiveData<ShippingDetailModel>()
     private var customerColorList = MutableLiveData<List<CustomerInShipping>>()
     private var colorList = MutableLiveData<List<ColorModel>>()
-    private var tempList=ArrayList<ShippingDetailRow>()
 
     private var disposable: CompositeDisposable = CompositeDisposable()
     fun dispose() { disposable.clear() }
@@ -61,20 +61,24 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
         customerColorList.value = emptyList()
     }
 
+    fun getShippingCount(): LiveData<ShippingDetailModel> {
+        return shippingCount.distinctUntilChanged()
+    }
+
+    fun getShippingDetail(): MutableLiveData<List<ShippingDetailRow>> {
+        return shippingDetailList
+    }
+
     fun getCustomerColorList() : LiveData<List<CustomerInShipping>> {
         return customerColorList.distinctUntilChanged()
     }
 
+
     fun getCustomerList() : LiveData<List<CustomerModel>>{
         return customerList.distinctUntilChanged()
     }
-
-
     fun getColorList() : LiveData<List<ColorModel>> {
         return colorList.distinctUntilChanged()
-    }
-    fun getShippingCount(): LiveData<ShippingDetailModel> {
-        return shippingCount.distinctUntilChanged()
     }
 
 
@@ -86,9 +90,6 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
 
     fun getAddSerialModel(): LiveData<AddShippingSerialModel> {
         return addSerialModel.distinctUntilChanged()
-    }
-    fun getShippingDetail(): MutableLiveData<List<ShippingDetailRow>> {
-        return shippingDetailList
     }
     fun getShippingSerials(): LiveData<List<ShippingSerialModel>> {
         return shippingSerials.distinctUntilChanged()

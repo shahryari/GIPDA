@@ -148,6 +148,7 @@
     <string name="manualToTransfer">manual locations to transfer</string>
     <string name="_0">0</string>
     <string name="pickingFinish">Picking Finish</string>
+    <string name="pickingComplete">Picking Complete</string>
     <string name="checkTrucks_">] check trukcs?</string>
     <string name="from2">] from [</string>
     <string name="to2">] to [</string>
@@ -181,6 +182,7 @@
     <string name="fullName">Full Name</string>
     <string name="bolNumber">Bol Number</string>
     <string name="docCode">Dock Code</string>
+    <string name="dockCode">Dock Code: </string>
     <string name="invTitle">Inv Title</string>
     <string name="uomName">Uom Name</string>
     <string name="ownerCode">Owner Code</string>
@@ -216,6 +218,7 @@
     <string name="PalletName">Pallet Name</string>
     <string name="unitMeasure">Unit Of Measures</string>
     <string name="warehouse">Warehouse</string>
+    <string name="warehouseD">Warehouse:</string>
     <string name="InventoryType">Inventory Type</string>
     <string name="warehouseName">Warehouse Name</string>
     <string name="warehouseTypeId">Warehouse Type Id</string>
@@ -266,6 +269,7 @@
     <string name="minMustLestMax">Minimum Value must be less than Maximum Value!</string>
     <string name="successfullConfirmed">Successfully Confirmed.</string>
     <string name="truckToInvent">Trucks in Inventory</string>
+    <string name="truckInDock">Truck in Dock</string>
     <string name="dockAssignTime">Dock Assign Time</string>
     <string name="locationTransferTask">Location Transfer Task</string>
     <string name="pickPutDailyReport">Pick and Put Daily Reports</string>

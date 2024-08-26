@@ -34,6 +34,7 @@ import com.example.warehousemanagment.ui.fragment.StockTakeFragment
 import com.example.warehousemanagment.ui.fragment.StockTakeLocationFragment
 import com.example.warehousemanagment.ui.fragment.TrackingFragment
 import com.example.warehousemanagment.ui.fragment.TransferTaskFragment
+import com.example.warehousemanagment.ui.fragment.WaitForLoadingDetailFragment
 import com.example.warehousemanagment.ui.fragment.WaitForLoadingFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -78,7 +79,7 @@ interface FragmentComponent
     fun inject(fragment:StockTakeFragment)
     fun inject(fragment:StockTakeLocationFragment)
     fun inject(fragment:PickingDetailFragment)
-
+    fun inject(fragment:WaitForLoadingDetailFragment)
 
 
 

@@ -64,6 +64,7 @@
             <TextView
                 style="@style/pattern_putaway_smallTv"
                 android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:id="@+id/productCodeTitle"
                 android:text="@string/product_code" />
 
 
@@ -75,6 +76,7 @@
             <TextView
                 style="@style/pattern_putaway_smallTv"
                 android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:id="@+id/hasPriorityTitle"
                 android:text="@string/hasPriority" />
 
 

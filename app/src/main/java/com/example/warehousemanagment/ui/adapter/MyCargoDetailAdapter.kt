@@ -35,15 +35,19 @@ class MyCargoDetailAdapter(): RecyclerView.Adapter<MyCargoDetailAdapter.MyViewHo
     override fun onBindViewHolder(holder: MyViewHolder, position: Int)
     {
         val model=arrayList.get(position)
+        holder.b.productCodeTitle?.visibility = View.GONE
+        holder.b.productCode.visibility = View.GONE
+        holder.b.hasPriorityTitle?.visibility = View.GONE
+        holder.b.hasPriority?.visibility = View.GONE
 
         holder.b.customerFullName.text=model.customerFullName
         holder.b.ownerCode.text=model.ownerCode
         holder.b.invType.text=model.invTypeTitle
         holder.b.productTitle.text=model.productTitle
-        holder.b.productCode.text=model.productCode
+//        holder.b.productCode.text=model.productCode
         holder.b.count.text=model.quantity.toString()
         holder.b.locationCode?.text=model.locationCode
-        holder.b.hasPriority?.text=model.hasLowPriorityTitle
+//        holder.b.hasPriority?.text=model.hasLowPriorityTitle
 
 
         holder.itemView.setOnClickListener {

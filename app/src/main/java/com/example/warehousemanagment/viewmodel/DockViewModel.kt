@@ -51,7 +51,7 @@ class DockViewModel(application: Application) : AndroidViewModel(application) {
         context: Context,
         baseUrl: String,
         dockId: String,
-        useDock: Boolean,
+        useDock: Int,
         cookie: String
     ){
         viewModelScope.launch {

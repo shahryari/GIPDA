@@ -750,6 +750,7 @@ class ApiDataSource() :DataSource
 
     override fun waitTruckLoading(
         baseUrl:String,
+        isCompleted: Boolean,
         jsonObject: JsonObject,
         page:Int,
         rows:Int,
@@ -757,8 +758,8 @@ class ApiDataSource() :DataSource
         order:String,
         cookie: String
     ): Observable<WaitTruckLoadingModel> {
-        return apiProvider().
-        waitTruckLoading(baseUrl+"WaitTruckLoading",jsonObject, page, rows, sort, order, cookie)
+        val api =if (isCompleted) apiProvider()::waitTruckLoading else apiProvider()::waitTruckLoadingNotAssign
+        return api(baseUrl+if(isCompleted)"WaitTruckLoadingNotAssign" else "WaitTruckLoading",jsonObject, page, rows, sort, order, cookie)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

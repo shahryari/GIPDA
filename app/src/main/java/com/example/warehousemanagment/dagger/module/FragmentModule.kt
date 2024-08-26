@@ -38,6 +38,7 @@ import com.example.warehousemanagment.viewmodel.StockTakeLocationViewModel
 import com.example.warehousemanagment.viewmodel.StockTakeViewModel
 import com.example.warehousemanagment.viewmodel.TrackingViewModel
 import com.example.warehousemanagment.viewmodel.TransferTaskViewModel
+import com.example.warehousemanagment.viewmodel.WaitForLoadingDetailViewModel
 import com.example.warehousemanagment.viewmodel.WaitForLoadingViewModel
 import dagger.Module
 import dagger.Provides
@@ -278,6 +279,12 @@ class FragmentModule()
     @Provides
     fun dockViewModel() : DockViewModel {
         return DockViewModel(application)
+    }
+
+    @Singleton
+    @Provides
+    fun dockDetailViewModel() : WaitForLoadingDetailViewModel {
+        return WaitForLoadingDetailViewModel(application,context)
     }
 
 

@@ -26,14 +26,15 @@
             app:tabSelectedTextColor="@color/mainYellow"
             android:background="@color/yellowGray">
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@color/mainYellow"
                 android:id="@+id/open_tab_layout"
+                android:gravity="center"
                 android:layout_weight="1">
                 <TextView
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/open_tab"
                     android:textAlignment="center"
@@ -44,12 +45,13 @@
                     android:text="@string/open"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:id="@+id/close_tab_layout"
+                android:gravity="center"
                 android:layout_weight="1">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/close_tab"
                     android:textAlignment="center"

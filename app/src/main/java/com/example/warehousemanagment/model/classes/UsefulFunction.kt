@@ -147,11 +147,7 @@ private fun showSnackBar(
     snackBarView?.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
 
 
-    snackbar?.setAction(R.string.ok, object : View.OnClickListener {
-        override fun onClick(v: View?) {
-            snackbar?.dismiss()
-        }
-    })
+    snackbar?.setAction(R.string.ok) { snackbar?.dismiss() }
 
     snackbar?.show()
 }

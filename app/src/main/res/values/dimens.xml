@@ -177,7 +177,7 @@
     <dimen name="desktop_subtv_size">@dimen/_13ssp</dimen>
     <dimen name="mainToolbarTvSize">@dimen/_16ssp</dimen>
     <dimen name="searchFontSize">@dimen/_14ssp</dimen>
-    <dimen name="pattern_receive_fontSize1">@dimen/_14ssp</dimen>
+    <dimen name="pattern_receive_fontSize1">@dimen/_13ssp</dimen>
     <dimen name="pattern_cargo_tablet_fontSize">@dimen/_10ssp</dimen>
     <dimen name="carNumber_font">@dimen/_15ssp</dimen>
     <dimen name="iranSize">@dimen/_7ssp</dimen>
@@ -187,7 +187,7 @@
     <dimen name="serial_serachFont">@dimen/_10ssp</dimen>
     <dimen name="pattern_serial_Font">@dimen/_10ssp</dimen>
     <dimen name="pattern_putaway_detail_smallFont">@dimen/_9ssp</dimen>
-    <dimen name="pattern_putaway_detail_MediumFont">@dimen/_15ssp</dimen>
+    <dimen name="pattern_putaway_detail_MediumFont">@dimen/_13ssp</dimen>
     <dimen name="pattern_putaway_detail_MediumFont2">@dimen/_13ssp</dimen>
     <dimen name="pattern_putaway_countFont">@dimen/_16ssp</dimen>
     <dimen name="pattern_picking_name">@dimen/_10ssp</dimen>

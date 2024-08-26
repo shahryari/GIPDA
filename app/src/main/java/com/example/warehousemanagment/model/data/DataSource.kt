@@ -385,7 +385,9 @@ interface DataSource
 
     //-------------------------------------------------------------------------------------
 
-    fun waitTruckLoading(baseUrl:String,jsonObject: JsonObject,
+    fun waitTruckLoading(baseUrl:String,
+                         isCompleted: Boolean,
+                         jsonObject: JsonObject,
                          page:Int,
                          rows:Int,
                          sort:String,

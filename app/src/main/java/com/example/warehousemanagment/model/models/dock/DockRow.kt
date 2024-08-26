@@ -7,5 +7,5 @@ data class DockRow(
     @SerializedName("DockID") val dockId: String,
     @SerializedName("DockCode") val dockCode: String,
     @SerializedName("WarehouseCode") val warehouseCode: String,
-    @SerializedName("UseDock") val useDock: Boolean,
+    @SerializedName("DockTypeID") val dockTypeID: Int,
 )

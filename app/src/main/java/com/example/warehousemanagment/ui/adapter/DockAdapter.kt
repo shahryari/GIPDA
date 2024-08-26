@@ -3,7 +3,9 @@ package com.example.warehousemanagment.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.PatternDockBinding
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.dock.DockRow
@@ -28,12 +30,24 @@ class DockAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val model = dockList[position]
         holder.binding.dockCode.text = model.dockCode
-        holder.binding.useSwitch.isChecked = model.useDock
-        holder.binding.warehouseCode.text = model.warehouseCode
-        holder.binding.useSwitch.setOnClickListener {
-            onCallBackListener.onUseDock(model.dockId,!model.useDock)
+        holder.binding.inActive.setBackgroundColor(
+            if (model.dockTypeID == 1) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground)
+        )
+        holder.binding.inActive.setOnClickListener {
+            onCallBackListener.onUseDock(model.dockId,1)
         }
-
+        holder.binding.receiving.setOnClickListener {
+            onCallBackListener.onUseDock(model.dockId,2)
+        }
+        holder.binding.shipping.setOnClickListener {
+            onCallBackListener.onUseDock(model.dockId,3)
+        }
+        holder.binding.receiving.setBackgroundColor(
+            if (model.dockTypeID == 2) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground)
+        )
+        holder.binding.shipping.setBackgroundColor(
+            if (model.dockTypeID == 3) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground)
+        )
         if (position==dockList.size-1 && dockList.size>= Utils.ROWS){
             onCallBackListener.reachToEnd(position)
         }
@@ -42,6 +56,6 @@ class DockAdapter(
     interface OnCallBackListener{
         fun reachToEnd(position: Int)
 
-        fun onUseDock(dockId: String,useDock: Boolean)
+        fun onUseDock(dockId: String,useDock: Int)
     }
 }

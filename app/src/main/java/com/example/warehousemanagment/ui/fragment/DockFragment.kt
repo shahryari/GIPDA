@@ -17,6 +17,7 @@ import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.dock.DockRow
 import com.example.warehousemanagment.ui.adapter.DockAdapter
+import com.example.warehousemanagment.ui.adapter.DockGroupAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.DockViewModel
@@ -157,19 +158,20 @@ class DockFragment : BaseFragment<DockViewModel,FragmentDocksBinding>() {
     }
 
     private fun showDockList(list: List<DockRow>){
+        val groupDock = list.groupBy { it.warehouseCode }
         if(lastReceivingPosition-Utils.ROWS<=0)
             b.rv.scrollToPosition(0)
         else{
             val  multi=(lastReceivingPosition-Utils.ROWS)/10+1
             b.rv.scrollToPosition(Utils.ROWS * multi -1)
         }
-        val adapter = DockAdapter(requireActivity(),list, onCallBackListener = object : DockAdapter.OnCallBackListener {
+        val adapter = DockGroupAdapter(requireActivity(),groupDock, onCallBackListener = object : DockAdapter.OnCallBackListener {
             override fun reachToEnd(position: Int) {
                 receivePage += 1
                 setDockList()
             }
 
-            override fun onUseDock(dockId: String,useDock: Boolean) {
+            override fun onUseDock(dockId: String,useDock: Int) {
                 setUseDock(dockId,useDock)
             }
 
@@ -189,7 +191,7 @@ class DockFragment : BaseFragment<DockViewModel,FragmentDocksBinding>() {
             pref.getDomain(),
             textEdi(b.mainToolbar.searchEdi),
             receivePage,
-            Utils.ROWS,
+            1000,
             sortType,
             receiveOrder,
             pref.getTokenGlcTest(),
@@ -198,7 +200,7 @@ class DockFragment : BaseFragment<DockViewModel,FragmentDocksBinding>() {
         )
     }
 
-    private fun setUseDock(dockId: String,useDock: Boolean) {
+    private fun setUseDock(dockId: String,useDock: Int) {
         viewModel.setUseDock(
             requireActivity(),
             pref.getDomain(),

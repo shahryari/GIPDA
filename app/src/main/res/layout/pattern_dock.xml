@@ -5,69 +5,125 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@drawable/shape_background_rect_white_6"
+        android:layout_margin="@dimen/margin_low_2"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/relWarehouse"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/pattern_putaway_smallTv"
-                android:layout_marginStart="@dimen/marginStartLocationTransfer"
-                android:text="@string/warehouseCode" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:id="@+id/relWarehouse"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <TextView-->
+<!--                style="@style/pattern_putaway_smallTv"-->
+<!--                android:layout_marginStart="@dimen/marginStartLocationTransfer"-->
+<!--                android:text="@string/warehouseCode" />-->
 
 
-            <TextView
-                android:id="@+id/warehouseCode"
-                style="@style/pattern_receieve_tv1"
-                tools:text="@string/tools_a220820_023535" />
-        </LinearLayout>
-        <LinearLayout
+<!--            <TextView-->
+<!--                android:id="@+id/warehouseCode"-->
+<!--                style="@style/pattern_receieve_tv1"-->
+<!--                tools:text="@string/tools_a220820_023535" />-->
+<!--        </LinearLayout>-->
+        <androidx.constraintlayout.widget.ConstraintLayout
 
+            android:id="@+id/rel0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginTop5ForLayouts"
-            android:padding="@dimen/marginTop5ForLayouts"
-            android:layout_below="@id/relWarehouse"
-            android:layout_marginBottom="@dimen/edi_login_marginTop"
-            android:id="@+id/rel0"
             android:elevation="@dimen/lowElevation"
-            android:orientation="horizontal">
+            android:padding="@dimen/marginTop5ForLayouts">
 
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/rel_choose"
+                android:orientation="horizontal"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
-                    style="@style/pattern_putaway_smallTv"
+                    style="@style/pattern_putaway_MediumTv"
+                    android:textColor="@color/gray70"
                     android:layout_marginStart="@dimen/marginStartLocationTransfer"
-                    android:text="@string/docCode" />
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:text="@string/dockCode" />
 
 
                 <TextView
                     android:id="@+id/dockCode"
-                    style="@style/pattern_receieve_tv1"
-                    tools:text="@string/tools_a220820_023535" />
+                    style="@style/pattern_putaway_MediumTv"
+                    tools:text="D01" />
 
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <LinearLayout
+                android:id="@+id/rel_choose"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                app:switchMinWidth="@dimen/_45sdp"
-                android:padding="@dimen/marginEndFilterRel"
                 android:layout_height="wrap_content"
-                android:id="@+id/use_switch"
-                app:track="@drawable/tick"
-                android:thumb="@drawable/circle"
-                android:checked="true"/>
+                android:background="@drawable/shape_40"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline2"
+                app:layout_constraintTop_toTopOf="parent">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/inActive"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/paddingInvType">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
-        </LinearLayout>
+                        android:textAlignment="center"
+                        android:text="InActive"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:id="@+id/receiving"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/paddingInvType">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:textAlignment="center"
+                        android:text="@string/receiving"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/shipping"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/paddingInvType">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="@string/shipping"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 
 </layout>

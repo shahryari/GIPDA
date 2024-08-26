@@ -38,7 +38,7 @@
                 android:layout_below="@id/mainToolbar"
                 android:layout_marginTop="@dimen/marginTop5ForLayouts"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/pattern_dock" />
+                tools:listitem="@layout/pattern_dock_group" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

@@ -1,6 +1,7 @@
 package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -30,9 +31,6 @@ class DockAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val model = dockList[position]
         holder.binding.dockCode.text = model.dockCode
-        holder.binding.inActive.setBackgroundColor(
-            if (model.dockTypeID == 1) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground)
-        )
         holder.binding.inActive.setOnClickListener {
             onCallBackListener.onUseDock(model.dockId,1)
         }
@@ -42,12 +40,10 @@ class DockAdapter(
         holder.binding.shipping.setOnClickListener {
             onCallBackListener.onUseDock(model.dockId,3)
         }
-        holder.binding.receiving.setBackgroundColor(
-            if (model.dockTypeID == 2) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground)
-        )
-        holder.binding.shipping.setBackgroundColor(
-            if (model.dockTypeID == 3) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground)
-        )
+        holder.binding.inActive.backgroundTintList = if (model.dockTypeID == 1) ContextCompat.getColorStateList(context,R.color.mainYellow) else ContextCompat.getColorStateList(context,R.color.mainBackground)
+
+        holder.binding.receiving.backgroundTintList = ColorStateList.valueOf(if (model.dockTypeID == 2) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground))
+        holder.binding.shipping.backgroundTintList = ColorStateList.valueOf(if (model.dockTypeID == 3) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground))
         if (position==dockList.size-1 && dockList.size>= Utils.ROWS){
             onCallBackListener.reachToEnd(position)
         }

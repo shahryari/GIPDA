@@ -57,7 +57,7 @@ class DockViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val jsonObject = JsonObject()
             jsonObject.addProperty("DockID",dockId)
-            jsonObject.addProperty("UseDock",useDock)
+            jsonObject.addProperty("DockTypeID",useDock)
             repository.setUseDock(
                 baseUrl,jsonObject,cookie
             ).subscribe(

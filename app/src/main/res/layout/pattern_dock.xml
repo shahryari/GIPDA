@@ -4,8 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@drawable/shape_background_rect_white_6"
         android:layout_margin="@dimen/margin_low_2"
+        android:background="@drawable/shape_background_rect_white_6"
         android:layout_height="wrap_content">
 <!--        <LinearLayout-->
 <!--            android:layout_width="wrap_content"-->
@@ -75,13 +75,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/inActive"
+                    android:background="@drawable/shape_40_half"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="@dimen/paddingInvType">
+                    android:paddingVertical="@dimen/paddingInvType">
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/_10ssp"
                         android:textAlignment="center"
                         android:text="InActive"/>
                 </LinearLayout>
@@ -89,14 +91,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
+                    android:background="@color/mainBackground"
+                    android:gravity="center"
                     android:id="@+id/receiving"
                     android:orientation="horizontal"
-                    android:padding="@dimen/paddingInvType">
+                    android:paddingVertical="@dimen/paddingInvType">
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/_10ssp"
                         android:textAlignment="center"
                         android:text="@string/receiving"/>
                 </LinearLayout>
@@ -105,13 +109,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:background="@drawable/shape_40_helf_2"
                     android:id="@+id/shipping"
                     android:orientation="horizontal"
-                    android:padding="@dimen/paddingInvType">
+                    android:paddingVertical="@dimen/paddingInvType">
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
+                        android:textColor="@color/gray70"
+                        android:textSize="@dimen/_10ssp"
                         android:text="@string/shipping"/>
                 </LinearLayout>
 

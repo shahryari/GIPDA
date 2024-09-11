@@ -9,11 +9,11 @@ data class LoginModel(
     @SerializedName("Permissions")
     val permissions: Permissions,
     @SerializedName("TokenID")
-    val tokenID: String,
+    val tokenID: String?,
     @SerializedName("UserName")
     val userName: String,
     @SerializedName("WarehouseCode")
-    val warehouse:String,
+    val warehouse:String?,
     @SerializedName("RandomCheckCount")
     val randomCheckCount:Int
 )

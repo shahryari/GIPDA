@@ -10,7 +10,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DiaologChangeBaseUrlBinding
@@ -25,10 +24,10 @@ import com.example.warehousemanagment.model.classes.hideView
 import com.example.warehousemanagment.model.classes.lenEdi
 import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.setDescAndCopyRight
+import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.login.login.LoginModel
 import com.example.warehousemanagment.model.models.login.login.Permissions
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.viewmodel.LoginViewModel
@@ -118,27 +117,25 @@ class LoginFragment() :
             pref.getDomain()
             ,username,password, submit, progressBar)
         hideKeyboard(requireActivity())
-        viewModel.getLoginResult().observe(viewLifecycleOwner,object :Observer<LoginModel>
-        {
-            override fun onChanged(it: LoginModel)
-            {
-                pref.saveTokenGlcTest(it.tokenID)
-                pref.saveCurrentUser(it.fullName)
-                pref.saveWareHouseName(it.warehouse)
+        viewModel.getLoginResult().observe(viewLifecycleOwner
+        ) { it ->
+            pref.saveTokenGlcTest(it.tokenID?:"")
+            pref.saveCurrentUser(it.fullName)
+            pref.saveWareHouseName(it.warehouse?:"")
 
-                pref.saveAtLeastCountForReceivingQuantity(it.randomCheckCount)
+            pref.saveAtLeastCountForReceivingQuantity(it.randomCheckCount)
 
-                checkPermissionForLayout(it.permissions)
+            checkPermissionForLayout(it.permissions)
 
 
-                NavigationUtils.navigateSafe(
-                    navController!!,
-                    R.id.action_loginFragment_to_desktopFragment,
-                    null
-                )
-
+            if(it.tokenID!=null) NavigationUtils.navigateSafe(
+                navController!!,
+                R.id.action_loginFragment_to_desktopFragment,
+                null
+            ) else {
+                showErrorMsg(Throwable("invalid response"), "login", requireActivity())
             }
-        })
+        }
 
     }
 

@@ -764,6 +764,20 @@ class ApiDataSource() :DataSource
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun waitTruckLoadingNotAssignDetail(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<ShippingDetailModel> {
+        return apiProvider().waitTruckLoadingNotAssignDetail(baseUrl+"WaitTruckLoadingNotAssignDetail",jsonObject, page, rows, sort, order, cookie)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun truckLoadingAssign(
         baseUrl:String,
         jsonObject: JsonObject,

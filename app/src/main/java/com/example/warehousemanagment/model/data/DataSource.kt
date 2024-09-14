@@ -394,6 +394,16 @@ interface DataSource
                          order:String,
                          cookie: String):Observable<WaitTruckLoadingModel>
 
+    fun waitTruckLoadingNotAssignDetail(
+        baseUrl:String,
+        jsonObject: JsonObject,
+        page:Int,
+        rows:Int,
+        sort:String,
+        order:String,
+        cookie: String
+    ) : Observable<ShippingDetailModel>
+
     fun truckLoadingAssign(baseUrl:String,jsonObject: JsonObject,cookie: String)
             :Observable<TruckLoadingAssignModel>
     //------------------------------------------------------------------------------------

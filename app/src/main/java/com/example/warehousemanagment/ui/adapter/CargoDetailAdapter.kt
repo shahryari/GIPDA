@@ -37,9 +37,13 @@ class CargoDetailAdapter(): RecyclerView.Adapter<CargoDetailAdapter.MyViewHolder
         holder.b.ownerCode.text=model.ownerCode
         holder.b.invType.text=model.invTypeTitle
         holder.b.productTitle.text=model.productTitle
+        holder.b.productCode.visibility = View.GONE
+        holder.b.productCodeTitle?.visibility = View.GONE
         holder.b.productCode.text=model.productCode
         holder.b.count.text=model.quantity.toString()
         holder.b.locationCode?.text=model.locationCode
+        holder.b.hasPriority?.visibility = View.GONE
+        holder.b.hasPriorityTitle?.visibility = View.GONE
         holder.b.hasPriority?.text=model.hasLowPriorityTitle
 
         holder.b.isDone?.visibility = if (model.isDone) View.VISIBLE else View.GONE

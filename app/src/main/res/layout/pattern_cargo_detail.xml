@@ -137,6 +137,8 @@
                 android:layout_below="@id/customerLable"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/black"
                 tools:text="@string/tools_mohammad" />
 

@@ -61,7 +61,7 @@ class WaitForLoadingDetailViewModel(application: Application,context: Context) :
             jsonObject.addProperty("ShippingID",shippingId)
             jsonObject.addProperty("CustomerIDs",customers)
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
-            repository.getShippingDetail(baseUrl,jsonObject,page, rows, sort, asc, cookie)
+            repository.waitTruckLoadingNotAssignDetail(baseUrl,jsonObject,page, rows, sort, asc, cookie)
                 .subscribe(
                     {
                         swipeLayout.isRefreshing=false

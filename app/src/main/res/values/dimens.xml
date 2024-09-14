@@ -42,7 +42,7 @@
     <dimen name="generalToolbarHeight">@dimen/_80sdp</dimen>
     <dimen name="pattern_receive_height">@dimen/_230sdp</dimen>
     <dimen name="pattern_cargo_detail_height">@dimen/_150sdp</dimen>
-    <dimen name="padding_pattern_receive">@dimen/_3sdp</dimen>
+    <dimen name="padding_pattern_receive">@dimen/_4sdp</dimen>
     <dimen name="margin_pattern_receive">@dimen/_3sdp</dimen>
     <dimen name="pattern_receive_imgSize">@dimen/_70sdp</dimen>
     <dimen name="pattern_receive_carNumber_width">@dimen/_110sdp</dimen>
@@ -81,7 +81,7 @@
     <dimen name="sheetAlertHeight">@dimen/_145sdp</dimen>
     <dimen name="dialog_count_height">@dimen/_300sdp</dimen>
     <dimen name="dialog_pickFinish_height">@dimen/_420sdp</dimen>
-    <dimen name="pattern_receive_info_width">@dimen/_140sdp</dimen>
+    <dimen name="pattern_receive_info_width">@dimen/_135sdp</dimen>
     <dimen name="pattern_putaway_detail_relCount">@dimen/_20sdp</dimen>
     <dimen name="pattern_putaway_detail_height">@dimen/_195sdp</dimen>
     <dimen name="padding_pattern_putawayDetail">@dimen/_3sdp</dimen>

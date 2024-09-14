@@ -2,6 +2,7 @@ package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -40,10 +41,15 @@ class DockAdapter(
         holder.binding.shipping.setOnClickListener {
             onCallBackListener.onUseDock(model.dockId,3)
         }
-        holder.binding.inActive.backgroundTintList = if (model.dockTypeID == 1) ContextCompat.getColorStateList(context,R.color.mainYellow) else ContextCompat.getColorStateList(context,R.color.mainBackground)
+        holder.binding.inActive.backgroundTintList = if (model.dockTypeID == 1) ContextCompat.getColorStateList(context,R.color.mainYellow) else ContextCompat.getColorStateList(context,R.color.white)
+        holder.binding.inActiveText.setTypeface(holder.binding.inActiveText.typeface, if (model.dockTypeID == 1)Typeface.BOLD else Typeface.NORMAL)
 
-        holder.binding.receiving.backgroundTintList = ColorStateList.valueOf(if (model.dockTypeID == 2) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground))
-        holder.binding.shipping.backgroundTintList = ColorStateList.valueOf(if (model.dockTypeID == 3) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.mainBackground))
+        holder.binding.receiving.backgroundTintList = ColorStateList.valueOf(if (model.dockTypeID == 2) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.white))
+        holder.binding.receivingText.setTypeface(holder.binding.receivingText.typeface, if (model.dockTypeID == 2)Typeface.BOLD else Typeface.NORMAL)
+
+        holder.binding.shipping.backgroundTintList = ColorStateList.valueOf(if (model.dockTypeID == 3) ContextCompat.getColor(context,R.color.mainYellow) else ContextCompat.getColor(context,R.color.white))
+        holder.binding.shippingText.setTypeface(holder.binding.shippingText.typeface, if (model.dockTypeID == 3)Typeface.BOLD else Typeface.NORMAL)
+
         if (position==dockList.size-1 && dockList.size>= Utils.ROWS){
             onCallBackListener.reachToEnd(position)
         }

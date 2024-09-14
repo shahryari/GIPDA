@@ -10,7 +10,6 @@
     android:layout_marginBottom="@dimen/edi_login_marginTop"
     android:id="@+id/rel0"
     android:elevation="@dimen/lowElevation"
-    android:minHeight="@dimen/pattern_receive_height"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -171,7 +170,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/view"
         android:id="@+id/lin0"
         android:orientation="vertical"
@@ -279,7 +277,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/paddingOfFragmentProgress"
-        android:visibility="invisible"
+        android:visibility="gone"
         tools:visibility="visible" />
 
     <androidx.appcompat.widget.LinearLayoutCompat

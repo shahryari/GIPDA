@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_margin="@dimen/margin_low_2"
-        android:background="@drawable/shape_background_rect_white_6"
+        android:background="@color/white"
         android:layout_height="wrap_content">
 <!--        <LinearLayout-->
 <!--            android:layout_width="wrap_content"-->
@@ -39,8 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@id/rel_choose"
                 android:orientation="horizontal"
-
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/rel_dockCode"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -66,10 +65,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_40"
                 android:orientation="horizontal"
+                android:padding="@dimen/_1sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline2"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/rel_dockCode">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -83,6 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/gray70"
+                        android:id="@+id/inActiveText"
                         android:textSize="@dimen/_10ssp"
                         android:textAlignment="center"
                         android:text="InActive"/>
@@ -91,7 +92,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/mainBackground"
+                    android:background="@color/white"
                     android:gravity="center"
                     android:id="@+id/receiving"
                     android:orientation="horizontal"
@@ -101,6 +102,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/gray70"
                         android:textSize="@dimen/_10ssp"
+                        android:id="@+id/receivingText"
                         android:textAlignment="center"
                         android:text="@string/receiving"/>
                 </LinearLayout>
@@ -118,6 +120,7 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/gray70"
+                        android:id="@+id/shippingText"
                         android:textSize="@dimen/_10ssp"
                         android:text="@string/shipping"/>
                 </LinearLayout>
@@ -129,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.4" />
+                app:layout_constraintGuide_percent="0.38" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 

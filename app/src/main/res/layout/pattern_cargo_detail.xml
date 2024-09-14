@@ -11,7 +11,6 @@
 
         android:id="@+id/rel0"
         android:elevation="@dimen/lowElevation"
-        android:minHeight="@dimen/pattern_cargo_detail_height"
         android:layout_height="wrap_content">
 
         <LinearLayout

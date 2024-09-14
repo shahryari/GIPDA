@@ -218,7 +218,7 @@
     <string name="PalletName">Pallet Name</string>
     <string name="unitMeasure">Unit Of Measures</string>
     <string name="warehouse">Warehouse</string>
-    <string name="warehouseD">Warehouse:</string>
+    <string name="warehouseD">Warehouse Code:</string>
     <string name="InventoryType">Inventory Type</string>
     <string name="warehouseName">Warehouse Name</string>
     <string name="warehouseTypeId">Warehouse Type Id</string>

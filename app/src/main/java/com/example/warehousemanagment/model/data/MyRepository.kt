@@ -667,6 +667,18 @@ class MyRepository() :DataSource
         return apiDataSource.waitTruckLoading(baseUrl,isCompleted,jsonObject, page, rows, sort, order, cookie)
     }
 
+    override fun waitTruckLoadingNotAssignDetail(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<ShippingDetailModel> {
+        return apiDataSource.waitTruckLoadingNotAssignDetail(baseUrl,jsonObject, page, rows, sort, order, cookie)
+    }
+
     override fun truckLoadingAssign(
         baseUrl:String,
         jsonObject: JsonObject,

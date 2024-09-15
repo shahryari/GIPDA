@@ -12,31 +12,41 @@
 
         <RelativeLayout
             android:id="@+id/rel0"
-            android:padding="@dimen/padding_all"
             android:clipToPadding="false"
             android:clipChildren="false"
             android:background="@color/mainBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_all"
+                android:background="@color/mainBackground"
+                android:id="@+id/mainToolbarLay">
+                <include
+                    android:id="@+id/mainToolbar"
+                    android:layout_height="@dimen/mainToolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_toStartOf="@+id/filterImg"
+                    layout="@layout/toolbar_main_top" />
 
-            <include
-                android:id="@+id/mainToolbar"
-                android:layout_height="@dimen/mainToolbar"
-                android:layout_width="wrap_content"
-                android:layout_toStartOf="@+id/filterImg"
-                layout="@layout/toolbar_main_top" />
+                <include
+                    android:id="@+id/filterImg"
+                    layout="@layout/img_filter" />
 
-            <include
-                android:id="@+id/filterImg"
-                layout="@layout/img_filter" />
+            </RelativeLayout>
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/mainToolbar"
+                android:layout_below="@id/mainToolbarLay"
                 android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                android:paddingHorizontal="@dimen/padding_all"
+                android:paddingBottom="@dimen/padding_all"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/pattern_dock_group" />
 

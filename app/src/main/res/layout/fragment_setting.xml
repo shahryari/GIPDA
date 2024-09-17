@@ -202,7 +202,7 @@
             <RelativeLayout
                 android:id="@+id/rel3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/settingPrintHeight"
                 android:layout_below="@+id/rel2"
                 android:layout_marginTop="@dimen/marginTopRelInSetting"
                 android:background="@drawable/shape_background_rect_white_6"
@@ -296,18 +296,7 @@
                             android:elevation="@dimen/clearImgElevation" />
 
                     </RelativeLayout>
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        app:centerIfNoTextEnabled="false"
-                        android:text="@string/avoid_duplicate_serials"
-                        android:layout_marginStart="@dimen/edi_login_marginTop"
-                        android:textSize="@dimen/pattern_putaway_detail_smallFont"
-                        android:textColor="@color/gray70"
-                        android:id="@+id/avoid_duplicate_serials_cb"
-                        android:fontFamily="@font/regular"
-                        android:checked="true"/>
+
 
 
 
@@ -315,6 +304,43 @@
 
 
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rel4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel3"
+                android:layout_marginTop="@dimen/marginTopRelInSetting"
+                android:paddingBottom="@dimen/padding_all"
+                android:background="@drawable/shape_background_rect_white_6"
+                android:elevation="@dimen/lowElevation">
+
+                <TextView
+                    android:id="@+id/title12"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settingGeneralHeaderHeight"
+                    android:background="@drawable/shape_background_rect_border_half_top_solid_yellow"
+                    android:gravity="start|center"
+                    android:paddingStart="@dimen/edi_login_marginTop"
+                    android:paddingEnd="@dimen/edi_login_marginTop"
+                    android:text="@string/offlineSerials"
+                    android:textColor="@color/black" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    app:centerIfNoTextEnabled="false"
+                    android:layout_below="@id/title12"
+                    android:text="@string/avoid_duplicate_serials"
+                    android:layout_marginStart="@dimen/edi_login_marginTop"
+                    android:textSize="@dimen/pattern_putaway_detail_smallFont"
+                    android:textColor="@color/gray70"
+                    android:id="@+id/avoid_duplicate_serials_cb"
+                    android:fontFamily="@font/regular"
+                    android:checked="true"/>
+
+            </RelativeLayout>
+
 
 
         </RelativeLayout>

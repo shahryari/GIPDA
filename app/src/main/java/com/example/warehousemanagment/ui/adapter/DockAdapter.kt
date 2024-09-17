@@ -59,5 +59,7 @@ class DockAdapter(
         fun reachToEnd(position: Int)
 
         fun onUseDock(dockId: String,useDock: Int)
+
+        fun enableRefresh(boolean: Boolean)
     }
 }

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
@@ -175,7 +177,28 @@ class DockFragment : BaseFragment<DockViewModel,FragmentDocksBinding>() {
                 setUseDock(dockId,useDock)
             }
 
+            override fun enableRefresh(boolean: Boolean) {
+                b.swipeLayout.isEnabled = boolean
+            }
+
         })
+        b.rv.addOnScrollListener(
+            object : OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy!=0){
+                        b.swipeLayout.isEnabled = false
+                    }
+                }
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        b.swipeLayout.isEnabled = true
+                    }
+                }
+            }
+        )
         b.rv.adapter = adapter
     }
 

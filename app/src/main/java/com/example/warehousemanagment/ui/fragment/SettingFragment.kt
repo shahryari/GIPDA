@@ -36,6 +36,7 @@ class SettingFragment : BaseFragment<SettingViewModel, FragmentSettingBinding>()
         b.unValidEdi.setText(pref.getUnValidChars())
         b.baseUrlEdi.setText(pref.getDomain().replace(Utils.CONSTANT_PART_DOMAIN,""))
         b.notifEdi.setText((pref.getServicePriod()).toString())
+        b.avoidDuplicateSerialsCb.isChecked = pref.getDisallowRepetitiveSerial()
 
 
         b.tinaLabelPrinterEdi.setText(pref.getTinaPaperSize())
@@ -112,6 +113,8 @@ class SettingFragment : BaseFragment<SettingViewModel, FragmentSettingBinding>()
        pref.saveOtherPaperSize(textEdi(b.otherLabelPrinterEdi) )
 
        pref.savePrintName(textEdi(b.printerNameEdi))
+
+        pref.saveDisallowRepetitiveSerial(b.avoidDuplicateSerialsCb.isChecked)
 
 
     }

@@ -159,6 +159,7 @@
     <string name="serial_inventory">Serial Inventory</string>
     <string name="serial">Serial</string>
     <string name="scan_serial">Scan Serial</string>
+    <string name="avoid_duplicate_serials">Avoid Duplicate Serials</string>
     <string name="trackingSerial">Tracking Serial</string>
     <string name="waite_for_loading">Wait For Loading</string>
     <string name="atLeast1Item">You have to fill at least 1 Item</string>

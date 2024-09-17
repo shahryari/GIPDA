@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <RelativeLayout
     android:background="@color/mainBackground"
     android:layout_width="match_parent"
@@ -201,7 +202,7 @@
             <RelativeLayout
                 android:id="@+id/rel3"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/settingGeneralRelHeight2"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/rel2"
                 android:layout_marginTop="@dimen/marginTopRelInSetting"
                 android:background="@drawable/shape_background_rect_white_6"
@@ -295,6 +296,19 @@
                             android:elevation="@dimen/clearImgElevation" />
 
                     </RelativeLayout>
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:centerIfNoTextEnabled="false"
+                        android:text="@string/avoid_duplicate_serials"
+                        android:layout_marginStart="@dimen/edi_login_marginTop"
+                        android:textSize="@dimen/pattern_putaway_detail_smallFont"
+                        android:textColor="@color/gray70"
+                        android:id="@+id/avoid_duplicate_serials_cb"
+                        android:fontFamily="@font/regular"
+                        android:checked="true"/>
+
 
 
                 </LinearLayout>

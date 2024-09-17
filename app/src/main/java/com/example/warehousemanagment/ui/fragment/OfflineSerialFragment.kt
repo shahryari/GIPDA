@@ -178,7 +178,7 @@ class OfflineSerialFragment : BaseFragment<OfflineSerialViewModel, FragmentOffli
     }
 
     private fun addSerial(serial: ReceivingDetailSerialModel) {
-        viewModel.addSerial(serial){
+        viewModel.addSerial(serial,pref.getDisallowRepetitiveSerial()){
             toast(getString(R.string.serialExists),requireActivity())
         }
         b.relSerials.quantity.setText("")

@@ -42,9 +42,7 @@ class Utils
         val PALLET_CODE: String="PalletCode"
 
 
-
-
-
+        val ALLOW_REPETITIVE_SERIAL = "allowRepetitiveSerial"
         val CONSTANT_PART_DOMAIN="/mobile/v1/"
         val PREVIEW_PRINT: String="previewPrint"
         val BARCODE: String="barcode"

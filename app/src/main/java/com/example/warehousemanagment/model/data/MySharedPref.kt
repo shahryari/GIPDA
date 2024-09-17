@@ -53,6 +53,13 @@ class MySharedPref(context:Context)
         return pref.getString(Utils.TOKEN_GLCTEST,"").toString()
     }
 
+    fun saveDisallowRepetitiveSerial(value:Boolean){
+        pref.edit().putBoolean(Utils.ALLOW_REPETITIVE_SERIAL,value).apply()
+    }
+    fun getDisallowRepetitiveSerial():Boolean{
+        return pref.getBoolean(Utils.ALLOW_REPETITIVE_SERIAL,false)
+    }
+
 
     fun saveDelayForInventorySearch(delay:Long){
         pref.edit().putLong(Utils.DELAY_INVENT_SEARCH,delay).apply()

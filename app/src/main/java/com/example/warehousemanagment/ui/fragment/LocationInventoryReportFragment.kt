@@ -49,7 +49,6 @@ import com.example.warehousemanagment.viewmodel.LocatoinInventoryReportViewModel
 class LocationInventoryReportFragment :
     BaseFragment<LocatoinInventoryReportViewModel, FragmentPickputDailyReportBinding>()
 {
-
     var sortType:String=Utils.LOCATION_CODE_SORT
     var orderType:String=Utils.ASC_ORDER
     var lastPosition=0

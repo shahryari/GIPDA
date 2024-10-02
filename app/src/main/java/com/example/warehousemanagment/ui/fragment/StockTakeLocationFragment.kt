@@ -364,7 +364,9 @@ class StockTakeLocationFragment :
         )
         clearEdi(
             dialogBinding.clearImgOwnerCode, dialogBinding.ownerCode
-        )
+        ){
+            ownerId = ""
+        }
         clearEdi(
             dialogBinding.clearImgInvType, dialogBinding.invType
         )

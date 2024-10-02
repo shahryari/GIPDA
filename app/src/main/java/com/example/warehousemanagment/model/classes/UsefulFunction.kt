@@ -325,7 +325,7 @@ fun isStockMessageEqualMinusOne(it:Throwable,logTitle:String,): Boolean {
 
 
 
-fun     clearEdi(img: ImageView, edi:EditText)
+fun     clearEdi(img: ImageView, edi:EditText,onClear: ()->Unit = {})
 {
     edi.requestFocus()
 
@@ -341,6 +341,7 @@ fun     clearEdi(img: ImageView, edi:EditText)
 
     img.setOnClickListener {
         edi.setText("")
+        onClear()
     }
 }
 

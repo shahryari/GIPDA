@@ -399,7 +399,7 @@ class StockTakeLocationFragment :
 
         dialogBinding.locationCode.setOnClickListener()
         {
-            viewModel.setLocationList(pref.getDomain(),stockTurnId, pref.getTokenGlcTest())
+            viewModel.setLocationList(pref.getDomain(),stockTurnId,"", pref.getTokenGlcTest())
             showLocationSheet(dialogBinding.locationCode)
         }
 
@@ -416,7 +416,7 @@ class StockTakeLocationFragment :
 
         dialogBinding.relConfirm.confirm.setOnClickListener()
         {
-            if (ifTypeIsInsertLocation == true)
+            if (ifTypeIsInsertLocation)
             {
                 if (
                     lenEdi(dialogBinding.locationCode)!=0
@@ -509,6 +509,16 @@ class StockTakeLocationFragment :
             {
                 override fun onCloseClick() { sheet?.dismiss() }
                 override fun init(binding: DialogSheetTaskTypeBinding) {
+                    binding.relSearch.visibility = View.VISIBLE
+                    binding.searchEdi.doAfterTextChanged {
+                        viewModel.setLocationList(
+                            baseUrl = pref.getDomain(),
+                            stockTurnId = stockTurnId,
+                            keyword = it?.toString()?:"",
+                            cookie = pref.getTokenGlcTest()
+                        )
+                    }
+                    clearEdi(binding.clearImg,binding.searchEdi)
                     observeLocation(sheet,tv,binding.taskRv)
                 }
 

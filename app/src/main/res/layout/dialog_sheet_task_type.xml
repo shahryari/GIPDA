@@ -28,6 +28,36 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/relSearch"
+        android:paddingStart="@dimen/padding_headers_startEnd"
+        android:paddingEnd="@dimen/padding_headers_startEnd"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/serials_height_header"
+        android:layout_below="@id/rel1" >
+
+        <EditText
+            android:id="@+id/searchEdi"
+            style="@style/searchSerialEdi"
+            android:layout_toStartOf="@+id/clearImg" />
+
+
+        <ImageView
+            android:id="@+id/clearImg"
+            style="@style/imgClose"
+            android:layout_alignParentEnd="false"
+            android:layout_marginEnd="@dimen/marginTop5ForLayouts"
+            android:layout_toStartOf="@+id/searchIcon" />
+
+        <ImageView
+            android:id="@+id/searchIcon"
+            style="@style/searchSerialIcon" />
+
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/taskRv"
 

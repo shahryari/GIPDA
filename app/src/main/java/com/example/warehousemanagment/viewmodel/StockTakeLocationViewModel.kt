@@ -92,10 +92,12 @@ class StockTakeLocationViewModel(application: Application, context: Context):
     fun setLocationList(
         baseUrl:String,
         stockTurnId: String,
+        keyword: String = "",
         cookie: String
     ) {
         val jsonObject = JsonObject()
         jsonObject.addProperty("StockTurnID", stockTurnId)
+        jsonObject.addProperty("Keyword",keyword)
         viewModelScope.launch() {
             repository.stockLocation(
                 url = baseUrl,

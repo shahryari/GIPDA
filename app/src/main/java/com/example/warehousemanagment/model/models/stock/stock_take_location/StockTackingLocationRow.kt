@@ -3,7 +3,7 @@ package com.example.warehousemanagment.model.models.stock.stock_take_location
 
 import com.google.gson.annotations.SerializedName
 
-data class StockLocationRow(
+data class StockTackingLocationRow(
     @SerializedName("InvTypeID")
     val invTypeID: Int,
     @SerializedName("InvTypeTitle")

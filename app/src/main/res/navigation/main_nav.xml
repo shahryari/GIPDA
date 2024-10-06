@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_desktopFragment_to_myCargoFragment"
             app:destination="@id/myCargoFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_serialPutawayAssignFragment"
+            app:destination="@id/serialPutawayAssignFragment" />
 
     </fragment>
     <fragment
@@ -270,6 +273,10 @@
         android:id="@+id/pickingDetailFragment"
         android:name="com.example.warehousemanagment.ui.fragment.PickingDetailFragment"
         android:label="PickingDetailFragment" />
+    <fragment
+        android:id="@+id/serialPutawayAssignFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.SerialPutawayAssignFragment"
+        android:label="SerialPutawayAssignFragment" />
 
 
 </navigation>

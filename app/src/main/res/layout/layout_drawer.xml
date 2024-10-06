@@ -114,6 +114,36 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/relSerialPutawayAssign"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/serialPutawayAssign" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/serialPutaway"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/serailPutaway" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
 

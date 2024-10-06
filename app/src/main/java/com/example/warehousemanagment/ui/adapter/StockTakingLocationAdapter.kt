@@ -8,16 +8,16 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternStockTakingLocationBinding
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.stock.stock_take_location.StockLocationRow
+import com.example.warehousemanagment.model.models.stock.stock_take_location.StockTackingLocationRow
 
 class StockTakingLocationAdapter():
     RecyclerView.Adapter<StockTakingLocationAdapter.MyViewHolder>()
 {
     private lateinit var context: Context
-    private  var arrayList:List<StockLocationRow> =ArrayList()
+    private  var arrayList:List<StockTackingLocationRow> =ArrayList()
     lateinit var onCallBackListener:OnCallBackListener
 
-    constructor(arrayList: List<StockLocationRow>,
+    constructor(arrayList: List<StockTackingLocationRow>,
                 context: Context, onCallBackListener: OnCallBackListener):this() {
         this.context=context
         this.onCallBackListener=onCallBackListener
@@ -93,10 +93,10 @@ class StockTakingLocationAdapter():
     }
 
     interface OnCallBackListener{
-        fun init(b: PatternStockTakingLocationBinding, model: StockLocationRow)
-        fun onChangeClick(model: StockLocationRow,)
+        fun init(b: PatternStockTakingLocationBinding, model: StockTackingLocationRow)
+        fun onChangeClick(model: StockTackingLocationRow,)
         fun reachToEnd(position: Int)
-        fun onSaveClick(model: StockLocationRow, count: EditText,count2:EditText,
+        fun onSaveClick(model: StockTackingLocationRow, count: EditText, count2:EditText,
                         progressBar: ProgressBar)
     }
 }

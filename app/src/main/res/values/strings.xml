@@ -8,6 +8,8 @@
     <string name="bitfinity">\@Bitfinity</string>
     <string name="receiving">Receiving</string>
     <string name="putaway">Putaway</string>
+    <string name="serialPutawayAssign">Serial Putaway Assign</string>
+    <string name="serailPutaway">Serial Putaway</string>
     <string name="transfer">Transfer</string>
     <string name="picking">Picking</string>
     <string name="shipping">Shipping</string>

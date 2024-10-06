@@ -118,6 +118,9 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         b.drawerLayout.relPutaway.setOnClickListener {
             goToFragment(R.id.putawayFragment)
         }
+        b.drawerLayout.relSerialPutawayAssign.setOnClickListener {
+            goToFragment(R.id.serialPutawayAssignFragment)
+        }
         b.drawerLayout.relPicking.setOnClickListener {
             goToFragment(R.id.pickingFragment)
         }

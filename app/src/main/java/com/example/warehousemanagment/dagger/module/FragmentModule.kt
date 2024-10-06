@@ -31,6 +31,7 @@ import com.example.warehousemanagment.viewmodel.PutAwayViewModel
 import com.example.warehousemanagment.viewmodel.ReceivingDetailViewModel
 import com.example.warehousemanagment.viewmodel.ReceivingViewModel
 import com.example.warehousemanagment.viewmodel.ReworkViewModel
+import com.example.warehousemanagment.viewmodel.SerialPutawayAssignViewModel
 import com.example.warehousemanagment.viewmodel.SettingViewModel
 import com.example.warehousemanagment.viewmodel.ShippingDetailViewModel
 import com.example.warehousemanagment.viewmodel.ShippingViewModel
@@ -287,5 +288,10 @@ class FragmentModule()
         return WaitForLoadingDetailViewModel(application,context)
     }
 
+    @Singleton
+    @Provides
+    fun serialPutawayAssignModel() : SerialPutawayAssignViewModel {
+        return SerialPutawayAssignViewModel(application)
+    }
 
 }

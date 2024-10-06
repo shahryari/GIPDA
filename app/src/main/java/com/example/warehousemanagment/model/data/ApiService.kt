@@ -32,6 +32,7 @@ import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayModel
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
 import com.example.warehousemanagment.model.models.receive.add_detail_serial.AddReceivingDetailSerialModel
@@ -60,6 +61,7 @@ import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetai
 import com.example.warehousemanagment.model.models.shipping.left_dock.LeftDockModel
 import com.example.warehousemanagment.model.models.shipping.shipping_truck.ShippingTruckModel
 import com.example.warehousemanagment.model.models.stock.StockLocationInsertModel
+import com.example.warehousemanagment.model.models.stock.StockLocationModel
 import com.example.warehousemanagment.model.models.stock.StockTakingCountModel
 import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
 import com.example.warehousemanagment.model.models.tracking.LabellingModel
@@ -187,6 +189,32 @@ interface ApiService
     @POST//"PutawayComplete")
     fun completePutawayModel(@Url url:String ,@Body jsonObject: JsonObject, @Header(Utils.COOKIE) cookie:String):
             Observable<CompletePutawayModel>
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"SerialReceiptOnPutaway)
+    fun serialReceiptOnPutaway(
+        @Url url:String ,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ): Observable<SerialReceiptOnPutawayModel>
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"MySerialReceiptOnPutaway)
+    fun mySerialReceiptOnPutaway(
+        @Url url:String ,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ): Observable<SerialReceiptOnPutawayModel>
 
     //------------Picking-------------------------------------------------------------------------
     @Headers(Utils.CONTENT_TYPE)
@@ -714,6 +742,18 @@ interface ApiService
         @Body jsonObject: JsonObject,
         @Header(Utils.COOKIE) cookie: String,
     ):Single<StockTakingCountModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//StockLocation
+    fun stockLocation(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(ApiUtils.Page) page:Int,
+        @Header(ApiUtils.Rows) rows:Int,
+        @Header(ApiUtils.Sort) sort:String,
+        @Header(ApiUtils.Order) order:String,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Observable<StockLocationModel>
 
 
     //get current version

@@ -30,6 +30,7 @@ import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayModel
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
 import com.example.warehousemanagment.model.models.receive.add_detail_serial.AddReceivingDetailSerialModel
@@ -58,6 +59,7 @@ import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetai
 import com.example.warehousemanagment.model.models.shipping.left_dock.LeftDockModel
 import com.example.warehousemanagment.model.models.shipping.shipping_truck.ShippingTruckModel
 import com.example.warehousemanagment.model.models.stock.StockLocationInsertModel
+import com.example.warehousemanagment.model.models.stock.StockLocationModel
 import com.example.warehousemanagment.model.models.stock.StockTakingCountModel
 import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
 import com.example.warehousemanagment.model.models.tracking.LabellingModel
@@ -139,6 +141,15 @@ interface DataSource
     fun completePutawayModel(baseUrl:String,jsonObject: JsonObject,cookie:String):
             Observable<CompletePutawayModel>
 
+    fun serialReceiptOnPutaway(
+        baseUrl:String,
+        jsonObject: JsonObject,
+        page:Int,
+        rows:Int,
+        sort:String,
+        asc:String,
+        cookie:String
+    ) : Observable<SerialReceiptOnPutawayModel>
     //-----------------------Picking-----------------------------------------------
 
 
@@ -481,6 +492,16 @@ interface DataSource
         jsonObject: JsonObject,
         cookie: String,
     ):Single<StockTakingCountModel>
+
+    fun stockLocation(
+        url:String,
+        jsonObject: JsonObject,
+        page:Int,
+        rows:Int,
+        sort:String,
+        order:String,
+        cookie: String,
+    ):Observable<StockLocationModel>
 
 
     //get current version info

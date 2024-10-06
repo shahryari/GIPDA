@@ -17,6 +17,7 @@ import com.example.warehousemanagment.databinding.DialogChangeProductBinding
 import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
 import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
+import com.example.warehousemanagment.databinding.DialogSheetTaskTypeBinding
 import com.example.warehousemanagment.databinding.FragmentStockLocationBinding
 import com.example.warehousemanagment.databinding.PatternStockTakingLocationBinding
 import com.example.warehousemanagment.databinding.PatternWarehouseBinding
@@ -40,14 +41,17 @@ import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
-import com.example.warehousemanagment.model.models.stock.stock_take_location.StockLocationRow
+import com.example.warehousemanagment.model.models.stock.StockLocationRow
+import com.example.warehousemanagment.model.models.stock.stock_take_location.StockTackingLocationRow
 import com.example.warehousemanagment.ui.adapter.OwnerAdapter
 import com.example.warehousemanagment.ui.adapter.ProductAdapter
+import com.example.warehousemanagment.ui.adapter.StockLocationAdapter
 import com.example.warehousemanagment.ui.adapter.StockTakingLocationAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetInvDialog
 import com.example.warehousemanagment.ui.dialog.SheetPalletDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
+import com.example.warehousemanagment.ui.dialog.SheetStockLocationDialog
 import com.example.warehousemanagment.viewmodel.StockTakeLocationViewModel
 
 class StockTakeLocationFragment :
@@ -220,8 +224,8 @@ class StockTakeLocationFragment :
 
     private fun observeStockLocationList() {
         viewModel.getStockTakeLocationList()
-            .observe(viewLifecycleOwner, object : Observer<List<StockLocationRow>> {
-                override fun onChanged(it: List<StockLocationRow>) {
+            .observe(viewLifecycleOwner, object : Observer<List<StockTackingLocationRow>> {
+                override fun onChanged(it: List<StockTackingLocationRow>) {
                     if (view != null && isAdded) {
                         b.swipeLayout.isRefreshing = false
                         lastPosition = it.size - 1
@@ -231,7 +235,7 @@ class StockTakeLocationFragment :
             })
     }
 
-    private fun showStockTakeLocationList(list: List<StockLocationRow>) {
+    private fun showStockTakeLocationList(list: List<StockTackingLocationRow>) {
         if (lastPosition - Utils.ROWS <= 0) b.rv.scrollToPosition(0)
         else b.rv.scrollToPosition(lastPosition - Utils.ROWS)
 
@@ -242,7 +246,7 @@ class StockTakeLocationFragment :
             {
                 override fun init(
                     stockBinding: PatternStockTakingLocationBinding,
-                    model:StockLocationRow,
+                    model:StockTackingLocationRow,
                 ) {
                     if(model.historyCount==1){
                         stockBinding.count.isEnabled=true
@@ -267,12 +271,12 @@ class StockTakeLocationFragment :
 
                 }
 
-                override fun onChangeClick(model: StockLocationRow) {
+                override fun onChangeClick(model: StockTackingLocationRow) {
                     showConfirmDialog(model)
                 }
 
                 override fun onSaveClick(
-                    model: StockLocationRow,
+                    model: StockTackingLocationRow,
                     countEdi: EditText,
                     countEdi2:EditText,
                     progressBar: ProgressBar
@@ -317,7 +321,8 @@ class StockTakeLocationFragment :
 
     }
 
-    private fun showConfirmDialog(model: StockLocationRow ? =null,
+
+    private fun showConfirmDialog(model: StockTackingLocationRow ? =null,
                                   ifTypeIsInsertLocation:Boolean=false)
     {
         val dialogBinding = DialogChangeProductBinding.inflate(
@@ -371,7 +376,7 @@ class StockTakeLocationFragment :
             dialogBinding.clearImgInvType, dialogBinding.invType
         )
 
-        dialogBinding.locationCode.requestFocus()
+//        dialogBinding.locationCode.requestFocus()
 
         dialogBinding.product.doAfterTextChanged()
         {
@@ -389,6 +394,13 @@ class StockTakeLocationFragment :
                     )
                 }
             }
+        }
+
+
+        dialogBinding.locationCode.setOnClickListener()
+        {
+            viewModel.setLocationList(pref.getDomain(),stockTurnId, pref.getTokenGlcTest())
+            showLocationSheet(dialogBinding.locationCode)
         }
 
         dialogBinding.ownerCode.setOnClickListener()
@@ -490,6 +502,40 @@ class StockTakeLocationFragment :
         sheet.show(this.getParentFragmentManager(), "")
     }
 
+    private fun showLocationSheet(tv: TextView){
+        var sheet: SheetStockLocationDialog? = null
+        sheet = SheetStockLocationDialog(
+            object : SheetStockLocationDialog.OnClickListener
+            {
+                override fun onCloseClick() { sheet?.dismiss() }
+                override fun init(binding: DialogSheetTaskTypeBinding) {
+                    observeLocation(sheet,tv,binding.taskRv)
+                }
+
+
+            }
+        )
+        sheet.show(this.parentFragmentManager,"")
+    }
+
+    private fun observeLocation(
+        sheet: SheetStockLocationDialog?,
+        tv: TextView,
+        rv: RecyclerView,
+    ) {
+        viewModel.getLocations().observe(viewLifecycleOwner
+        ) { list ->
+            val adapter = StockLocationAdapter(list,
+                object : StockLocationAdapter.OnCallBackListener {
+                    override fun onClick(location: StockLocationRow) {
+                        tv.text = location.locationCode
+                        sheet?.dismiss()
+                    }
+                }
+            )
+            rv.adapter = adapter
+        }
+    }
     private fun showOwnerSheet(tv: TextView)
     {
         var sheet: SheetPalletDialog? = null
@@ -516,43 +562,40 @@ class StockTakeLocationFragment :
         binding: DialogSheetDestinyLocationBinding
     )
     {
-        viewModel.getOwners().observe(viewLifecycleOwner,
-            object : Observer<List<OwnerModel>>
-            {
-                override fun onChanged(list: List<OwnerModel>) {
-                    arrCounts.text = getBuiltString(
-                        getString(R.string.tools_scannedItems),
-                        " ", list.size.toString()
-                    )
-                    val adapter = OwnerAdapter(list, requireActivity(),
-                        object : OwnerAdapter.OnCallBackListener {
-                            override fun onClick(model: OwnerModel) {
-                                sheet?.dismiss()
-                                ownerId = model.ownerInfoID
-                                tv.text = model.ownerCode
-
-                            }
-
-                            override fun init(binding: PatternWarehouseBinding) {
-
-                            }
-
-                        })
-                    rv.adapter = adapter
-
-                    clearEdi(binding.clearImg, binding.searchEdi)
-                    binding.searchEdi.doAfterTextChanged {
-                        adapter.setFilter(
-                            search(
-                                textEdi(binding.searchEdi), list,
-                                SearchFields.OwnerCode,
-                                SearchFields.OwnerInfoFullName
-                            )
-                        )
+        viewModel.getOwners().observe(viewLifecycleOwner
+        ) { list ->
+            arrCounts.text = getBuiltString(
+                getString(R.string.tools_scannedItems),
+                " ", list.size.toString()
+            )
+            val adapter = OwnerAdapter(list, requireActivity(),
+                object : OwnerAdapter.OnCallBackListener {
+                    override fun onClick(model: OwnerModel) {
+                        sheet?.dismiss()
+                        ownerId = model.ownerInfoID
+                        tv.text = model.ownerCode
 
                     }
-                }
-            })
+
+                    override fun init(binding: PatternWarehouseBinding) {
+
+                    }
+
+                })
+            rv.adapter = adapter
+
+            clearEdi(binding.clearImg, binding.searchEdi)
+            binding.searchEdi.doAfterTextChanged {
+                adapter.setFilter(
+                    search(
+                        textEdi(binding.searchEdi), list,
+                        SearchFields.OwnerCode,
+                        SearchFields.OwnerInfoFullName
+                    )
+                )
+
+            }
+        }
     }
 
 

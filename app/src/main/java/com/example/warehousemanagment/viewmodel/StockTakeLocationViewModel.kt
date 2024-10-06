@@ -18,7 +18,8 @@ import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
-import com.example.warehousemanagment.model.models.stock.stock_take_location.StockLocationRow
+import com.example.warehousemanagment.model.models.stock.StockLocationRow
+import com.example.warehousemanagment.model.models.stock.stock_take_location.StockTackingLocationRow
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -28,14 +29,16 @@ class StockTakeLocationViewModel(application: Application, context: Context):
 {
     private val repository=MyRepository( )
     private var context: Context=context
-    private var stockList: MutableLiveData<List<StockLocationRow>>
-            = MutableLiveData<List<StockLocationRow>>()
+    private var stockList: MutableLiveData<List<StockTackingLocationRow>>
+            = MutableLiveData<List<StockTackingLocationRow>>()
+
+    private var locationList: MutableLiveData<List<StockLocationRow>> = MutableLiveData<List<StockLocationRow>>()
 
     private var ownerList= MutableLiveData<List<OwnerModel>>()
 
     private var productList=MutableLiveData<List<ProductModel>>()
 
-    private var tempList=ArrayList<StockLocationRow>()
+    private var tempList=ArrayList<StockTackingLocationRow>()
 
     private var stockCount= MutableLiveData<Int>()
 
@@ -55,13 +58,17 @@ class StockTakeLocationViewModel(application: Application, context: Context):
         return ownerList
     }
 
+    fun getLocations() : MutableLiveData<List<StockLocationRow>> {
+        return locationList
+    }
+
     fun getProductsList(): MutableLiveData<List<ProductModel>> {
         return productList
     }
     fun getStockCount(): MutableLiveData<Int> {
         return stockCount
     }
-    fun getStockTakeLocationList(): MutableLiveData<List<StockLocationRow>> {
+    fun getStockTakeLocationList(): MutableLiveData<List<StockTackingLocationRow>> {
         return stockList
     }
 
@@ -80,6 +87,31 @@ class StockTakeLocationViewModel(application: Application, context: Context):
                 },).let {  }
         }
 
+    }
+
+    fun setLocationList(
+        baseUrl:String,
+        stockTurnId: String,
+        cookie: String
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("StockTurnID", stockTurnId)
+        viewModelScope.launch() {
+            repository.stockLocation(
+                url = baseUrl,
+                jsonObject = jsonObject,
+                page = 1,
+                rows = 1000,
+                sort = "LocationCode",
+                order = "asc",
+                cookie = cookie
+            ).subscribe({
+                locationList.value = it.rows
+                log("LocationList", it.toString())
+            },{
+                showErrorMsg(it,"LocationList",context)
+            }).let {  }
+        }
     }
 
     fun setStockTakeLocationList(
@@ -145,7 +177,8 @@ class StockTakeLocationViewModel(application: Application, context: Context):
                 }, {
                     showErrorMsg(it,"products",context)
                 },).let {  }
-        }
+        }//        dialogBinding.locationCode.requestFocus()
+
     }
 
 

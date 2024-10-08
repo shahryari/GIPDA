@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:background="@drawable/shape_background_rect_white_6"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/marginTop_flag"
+        android:id="@+id/rel0"
+        android:elevation="@dimen/lowElevation"
+        android:padding="@dimen/_5sdp"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/productName"
+            style="@style/pattern_receieve_tv1"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            tools:text="@string/tools_a220820_023535" />
+
+        <TextView
+            android:id="@+id/productCode"
+            style="@style/pattern_putaway_MediumTv"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_below="@id/productName"
+            android:layout_alignParentStart="true"
+            android:text="@string/recevieNumber" />
+        <LinearLayout
+
+            android:layout_width="@dimen/_170sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productCode"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/shape_count_two_top_left_corner_6"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp"
+                android:backgroundTint="@color/grayCB"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/total"
+                    android:textSize="@dimen/_16ssp"
+                    android:text="@string/_1"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/shap_bottom_right_6"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp"
+                android:backgroundTint="@color/mainYellow"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scan"
+                    android:textSize="@dimen/_16ssp"
+                    android:text="@string/_1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

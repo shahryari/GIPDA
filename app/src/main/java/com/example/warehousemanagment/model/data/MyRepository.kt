@@ -30,6 +30,10 @@ import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptDetailLocationModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptSerialModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialPutawayAssignModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayModel
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
@@ -194,6 +198,82 @@ class MyRepository() :DataSource
         cookie: String
     ): Observable<SerialReceiptOnPutawayModel> {
         return apiDataSource.serialReceiptOnPutaway(baseUrl,jsonObject, page, rows, sort, asc,cookie)
+    }
+
+    override fun mySerialReceiptOnPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<SerialReceiptOnPutawayModel> {
+        return apiDataSource.mySerialReceiptOnPutaway(
+            baseUrl,jsonObject, page, rows, sort, order, cookie
+        )
+    }
+
+    override fun assignSerialPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiDataSource.assignSerialPutaway(baseUrl, jsonObject, cookie)
+    }
+
+    override fun mySerialReceiptDetailOnPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<MySerailReceiptDetailModel> {
+        return apiDataSource.mySerialReceiptDetailOnPutaway(
+            baseUrl,jsonObject, page, rows, sort, order, cookie
+        )
+    }
+
+    override fun receiptDetailLocation(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<ReceiptDetailLocationModel> {
+        return apiDataSource.receiptDetailLocation(baseUrl,jsonObject, page, rows, sort, order, cookie)
+    }
+
+    override fun receiptDetailSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<ReceiptSerialModel> {
+        return apiDataSource.receiptDetailSerial(baseUrl,jsonObject, page, rows, sort, order, cookie)
+    }
+
+    override fun receiptDetailScanSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiDataSource.receiptDetailScanSerial(baseUrl,jsonObject, cookie)
+    }
+
+    override fun receiptDetailSerialRemove(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiDataSource.receiptDetailSerialRemove(baseUrl,jsonObject, cookie)
     }
 
     override fun pickTruckList(baseUrl:String,jsonObject: JsonObject,

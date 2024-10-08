@@ -9,6 +9,7 @@ import com.example.warehousemanagment.databinding.PatternSerialPutawayBinding
 import com.example.warehousemanagment.model.classes.getBuiltString
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayRow
+import com.squareup.picasso.Picasso
 
 class SerialPutawayAssignAdapter() : RecyclerView.Adapter<SerialPutawayAssignAdapter.MyViewHolder>() {
     private lateinit var context: Context
@@ -33,26 +34,32 @@ class SerialPutawayAssignAdapter() : RecyclerView.Adapter<SerialPutawayAssignAda
     {
         val model= arrayList[position]
         holder.b.lastName.visibility= View.GONE
-        holder.b.recevieNumber.text = model.receiptNumber
-        holder.b.driverFullName.text = model.containerNumber
-        holder.b.date.text = model.createdOnString
+        holder.b.receiptNumber.text = model.receiptNumber
+        holder.b.driverFullName.text = model.driverFullName?:""
+        onCallBackListener.init(holder.b)
 
         holder.b.type.text = model.plaqueNumber
         holder.b.containerNumber.text = model.containerNumber
-        holder.b.lastName.text = model.currentStatusTitle
+//        holder.b.lastName.text = model.currentStatusTit
 
 
-        holder.b.plaque.text = getBuiltString(model.plaqueNumber)
+        holder.b.plaque.text = getBuiltString(model.plaqueNumberThird,
+            model.plaqueNumberSecond,model.plaqueNumberFirst)
+        holder.b.plaqueYear.text=model.plaqueNumberFourth
+
+        holder.b.assignBtn.setOnClickListener {
+            onCallBackListener.onAssign(model)
+        }
 
         holder.itemView.setOnClickListener {
-            onCallBackListener.onClick(model,position)
+            onCallBackListener.onItemClick(model)
         }
         if (position==arrayList.size-1 && arrayList.size>= Utils.ROWS){
             onCallBackListener.reachToEnd(position)
         }
-//
-//        if (model!=null)
-//            Picasso.get().load(model.driverImageUrl).into(holder.b.img)
+
+        if (model.driverImageUrl !=null)
+            Picasso.get().load(model.driverImageUrl).into(holder.b.img)
 
 
     }
@@ -73,7 +80,9 @@ class SerialPutawayAssignAdapter() : RecyclerView.Adapter<SerialPutawayAssignAda
     class MyViewHolder(var b: PatternSerialPutawayBinding): RecyclerView.ViewHolder(b.root)
 
     interface OnCallBackListener{
-        fun onClick(model: SerialReceiptOnPutawayRow, position: Int)
+        fun onAssign(model: SerialReceiptOnPutawayRow)
+        fun onItemClick(model: SerialReceiptOnPutawayRow)
         fun reachToEnd(position: Int)
+        fun init(binding: PatternSerialPutawayBinding)
     }
 }

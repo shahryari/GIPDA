@@ -30,6 +30,10 @@ import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptDetailLocationModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptSerialModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialPutawayAssignModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayModel
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
@@ -150,6 +154,66 @@ interface DataSource
         asc:String,
         cookie:String
     ) : Observable<SerialReceiptOnPutawayModel>
+
+    fun mySerialReceiptOnPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ) : Observable<SerialReceiptOnPutawayModel>
+
+    fun assignSerialPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
+
+    fun mySerialReceiptDetailOnPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ) : Observable<MySerailReceiptDetailModel>
+
+    fun receiptDetailLocation(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ) : Observable<ReceiptDetailLocationModel>
+
+    fun receiptDetailSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ) : Observable<ReceiptSerialModel>
+
+    fun receiptDetailScanSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
+    fun receiptDetailSerialRemove(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
     //-----------------------Picking-----------------------------------------------
 
 

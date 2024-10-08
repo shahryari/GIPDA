@@ -10,6 +10,7 @@ import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentSerialPutawayBinding
+import com.example.warehousemanagment.databinding.PatternSerialPutawayBinding
 import com.example.warehousemanagment.model.classes.checkTick
 import com.example.warehousemanagment.model.classes.clearEdi
 import com.example.warehousemanagment.model.classes.hideShortCut
@@ -23,9 +24,9 @@ import com.example.warehousemanagment.model.models.putaway.serial_putaway.Serial
 import com.example.warehousemanagment.ui.adapter.SerialPutawayAssignAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
-import com.example.warehousemanagment.viewmodel.SerialPutawayAssignViewModel
+import com.example.warehousemanagment.viewmodel.SerialPutawayViewModel
 
-class SerialPutawayFragment : BaseFragment<SerialPutawayAssignViewModel,FragmentSerialPutawayBinding>() {
+class SerialPutawayFragment : BaseFragment<SerialPutawayViewModel,FragmentSerialPutawayBinding>() {
 
     var sortType= Utils.DockAssignTime
     var page= Utils.PAGE_START
@@ -197,8 +198,21 @@ class SerialPutawayFragment : BaseFragment<SerialPutawayAssignViewModel,Fragment
 
         val  adapter = SerialPutawayAssignAdapter(list, requireActivity(), object : SerialPutawayAssignAdapter.OnCallBackListener
         {
-            override fun onClick(model: SerialReceiptOnPutawayRow, position: Int)
-            {
+            override fun onAssign(model: SerialReceiptOnPutawayRow) {
+            }
+
+            override fun onItemClick(model: SerialReceiptOnPutawayRow) {
+                val bundle = Bundle()
+                bundle.putString(Utils.DRIVE_FULLNAME, model.driverFullName)
+                bundle.putString(Utils.RECEIVE_NUMBER, model.receiptNumber)
+                bundle.putString(Utils.RECEIVING_ID,model.receiptID)
+                bundle.putString(Utils.CONTAINER_NUMBER,model.containerNumber)
+                bundle.putString(Utils.PLAQUE_1,model.plaqueNumberFirst)
+                bundle.putString(Utils.PLAQUE_2,model.plaqueNumberSecond)
+                bundle.putString(Utils.PLAQUE_3,model.plaqueNumberThird)
+                bundle.putString(Utils.PLAQUE_4,model.plaqueNumberFourth)
+
+                navController?.navigate(R.id.action_serialPutawayFragment_to_serialPutawayDetailFragment,bundle)
             }
 
 
@@ -206,6 +220,10 @@ class SerialPutawayFragment : BaseFragment<SerialPutawayAssignViewModel,Fragment
             {
                 page=page+1
                 setSerailData()
+            }
+
+            override fun init(binding: PatternSerialPutawayBinding) {
+                binding.assignBtn.visibility = View.GONE
             }
         })
         b.rv.adapter = adapter
@@ -251,7 +269,7 @@ class SerialPutawayFragment : BaseFragment<SerialPutawayAssignViewModel,Fragment
 
     override fun init() {
 
-        setToolbarTitle(requireActivity(),getString(R.string.serialPutawayAssign))
+        setToolbarTitle(requireActivity(),"Serial Putaway")
 
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
     }

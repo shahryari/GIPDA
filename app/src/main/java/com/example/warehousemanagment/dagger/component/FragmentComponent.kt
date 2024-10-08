@@ -28,6 +28,8 @@ import com.example.warehousemanagment.ui.fragment.ReceivingDetailFragment
 import com.example.warehousemanagment.ui.fragment.ReceivingFragment
 import com.example.warehousemanagment.ui.fragment.ReworkFragment
 import com.example.warehousemanagment.ui.fragment.SerialPutawayAssignFragment
+import com.example.warehousemanagment.ui.fragment.SerialPutawayDetailFragment
+import com.example.warehousemanagment.ui.fragment.SerialPutawayDetailLocationFragment
 import com.example.warehousemanagment.ui.fragment.SerialPutawayFragment
 import com.example.warehousemanagment.ui.fragment.SettingFragment
 import com.example.warehousemanagment.ui.fragment.ShippingDetailFragment
@@ -85,4 +87,6 @@ interface FragmentComponent
     fun inject(fragment:SerialPutawayAssignFragment)
     fun inject(fragment: SerialPutawayFragment)
 
+    fun inject(fragment: SerialPutawayDetailFragment)
+    fun inject(fragment: SerialPutawayDetailLocationFragment)
 }

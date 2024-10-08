@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class RowReceivingModel(
     @SerializedName("CarTypeID")
-    val carTypeID: Any,
+    val carTypeID: String?,
     @SerializedName("CarTypeTitle")
-    val carTypeTitle: Any,
+    val carTypeTitle: String?,
     @SerializedName("ContainerNumber")
     val containerNumber: String,
     @SerializedName("CreatedOn")

@@ -2,7 +2,6 @@ package com.example.warehousemanagment.viewmodel
 
 import android.app.Application
 import android.content.Context
-import android.view.View
 import android.widget.ProgressBar
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -18,8 +17,7 @@ import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 
-class SerialPutawayAssignViewModel(application: Application) : AndroidViewModel(application) {
-
+class SerialPutawayViewModel(application: Application) : AndroidViewModel(application) {
     val repository = MyRepository()
 
     private var serialList: MutableLiveData<List<SerialReceiptOnPutawayRow>>
@@ -65,7 +63,7 @@ class SerialPutawayAssignViewModel(application: Application) : AndroidViewModel(
             showSimpleProgress(true,progressBar)
             val jsonObject= JsonObject()
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
-            repository.serialReceiptOnPutaway(baseUrl,jsonObject,page, rows, sort, asc,cookie).subscribe({
+            repository.mySerialReceiptOnPutaway(baseUrl,jsonObject,page, rows, sort, asc,cookie).subscribe({
                 showSimpleProgress(false,progressBar)
                 swipeLayout.isRefreshing=false
                 if (it.rows.isNotEmpty())
@@ -84,36 +82,4 @@ class SerialPutawayAssignViewModel(application: Application) : AndroidViewModel(
             },{},{disposable.add(it)}).let {  }
         }
     }
-
-
-    fun assignSerialPutaway(
-        url: String,
-        receiptId: String,
-        progressBar: ProgressBar,
-        context: Context,
-        cookie: String,
-        onErrorCallback: ()-> Unit,
-        callback: () -> Unit
-    ) {
-        val jsonObject = JsonObject()
-        jsonObject.addProperty("ReceiptID", receiptId)
-
-        viewModelScope.launch {
-            progressBar.visibility = View.VISIBLE
-            repository.assignSerialPutaway(
-                url,jsonObject,cookie
-            ).subscribe(
-                {
-                    progressBar.visibility = View.GONE
-                    callback()
-                },
-                {
-                    onErrorCallback()
-                    progressBar.visibility = View.GONE
-                    showErrorMsg(it,"",context)
-                }
-            )
-        }
-    }
-
 }

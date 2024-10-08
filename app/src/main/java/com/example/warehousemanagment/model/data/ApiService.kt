@@ -32,6 +32,10 @@ import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptDetailLocationModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptSerialModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialPutawayAssignModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayModel
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
@@ -215,6 +219,66 @@ interface ApiService
         @Header("order") asc:String,
         @Header(Utils.COOKIE) cookie:String
     ): Observable<SerialReceiptOnPutawayModel>
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//SerialPutawayAssign
+    fun assignSerialPutaway(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//MySerialReceiptDetailOnPutaway)
+    fun mySerialReceiptDetailOnPutaway(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Observable<MySerailReceiptDetailModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//ReceiptDetailLocation
+    fun receiptDetailLocation(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Observable<ReceiptDetailLocationModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//ReceiptDetailSerial
+    fun receiptDetailSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Observable<ReceiptSerialModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//ReceiptDetailScanSerial
+    fun receiptDetailScanSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Single<SerialPutawayAssignModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    fun receiptDetailSerialRemove(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<SerialPutawayAssignModel>
 
     //------------Picking-------------------------------------------------------------------------
     @Headers(Utils.CONTENT_TYPE)

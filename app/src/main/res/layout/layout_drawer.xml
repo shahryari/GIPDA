@@ -130,7 +130,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/serialPutaway"
+                    android:id="@+id/relSerialPutaway"
                     style="@style/drawer_sub_rel"
                     android:orientation="horizontal">
 

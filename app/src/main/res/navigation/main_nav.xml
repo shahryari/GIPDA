@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_desktopFragment_to_serialPutawayAssignFragment"
             app:destination="@id/serialPutawayAssignFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_serialPutawayFragment"
+            app:destination="@id/serialPutawayFragment" />
 
     </fragment>
     <fragment
@@ -277,6 +280,26 @@
         android:id="@+id/serialPutawayAssignFragment"
         android:name="com.example.warehousemanagment.ui.fragment.SerialPutawayAssignFragment"
         android:label="SerialPutawayAssignFragment" />
+    <fragment
+        android:id="@+id/serialPutawayFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.SerialPutawayFragment"
+        android:label="SerialPutawayFragment" >
+        <action
+            android:id="@+id/action_serialPutawayFragment_to_serialPutawayDetailFragment"
+            app:destination="@id/serialPutawayDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/serialPutawayDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.SerialPutawayDetailFragment"
+        android:label="SerialPutawayDetailFragment" >
+        <action
+            android:id="@+id/action_serialPutawayDetailFragment_to_serialPutawayDetailLocationFragment"
+            app:destination="@id/serialPutawayDetailLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/serialPutawayDetailLocationFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.SerialPutawayDetailLocationFragment"
+        android:label="SerialPutawayDetailLocationFragment" />
 
 
 </navigation>

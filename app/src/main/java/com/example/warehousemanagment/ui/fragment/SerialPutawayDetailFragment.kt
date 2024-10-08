@@ -3,39 +3,44 @@ package com.example.warehousemanagment.ui.fragment
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
-import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
-import com.example.warehousemanagment.databinding.FragmentSerialPutawayBinding
-import com.example.warehousemanagment.databinding.PatternSerialPutawayBinding
+import com.example.warehousemanagment.databinding.FragmentSerialPutawayDetailBinding
 import com.example.warehousemanagment.model.classes.checkTick
 import com.example.warehousemanagment.model.classes.clearEdi
-import com.example.warehousemanagment.model.classes.hideShortCut
+import com.example.warehousemanagment.model.classes.getBuiltString
 import com.example.warehousemanagment.model.classes.setBelowCount
 import com.example.warehousemanagment.model.classes.setToolbarBackground
 import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayRow
-import com.example.warehousemanagment.ui.adapter.SerialPutawayAssignAdapter
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerialReceiptDetailRow
+import com.example.warehousemanagment.ui.adapter.SerialPutawayDetailAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
-import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
-import com.example.warehousemanagment.viewmodel.SerialPutawayAssignViewModel
+import com.example.warehousemanagment.viewmodel.SerialPutawayDetailViewModel
 
-class SerialPutawayAssignFragment : BaseFragment<SerialPutawayAssignViewModel,FragmentSerialPutawayBinding>() {
+class SerialPutawayDetailFragment() : BaseFragment<SerialPutawayDetailViewModel,FragmentSerialPutawayDetailBinding>() {
 
     var sortType= Utils.DockAssignTime
     var page= Utils.PAGE_START
     var order= Utils.ASC_ORDER
     var lastPosition=0
     var chronometer: CountDownTimer?=null
+    lateinit var receiptId: String
+    lateinit var receiptNumber: String
+    lateinit var containerNumber: String
+    lateinit var driverFullName: String
+    lateinit var plaque1: String
+    lateinit var plaque2: String
+    lateinit var plaque3: String
+    lateinit var plaque4: String
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
@@ -48,7 +53,7 @@ class SerialPutawayAssignFragment : BaseFragment<SerialPutawayAssignViewModel,Fr
 
         refresh()
 
-        observeSerialList()
+        observeList()
         observeCount()
 
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
@@ -60,7 +65,6 @@ class SerialPutawayAssignFragment : BaseFragment<SerialPutawayAssignViewModel,Fr
 
 
     }
-
 
     private fun showFilterSheetDialog()
     {
@@ -161,158 +165,119 @@ class SerialPutawayAssignFragment : BaseFragment<SerialPutawayAssignViewModel,Fr
 
     }
 
-    private fun refresh()
-    {
-        viewModel.dispose()
-        page = Utils.PAGE_START
-        viewModel.clearSerialList()
-        setSerailData()
-    }
-
-    private fun observeCount()
-    {
-        viewModel.getSerialCount().observe(viewLifecycleOwner
-        ) { it ->
-            setBelowCount(
-                requireActivity(), getString(R.string.tools_you_have),
-                it, getString(R.string.tools_you_have_3_trcuk_to_receive)
-            )
+    private fun observeList() {
+        viewModel.getDetailList().observe(this){
+            b.swipeLayout.isRefreshing=false
+            lastPosition=it.size-1
+            showList(it)
         }
-
     }
 
-    private fun showSubmitAssignSheet(serialReceiptOnPutawayRow: SerialReceiptOnPutawayRow)
-    {
-        var mySheetAlertDialog: SheetConfirmDialog? = null
-        mySheetAlertDialog = SheetConfirmDialog(getString(R.string.driverTaskSubmit),
-            "Are you sure to assign [${serialReceiptOnPutawayRow.receiptNumber}] to your self for put away?",
-            object : SheetConfirmDialog.OnClickListener {
-                override fun onCanselClick() {
-                    mySheetAlertDialog?.dismiss()
-                }
-
-                override fun onOkClick(progress: ProgressBar, toInt: String) {
-                    viewModel.assignSerialPutaway(
-                        pref.getDomain(),
-                        serialReceiptOnPutawayRow.receiptID,
-                        progress,
-                        context!!,
-                        pref.getTokenGlcTest(),
-                        {mySheetAlertDialog?.dismiss()},
-                        {mySheetAlertDialog?.dismiss()}
-                    )
-                }
-
-
-                override fun onCloseClick() {
-                    mySheetAlertDialog?.dismiss()
-                }
-
-                override fun hideCansel(cansel: TextView) {
-
-                }
-
-                override fun onDismiss() {
-
-                }
-
-                override fun init(binding: DialogSheetBottomBinding) {
-
-                }
-
-            })
-        mySheetAlertDialog.show(getParentFragmentManager(), "")
-    }
-
-    private fun observeSerialList()
-    {
-        viewModel.getSerialList()
-            .observe(viewLifecycleOwner){
-                if (view!=null && isAdded)
-                {
-                    b.swipeLayout.isRefreshing=false
-                    lastPosition=it.size-1
-                    showSerialList(it)
-                }
-            }
-    }
-    private fun showSerialList(list:List<SerialReceiptOnPutawayRow>)
-    {
+    private fun showList(list: List<MySerialReceiptDetailRow>){
         if(lastPosition - Utils.ROWS<=0)
             b.rv.scrollToPosition(0)
         else b.rv.scrollToPosition(lastPosition - Utils.ROWS)
 
-        val  adapter = SerialPutawayAssignAdapter(list, requireActivity(), object : SerialPutawayAssignAdapter.OnCallBackListener
-        {
-            override fun onAssign(model: SerialReceiptOnPutawayRow) {
-                showSubmitAssignSheet(model)
-            }
-
-            override fun onItemClick(model: SerialReceiptOnPutawayRow) {
-
-            }
-
-
-            override fun reachToEnd(position: Int)
+        val adapter = SerialPutawayDetailAdapter(
+            list,
+            context!!,
             {
-                page=page+1
-                setSerailData()
+                page += 1
+                setListData()
             }
+        ) {model->
+            val bundle = Bundle()
+            bundle.putString(Utils.DRIVE_FULLNAME, driverFullName)
+            bundle.putString(Utils.RECEIVE_NUMBER, receiptNumber)
+            bundle.putString(Utils.RECEIVING_ID,model.receiptDetailID)
+            bundle.putString(Utils.CONTAINER_NUMBER,containerNumber)
+            bundle.putString(Utils.PLAQUE_1,plaque1)
+            bundle.putString(Utils.PLAQUE_2,plaque2)
+            bundle.putString(Utils.PLAQUE_3,plaque3)
+            bundle.putString(Utils.PLAQUE_4,plaque4)
+            bundle.putInt(Utils.Quantity,model.quantity)
+            bundle.putInt("scan",model.scanCount)
+            bundle.putString(Utils.ProductCode,model.productCode)
+            bundle.putString(Utils.ProductTitle,model.productName)
+            bundle.putString(Utils.locationInventory,model.invTypeTitle)
 
-            override fun init(binding: PatternSerialPutawayBinding) {
+            navController?.navigate(R.id.action_serialPutawayDetailFragment_to_serialPutawayDetailLocationFragment,bundle)
 
-            }
-        })
+        }
         b.rv.adapter = adapter
-
-
 
         b.mainToolbar.searchEdi.doAfterTextChanged()
         {
             startTimerForGettingData { refresh()}
         }
-
-
     }
 
-    private fun setSerailData()
+    private fun refresh()
     {
-        viewModel.setSerialList(
+        viewModel.dispose()
+        page = Utils.PAGE_START
+        viewModel.clearDetailList()
+        setListData()
+    }
+
+    private fun setListData(){
+        viewModel.setDetailList(
             pref.getDomain(),
-            pref.getTokenGlcTest(), textEdi(b.mainToolbar.searchEdi),
-            page, Utils.ROWS, sortType, order,
+            pref.getTokenGlcTest(),
+            textEdi(b.mainToolbar.searchEdi),
+            receiptId,
+            1,
+            10,
+            sortType,
+            order,
             context!!,
-            b.progressBar,
-            b.swipeLayout
+            progressBar = b.progressBar,
+            swipeLayout = b.swipeLayout
         )
     }
 
-
-
-    override fun onDestroy()
+    private fun observeCount()
     {
-        super.onDestroy()
-        viewModel.dispose()
-        if(view!=null){
-            viewModel.getSerialCount().removeObservers(viewLifecycleOwner)
-            viewModel.getSerialList().removeObservers(viewLifecycleOwner)
+        viewModel.getDetailCount().observe(viewLifecycleOwner
+        ) { it ->
+            setBelowCount(
+                requireActivity(), getString(R.string.tools_you_have),
+                it, getString(R.string.productsToReceive)
+            )
         }
 
     }
-    override fun onResume() {
-        super.onResume()
-        hideShortCut(requireActivity())
-    }
 
     override fun init() {
+        setToolbarTitle(requireActivity(), "Serial Putaway Detail")
 
-        setToolbarTitle(requireActivity(),getString(R.string.serialPutawayAssign))
+        setToolbarBackground(b.mainToolbar.rel2, requireActivity())
 
-        setToolbarBackground(b.mainToolbar.rel2,requireActivity())
+        receiptId = arguments?.getString(Utils.RECEIVING_ID)?:""
+        receiptNumber = arguments?.getString(Utils.RECEIVE_NUMBER)?:""
+        driverFullName = arguments?.getString(Utils.DRIVE_FULLNAME)?:""
+        containerNumber = arguments?.getString(Utils.CONTAINER_NUMBER)?:""
+
+
+        plaque1 = arguments?.getString(Utils.PLAQUE_1)?:""
+        plaque2 = arguments?.getString(Utils.PLAQUE_2)?:""
+        plaque3 = arguments?.getString(Utils.PLAQUE_3)?:""
+        plaque4 = arguments?.getString(Utils.PLAQUE_4)?:""
+
+        b.header.plaque.text = getBuiltString(
+            plaque3,
+            plaque2,
+            plaque1
+        )
+        b.header.plaqueYear.text = plaque4
+
+        b.header.driverFullName.text = driverFullName
+        b.header.recevieNumber.text = receiptNumber
+        b.header.containerNumber.text = containerNumber
     }
 
     override fun getLayout(): Int {
-        return R.layout.fragment_serial_putaway
+        return R.layout.fragment_serial_putaway_detail
     }
 
     override fun setupComponent(fragmentComponent: FragmentComponent) {

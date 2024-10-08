@@ -544,17 +544,14 @@ class ReceivingDetailFragment() :
     }
 
     private fun observeSerialCountActiveStatus(serialCountEdi: EditText) {
-        viewModel.getScanCountStatus().observe(viewLifecycleOwner,
-            object : Observer<Boolean> {
-                override fun onChanged(status: Boolean) {
-                    if (status == false) {
-                        serialCountEdi.isEnabled = false
-                    } else {
-                        serialCountEdi.isEnabled = true
-                    }
-                }
-
-            })
+        viewModel.getScanCountStatus().observe(viewLifecycleOwner
+        ) { status ->
+            if (status == false) {
+                serialCountEdi.isEnabled = false
+            } else {
+                serialCountEdi.isEnabled = true
+            }
+        }
     }
 
     private fun observeSerialList(
@@ -849,16 +846,15 @@ class ReceivingDetailFragment() :
 
     private fun obserReceiveDetailData() {
         viewModel.getReceiveDetailsList()
-            .observe(requireActivity(), object : Observer<List<ReceiveDetailRow>> {
-                override fun onChanged(list: List<ReceiveDetailRow>) {
-                    if (view != null && isAdded) {
-                        b.swipeLayout.isRefreshing = false
-                        lastReceivingPosition = list.size - 1
-                        setDetailAdapter(list)
+            .observe(requireActivity()
+            ) { list ->
+                if (view != null && isAdded) {
+                    b.swipeLayout.isRefreshing = false
+                    lastReceivingPosition = list.size - 1
+                    setDetailAdapter(list)
 
-                    }
                 }
-            })
+            }
     }
 
     override fun onDestroy() {

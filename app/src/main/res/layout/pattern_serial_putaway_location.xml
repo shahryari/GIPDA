@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:background="@drawable/shape_background_rect_white_6"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/edi_login_marginTop"
+        android:id="@+id/rel0"
+        android:elevation="@dimen/lowElevation"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:padding="@dimen/_5sdp"
+            android:layout_centerVertical="true"
+            android:id="@+id/rel1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title1"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/location_code" />
+            <TextView
+                android:id="@+id/receiptNumber"
+                style="@style/pattern_receieve_tv1"
+                tools:text="@string/tools_a220820_023535" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_20sdp"
+            android:background="@color/mainYellow"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/rel1"
+            android:gravity="center"
+            android:layout_alignBottom="@id/rel1"
+            android:layout_centerVertical="true"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total"
+                android:textSize="@dimen/_16ssp"
+                android:text="@string/_1"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

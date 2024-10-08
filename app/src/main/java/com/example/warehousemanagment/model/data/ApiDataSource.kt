@@ -30,6 +30,10 @@ import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptDetailLocationModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptSerialModel
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialPutawayAssignModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayModel
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckModel
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
@@ -223,6 +227,122 @@ class ApiDataSource() :DataSource
             rows,
             sort,
             asc,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun mySerialReceiptOnPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<SerialReceiptOnPutawayModel> {
+        return apiProvider().mySerialReceiptOnPutaway(
+            baseUrl+"MySerialReceiptOnPutaway",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            order,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun assignSerialPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiProvider().assignSerialPutaway(
+            baseUrl+"SerialReceiptAssign",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun mySerialReceiptDetailOnPutaway(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<MySerailReceiptDetailModel> {
+        return apiProvider().mySerialReceiptDetailOnPutaway(
+            baseUrl+"MySerialReceiptDetailOnPutaway",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            order,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun receiptDetailLocation(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<ReceiptDetailLocationModel> {
+        return apiProvider().receiptDetailLocation(
+            baseUrl+"ReceiptDetailLocation",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            order,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun receiptDetailSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<ReceiptSerialModel> {
+        return apiProvider().receiptDetailSerial(
+            baseUrl+"ReceiptDetailSerials",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            order,
+            cookie
+        )
+    }
+
+    override fun receiptDetailScanSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiProvider().receiptDetailScanSerial(
+            baseUrl+"ReceiptDetailScanSerial",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun receiptDetailSerialRemove(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiProvider().receiptDetailSerialRemove(
+            baseUrl+"ReceiptDetailSerialRemove",
+            jsonObject,
             cookie
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }

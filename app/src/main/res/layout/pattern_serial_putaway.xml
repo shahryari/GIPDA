@@ -1,51 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@drawable/shape_background_rect_white_6"
         android:layout_width="match_parent"
-        android:foreground="?attr/selectableItemBackground"
         android:layout_marginBottom="@dimen/edi_login_marginTop"
         android:paddingBottom="@dimen/_5sdp"
         android:id="@+id/rel0"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:elevation="@dimen/lowElevation"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/lin1"
-            android:layout_width="@dimen/pattern_receive_info_width"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="4"
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:padding="@dimen/padding_pattern_receive">
 
 
 
+
             <TextView
-                android:id="@+id/recevieNumber"
+                android:id="@+id/title1"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/recevieNumber" />
+            <TextView
+                android:id="@+id/receiptNumber"
                 style="@style/pattern_receieve_tv1"
                 tools:text="@string/tools_a220820_023535" />
 
+            <TextView
+                android:id="@+id/title2"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/containerNumber" />
 
             <TextView
                 android:id="@+id/containerNumber"
                 style="@style/pattern_receieve_tv1"
                 tools:text="@string/tools_tdru4204745" />
-
-
             <TextView
-                android:id="@+id/date"
-                style="@style/pattern_receieve_tv1"
-                tools:text="@string/tools_10_08_2022_08_22" />
+                android:id="@+id/title3"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/carType" />
 
-
-            <TextView
-                android:id="@+id/CurrentStatusCode"
-                style="@style/pattern_receieve_tv1"
-                android:visibility="gone"
-                tools:text="@string/tools_10_08_2022_08_22"
-                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/type"
@@ -135,13 +140,15 @@
         <View
             android:id="@+id/view"
             android:layout_toEndOf="@+id/lin1"
-            android:background="@color/mainBackground"
+            android:background="@color/grayCB"
             android:layout_width="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_height="match_parent"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:layout_toEndOf="@+id/view"
             android:id="@+id/lin0"
             android:layout_centerVertical="true"
@@ -178,7 +185,7 @@
 
 
             <TextView
-                android:id="@+id/remove"
+                android:id="@+id/assignBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/_3sdp"
@@ -325,5 +332,5 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

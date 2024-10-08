@@ -246,6 +246,7 @@
     <string name="and">and</string>
     <string name="plaquNumber">PlaqueNumber</string>
     <string name="recevieNumber">Receive Number</string>
+    <string name="ReceiptNumber">Receipt Number</string>
     <string name="productTitle">Product Title</string>
     <string name="createdOn">Created On</string>
     <string name="driverFullName">Driver</string>

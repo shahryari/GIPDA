@@ -210,13 +210,13 @@ class ReceivingFragment : BaseFragment<ReceivingViewModel, FragmentReceivingBind
                 {
                     val bundle = Bundle()
                     bundle.putString(Utils.RECEIVING_ID,model.receivingID)
-                    bundle.putString(Utils.RECEIVE_NUMBER, model.receivingNumber)
-                    bundle.putString(Utils.DRIVE_FULLNAME, model.driverFullName)
                     bundle.putString(Utils.DOCK_CODE, model.dockCode)
                     bundle.putString(Utils.CREATED_ON,model.createdOnString)
-                    bundle.putString(Utils.CAR_TYPE_TITLE,model?.carTypeTitle?.toString())
-                    bundle.putString(Utils.CONTAINER_NUMBER,model.containerNumber)
+                    bundle.putString(Utils.CAR_TYPE_TITLE, model.carTypeTitle?:"")
 
+                    bundle.putString(Utils.DRIVE_FULLNAME, model.driverFullName)
+                    bundle.putString(Utils.RECEIVE_NUMBER, model.receivingNumber)
+                    bundle.putString(Utils.CONTAINER_NUMBER,model.containerNumber)
                     bundle.putString(Utils.PLAQUE_1,model.plaqueNumberFirst)
                     bundle.putString(Utils.PLAQUE_2,model.plaqueNumberSecond)
                     bundle.putString(Utils.PLAQUE_3,model.plaqueNumberThird)

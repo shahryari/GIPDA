@@ -80,7 +80,7 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
         viewModelScope.launch()
         {
             val jsonObject= JsonObject()
-            jsonObject.addProperty("ItemSerialID",itemSerialId)
+            jsonObject.addProperty("ItemSerialIDs",itemSerialId)
             showSimpleProgress(true,progress)
             repository.receiptDetailSerialRemove(baseUrl,jsonObject, cookie).subscribe(
                 {

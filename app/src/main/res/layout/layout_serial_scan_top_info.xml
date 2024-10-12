@@ -72,8 +72,9 @@
     <TextView
         android:id="@+id/add"
         style="@style/btnSubmitCansel"
-        android:layout_alignBottom="@id/rel1"
-        android:layout_alignStart="@id/relMoreInfo"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/relQuantity"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:background="@drawable/shape_background_rect_gray_3"
         android:backgroundTint="@color/mainYellow"
         android:text="@string/add" />

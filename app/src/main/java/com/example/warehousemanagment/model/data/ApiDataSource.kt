@@ -28,6 +28,9 @@ import com.example.warehousemanagment.model.models.my_cargo.my_cargo.MyCargoMode
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailModel
 import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
+import com.example.warehousemanagment.model.models.picking.GetPickingSerialsModel
+import com.example.warehousemanagment.model.models.picking.PickingFinishSerialBaseModel
+import com.example.warehousemanagment.model.models.picking.ScanPickingSerialModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
@@ -377,6 +380,82 @@ class ApiDataSource() :DataSource
     ): Observable<CompletePickingModel> {
         return apiProvider().completePicking(baseUrl+"PickingComplete",jsonObject,cookie)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun serialPickTruckList(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<PickingTruckModel> {
+        return apiProvider().serialPickTruckList(baseUrl+"PickingListGroupedSerialBase",jsonObject, page, rows, sort, asc,cookie)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun serialPickTruckDetailList(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<PickingDetailModel> {
+        return apiProvider().serialPickTruckDetailList(baseUrl+"PickingListGroupedDetailSerialBase"
+            ,jsonObject, page, rows, sort, asc,cookie)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun completeSerialPicking(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<CompletePickingModel> {
+
+        return apiProvider().completePicking(baseUrl+"PickingComplete",jsonObject,cookie)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getPickingSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<GetPickingSerialsModel> {
+        return apiProvider().getPickingSerial(
+            baseUrl+"GetPickingSerials",
+            jsonObject,
+            page,
+            10,
+            sort,
+            order,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun scanPickingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<ScanPickingSerialModel> {
+        return apiProvider().scanPickingSerial(
+            baseUrl+"ScanPickingSerial",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun finishPickingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<PickingFinishSerialBaseModel> {
+        return apiProvider().finishPickingSerial(baseUrl+"PickingFinishSerialBase",jsonObject,cookie)
     }
 
     override fun checkTruckList(baseUrl:String,cookie: String): Observable<List<CheckTruckModel>> {

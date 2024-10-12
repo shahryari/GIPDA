@@ -127,6 +127,9 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         b.drawerLayout.relPicking.setOnClickListener {
             goToFragment(R.id.pickingFragment)
         }
+        b.drawerLayout.relSerialPicking.setOnClickListener {
+            goToFragment(R.id.serialPickingListFragment)
+        }
         b.drawerLayout.relShipping.setOnClickListener {
             goToFragment(R.id.shippingFragment)
         }
@@ -197,6 +200,7 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         b.drawerLayout.lineDocks.setOnClickListener {
             goToFragment(R.id.dockFragment)
         }
+
 
 
         b.drawerLayout.transferExpand.setOnClickListener()

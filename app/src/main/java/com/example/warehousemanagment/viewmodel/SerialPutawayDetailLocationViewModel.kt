@@ -64,8 +64,8 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
     fun getSerialsList(): LiveData<List<ReceiptSerialRow>> {
         return serials.distinctUntilChanged()
     }
-    fun getAddingSerialResult(): LiveData<SerialPutawayAssignModel> {
-        return addSerialResult.distinctUntilChanged()
+    fun getSerialCount(): MutableLiveData<Int> {
+        return serialCount
     }
 
 
@@ -136,6 +136,7 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
     fun setSerialList(
         baseUrl:String,
         receiptDetailId: String,
+        itemLocationId: String,
         cookie: String,
         context: Context,
         progress: ProgressBar
@@ -145,6 +146,7 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
         {
             val jsonObject= JsonObject()
             jsonObject.addProperty("ReceiptDetailID",receiptDetailId)
+            if(itemLocationId.isNotEmpty())jsonObject.addProperty("ItemLocationID",itemLocationId)
             showSimpleProgress(true,progress)
             repository.receiptDetailSerial(
                 baseUrl,
@@ -158,7 +160,7 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
 
                 .subscribe({
                     showSimpleProgress(false,progress)
-                    serials.value=it.rows
+                    serials.postValue(it.rows)
 //                    if(it.size==0)
 //                    {
 //                        scanQuantityStatus.value=false

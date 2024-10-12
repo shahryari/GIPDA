@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternPutawayDetailBinding
-import com.example.warehousemanagment.databinding.PatternReceivingDetailInfoBinding
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayDetailRow
-import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayTruckDetailModel
 
 class PutawayDetailAdapter(): RecyclerView.Adapter<PutawayDetailAdapter.MyViewHolder>()
 {
@@ -64,11 +62,7 @@ class PutawayDetailAdapter(): RecyclerView.Adapter<PutawayDetailAdapter.MyViewHo
 
 
 
-    class MyViewHolder(b:PatternPutawayDetailBinding): RecyclerView.ViewHolder(b.root){
-        var b:PatternPutawayDetailBinding
-        init {
-            this.b=b
-        }
+    class MyViewHolder(var b: PatternPutawayDetailBinding): RecyclerView.ViewHolder(b.root){
 
     }
 

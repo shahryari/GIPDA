@@ -12,6 +12,7 @@
     <string name="serailPutaway">Serial Putaway</string>
     <string name="transfer">Transfer</string>
     <string name="picking">Picking</string>
+    <string name="serialPicking">Serial Picking</string>
     <string name="shipping">Shipping</string>
     <string name="_2">2</string>
     <string name="_1">1</string>

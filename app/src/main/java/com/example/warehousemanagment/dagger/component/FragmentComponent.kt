@@ -27,6 +27,9 @@ import com.example.warehousemanagment.ui.fragment.PutawayFragment
 import com.example.warehousemanagment.ui.fragment.ReceivingDetailFragment
 import com.example.warehousemanagment.ui.fragment.ReceivingFragment
 import com.example.warehousemanagment.ui.fragment.ReworkFragment
+import com.example.warehousemanagment.ui.fragment.SerialPickingDetailFragment
+import com.example.warehousemanagment.ui.fragment.SerialPickingListFragment
+import com.example.warehousemanagment.ui.fragment.SerialPickingScanFragment
 import com.example.warehousemanagment.ui.fragment.SerialPutawayAssignFragment
 import com.example.warehousemanagment.ui.fragment.SerialPutawayDetailFragment
 import com.example.warehousemanagment.ui.fragment.SerialPutawayDetailLocationFragment
@@ -89,4 +92,7 @@ interface FragmentComponent
 
     fun inject(fragment: SerialPutawayDetailFragment)
     fun inject(fragment: SerialPutawayDetailLocationFragment)
+    fun inject(fragment: SerialPickingListFragment)
+    fun inject(fragment: SerialPickingDetailFragment)
+    fun inject(fragment: SerialPickingScanFragment)
 }

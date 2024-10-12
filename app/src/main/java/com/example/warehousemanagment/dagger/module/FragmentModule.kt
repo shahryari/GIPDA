@@ -31,6 +31,9 @@ import com.example.warehousemanagment.viewmodel.PutAwayViewModel
 import com.example.warehousemanagment.viewmodel.ReceivingDetailViewModel
 import com.example.warehousemanagment.viewmodel.ReceivingViewModel
 import com.example.warehousemanagment.viewmodel.ReworkViewModel
+import com.example.warehousemanagment.viewmodel.SerialPickingDetailViewModel
+import com.example.warehousemanagment.viewmodel.SerialPickingListViewModel
+import com.example.warehousemanagment.viewmodel.SerialPickingScanViewModel
 import com.example.warehousemanagment.viewmodel.SerialPutawayAssignViewModel
 import com.example.warehousemanagment.viewmodel.SerialPutawayDetailLocationViewModel
 import com.example.warehousemanagment.viewmodel.SerialPutawayDetailViewModel
@@ -315,4 +318,21 @@ class FragmentModule()
         return SerialPutawayDetailLocationViewModel(application)
     }
 
+    @Singleton
+    @Provides
+    fun serialPickingListViewModel() : SerialPickingListViewModel {
+        return SerialPickingListViewModel(application)
+    }
+
+    @Singleton
+    @Provides
+    fun serialPickingDetailViewModel() : SerialPickingDetailViewModel {
+        return SerialPickingDetailViewModel(application)
+    }
+
+    @Singleton
+    @Provides
+    fun serialPickingScanViewModel() : SerialPickingScanViewModel {
+        return serialPickingScanViewModel()
+    }
 }

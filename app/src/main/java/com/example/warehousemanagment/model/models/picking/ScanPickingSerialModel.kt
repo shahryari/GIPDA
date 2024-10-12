@@ -1,0 +1,3 @@
+package com.example.warehousemanagment.model.models.picking
+
+class ScanPickingSerialModel

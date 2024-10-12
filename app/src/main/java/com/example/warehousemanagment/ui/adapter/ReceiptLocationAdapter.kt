@@ -11,6 +11,7 @@ import com.example.warehousemanagment.model.models.putaway.serial_putaway.Receip
 class ReceiptLocationAdapter(
     val list: List<ReceiptDetailLocationRow>,
     val context: Context,
+    val onItemClick: (ReceiptDetailLocationRow)->Unit,
     val onReachToEnd: (Int)->Unit
 ) : RecyclerView.Adapter<ReceiptLocationAdapter.MyViewHolder>(){
 
@@ -29,7 +30,10 @@ class ReceiptLocationAdapter(
         val model = list[position]
 
         holder.binding.receiptNumber.text = model.locationCode
-        holder.binding.total.text = model.quantity.toString()
+        holder.binding.total.text = model.serialCount.toString()
+        holder.itemView.setOnClickListener {
+            onItemClick(model)
+        }
         if (position==list.size-1 && list.size>= Utils.ROWS){
             onReachToEnd(position)
         }

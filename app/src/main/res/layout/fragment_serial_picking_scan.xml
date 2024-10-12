@@ -33,8 +33,8 @@
                 layout="@layout/img_filter"/>
 
             <include
-                android:id="@+id/header"
-                layout="@layout/pattern_serial_putawy_header"
+                android:id="@+id/pickingItem"
+                layout="@layout/pattern_picking_detail_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mainToolbar"
@@ -44,38 +44,20 @@
                 android:id="@+id/rel1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/mainBackground"
-                android:layout_below="@+id/header" >
+                android:layout_below="@+id/pickingItem" >
+                <EditText
+                    android:id="@+id/serialEdi"
+                    style="@style/ediForSmallDialog"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:hint="@string/input_serial" />
 
-                <View
-                    android:id="@+id/view1"
-                    android:layout_width="@dimen/view_start_width"
-                    android:layout_height="@dimen/view_height1"
-                    android:layout_centerVertical="true"
-                    android:background="@color/gray70" />
-
-                <TextView
-                    android:id="@+id/itemTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_start_icon_tv"
-                    android:layout_marginTop="@dimen/margin_start_icon_tv"
-                    android:layout_marginEnd="@dimen/margin_start_icon_tv"
-                    android:layout_marginBottom="@dimen/margin_start_icon_tv"
-                    android:layout_toEndOf="@+id/view1"
-                    android:fontFamily="@font/medium"
-                    android:text="@string/items"
-                    android:textSize="@dimen/itemDetailReceive" />
-
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/view_height1"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/itemTitle"
-                    android:background="@color/gray70" />
-
+                <ImageView
+                    android:id="@+id/clearImg"
+                    style="@style/imgClose"
+                    android:layout_marginEnd="@dimen/clearImgMarginEnd"
+                    android:elevation="@dimen/clearImgElevation" />
 
             </RelativeLayout>
 
@@ -83,10 +65,10 @@
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_below="@id/rel1"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/pattern_serial_putaway_detail" />
-
+                tools:listitem="@layout/pattern_serial_picking_detail_scan" />
 
 
             <ProgressBar
@@ -95,21 +77,6 @@
                 android:background="@null"
                 android:padding="@dimen/paddingOfFragmentProgress"
                 tools:visibility="gone" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/layPutSerial"
-                android:layout_alignParentBottom="true"
-
-                android:orientation="horizontal"
-                tools:visibility="visible"
-                android:visibility="gone">
-
-                <include
-                    android:id="@+id/put_serial"
-                    layout="@layout/layout_print_tv"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </RelativeLayout>
 

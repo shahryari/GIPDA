@@ -28,6 +28,9 @@ import com.example.warehousemanagment.model.models.my_cargo.my_cargo.MyCargoMode
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailModel
 import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
+import com.example.warehousemanagment.model.models.picking.GetPickingSerialsModel
+import com.example.warehousemanagment.model.models.picking.PickingFinishSerialBaseModel
+import com.example.warehousemanagment.model.models.picking.ScanPickingSerialModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
@@ -304,6 +307,69 @@ class MyRepository() :DataSource
         cookie: String
     ): Observable<CompletePickingModel> {
         return apiDataSource.completePicking(baseUrl,jsonObject,cookie)
+    }
+
+    override fun serialPickTruckList(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<PickingTruckModel> {
+        return apiDataSource.serialPickTruckList(
+            baseUrl, jsonObject, page, rows, sort, asc, cookie
+        )
+    }
+
+    override fun serialPickTruckDetailList(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<PickingDetailModel> {
+        return apiDataSource.serialPickTruckDetailList(
+            baseUrl, jsonObject, page, rows, sort, asc, cookie
+        )
+    }
+
+    override fun completeSerialPicking(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<CompletePickingModel> {
+        return apiDataSource.completeSerialPicking(baseUrl,jsonObject,cookie)
+    }
+
+    override fun getPickingSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<GetPickingSerialsModel> {
+        return apiDataSource.getPickingSerials(baseUrl,jsonObject,page,sort,order,cookie)
+    }
+
+    override fun scanPickingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<ScanPickingSerialModel> {
+        return apiDataSource.scanPickingSerial(baseUrl,jsonObject,cookie)
+    }
+
+    override fun finishPickingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<PickingFinishSerialBaseModel> {
+        return apiDataSource.finishPickingSerial(baseUrl,jsonObject,cookie)
     }
 
     override fun checkTruckList(baseUrl:String,cookie: String): Observable<List<CheckTruckModel>> {

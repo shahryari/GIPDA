@@ -51,7 +51,7 @@ class ReceiveDetailAdapter(): RecyclerView.Adapter<ReceiveDetailAdapter.MyViewHo
         holder.b.invTypeTitle.text=model.invTypeTitle
 
 
-        if (model.serializable==false)
+        if (!model.serializable)
         {
             holder.b.iconBarcode.visibility=View.INVISIBLE
             holder.b.imgBackground.visibility=View.INVISIBLE

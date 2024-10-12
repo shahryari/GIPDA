@@ -4,10 +4,15 @@ import android.app.Application
 import android.content.Context
 import android.view.View
 import android.widget.ProgressBar
-import androidx.lifecycle.*
-import com.example.warehousemanagment.model.classes.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.viewModelScope
+import com.example.warehousemanagment.model.classes.log
+import com.example.warehousemanagment.model.classes.showErrorMsg
+import com.example.warehousemanagment.model.classes.showProgress
 import com.example.warehousemanagment.model.data.MyRepository
-import com.example.warehousemanagment.model.models.login.login.Permissions
 import com.example.warehousemanagment.model.models.login.login.LoginModel
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
@@ -44,7 +49,7 @@ class LoginViewModel(application: Application,context:Context): AndroidViewModel
             repository.login(baseUrl,jsonObject)
                 .subscribe(
                     {
-                    showProgress(false, submit, progressBar)
+//                    showProgress(false, submit, progressBar)                                                                                                                                        ۱‍‍ضضضضضضضضضضضضضضض''
 
                         loginModel.value=it
 

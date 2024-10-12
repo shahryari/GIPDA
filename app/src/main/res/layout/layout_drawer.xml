@@ -185,6 +185,21 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/relSerialPicking"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/serialPicking" />
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/linCargoDetail"

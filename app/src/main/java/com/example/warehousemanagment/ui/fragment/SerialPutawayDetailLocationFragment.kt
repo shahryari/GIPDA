@@ -54,6 +54,10 @@ class SerialPutawayDetailLocationFragment
     var order = Utils.ASC_ORDER
     var lastReceivingPosition = 0
 
+    lateinit var productCode: String
+    lateinit var productTitle: String
+    lateinit var invType: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         receiptDetailId = arguments?.getString(Utils.RECEIVING_ID, "").toString()
@@ -165,6 +169,8 @@ class SerialPutawayDetailLocationFragment
 
     private fun showScanDialog(
         receiptDetailId: String,
+        itemLocationId: String,
+        locationCode: String,
         productTitle: String,
         productCode: String,
         progress: ProgressBar,
@@ -181,8 +187,8 @@ class SerialPutawayDetailLocationFragment
 
         scanDialogBinding!!.layoutTopInfo.relQuantity.visibility = View.VISIBLE
         scanDialogBinding!!.layoutTopInfo.relOwnerCode.visibility = View.GONE
-        scanDialogBinding!!.layoutTopInfo.add.visibility = View.GONE
         scanDialogBinding!!.layoutTopInfo.serialEdi.hint = "Location Code"
+        scanDialogBinding!!.layoutTopInfo.serialEdi.setText(locationCode)
         scanDialogBinding!!.layoutTopInfo.quantityEdi.hint = "Input Serial"
         scanDialogBinding!!.layoutTopInfo.productTitle.text = productTitle
         scanDialogBinding!!.layoutTopInfo.productCode.text = productCode
@@ -190,9 +196,14 @@ class SerialPutawayDetailLocationFragment
         viewModel.dispose()
 
         viewModel.setSerialList(
-            pref.getDomain(), receiptDetailId, pref.getTokenGlcTest(),requireActivity(), progress
+            pref.getDomain(),
+            receiptDetailId,
+            itemLocationId,
+            pref.getTokenGlcTest(),
+            requireActivity(), progress
         )
         observeSerialList(scanDialogBinding!!)
+        observeSerialCount(scanDialogBinding!!.serialsCount)
 
 //        observeSerialCountActiveStatus(scanDialogBinding!!.layoutTopInfo.quantityEdi)
 
@@ -210,7 +221,10 @@ class SerialPutawayDetailLocationFragment
         )
 
 
-        scanDialogBinding!!.layoutTopInfo.serialEdi.requestFocus()
+        if (locationCode.isEmpty())
+            scanDialogBinding!!.layoutTopInfo.serialEdi.requestFocus()
+        else
+            scanDialogBinding!!.layoutTopInfo.quantityEdi.requestFocus()
 
         checkEnterKey(scanDialogBinding!!.layoutTopInfo.serialEdi){
             scanDialogBinding!!.layoutTopInfo.serialEdi.isEnabled = false
@@ -232,7 +246,12 @@ class SerialPutawayDetailLocationFragment
                     {
                         scanDialogBinding!!.layoutTopInfo.quantityEdi.setText("")
                         viewModel.setSerialList(
-                            pref.getDomain(), receiptDetailId, pref.getTokenGlcTest(),requireActivity(), progress
+                            pref.getDomain(),
+                            receiptDetailId,
+                            itemLocationId,
+                            pref.getTokenGlcTest(),
+                            requireActivity(),
+                            progress
                         )
                     }
                 )
@@ -241,10 +260,33 @@ class SerialPutawayDetailLocationFragment
             }
         }
 //
-//        scanDialogBinding!!.layoutTopInfo.add.setOnClickListener()
-//        {
-//            addSerialByBoth( productId)
-//        }
+        scanDialogBinding!!.layoutTopInfo.add.setOnClickListener()
+        {
+            if (lenEdi(scanDialogBinding!!.layoutTopInfo.serialEdi) != 0 && lenEdi(scanDialogBinding!!.layoutTopInfo.quantityEdi) != 0){
+                viewModel.scanSerial(
+                    baseUrl = pref.getDomain(),
+                    textEdi(scanDialogBinding!!.layoutTopInfo.serialEdi),
+                    textEdi(scanDialogBinding!!.layoutTopInfo.quantityEdi),
+                    receiptDetailId,
+                    pref.getTokenGlcTest(),
+                    requireContext(),
+                    scanDialogBinding!!.progress,
+                    {
+                        scanDialogBinding!!.layoutTopInfo.quantityEdi.setText("")
+                        viewModel.setSerialList(
+                            pref.getDomain(),
+                            receiptDetailId,
+                            itemLocationId,
+                            pref.getTokenGlcTest(),
+                            requireActivity(),
+                            progress
+                        )
+                    }
+                )
+            } else {
+                toast("Please fill all inputs",requireContext())
+            }
+        }
 
 //        scanDialogBinding!!.layoutTopInfo.iconBarcode.setOnClickListener()
 //        {
@@ -370,6 +412,7 @@ class SerialPutawayDetailLocationFragment
                 viewModel.setSerialList(
                     pref.getDomain(),
                     receiptDetailId,
+                    itemSerialID,
                     pref.getTokenGlcTest(),
                     requireContext(),
                     dialogBinding.progress
@@ -386,12 +429,12 @@ class SerialPutawayDetailLocationFragment
         ) { serialList ->
             showSerialAdapter(
                 dialogBinding.rv,
-                serialList.map { ReceivingDetailSerialModel(it.isDamageSerial,it.itemSerialID,receiptDetailId,it.serialNumber) },
+                serialList.map { ReceivingDetailSerialModel(false,it.itemSerialID,receiptDetailId,it.serial) },
                 dialogBinding.searchEdi,
                 dialogBinding
             )
             showSerialsSize(
-                serialList.map { ReceivingDetailSerialModel(it.isDamageSerial,it.itemSerialID,receiptDetailId,it.serialNumber) },
+                serialList.map { ReceivingDetailSerialModel(false,it.itemSerialID,receiptDetailId,it.serial) },
                 dialogBinding.serialsCount
             )
 
@@ -413,7 +456,18 @@ class SerialPutawayDetailLocationFragment
         val sb = StringBuilder()
         sb.append(getString(R.string.tools_scannedItems))
         sb.append(serialList.size)
-        serialsCount.setText(sb.toString())
+        serialsCount.text = sb.toString()
+    }
+
+    private fun observeSerialCount(
+        serialsCount: TextView
+    ) {
+        viewModel.getSerialCount().observe(this){
+            val sb = StringBuilder()
+            sb.append(getString(R.string.tools_scannedItems))
+            sb.append(it)
+            serialsCount.text = sb.toString()
+        }
     }
 
 
@@ -485,6 +539,17 @@ class SerialPutawayDetailLocationFragment
         val adapter = ReceiptLocationAdapter(
             list,
             context!!,
+            onItemClick = {
+                showScanDialog(
+                    receiptDetailId,
+                    it.itemLocationID,
+                    it.locationCode,
+                    productTitle = productTitle,
+                    productCode = productCode,
+                    invtypeTitle = invType,
+                    progress = b.progressBar
+                )
+            },
             onReachToEnd = {
                 page += 1
                 setLocationList()
@@ -510,9 +575,9 @@ class SerialPutawayDetailLocationFragment
 
         val receiveNumber = arguments?.getString(Utils.RECEIVE_NUMBER)
         val driveFullName = arguments?.getString(Utils.DRIVE_FULLNAME)
-        val productCode = arguments?.getString(Utils.ProductCode)
-        val productTitle = arguments?.getString(Utils.ProductTitle)
-        val invType = arguments?.getString(Utils.locationInventory)
+        productCode = arguments?.getString(Utils.ProductCode)?:""
+        productTitle = arguments?.getString(Utils.ProductTitle)?:""
+        invType = arguments?.getString(Utils.locationInventory)?:""
         val quantity = arguments?.getInt(Utils.Quantity)
         val scan = arguments?.getInt("scan")
         val containerNumber = arguments?.getString(Utils.CONTAINER_NUMBER)
@@ -529,10 +594,12 @@ class SerialPutawayDetailLocationFragment
         b.putSerial.tv.setOnClickListener {
             showScanDialog(
                 receiptDetailId,
-                productTitle?:"",
-                productCode?:"",
+                "",
+                "",
+                productTitle,
+                productCode,
                 b.progressBar,
-                invType?:""
+                invType
             )
         }
 

@@ -30,6 +30,9 @@ import com.example.warehousemanagment.model.models.my_cargo.my_cargo.MyCargoMode
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailModel
 import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
+import com.example.warehousemanagment.model.models.picking.GetPickingSerialsModel
+import com.example.warehousemanagment.model.models.picking.PickingFinishSerialBaseModel
+import com.example.warehousemanagment.model.models.picking.ScanPickingSerialModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
@@ -304,6 +307,62 @@ interface ApiService
     @POST//"PickingComplete")
     fun completePicking(@Url url:String ,@Body jsonObject: JsonObject,@Header(Utils.COOKIE) cookie:String):
             Observable<CompletePickingModel>
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"PickingListSerialBase")
+    fun serialPickTruckList(@Url url:String ,@Body jsonObject: JsonObject,
+                      @Header("page") page:Int,
+                      @Header("rows") rows:Int,
+                      @Header("sort") sort:String,
+                      @Header("order") asc:String,@Header(Utils.COOKIE) cookie:String):
+            Observable<PickingTruckModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"PickingListGroupedDetailSerialBase")
+    fun serialPickTruckDetailList(@Url url:String ,@Body jsonObject: JsonObject,
+                            @Header("page") page:Int,
+                            @Header("rows") rows:Int,
+                            @Header("sort") sort:String,
+                            @Header("order") asc:String,@Header(Utils.COOKIE) cookie:String):
+            Observable<PickingDetailModel>
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"SerialPickingComplete")
+    fun completeSerialPicking(@Url url:String ,@Body jsonObject: JsonObject,@Header(Utils.COOKIE) cookie:String):
+            Observable<CompletePickingModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//GetPickingSerials
+    fun getPickingSerial(
+        @Url url:String ,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ): Observable<GetPickingSerialsModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//ScanPickingSerial
+    fun scanPickingSerial(
+        @Url url:String ,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Single<ScanPickingSerialModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//PickingFinishSerialBase
+    fun finishPickingSerial(
+        @Url url:String ,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Single<PickingFinishSerialBaseModel>
+
+
+
 
     //----------CheckTruck------------------------------------------------------------------------
 

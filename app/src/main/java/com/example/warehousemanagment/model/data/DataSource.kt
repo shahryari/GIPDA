@@ -28,6 +28,9 @@ import com.example.warehousemanagment.model.models.my_cargo.my_cargo.MyCargoMode
 import com.example.warehousemanagment.model.models.my_cargo.my_cargo_detail.MyCargoDetailModel
 import com.example.warehousemanagment.model.models.notif.NotificationModel
 import com.example.warehousemanagment.model.models.picking.CompletePickingModel
+import com.example.warehousemanagment.model.models.picking.GetPickingSerialsModel
+import com.example.warehousemanagment.model.models.picking.PickingFinishSerialBaseModel
+import com.example.warehousemanagment.model.models.picking.ScanPickingSerialModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
@@ -235,6 +238,35 @@ interface DataSource
 
     fun completePicking(baseUrl:String,jsonObject: JsonObject,cookie:String):
             Observable<CompletePickingModel>
+
+    fun serialPickTruckList(baseUrl:String,jsonObject: JsonObject,
+                      page:Int,
+                      rows:Int,
+                      sort:String,
+                      asc:String, cookie:String): Observable<PickingTruckModel>
+
+
+
+    fun serialPickTruckDetailList(baseUrl:String,jsonObject: JsonObject,
+                            page:Int,
+                            rows:Int,
+                            sort:String,
+                            asc:String, cookie:String): Observable<PickingDetailModel>
+
+
+
+    fun completeSerialPicking(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Observable<CompletePickingModel>
+
+
+    fun getPickingSerials(baseUrl:String,jsonObject: JsonObject,page: Int,sort: String, order: String,cookie:String):
+            Observable<GetPickingSerialsModel>
+
+    fun scanPickingSerial(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Single<ScanPickingSerialModel>
+
+    fun finishPickingSerial(baseUrl:String,jsonObject: JsonObject,cookie:String):
+            Single<PickingFinishSerialBaseModel>
 
     //-----------------------CheckTruck-------------------------------------------
 

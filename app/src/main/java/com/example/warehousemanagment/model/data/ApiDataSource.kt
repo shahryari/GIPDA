@@ -323,7 +323,7 @@ class ApiDataSource() :DataSource
             sort,
             order,
             cookie
-        )
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun receiptDetailScanSerial(

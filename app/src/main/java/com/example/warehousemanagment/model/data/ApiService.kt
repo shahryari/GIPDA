@@ -277,6 +277,7 @@ interface ApiService
     ) : Single<SerialPutawayAssignModel>
 
     @Headers(Utils.CONTENT_TYPE)
+    @POST//ReceiptDetailSerialRemove
     fun receiptDetailSerialRemove(
         @Url url: String,
         @Body jsonObject: JsonObject,

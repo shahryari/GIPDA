@@ -18,5 +18,5 @@ data class ReceiptDetailLocationRow(
     @SerializedName("LocationCode")
     val locationCode: String,
     @SerializedName("SerialCount")
-    val serialCount: Int,
+    val serialCount: Int
 )

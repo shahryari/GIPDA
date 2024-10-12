@@ -59,7 +59,7 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
     val REPORT_ITEMS = 3.0f
     val TRANSFER_ITEMS = 3.0f
     val SHIPPING_ITEMS = 4.0f
-    val RECEIVING_ITEMS = 2.0f
+    val RECEIVING_ITEMS = 3.0f
 
 
     lateinit var pref:MySharedPref

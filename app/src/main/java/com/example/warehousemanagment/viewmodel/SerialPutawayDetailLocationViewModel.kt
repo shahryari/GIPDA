@@ -210,7 +210,7 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
         {
             showSimpleProgress(true,progressBar)
             val jsonObject= JsonObject()
-            jsonObject.addProperty(ApiUtils.ReceivingID,receivingId)
+            jsonObject.addProperty("ReceiptDetailID",receivingId)
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
             repository.receiptDetailLocation(baseUrl,jsonObject,page, rows, sort, asc, cookie)
                 .subscribe({

@@ -3,11 +3,13 @@ package com.example.warehousemanagment.ui.fragment
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
+import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentSerialPutawayBinding
 import com.example.warehousemanagment.databinding.PatternSerialPutawayBinding
@@ -23,6 +25,7 @@ import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayRow
 import com.example.warehousemanagment.ui.adapter.SerialPutawayAssignAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
+import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.SerialPutawayViewModel
 
@@ -190,6 +193,51 @@ class SerialPutawayFragment : BaseFragment<SerialPutawayViewModel,FragmentSerial
                 }
             }
     }
+    private fun showSubmitAssignSheet(serialReceiptOnPutawayRow: SerialReceiptOnPutawayRow)
+    {
+        var mySheetAlertDialog: SheetConfirmDialog? = null
+        mySheetAlertDialog = SheetConfirmDialog(getString(R.string.driverTaskSubmit),
+            "Are you sure to remove [${serialReceiptOnPutawayRow.receiptNumber}] from your self?",
+            object : SheetConfirmDialog.OnClickListener {
+                override fun onCanselClick() {
+                    mySheetAlertDialog?.dismiss()
+                }
+
+                override fun onOkClick(progress: ProgressBar, toInt: String) {
+                    viewModel.removeSerialReceipt(
+                        pref.getDomain(),
+                        serialReceiptOnPutawayRow.receiptID,
+                        pref.getTokenGlcTest(),
+                        requireContext(),
+                        progress,
+                        {
+                            mySheetAlertDialog?.dismiss()
+                            refresh()
+                        },
+                        {mySheetAlertDialog?.dismiss()}
+                    )
+                }
+
+
+                override fun onCloseClick() {
+                    mySheetAlertDialog?.dismiss()
+                }
+
+                override fun hideCansel(cansel: TextView) {
+
+                }
+
+                override fun onDismiss() {
+
+                }
+
+                override fun init(binding: DialogSheetBottomBinding) {
+
+                }
+
+            })
+        mySheetAlertDialog.show(getParentFragmentManager(), "")
+    }
     private fun showSerialList(list:List<SerialReceiptOnPutawayRow>)
     {
         if(lastPosition - Utils.ROWS<=0)
@@ -199,6 +247,7 @@ class SerialPutawayFragment : BaseFragment<SerialPutawayViewModel,FragmentSerial
         val  adapter = SerialPutawayAssignAdapter(list, requireActivity(), object : SerialPutawayAssignAdapter.OnCallBackListener
         {
             override fun onAssign(model: SerialReceiptOnPutawayRow) {
+                showSubmitAssignSheet(model)
             }
 
             override fun onItemClick(model: SerialReceiptOnPutawayRow) {
@@ -223,7 +272,8 @@ class SerialPutawayFragment : BaseFragment<SerialPutawayViewModel,FragmentSerial
             }
 
             override fun init(binding: PatternSerialPutawayBinding) {
-                binding.assignBtn.visibility = View.GONE
+                binding.assignBtn.text = "Remove From Me"
+                binding.assignBtn.backgroundTintList = ContextCompat.getColorStateList(requireContext(),R.color.red)
             }
         })
         b.rv.adapter = adapter

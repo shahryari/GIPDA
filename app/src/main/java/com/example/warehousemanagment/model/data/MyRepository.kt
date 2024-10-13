@@ -225,6 +225,14 @@ class MyRepository() :DataSource
         return apiDataSource.assignSerialPutaway(baseUrl, jsonObject, cookie)
     }
 
+    override fun serialReceiptRemoveFromMe(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiDataSource.serialReceiptRemoveFromMe(baseUrl,jsonObject, cookie)
+    }
+
     override fun mySerialReceiptDetailOnPutaway(
         baseUrl: String,
         jsonObject: JsonObject,

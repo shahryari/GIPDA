@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayRow
@@ -80,6 +81,37 @@ class SerialPutawayViewModel(application: Application) : AndroidViewModel(applic
                 showSimpleProgress(false,progressBar)
                 showErrorMsg(it,"serialPutawayAssign",context)
             },{},{disposable.add(it)}).let {  }
+        }
+    }
+
+    fun removeSerialReceipt(
+        baseUrl: String,
+        receiptId: String,
+        cookie: String,
+        context: Context,
+        progressBar: ProgressBar,
+        callBack: ()->Unit,
+        errorCallBack: ()->Unit
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("ReceiptID",receiptId)
+        showSimpleProgress(true,progressBar)
+        viewModelScope.launch {
+            repository.serialReceiptRemoveFromMe(
+                baseUrl,
+                jsonObject,
+                cookie
+            ).subscribe(
+                {
+                    showSimpleProgress(false,progressBar)
+                    toast("It is removed successfully",context)
+                    callBack()
+                },
+                {
+                    showSimpleProgress(false,progressBar)
+                    showErrorMsg(it,"remove serial receipt",context)
+                }
+            )
         }
     }
 }

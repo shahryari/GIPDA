@@ -266,6 +266,18 @@ class ApiDataSource() :DataSource
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun serialReceiptRemoveFromMe(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiProvider().serialReceiptRemoveFromMe(
+            baseUrl+"SerialReceiptRemoveFromMe",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun mySerialReceiptDetailOnPutaway(
         baseUrl: String,
         jsonObject: JsonObject,

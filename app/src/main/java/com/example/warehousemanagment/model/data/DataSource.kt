@@ -174,6 +174,12 @@ interface DataSource
         cookie: String
     ) : Single<SerialPutawayAssignModel>
 
+    fun serialReceiptRemoveFromMe(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
 
     fun mySerialReceiptDetailOnPutaway(
         baseUrl: String,

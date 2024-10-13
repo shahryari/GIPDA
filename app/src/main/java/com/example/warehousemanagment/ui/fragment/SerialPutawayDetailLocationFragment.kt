@@ -202,7 +202,7 @@ class SerialPutawayDetailLocationFragment
             pref.getTokenGlcTest(),
             requireActivity(), progress
         )
-        observeSerialList(scanDialogBinding!!)
+        observeSerialList(scanDialogBinding!!,itemLocationId)
         observeSerialCount(scanDialogBinding!!.serialsCount)
 
 //        observeSerialCountActiveStatus(scanDialogBinding!!.layoutTopInfo.quantityEdi)
@@ -313,7 +313,9 @@ class SerialPutawayDetailLocationFragment
     private fun showSerialAdapter(
         rv: RecyclerView,
         serialList: List<ReceivingDetailSerialModel>,
-        searchEdi: EditText, dialogBinding: DialogSerialScanBinding
+        itemLocationId: String,
+        searchEdi: EditText,
+        dialogBinding: DialogSerialScanBinding
     ) {
         serialAdapter = SerialAdapter(serialList, requireActivity(),
             object : SerialAdapter.OnCallBackListener {
@@ -327,6 +329,7 @@ class SerialPutawayDetailLocationFragment
                         getString(R.string.serial_scan_confirm),
                         sb.toString(),
                         model.itemSerialID,
+                        itemLocationId,
                         dialogBinding
                     )
                 }
@@ -354,7 +357,8 @@ class SerialPutawayDetailLocationFragment
     private fun showDeleteSheetDialog(
         title: String,
         desc: String,
-        itemSerialID: String, dialogBinding: DialogSerialScanBinding
+        itemSerialID: String,
+        itemLocationId: String,dialogBinding: DialogSerialScanBinding
     ) {
         var mySheetAlertDialog: SheetAlertDialog? = null
         mySheetAlertDialog =
@@ -366,6 +370,7 @@ class SerialPutawayDetailLocationFragment
                 override fun onOkClick(progress: ProgressBar, toInt: String) {
                     removeSerial(
                         itemSerialID,
+                        itemLocationId,
                         progress,
                         mySheetAlertDialog, dialogBinding
                     )
@@ -391,6 +396,7 @@ class SerialPutawayDetailLocationFragment
 
     private fun removeSerial(
         itemSerialID: String,
+        itemLocationId: String,
         progress: ProgressBar,
         mySheetAlertDialog: SheetAlertDialog?,
         dialogBinding: DialogSerialScanBinding,
@@ -412,24 +418,26 @@ class SerialPutawayDetailLocationFragment
                 viewModel.setSerialList(
                     pref.getDomain(),
                     receiptDetailId,
-                    itemSerialID,
+                    itemLocationId = itemLocationId,
                     pref.getTokenGlcTest(),
                     requireContext(),
                     dialogBinding.progress
                 )
-                observeSerialList(dialogBinding)
+                observeSerialList(dialogBinding,itemLocationId)
 
             }
     }
 
     private fun observeSerialList(
         dialogBinding: DialogSerialScanBinding,
+        itemLocationId: String,
     ){
         viewModel.getSerialsList().observe(viewLifecycleOwner
         ) { serialList ->
             showSerialAdapter(
                 dialogBinding.rv,
                 serialList.map { ReceivingDetailSerialModel(false,it.itemSerialID,receiptDetailId,it.serial) },
+                itemLocationId,
                 dialogBinding.searchEdi,
                 dialogBinding
             )

@@ -233,6 +233,14 @@ interface ApiService
     ) : Single<SerialPutawayAssignModel>
 
     @Headers(Utils.CONTENT_TYPE)
+    @POST//SerialReceiptRemoveFromMe
+    fun serialReceiptRemoveFromMe(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
+    @Headers(Utils.CONTENT_TYPE)
     @POST//MySerialReceiptDetailOnPutaway)
     fun mySerialReceiptDetailOnPutaway(
         @Url url: String,

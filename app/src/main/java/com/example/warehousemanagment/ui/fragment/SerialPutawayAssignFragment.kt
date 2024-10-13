@@ -199,7 +199,10 @@ class SerialPutawayAssignFragment : BaseFragment<SerialPutawayAssignViewModel,Fr
                         context!!,
                         pref.getTokenGlcTest(),
                         {mySheetAlertDialog?.dismiss()},
-                        {mySheetAlertDialog?.dismiss()}
+                        {
+                            mySheetAlertDialog?.dismiss()
+                            refresh()
+                        }
                     )
                 }
 

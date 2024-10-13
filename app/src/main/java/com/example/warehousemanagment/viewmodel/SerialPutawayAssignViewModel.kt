@@ -12,7 +12,7 @@ import com.example.warehousemanagment.R
 import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
-import com.example.warehousemanagment.model.classes.toast
+import com.example.warehousemanagment.model.classes.showToast
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialReceiptOnPutawayRow
@@ -107,7 +107,7 @@ class SerialPutawayAssignViewModel(application: Application) : AndroidViewModel(
             ).subscribe(
                 {
                     progressBar.visibility = View.GONE
-                    toast(context.getString(R.string.itsDone),context)
+                    showToast(context.getString(R.string.itsDone),context)
                     callback()
                 },
                 {

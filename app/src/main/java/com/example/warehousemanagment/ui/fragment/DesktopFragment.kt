@@ -44,8 +44,8 @@ class DesktopFragment() : BaseFragment<DesktopViewModel, FragmentDesktopBinding>
 
 
 
-        activity?.findViewById<TextView>(R.id.profileName)?.setText(pref.getCurrentUser())
-        activity?.findViewById<TextView>(R.id.wareHouseName)?.setText(pref.getWarehouseName())
+        activity?.findViewById<TextView>(R.id.profileName)?.text = pref.getCurrentUser()
+        activity?.findViewById<TextView>(R.id.wareHouseName)?.text = pref.getWarehouseName()
 
         b.layoutDesktop.relPutaway.setOnClickListener {
             navController?.navigate(R.id.action_desktopFragment_to_putawayFragment)

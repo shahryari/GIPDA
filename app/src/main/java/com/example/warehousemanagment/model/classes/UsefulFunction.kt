@@ -136,6 +136,17 @@ fun toast(msg:String,context: Context,onDismiss:()->Unit = {})
 
 }
 
+fun showToast(
+    message: String,
+    context: Context
+) {
+    snackbar = Snackbar.make((context as FragmentActivity).findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
+    snackbar?.show()
+    startTimerForGettingData(3000) {
+        snackbar?.dismiss()
+    }
+}
+
 private fun showSnackBar(
     rootView: View,
     msg: String,

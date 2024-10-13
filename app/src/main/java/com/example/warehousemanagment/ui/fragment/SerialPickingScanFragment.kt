@@ -158,6 +158,7 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
         val invType = arguments?.getString(Utils.locationInventory)
         val owner = arguments?.getString(Utils.OwnerCode)
         val quantity = arguments?.getInt(Utils.Quantity)
+        b.pickingItem.rel4.visibility = View.GONE
         b.pickingItem.quantity.text = quantity.toString()
         b.pickingItem.driverFullName.text = owner
         b.pickingItem.invTypeTitle.text = invType

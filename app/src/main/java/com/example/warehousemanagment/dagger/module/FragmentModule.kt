@@ -333,6 +333,6 @@ class FragmentModule()
     @Singleton
     @Provides
     fun serialPickingScanViewModel() : SerialPickingScanViewModel {
-        return serialPickingScanViewModel()
+        return SerialPickingScanViewModel(application)
     }
 }

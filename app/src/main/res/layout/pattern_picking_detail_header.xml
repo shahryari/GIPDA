@@ -7,7 +7,7 @@
         android:layout_marginBottom="@dimen/marginTop_flag"
         android:elevation="@dimen/lowElevation"
         android:padding="@dimen/padding_pattern_receive"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/_150sdp">
 
         <RelativeLayout
             android:id="@id/rel1"

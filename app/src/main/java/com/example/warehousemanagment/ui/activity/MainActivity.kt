@@ -108,6 +108,8 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
             onBackClick()
         }
 
+        b.drawerLayout.profileName.text = pref.getCurrentUser()
+        b.drawerLayout.wareHouseName.text = pref.getWarehouseName()
         b.drawerLayout.relSetting.setOnClickListener {
             goToFragment(R.id.settingFragment)
         }

@@ -48,7 +48,8 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
     fun setSerialList(
         url: String,
         keyword: String,
-        itemLocationId: String,
+        locationCode: String,
+        productCode: String,
         page: Int,
         sort: String,
         order: String,
@@ -58,7 +59,8 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
         swipeLayout: SwipeRefreshLayout
     ) {
         val jsonObject = JsonObject()
-        jsonObject.addProperty("ItemLocationID",itemLocationId)
+        jsonObject.addProperty("LocationCode",locationCode)
+        jsonObject.addProperty("ProductCode",productCode)
         jsonObject.addProperty("Keyword",keyword)
         showSimpleProgress(true,progress)
         viewModelScope.launch {
@@ -85,7 +87,8 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
 
     fun scanPickingSerial(
         url: String,
-        itemLocationId: String,
+        locationCode: String,
+        productCode: String,
         serial: String,
         cookie: String,
         context: Context,
@@ -93,7 +96,8 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
         callback: ()->Unit
     ) {
         val jsonObject = JsonObject().apply {
-            addProperty("ItemLocationID",itemLocationId)
+            addProperty("LocationCode",locationCode)
+            addProperty("ProductCode",productCode)
             addProperty("Serial",serial)
         }
         showSimpleProgress(true,progress)

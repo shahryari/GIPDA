@@ -20,7 +20,8 @@ import com.example.warehousemanagment.viewmodel.SerialPickingScanViewModel
 
 class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,FragmentSerialPickingScanBinding>() {
 
-    private lateinit var itemLocationId: String
+    private lateinit var productCode: String
+    private lateinit var locationCode: String
     var chronometer: CountDownTimer? = null
 
     var sortType = Utils.ProductTitle
@@ -40,10 +41,13 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
         observeSerials()
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
 
+        clearEdi(b.clearImg,b.serialEdi)
+
         checkEnterKey(b.serialEdi){
             viewModel.scanPickingSerial(
                 pref.getDomain(),
-                itemLocationId,
+                locationCode,
+                productCode,
                 textEdi(b.serialEdi),
                 pref.getTokenGlcTest(),
                 requireContext(),
@@ -71,7 +75,8 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
         viewModel.setSerialList(
             pref.getDomain(),
             textEdi(b.mainToolbar.searchEdi),
-            itemLocationId,
+            locationCode,
+            productCode,
             receivePage,
             sortType,
             receiveOrder,
@@ -152,8 +157,8 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
 
         setToolbarBackground(b.mainToolbar.rel2, requireActivity())
 
-        itemLocationId = arguments?.getString("ItemLocationID") ?:""
-        val locationCode = arguments?.getString(Utils.locationCode)
+        productCode = arguments?.getString(Utils.ProductCode)?:""
+        locationCode = arguments?.getString(Utils.locationCode)?:""
         val productTitle = arguments?.getString(Utils.ProductTitle)
         val invType = arguments?.getString(Utils.locationInventory)
         val owner = arguments?.getString(Utils.OwnerCode)

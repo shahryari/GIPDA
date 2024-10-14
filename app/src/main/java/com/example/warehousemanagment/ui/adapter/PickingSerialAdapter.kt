@@ -3,8 +3,12 @@ package com.example.warehousemanagment.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.PatternSerialPickingDetailScanBinding
 import com.example.warehousemanagment.model.models.picking.GetPickingSerialRow
 
@@ -29,5 +33,7 @@ class PickingSerialAdapter(
         val model = list[position]
 
         holder.binding.title.text = model.serialNumber
+        if (model.scanSerial)holder.binding.title.setTextColor(Color.Black.toArgb())
+        if (model.scanSerial)holder.binding.layout.backgroundTintList = ContextCompat.getColorStateList(context, R.color.green)
     }
 }

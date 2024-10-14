@@ -113,7 +113,7 @@
 
         <View
             android:id="@+id/view"
-            android:background="@color/gray70"
+            android:background="@color/grayCB"
             android:layout_toEndOf="@+id/rel1"
             android:layout_width="@dimen/_1sdp"
             android:layout_alignTop="@id/rel1"
@@ -133,6 +133,7 @@
                 android:id="@+id/pickingDetail"
                 style="@style/pattern_receieve_tv1"
                 android:layout_alignParentTop="true"
+                android:visibility="gone"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="0dp"
                 android:text="@string/tools_tdru4204745" />

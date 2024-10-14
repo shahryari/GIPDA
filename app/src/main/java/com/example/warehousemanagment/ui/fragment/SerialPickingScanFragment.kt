@@ -167,8 +167,8 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
         b.pickingItem.quantity.text = quantity.toString()
         b.pickingItem.driverFullName.text = owner
         b.pickingItem.invTypeTitle.text = invType
-        b.pickingItem.productCode.text = locationCode
-        b.pickingItem.productCode.text = productTitle
+        b.pickingItem.productCode.text = productCode
+        b.pickingItem.productTitle.text = productTitle
     }
 
     override fun getLayout(): Int {

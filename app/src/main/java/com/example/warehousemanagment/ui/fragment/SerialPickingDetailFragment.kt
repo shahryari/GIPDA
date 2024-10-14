@@ -229,6 +229,7 @@ class SerialPickingDetailFragment : BaseFragment<SerialPickingDetailViewModel,Fr
                 override fun onItemClick(model: PickingDetailRow) {
                     val bundle = Bundle()
                     bundle.putString(Utils.ProductCode,model.productCode)
+                    bundle.putString(Utils.locationCode,pickingLocationCode)
                     bundle.putString(Utils.ProductTitle,model.productTitle)
                     bundle.putString(Utils.locationInventory,model.invTypeTitle)
                     bundle.putString(Utils.OwnerCode,model.ownerCode)

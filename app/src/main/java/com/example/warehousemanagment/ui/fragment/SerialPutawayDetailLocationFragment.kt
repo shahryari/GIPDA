@@ -169,7 +169,7 @@ class SerialPutawayDetailLocationFragment
 
     private fun showScanDialog(
         receiptDetailId: String,
-        itemLocationId: String,
+//        itemLocationId: String,
         locationCode: String,
         productTitle: String,
         productCode: String,
@@ -198,11 +198,11 @@ class SerialPutawayDetailLocationFragment
         viewModel.setSerialList(
             pref.getDomain(),
             receiptDetailId,
-            itemLocationId,
+            locationCode,
             pref.getTokenGlcTest(),
             requireActivity(), progress
         )
-        observeSerialList(scanDialogBinding!!,itemLocationId)
+        observeSerialList(scanDialogBinding!!,locationCode)
         observeSerialCount(scanDialogBinding!!.serialsCount)
 
 //        observeSerialCountActiveStatus(scanDialogBinding!!.layoutTopInfo.quantityEdi)
@@ -248,7 +248,7 @@ class SerialPutawayDetailLocationFragment
                         viewModel.setSerialList(
                             pref.getDomain(),
                             receiptDetailId,
-                            itemLocationId,
+                            textEdi(scanDialogBinding!!.layoutTopInfo.serialEdi),
                             pref.getTokenGlcTest(),
                             requireActivity(),
                             progress
@@ -276,7 +276,7 @@ class SerialPutawayDetailLocationFragment
                         viewModel.setSerialList(
                             pref.getDomain(),
                             receiptDetailId,
-                            itemLocationId,
+                            textEdi(scanDialogBinding!!.layoutTopInfo.serialEdi),
                             pref.getTokenGlcTest(),
                             requireActivity(),
                             progress
@@ -313,7 +313,7 @@ class SerialPutawayDetailLocationFragment
     private fun showSerialAdapter(
         rv: RecyclerView,
         serialList: List<ReceivingDetailSerialModel>,
-        itemLocationId: String,
+        locationCode: String,
         searchEdi: EditText,
         dialogBinding: DialogSerialScanBinding
     ) {
@@ -329,7 +329,7 @@ class SerialPutawayDetailLocationFragment
                         getString(R.string.serial_scan_confirm),
                         sb.toString(),
                         model.itemSerialID,
-                        itemLocationId,
+                        locationCode,
                         dialogBinding
                     )
                 }
@@ -396,7 +396,7 @@ class SerialPutawayDetailLocationFragment
 
     private fun removeSerial(
         itemSerialID: String,
-        itemLocationId: String,
+        locationCode: String,
         progress: ProgressBar,
         mySheetAlertDialog: SheetAlertDialog?,
         dialogBinding: DialogSerialScanBinding,
@@ -418,26 +418,26 @@ class SerialPutawayDetailLocationFragment
                 viewModel.setSerialList(
                     pref.getDomain(),
                     receiptDetailId,
-                    itemLocationId = itemLocationId,
+                    locationCode,
                     pref.getTokenGlcTest(),
                     requireContext(),
                     dialogBinding.progress
                 )
-                observeSerialList(dialogBinding,itemLocationId)
+                observeSerialList(dialogBinding,locationCode)
 
             }
     }
 
     private fun observeSerialList(
         dialogBinding: DialogSerialScanBinding,
-        itemLocationId: String,
+        locationCode: String,
     ){
         viewModel.getSerialsList().observe(viewLifecycleOwner
         ) { serialList ->
             showSerialAdapter(
                 dialogBinding.rv,
                 serialList.map { ReceivingDetailSerialModel(false,it.itemSerialID,receiptDetailId,it.serial) },
-                itemLocationId,
+                locationCode,
                 dialogBinding.searchEdi,
                 dialogBinding
             )
@@ -550,7 +550,6 @@ class SerialPutawayDetailLocationFragment
             onItemClick = {
                 showScanDialog(
                     receiptDetailId,
-                    it.itemLocationID,
                     it.locationCode,
                     productTitle = productTitle,
                     productCode = productCode,
@@ -602,7 +601,6 @@ class SerialPutawayDetailLocationFragment
         b.putSerial.tv.setOnClickListener {
             showScanDialog(
                 receiptDetailId,
-                "",
                 "",
                 productTitle,
                 productCode,

@@ -136,7 +136,7 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
     fun setSerialList(
         baseUrl:String,
         receiptDetailId: String,
-        itemLocationId: String,
+        locationCode: String,
         cookie: String,
         context: Context,
         progress: ProgressBar
@@ -146,7 +146,7 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
         {
             val jsonObject= JsonObject()
             jsonObject.addProperty("ReceiptDetailID",receiptDetailId)
-            if(itemLocationId.isNotEmpty())jsonObject.addProperty("ItemLocationID",itemLocationId)
+            if(locationCode.isNotEmpty())jsonObject.addProperty("LocationCode",locationCode)
             showSimpleProgress(true,progress)
             repository.receiptDetailSerial(
                 baseUrl,

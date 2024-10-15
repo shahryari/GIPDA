@@ -33,6 +33,7 @@ import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.GetPickingSerialsModel
 import com.example.warehousemanagment.model.models.picking.PickingFinishSerialBaseModel
 import com.example.warehousemanagment.model.models.picking.ScanPickingSerialModel
+import com.example.warehousemanagment.model.models.picking.SerialBasePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
@@ -59,6 +60,7 @@ import com.example.warehousemanagment.model.models.rework.ReworkModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
@@ -371,6 +373,37 @@ interface ApiService
     ) : Single<PickingFinishSerialBaseModel>
 
 
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//SerialBasePicking
+    fun getSerialBasePicking(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Observable<SerialBasePickingModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun getSerialBasePickingDetailSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Observable<GetPickingSerialsModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun scanSerialBasePickingDetailSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<ScanPickingSerialModel>
 
 
     //----------CheckTruck------------------------------------------------------------------------
@@ -417,6 +450,22 @@ interface ApiService
     @POST//"ShippingDetailSerial")
     fun getShippingSerials(@Url url:String ,@Body jsonObject: JsonObject,
                           @Header(Utils.COOKIE) cookie:String):Observable<List<ShippingSerialModel>>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"SerialBaseShippingSerials
+    fun getSerialBaseShippingSerials(
+        @Url url:String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Observable<List<SerialBaseShippingSerialRow>>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun verifySerialBaseShippingSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<AddShippingSerialModel>
 
     @Headers(Utils.CONTENT_TYPE)
     @POST//"ShippingDetailSerialInsert")

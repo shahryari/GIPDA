@@ -48,8 +48,7 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
     fun setSerialList(
         url: String,
         keyword: String,
-        locationCode: String,
-        productCode: String,
+        shippingAddressDetailId: String,
         page: Int,
         sort: String,
         order: String,
@@ -59,12 +58,11 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
         swipeLayout: SwipeRefreshLayout
     ) {
         val jsonObject = JsonObject()
-        jsonObject.addProperty("LocationCode",locationCode)
-        jsonObject.addProperty("ProductCode",productCode)
         jsonObject.addProperty("Keyword",keyword)
+        jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailId)
         showSimpleProgress(true,progress)
         viewModelScope.launch {
-            repository.getPickingSerials(url,jsonObject,page,sort,order,cookie)
+            repository.getSerialBasePickingDetailSerial(url,jsonObject,page,10,sort,order,cookie)
                 .subscribe(
                     {
                         showSimpleProgress(false,progress)
@@ -88,7 +86,9 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
     fun scanPickingSerial(
         url: String,
         locationCode: String,
-        productCode: String,
+        shippingAddressDetailId: String,
+        shippingLocationId: String,
+        itemLocationId: String,
         serial: String,
         cookie: String,
         context: Context,
@@ -97,12 +97,14 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
     ) {
         val jsonObject = JsonObject().apply {
             addProperty("LocationCode",locationCode)
-            addProperty("ProductCode",productCode)
+            addProperty("ShippingAddressDetailID",shippingAddressDetailId)
+            addProperty("ShippingLocationID",shippingLocationId)
+            addProperty("ItemLocationID",itemLocationId)
             addProperty("Serial",serial)
         }
         showSimpleProgress(true,progress)
         viewModelScope.launch {
-            repository.scanPickingSerial(url,jsonObject,cookie).subscribe(
+            repository.scanSerialBasePickingDetailSerial(url,jsonObject,cookie).subscribe(
                 {
                     showSimpleProgress(false,progress)
                     callback()

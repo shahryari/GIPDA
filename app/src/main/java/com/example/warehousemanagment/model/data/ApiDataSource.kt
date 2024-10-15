@@ -31,6 +31,7 @@ import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.GetPickingSerialsModel
 import com.example.warehousemanagment.model.models.picking.PickingFinishSerialBaseModel
 import com.example.warehousemanagment.model.models.picking.ScanPickingSerialModel
+import com.example.warehousemanagment.model.models.picking.SerialBasePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
@@ -57,6 +58,7 @@ import com.example.warehousemanagment.model.models.rework.ReworkModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
@@ -470,6 +472,57 @@ class ApiDataSource() :DataSource
         return apiProvider().finishPickingSerial(baseUrl+"PickingFinishSerialBase",jsonObject,cookie)
     }
 
+    override fun getSerialBasePicking(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<SerialBasePickingModel> {
+        return apiProvider().getSerialBasePicking(
+            baseUrl+"SerialBasePicking",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            order,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getSerialBasePickingDetailSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<GetPickingSerialsModel> {
+        return apiProvider().getSerialBasePickingDetailSerial(
+            baseUrl+"SerialBasePickingDetailSerial",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            order,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun scanSerialBasePickingDetailSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<ScanPickingSerialModel>{
+        return apiProvider().scanSerialBasePickingDetailSerial(
+            baseUrl+"SerialBasePickingDetailSerialScan",
+            jsonObject,cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun checkTruckList(baseUrl:String,cookie: String): Observable<List<CheckTruckModel>> {
         return apiProvider().checkTruckList(baseUrl+"CheckTruck",cookie)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -524,6 +577,30 @@ class ApiDataSource() :DataSource
     ): Observable<List<ShippingSerialModel>> {
         return apiProvider().getShippingSerials(baseUrl+"ShippingDetailSerial",jsonObject,cookie)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getSerialBaseShippingSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<List<SerialBaseShippingSerialRow>> {
+        return apiProvider().getSerialBaseShippingSerials(
+            baseUrl+"SerialBaseShippingSerials",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun verifySerialBaseShippingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<AddShippingSerialModel> {
+        return apiProvider().verifySerialBaseShippingSerial(
+            baseUrl+"VerifySerialBaseShippingSerial",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun insertShippingDetail(

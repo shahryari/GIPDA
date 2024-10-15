@@ -31,6 +31,7 @@ import com.example.warehousemanagment.model.models.picking.CompletePickingModel
 import com.example.warehousemanagment.model.models.picking.GetPickingSerialsModel
 import com.example.warehousemanagment.model.models.picking.PickingFinishSerialBaseModel
 import com.example.warehousemanagment.model.models.picking.ScanPickingSerialModel
+import com.example.warehousemanagment.model.models.picking.SerialBasePickingModel
 import com.example.warehousemanagment.model.models.picking.picking.PickingTruckModel
 import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerailReceiptDetailModel
@@ -57,6 +58,7 @@ import com.example.warehousemanagment.model.models.rework.ReworkModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
@@ -274,6 +276,32 @@ interface DataSource
     fun finishPickingSerial(baseUrl:String,jsonObject: JsonObject,cookie:String):
             Single<PickingFinishSerialBaseModel>
 
+    fun getSerialBasePicking(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ) : Observable<SerialBasePickingModel>
+
+    fun getSerialBasePickingDetailSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ) : Observable<GetPickingSerialsModel>
+
+    fun scanSerialBasePickingDetailSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<ScanPickingSerialModel>
+
     //-----------------------CheckTruck-------------------------------------------
 
     fun checkTruckList(baseUrl:String,cookie:String):
@@ -302,6 +330,15 @@ interface DataSource
 
     fun getShippingSerials(baseUrl:String,jsonObject: JsonObject,
                           cookie:String):Observable<List<ShippingSerialModel>>
+
+    fun getSerialBaseShippingSerials(baseUrl: String,jsonObject: JsonObject,cookie: String)
+        : Observable<List<SerialBaseShippingSerialRow>>
+
+    fun verifySerialBaseShippingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<AddShippingSerialModel>
 
     fun insertShippingDetail(baseUrl:String,jsonObject: JsonObject,cookie:String):
             Observable<AddShippingSerialModel>

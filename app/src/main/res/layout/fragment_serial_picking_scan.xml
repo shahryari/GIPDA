@@ -52,11 +52,29 @@
                     android:layout_marginEnd="0dp"
                     android:hint="@string/input_serial" />
 
+
                 <ImageView
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
                     android:id="@+id/clearImg"
-                    style="@style/imgClose"
-                    android:layout_marginEnd="@dimen/clearImgMarginEnd"
-                    android:elevation="@dimen/clearImgElevation" />
+                    android:layout_toStartOf="@id/scan_barcode"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:elevation="@dimen/clearImgElevation"
+                    android:src="@drawable/ic_layer1"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:elevation="@dimen/clearImgElevation"
+                    android:src="@drawable/scan_barcode"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:id="@+id/scan_barcode"
+                    app:tint="@color/darkBlue"/>
+
+
 
             </RelativeLayout>
 

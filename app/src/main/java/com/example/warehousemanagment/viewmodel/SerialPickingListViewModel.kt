@@ -12,17 +12,17 @@ import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
-import com.example.warehousemanagment.model.models.picking.picking.PickingRow
+import com.example.warehousemanagment.model.models.picking.SerialBasePickingRow
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 
 class SerialPickingListViewModel(application: Application) : AndroidViewModel(application) {
     private val repository= MyRepository( )
-    private var pickingList= MutableLiveData<List<PickingRow>>()
+    private var pickingList= MutableLiveData<List<SerialBasePickingRow>>()
 
     private var pickCount= MutableLiveData<Int>()
-    private var tempList=ArrayList<PickingRow>()
+    private var tempList=ArrayList<SerialBasePickingRow>()
 
     private var disposable: CompositeDisposable = CompositeDisposable()
     fun dispose() { disposable.clear() }
@@ -39,7 +39,7 @@ class SerialPickingListViewModel(application: Application) : AndroidViewModel(ap
         return pickCount
     }
 
-    fun getPickingList(): MutableLiveData<List<PickingRow>> {
+    fun getPickingList(): MutableLiveData<List<SerialBasePickingRow>> {
         return pickingList
     }
 
@@ -62,7 +62,7 @@ class SerialPickingListViewModel(application: Application) : AndroidViewModel(ap
             showSimpleProgress(true,progressBar)
             val jsonObject= JsonObject()
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
-            repository.serialPickTruckList(baseUrl,jsonObject, page, rows, sort, asc,cookie).subscribe({
+            repository.getSerialBasePicking(baseUrl,jsonObject, page, rows, sort, asc,cookie).subscribe({
                 showSimpleProgress(false,progressBar)
                 swipeLayout.isRefreshing=false
                 if (it.rows.isNotEmpty())

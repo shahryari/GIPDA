@@ -6,11 +6,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
-import com.example.warehousemanagment.databinding.FragmentReceivingBinding
+import com.example.warehousemanagment.databinding.FragmentSerialPickingBinding
 import com.example.warehousemanagment.model.classes.checkTick
 import com.example.warehousemanagment.model.classes.clearEdi
 import com.example.warehousemanagment.model.classes.hideShortCut
@@ -19,13 +18,13 @@ import com.example.warehousemanagment.model.classes.setToolbarBackground
 import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.picking.picking.PickingRow
-import com.example.warehousemanagment.ui.adapter.PickingListAdapter
+import com.example.warehousemanagment.model.models.picking.SerialBasePickingRow
+import com.example.warehousemanagment.ui.adapter.SerialPickingListAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.SerialPickingListViewModel
 
-class SerialPickingListFragment : BaseFragment<SerialPickingListViewModel,FragmentReceivingBinding>() {
+class SerialPickingListFragment : BaseFragment<SerialPickingListViewModel,FragmentSerialPickingBinding>() {
 
     var sortType= Utils.TaskTime
     var receivePage= Utils.PAGE_START
@@ -192,47 +191,47 @@ class SerialPickingListFragment : BaseFragment<SerialPickingListViewModel,Fragme
 
     private fun observePicking()
     {
-        viewModel.getPickingList().observe(viewLifecycleOwner,
-            object : Observer<List<PickingRow>>
-            {
-                override fun onChanged(it: List<PickingRow>)
-                {
-                    if (view!=null && isAdded)
-                    {
-                        b.swipeLayout.isRefreshing=false
+        viewModel.getPickingList().observe(viewLifecycleOwner
+        ) { it ->
+            if (view != null && isAdded) {
+                b.swipeLayout.isRefreshing = false
 
-                        lastReceivingPosition=it.size-1
-                        showPickingList(it)
-                    }
-                }
-            })
+                lastReceivingPosition = it.size - 1
+                showPickingList(it)
+            }
+        }
     }
 
-    private fun showPickingList(list: List<PickingRow>)
+    private fun showPickingList(list: List<SerialBasePickingRow>)
     {
         if(lastReceivingPosition- Utils.ROWS<=0)
             b.rv.scrollToPosition(0)
         else b.rv.scrollToPosition(lastReceivingPosition- Utils.ROWS)
 
 
-        val adapter = PickingListAdapter(list, requireActivity(),
-            object : PickingListAdapter.OnCallBackListener
-            {
-                override fun onClick(model: PickingRow)
-                {
-                    val bundle= Bundle()
-                    bundle.putString(Utils.locationCode,model.locationCode)
-                    bundle.putString(Utils.sumQuantity,model.sumQuantity.toString())
+        val adapter = SerialPickingListAdapter(
+            list,
+            requireActivity(),
+            onItemClick = {
+                val bundle = Bundle()
+                bundle.putString(Utils.ProductTitle,it.productTitle)
+                bundle.putString(Utils.ProductCode,it.productCode)
+                bundle.putString(Utils.locationInventory,it.invTypeTitle)
+                bundle.putString(Utils.locationCode,it.locationCode)
+                bundle.putString(Utils.ShippingNumber,it.shippingNumber)
+                bundle.putInt(Utils.Quantity,it.quantity)
+                bundle.putInt(Utils.sumQuantity,it.sumQuantity)
+                bundle.putString("ShippingAddressDetailID",it.shippingAddressDetailID)
+                bundle.putString("ShippingLocationID",it.shippingLocationID)
+                bundle.putString("ItemLocationID",it.itemLocationID)
 
-                    navController?.navigate(R.id.action_serialPickingListFragment_to_serialPickingDetailFragment, bundle)
-                }
-
-                override fun reachToEnd(position: Int)
-                {
-                    receivePage += 1
-                    setPickingList()
-                }
-            })
+                navController?.navigate(R.id.action_serialPickingListFragment_to_serialPickingScanFragment,bundle)
+            },
+            onReachToEnd = {
+                receivePage += 1
+                setPickingList()
+            }
+        )
         b.rv.adapter = adapter
 
         b.mainToolbar.searchEdi.doAfterTextChanged()
@@ -249,7 +248,8 @@ class SerialPickingListFragment : BaseFragment<SerialPickingListViewModel,Fragme
     private fun setPickingList()
     {
         viewModel.setPickingList(
-            pref.getDomain(), textEdi(b.mainToolbar.searchEdi),
+            pref.getDomain(),
+            textEdi(b.mainToolbar.searchEdi),
             receivePage,
             Utils.ROWS,sortType,
             receiveOrder,
@@ -283,7 +283,7 @@ class SerialPickingListFragment : BaseFragment<SerialPickingListViewModel,Fragme
 
 
     override fun getLayout(): Int {
-        return R.layout.fragment_receiving
+        return R.layout.fragment_serial_picking
     }
 
     override fun setupComponent(component: FragmentComponent) {

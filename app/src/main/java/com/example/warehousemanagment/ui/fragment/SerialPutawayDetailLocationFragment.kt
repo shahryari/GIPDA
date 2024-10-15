@@ -471,6 +471,7 @@ class SerialPutawayDetailLocationFragment
         serialsCount: TextView
     ) {
         viewModel.getSerialCount().observe(this){
+
             val sb = StringBuilder()
             sb.append(getString(R.string.tools_scannedItems))
             sb.append(it)

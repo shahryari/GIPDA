@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeLayout"
+            android:layout_width="match_parent"
+            android:background="@color/mainBackground"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/padding_all"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/marginTopRelInfoTv"
+                    android:paddingStart="@dimen/padding_all">
+
+                    <include
+                        android:id="@+id/mainToolbar"
+                        layout="@layout/toolbar_main_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/mainToolbar"
+                        android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                        android:layout_toStartOf="@+id/filterImg" />
+
+                    <include
+                        android:id="@+id/filterImg"
+                        layout="@layout/img_filter" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rel0"
+                    android:paddingBottom="@dimen/padding_all"
+                    android:paddingEnd="@dimen/padding_all"
+                    android:paddingStart="@dimen/padding_all"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/marginTopRelInfoTv"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/pattern_picking_detail_header"
+                        />
+
+
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@style/progressStyle"
+                        android:background="@null"
+                        android:padding="@dimen/paddingOfFragmentProgress"
+                        tools:visibility="gone" />
+
+
+                </RelativeLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -235,7 +235,6 @@ class SerialPickingDetailFragment : BaseFragment<SerialPickingDetailViewModel,Fr
                     bundle.putString(Utils.OwnerCode,model.ownerCode)
                     bundle.putInt(Utils.Quantity,model.sumQuantity)
 
-                    navController?.navigate(R.id.action_serialPickingDetailFragment_to_serialPickingScanFragment,bundle)
                 }
 
 

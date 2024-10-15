@@ -22,12 +22,16 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
 
     private lateinit var productCode: String
     private lateinit var locationCode: String
+    private lateinit var shippingAddressDetailId: String
+    private lateinit var shippingLocationId: String
+    private lateinit var itemLocationId: String
     var chronometer: CountDownTimer? = null
 
     var sortType = Utils.ProductTitle
     var receivePage = Utils.PAGE_START
     var receiveOrder = Utils.ASC_ORDER
     var lastReceivingPosition = 0
+    var sumQuantity = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,12 +51,32 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
             viewModel.scanPickingSerial(
                 pref.getDomain(),
                 locationCode,
-                productCode,
+                shippingAddressDetailId,
+                shippingLocationId,
+                itemLocationId,
                 textEdi(b.serialEdi),
                 pref.getTokenGlcTest(),
                 requireContext(),
                 b.progressBar,
             ){
+                b.serialEdi.setText("")
+                refresh()
+            }
+        }
+
+        b.scanBarcode.setOnClickListener {
+            viewModel.scanPickingSerial(
+                pref.getDomain(),
+                locationCode,
+                shippingAddressDetailId,
+                shippingLocationId,
+                itemLocationId,
+                textEdi(b.serialEdi),
+                pref.getTokenGlcTest(),
+                requireContext(),
+                b.progressBar,
+            ){
+                b.serialEdi.setText("")
                 refresh()
             }
         }
@@ -75,8 +99,7 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
         viewModel.setSerialList(
             pref.getDomain(),
             textEdi(b.mainToolbar.searchEdi),
-            locationCode,
-            productCode,
+            shippingAddressDetailId,
             receivePage,
             sortType,
             receiveOrder,
@@ -161,12 +184,17 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
         locationCode = arguments?.getString(Utils.locationCode)?:""
         val productTitle = arguments?.getString(Utils.ProductTitle)
         val invType = arguments?.getString(Utils.locationInventory)
-        val owner = arguments?.getString(Utils.OwnerCode)
+        val shippingNumber = arguments?.getString(Utils.ShippingNumber)
+        shippingAddressDetailId = arguments?.getString("ShippingAddressDetailID") ?:""
+        shippingLocationId = arguments?.getString("ShippingLocationID") ?: ""
+        itemLocationId = arguments?.getString("ItemLocationID") ?: ""
         val quantity = arguments?.getInt(Utils.Quantity)
-        b.pickingItem.rel4.visibility = View.GONE
+        sumQuantity = arguments?.getInt(Utils.sumQuantity) ?: 0
         b.pickingItem.quantity.text = quantity.toString()
-        b.pickingItem.driverFullName.text = owner
+        b.pickingItem.scan.text = sumQuantity.toString()
         b.pickingItem.invTypeTitle.text = invType
+        b.pickingItem.locationCode.text = locationCode
+        b.pickingItem.shippingArea.text =shippingNumber
         b.pickingItem.productCode.text = productCode
         b.pickingItem.productTitle.text = productTitle
     }

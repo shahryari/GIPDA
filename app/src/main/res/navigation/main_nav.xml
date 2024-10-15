@@ -305,15 +305,7 @@
         android:name="com.example.warehousemanagment.ui.fragment.SerialPickingListFragment"
         android:label="SerialPickingListFragment" >
         <action
-            android:id="@+id/action_serialPickingListFragment_to_serialPickingDetailFragment"
-            app:destination="@id/serialPickingDetailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/serialPickingDetailFragment"
-        android:name="com.example.warehousemanagment.ui.fragment.SerialPickingDetailFragment"
-        android:label="SerialPickingDetailFragment" >
-        <action
-            android:id="@+id/action_serialPickingDetailFragment_to_serialPickingScanFragment"
+            android:id="@+id/action_serialPickingListFragment_to_serialPickingScanFragment"
             app:destination="@id/serialPickingScanFragment" />
     </fragment>
     <fragment

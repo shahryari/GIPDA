@@ -31,6 +31,9 @@ class PickingSerialAdapter(
         val model = list[position]
 
         holder.binding.title.text = model.serialNumber
-        if (model.scanSerial)holder.binding.tick.backgroundTintList = ContextCompat.getColorStateList(context, R.color.green)
+        holder.binding.tick.backgroundTintList = ContextCompat.getColorStateList(
+            context,
+            if (model.scanSerial) R.color.green else R.color.white
+        )
     }
 }

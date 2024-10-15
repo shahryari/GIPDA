@@ -2,7 +2,7 @@ package com.example.warehousemanagment.model.models.picking
 
 import com.google.gson.annotations.SerializedName
 
-class SerialBasePickingModel(
+data class SerialBasePickingModel(
     @SerializedName("rows")
     val rows: List<SerialBasePickingRow>,
     @SerializedName("total")

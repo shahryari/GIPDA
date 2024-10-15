@@ -46,6 +46,6 @@ data class ShippingDetailRow(
     val customerColorCode: String?,
     @SerializedName("CustomerColorName")
     val customerColorName: String?,
-    @SerializedName("ShowSerials")
-    val showSerials: Boolean?
+    @SerializedName("SerialBase")
+    val serialBase: Boolean?
 )

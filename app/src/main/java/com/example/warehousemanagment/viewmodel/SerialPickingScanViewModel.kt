@@ -12,6 +12,7 @@ import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.picking.GetPickingSerialRow
+import com.example.warehousemanagment.model.models.picking.SerialBasePickingRow
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -21,6 +22,8 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
 
     val serialList = MutableLiveData<List<GetPickingSerialRow>>()
     val serialCount = MutableLiveData<Int>()
+
+    val shippingDetail = MutableLiveData<SerialBasePickingRow?>()
 
     private var tempList=ArrayList<GetPickingSerialRow>()
 
@@ -36,6 +39,9 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
 
     }
 
+    fun getDetail() : LiveData<SerialBasePickingRow?>{
+        return shippingDetail
+    }
 
     fun getSerialList() : LiveData<List<GetPickingSerialRow>> {
         return serialList
@@ -49,6 +55,7 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
         url: String,
         keyword: String,
         shippingAddressDetailId: String,
+        itemLocationId: String,
         page: Int,
         sort: String,
         order: String,
@@ -60,6 +67,7 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
         val jsonObject = JsonObject()
         jsonObject.addProperty("Keyword",keyword)
         jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailId)
+        jsonObject.addProperty("ItemLocationID",itemLocationId)
         showSimpleProgress(true,progress)
         viewModelScope.launch {
             repository.getSerialBasePickingDetailSerial(url,jsonObject,page,10,sort,order,cookie)
@@ -67,9 +75,12 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
                     {
                         showSimpleProgress(false,progress)
                         swipeLayout.isRefreshing = false
-                        if (it.isNotEmpty()){
-                            tempList.addAll(it)
+                        if (it.data.isNotEmpty()){
+                            tempList.addAll(it.data)
                             serialList.value = tempList
+                        }
+                        if (it.shippingDetail!=null){
+                            shippingDetail.value = it.shippingDetail
                         }
                     },
                     {

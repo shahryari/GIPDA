@@ -19,6 +19,7 @@ import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
@@ -42,6 +43,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
 
     private var customerList = MutableLiveData<List<CustomerModel>>()
     private var shippingSerials=MutableLiveData<List<ShippingSerialModel>>()
+    private var serialBaseShippingSerials=MutableLiveData<List<SerialBaseShippingSerialRow>>()
     private var removeShippingModel=MutableLiveData<RemoveShippingSerialModel>()
     private var loadinFinish=MutableLiveData<LoadingFinishModel>()
     private var addSerialModel=MutableLiveData<AddShippingSerialModel>()
@@ -93,6 +95,10 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
     }
     fun getShippingSerials(): LiveData<List<ShippingSerialModel>> {
         return shippingSerials.distinctUntilChanged()
+    }
+
+    fun getSerialBaseShippingSerials() : LiveData<List<SerialBaseShippingSerialRow>> {
+        return serialBaseShippingSerials
     }
     fun getRemovingSerialResult(): LiveData<RemoveShippingSerialModel> {
         return removeShippingModel.distinctUntilChanged()
@@ -348,6 +354,54 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
                     showErrorMsg(it,"set shipping color",context)
                 }
             )
+        }
+    }
+
+    fun setSerialBaseShippingSerials(
+        baseUrl: String,
+        shippingDetailId: String,
+        cookie: String
+    ){
+        viewModelScope.launch {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("ShippingDetailID",shippingDetailId)
+            repository.getSerialBaseShippingSerials(baseUrl,jsonObject,cookie)
+                .subscribe(
+                    {
+                        serialBaseShippingSerials.value=(it)
+                        log("shippingSerials", it.toString())
+                    },
+                    {
+                        showErrorMsg(it, "shippingSerials", context)
+                    },{},{
+                        disposable.add(it)
+                    }
+                ).let { }
+        }
+    }
+
+    fun verifySerialBaseShippingSerial(
+        baseUrl: String,
+        shippingAddressDetailID: String,
+        serial:String,
+        cookie: String,
+        onSuccess: () -> Unit,
+        onReceiveError: () -> Unit
+    ) {
+        viewModelScope.launch {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
+            jsonObject.addProperty("Serial",serial)
+            repository.verifySerialBaseShippingSerial(baseUrl, jsonObject, cookie)
+                .subscribe(
+                    {
+                        onSuccess()
+                    },
+                    {
+                        onReceiveError()
+                        showErrorMsg(it,"verify shipping serial",context)
+                    }
+                )
         }
     }
 

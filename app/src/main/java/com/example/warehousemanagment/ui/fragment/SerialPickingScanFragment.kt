@@ -43,6 +43,7 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
 
 
         observeSerials()
+        observeDetail()
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
 
         clearEdi(b.clearImg,b.serialEdi)
@@ -100,6 +101,7 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
             pref.getDomain(),
             textEdi(b.mainToolbar.searchEdi),
             shippingAddressDetailId,
+            itemLocationId,
             receivePage,
             sortType,
             receiveOrder,
@@ -108,6 +110,22 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
             b.progressBar,
             b.swipeLayout
         )
+    }
+
+    private fun observeDetail() {
+        viewModel.getDetail()
+            .observe(viewLifecycleOwner){
+                if (it!=null){
+                    b.pickingItem.productTitle.text = it.productTitle
+                    b.pickingItem.productCode.text = it.productCode
+                    b.pickingItem.invTypeTitle.text = it.invTypeTitle
+                    b.pickingItem.locationCode.text = it.locationCode
+                    b.pickingItem.shippingArea.text = it.shippingNumber
+                    b.pickingItem.quantity.text = it.quantity.toString()
+                    b.pickingItem.scan.text = it.sumQuantity.toString()
+
+                }
+            }
     }
 
     private fun observeSerials() {

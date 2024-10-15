@@ -47,6 +47,7 @@ import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.login.CatalogModel
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
@@ -55,6 +56,7 @@ import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetai
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
 import com.example.warehousemanagment.ui.adapter.ColorAdapter
 import com.example.warehousemanagment.ui.adapter.DestinyLocationAdapter
+import com.example.warehousemanagment.ui.adapter.SerialBaseShippingSerialAdapter
 import com.example.warehousemanagment.ui.adapter.ShipingDetailAdapter
 import com.example.warehousemanagment.ui.adapter.ShippingSerialAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
@@ -685,10 +687,17 @@ class ShippingDetailFragment :
         initSheepingDialog(dialogBinding, model)
 
         dispose()
-        viewModel.setShippingSerials(
-            pref.getDomain(),model.shippingAddressDetailID,
-            pref.getTokenGlcTest())
-        observeSerialList(dialogBinding)
+        if (model.serialBase == true) {
+            viewModel.setSerialBaseShippingSerials(
+                pref.getDomain(),model.shippingAddressDetailID,
+                pref.getTokenGlcTest()
+            )
+        } else {
+            viewModel.setShippingSerials(
+                pref.getDomain(),model.shippingAddressDetailID,
+                pref.getTokenGlcTest())
+        }
+        observeSerialList(dialogBinding,model.serialBase == true)
 
         clearEdi(
             dialogBinding.layoutTopInfo.clearImg,
@@ -748,13 +757,32 @@ class ShippingDetailFragment :
                             textEdi(dialogBinding.layoutTopInfo.serialEdi),
                             pref.getUnValidChars(),pref.getSerialLenMax(),
                             pref.getSerialLenMin(),requireActivity())
-                    )
-                    {
-                        addSerial(
-                            model.shippingAddressDetailID,
-                            dialogBinding.layoutTopInfo.serialEdi,
-                            model.productID, pref.getTokenGlcTest(),
-                            dialogBinding)
+                    ) {
+                        if (model.serialBase == true){
+                            viewModel.verifySerialBaseShippingSerial(
+                                pref.getDomain(),
+                                model.shippingAddressDetailID,
+                                textEdi(dialogBinding.layoutTopInfo.serialEdi),
+                                pref.getTokenGlcTest(),
+                                onSuccess = {
+                                    dialogBinding.searchEdi.setText("")
+                                    viewModel.setSerialBaseShippingSerials(
+                                        pref.getDomain(),
+                                        model.shippingAddressDetailID,
+                                        pref.getTokenGlcTest()
+                                    )
+                                },
+                                onReceiveError = {
+                                    dialogBinding.layoutTopInfo.serialEdi.setText("")
+                                }
+                            )
+                        } else {
+                            addSerial(
+                                model.shippingAddressDetailID,
+                                dialogBinding.layoutTopInfo.serialEdi,
+                                model.productID, pref.getTokenGlcTest(),
+                                dialogBinding)
+                        }
                     }
 
             } else {
@@ -826,14 +854,19 @@ class ShippingDetailFragment :
 
     }
 
-    private fun observeSerialList(dialogBinding: DialogSerialScanBinding)
+    private fun observeSerialList(dialogBinding: DialogSerialScanBinding,serialBase: Boolean)
     {
-        viewModel.getShippingSerials().observe(viewLifecycleOwner
-        ) { it ->
-            quantitySerial = it.size
-            showSerialsSize(it, dialogBinding.serialsCount)
-            showSerialList(dialogBinding, it)
-        }
+        if (serialBase)
+            viewModel.getSerialBaseShippingSerials().observe(viewLifecycleOwner) {
+                quantitySerial = it.size
+                showSerialBaseSerialSize(it,dialogBinding.serialsCount)
+                showSerialBaseSerialList(dialogBinding,it)
+            }
+        else viewModel.getShippingSerials().observe(viewLifecycleOwner) { it ->
+                quantitySerial = it.size
+                showSerialsSize(it, dialogBinding.serialsCount)
+                showSerialList(dialogBinding, it)
+            }
     }
     private fun showSerialsSize(serialList: List<ShippingSerialModel>, serialsCount:TextView)
     {
@@ -843,8 +876,16 @@ class ShippingDetailFragment :
         serialsCount.text = sb.toString()
     }
 
+    private fun showSerialBaseSerialSize(serial: List<SerialBaseShippingSerialRow>,serialsCount: TextView){
+        val sb = StringBuilder()
+        sb.append(getString(R.string.tools_scannedItems))
+        sb.append(serial.size)
+        serialsCount.text = sb.toString()
+    }
 
-    private fun showSerialList(dialogBinding: DialogSerialScanBinding,
+
+    private fun showSerialList(
+        dialogBinding: DialogSerialScanBinding,
         list: List<ShippingSerialModel>)
     {
         serialSize=list.size
@@ -882,6 +923,48 @@ class ShippingDetailFragment :
         }
 
     }
+
+    private fun showSerialBaseSerialList(
+        dialogBinding: DialogSerialScanBinding,
+        list: List<SerialBaseShippingSerialRow>)
+    {
+        serialSize=list.size
+        val adapter= SerialBaseShippingSerialAdapter(
+            list, requireActivity(),
+            object : SerialBaseShippingSerialAdapter.OnCallBackListener
+            {
+                override fun onDelete(model: ShippingSerialModel)
+                {
+                    val sb= getBuiltString(
+                        getString(R.string.are_you_sure_for_delete),
+                        model.serialNumber,
+                        getString(R.string.are_you_sure_for_delete2)
+                    )
+
+                    showDeleteSheetDialog(getString(R.string.serial_scan),sb)
+                    { mySheetAlertDialog->
+                        viewModel.removeShippingSerial(
+                            pref.getDomain(),model.shippingAddressDetailID,model.serialNumber
+                            ,pref.getTokenGlcTest(),dialogBinding.progress)
+                        observeRemoveSerial(model,mySheetAlertDialog)
+                    }
+
+
+
+                }
+
+                override fun imgVisible(img: ImageView) {
+                    img.visibility = View.GONE
+                }
+            })
+        dialogBinding.rv.adapter=adapter
+        dialogBinding.searchEdi.doAfterTextChanged {
+            adapter.setFilter(search(textEdi(dialogBinding.searchEdi),list,SearchFields.SerialNumber))
+        }
+
+    }
+
+
 
     private fun showDeleteSheetDialog(title: String, desc: String, func:(mySheetAlertDialog:SheetAlertDialog)->Unit)
     {

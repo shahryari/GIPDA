@@ -2,7 +2,10 @@ package com.example.warehousemanagment.model.models.picking
 
 import com.google.gson.annotations.SerializedName
 
-class GetPickingSerialsModel : ArrayList<GetPickingSerialRow>()
+data class GetPickingSerialsModel(
+    @SerializedName("ShippingDetail") val shippingDetail: SerialBasePickingRow?,
+    @SerializedName("data") val data: List<GetPickingSerialRow>
+)
 data class GetPickingSerialRow(
     @SerializedName("ItemLocationID")
     val itemLocationID: String,

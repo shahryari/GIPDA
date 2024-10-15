@@ -33,6 +33,7 @@ class ShippingSerialAdapter(): RecyclerView.Adapter<ShippingSerialAdapter.MyView
         val model= arrayList[position]
         holder.b.title.text = model.serialNumber
 
+        onCallBackListener.imgVisible(holder.b.excel)
 
         holder.b.delete.setOnClickListener {
             onCallBackListener.onDelete(model )

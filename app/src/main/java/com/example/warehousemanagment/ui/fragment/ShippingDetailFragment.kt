@@ -762,6 +762,7 @@ class ShippingDetailFragment :
                             viewModel.verifySerialBaseShippingSerial(
                                 pref.getDomain(),
                                 model.shippingAddressDetailID,
+                                model.productCode,
                                 textEdi(dialogBinding.layoutTopInfo.serialEdi),
                                 pref.getTokenGlcTest(),
                                 onSuccess = {

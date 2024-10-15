@@ -359,12 +359,12 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
 
     fun setSerialBaseShippingSerials(
         baseUrl: String,
-        shippingDetailId: String,
+        shippingAddressDetailID: String,
         cookie: String
     ){
         viewModelScope.launch {
             val jsonObject = JsonObject()
-            jsonObject.addProperty("ShippingDetailID",shippingDetailId)
+            jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
             repository.getSerialBaseShippingSerials(baseUrl,jsonObject,cookie)
                 .subscribe(
                     {
@@ -383,6 +383,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
     fun verifySerialBaseShippingSerial(
         baseUrl: String,
         shippingAddressDetailID: String,
+        productCode: String,
         serial:String,
         cookie: String,
         onSuccess: () -> Unit,
@@ -391,6 +392,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
         viewModelScope.launch {
             val jsonObject = JsonObject()
             jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
+            jsonObject.addProperty("ProductCode",productCode)
             jsonObject.addProperty("Serial",serial)
             repository.verifySerialBaseShippingSerial(baseUrl, jsonObject, cookie)
                 .subscribe(

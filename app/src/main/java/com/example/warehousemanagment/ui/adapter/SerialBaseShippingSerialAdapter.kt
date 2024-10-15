@@ -33,6 +33,8 @@ class SerialBaseShippingSerialAdapter(
         val model= list[position]
         holder.b.title.text = model.serialNumber
 
+        onCallBackListener.imgVisible(holder.b.excel)
+
         if (model.isScanInShip)holder.b.title.setTextColor(Color.Black.toArgb())
         if (model.isScanInShip)holder.b.layout.backgroundTintList = ContextCompat.getColorStateList(context, R.color.green)
 

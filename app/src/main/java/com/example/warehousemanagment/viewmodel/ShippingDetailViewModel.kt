@@ -13,6 +13,7 @@ import com.example.warehousemanagment.R
 import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.login.CatalogModel
@@ -43,6 +44,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
 
     private var customerList = MutableLiveData<List<CustomerModel>>()
     private var shippingSerials=MutableLiveData<List<ShippingSerialModel>>()
+    private val cancelShippingSerials = MutableLiveData<List<SerialBaseShippingSerialRow>>()
     private var serialBaseShippingSerials=MutableLiveData<List<SerialBaseShippingSerialRow>>()
     private var removeShippingModel=MutableLiveData<RemoveShippingSerialModel>()
     private var loadinFinish=MutableLiveData<LoadingFinishModel>()
@@ -105,6 +107,10 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
     }
     fun getLoadingFinish(): MutableLiveData<LoadingFinishModel> {
         return loadinFinish
+    }
+
+    fun getCancelShippingSerials(): LiveData<List<SerialBaseShippingSerialRow>> {
+        return cancelShippingSerials
     }
 
 
@@ -397,7 +403,11 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
             repository.verifySerialBaseShippingSerial(baseUrl, jsonObject, cookie)
                 .subscribe(
                     {
-                        onSuccess()
+                        if(it.isSucceed){
+                            onSuccess()
+                        } else {
+                            toast(it.messages.first(),context)
+                        }
                     },
                     {
                         onReceiveError()
@@ -445,6 +455,99 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
                         showErrorMsg(it, "shippingDetailList", context)
                     },{},{disposable.add(it)}
                 ).let { }
+        }
+    }
+
+    fun setSerialBaseShippingCancelSerials(
+        baseUrl: String,
+        shippingAddressDetailID: String,
+        cookie: String
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
+        viewModelScope.launch {
+            repository.getSerialBaseShippingCancelSerials(baseUrl,jsonObject,cookie)
+                .subscribe(
+                    {
+                        cancelShippingSerials.value=(it)
+                        log("shippingSerials", it.toString())
+                    },
+                    {
+                        showErrorMsg(it, "shippingSerials", context)
+                    },{},{
+                        disposable.add(it)
+                    }
+                ).let { }
+        }
+    }
+
+    fun scanSerialBaseShippingCancelSerial(
+        baseUrl: String,
+        shippingAddressDetailID: String,
+        serialNumber: String,
+        cookie: String,
+        onSuccess: () -> Unit,
+        onError: ()->Unit
+    ){
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
+        jsonObject.addProperty("SerialNumber",serialNumber)
+        viewModelScope.launch {
+            repository.scanSerialBaseShippingCancelSerial(baseUrl,jsonObject,cookie)
+                .subscribe(
+                    {
+                        onSuccess()
+                    },
+                    {
+                        onError()
+                        showErrorMsg(it,"scan shipping serial",context)
+                    }
+                )
+        }
+    }
+
+    fun removeCancelShippingSerial(
+        baseUrl: String,
+        shippingAddressDetailID: String,
+        serialNumber: String,
+        cookie: String,
+        onSuccess: () -> Unit
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
+        jsonObject.addProperty("SerialNumber",serialNumber)
+        viewModelScope.launch {
+            repository.removeSerialBaseShippingCancelSerial(baseUrl,jsonObject,cookie)
+                .subscribe(
+                    {
+                        onSuccess()
+                    },
+                    {
+                        showErrorMsg(it,"cancel shipping serial",context)
+                    }
+                )
+        }
+    }
+
+    fun cancelSerialBaseShippingSerial(
+        baseUrl: String,
+        shippingAddressDetailID: String,
+        cookie: String,
+        onSuccess: () -> Unit
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
+        viewModelScope.launch {
+            repository.cancelSerialShippingSerial(
+                baseUrl,jsonObject,cookie
+            ).subscribe(
+                {
+                    onSuccess()
+                },
+                {
+                    showErrorMsg(it,"cancel shipping serial",context)
+                }
+            )
         }
     }
 

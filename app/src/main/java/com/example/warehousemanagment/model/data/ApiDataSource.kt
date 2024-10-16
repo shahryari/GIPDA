@@ -865,6 +865,50 @@ class ApiDataSource() :DataSource
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun getSerialBaseShippingCancelSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<List<SerialBaseShippingSerialRow>> {
+        return apiProvider().getSerialBaseShippingCancelSerials(
+            baseUrl+"SerialBaseShippingCancelSerials",
+            jsonObject,
+            cookie
+        )
+    }
+
+    override fun scanSerialBaseShippingCancelSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<AddShippingSerialModel> {
+        return apiProvider().scanSerialShippingCancelSerial(
+            baseUrl+"SerialBaseShippingCancelScanSerial",
+            jsonObject,
+            cookie
+        )
+    }
+
+    override fun removeSerialBaseShippingCancelSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<RemoveShippingSerialModel> {
+        return apiProvider().removeSerialShippingCancelSerial(
+            baseUrl+"SerialBaseShippingCancelRemoveSerial",
+            jsonObject,
+            cookie
+        )
+    }
+
+    override fun cancelSerialShippingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<LoadingFinishModel> {
+        return apiProvider().serialBaseShippingCancel(baseUrl+"SerialBaseShippingCancel",jsonObject,cookie)
+    }
+
     override fun sourceLocationTransfer(
         baseUrl:String,
         jsonObject: JsonObject,

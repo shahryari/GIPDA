@@ -709,6 +709,38 @@ class MyRepository() :DataSource
         return apiDataSource.loadingCanselFinish(baseUrl,jsonObject, cookie)
     }
 
+    override fun getSerialBaseShippingCancelSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<List<SerialBaseShippingSerialRow>> {
+        return apiDataSource.getSerialBaseShippingCancelSerials(baseUrl,jsonObject, cookie)
+    }
+
+    override fun scanSerialBaseShippingCancelSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<AddShippingSerialModel> {
+        return apiDataSource.scanSerialBaseShippingCancelSerial(baseUrl,jsonObject, cookie)
+    }
+
+    override fun removeSerialBaseShippingCancelSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<RemoveShippingSerialModel> {
+        return apiDataSource.removeSerialBaseShippingCancelSerial(baseUrl,jsonObject, cookie)
+    }
+
+    override fun cancelSerialShippingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<LoadingFinishModel> {
+        return apiDataSource.cancelSerialShippingSerial(baseUrl,jsonObject, cookie)
+    }
+
     override fun sourceLocationTransfer(
         baseUrl:String,
         jsonObject: JsonObject,

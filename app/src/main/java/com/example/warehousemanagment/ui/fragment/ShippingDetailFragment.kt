@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogCancelShippingBinding
+import com.example.warehousemanagment.databinding.DialogCancelShippingSerialBinding
 import com.example.warehousemanagment.databinding.DialogChooseColorBinding
 import com.example.warehousemanagment.databinding.DialogSerialScanBinding
 import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
@@ -54,6 +55,7 @@ import com.example.warehousemanagment.model.models.shipping.customer.CustomerInS
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerModel
 import com.example.warehousemanagment.model.models.shipping.detail.ShippingDetailRow
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
+import com.example.warehousemanagment.ui.adapter.CancelSerialAdapter
 import com.example.warehousemanagment.ui.adapter.ColorAdapter
 import com.example.warehousemanagment.ui.adapter.DestinyLocationAdapter
 import com.example.warehousemanagment.ui.adapter.SerialBaseShippingSerialAdapter
@@ -512,6 +514,115 @@ class ShippingDetailFragment :
 
     }
 
+
+    private fun showCancellShippingSerialList(
+        binding: DialogCancelShippingSerialBinding,
+        list: List<SerialBaseShippingSerialRow>
+    ) {
+        val adapter = CancelSerialAdapter(list, requireActivity())
+        binding.layoutTopInfo.rv.adapter = adapter
+    }
+    private fun showCancelSerialBaseShippingDialog(model: ShippingDetailRow)
+    {
+
+
+        val dialogBinding = DialogCancelShippingSerialBinding.inflate(
+            LayoutInflater.from(requireActivity())
+        )
+        val dialog = createAlertDialog(
+            dialogBinding,
+            R.drawable.shape_background_rect_border_gray_solid_white, requireActivity()
+        )
+
+        dialogBinding.closeImg.setOnClickListener { dialog.dismiss() }
+        dialogBinding.rel4.cansel.setOnClickListener { dialog.dismiss() }
+
+
+        dialogBinding.layoutTopInfo.product.text=model.productTitle
+        dialogBinding.layoutTopInfo.productCode.text=model.productCode
+        dialogBinding.layoutTopInfo.owner.text=model.ownerCode
+        dialogBinding.layoutTopInfo.invType.text=model.invTypeTitle
+        dialogBinding.layoutTopInfo.customerName.text=model.customerFullName
+
+
+        dialog.setOnDismissListener { refresh() }
+
+        clearEdi(
+            dialogBinding.layoutTopInfo.serialClearImg,
+            dialogBinding.layoutTopInfo.serial)
+        clearEdi(
+            dialogBinding.layoutTopInfo.selectReasonImg,
+            dialogBinding.layoutTopInfo.selectReason)
+        clearEdi(
+            dialogBinding.layoutTopInfo.destinationLocationClearImg,
+            dialogBinding.layoutTopInfo.desinationLocation
+        )
+
+        dialogBinding.layoutTopInfo.selectReason.doAfterTextChanged {
+            if (lenEdi(dialogBinding.layoutTopInfo.selectReason)==0)
+                reasonId=null
+        }
+        dialogBinding.layoutTopInfo.selectReason.setOnClickListener {
+            showReasonList(dialogBinding.layoutTopInfo.selectReason)
+        }
+
+        dialogBinding.layoutTopInfo.desinationLocation.doAfterTextChanged()
+        {
+            if (lenEdi(dialogBinding.layoutTopInfo.desinationLocation)!=0)
+            {
+                startTimerForGettingData()
+                {
+                    showDestinyLocatoins(
+                        model,
+                        dialogBinding.layoutTopInfo.desinationLocation,
+                    )
+                }
+            }
+        }
+
+
+
+
+//        dialogBinding.rel4.confirm.setOnClickListener {
+//            if (
+//                lenEdi(dialogBinding.layoutTopInfo.selectReason)!=0
+//                && lenEdi(dialogBinding.layoutTopInfo.quantity)!=0
+//                && lenEdi(dialogBinding.layoutTopInfo.desinationLocation)!=0
+//            )
+//            {
+//                if(
+//                    dialogBinding.layoutTopInfo.serial.text.toString().toInt()
+//                    > model.quantity
+//                ){
+//                    toast(getString(R.string.quantityBiggerThan)+" "+model.quantity,requireActivity())
+//                }else
+//                {
+//                    viewModel.revoke(
+//                        baseUrl = pref.getDomain(),
+//                        model=model,
+//                        cookie = pref.getTokenGlcTest(),
+//                        progressBar = dialogBinding.progress,
+//                        quantity = dialogBinding.layoutTopInfo.serial.text.toString().toInt(),
+//                        loadingCancelId = reasonId!!,
+//                        locationDestination=locationDestinyId!!,
+//                    ){
+//                        dialog.dismiss()
+//                    }
+//                }
+//
+//
+//
+//            }else toast(getString(R.string.fillAllFields),requireActivity())
+//
+//        }
+        dialogBinding.rel4.cansel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+
+    }
+
     private fun showReasonList(reasonTv:TextView)
     {
         var sheet: SheetInvDialog? = null
@@ -756,7 +867,7 @@ class ShippingDetailFragment :
                 textEdi(dialogBinding.layoutTopInfo.serialEdi),
                 pref.getTokenGlcTest(),
                 onSuccess = {
-                    dialogBinding.searchEdi.setText("")
+                    dialogBinding.layoutTopInfo.serialEdi.setText("")
                     viewModel.setSerialBaseShippingSerials(
                         pref.getDomain(),
                         model.shippingAddressDetailID,

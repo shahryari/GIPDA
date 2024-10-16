@@ -554,6 +554,35 @@ interface ApiService
     fun loadingCanselFinish(@Url url:String ,@Body jsonObject: JsonObject,
                       @Header(Utils.COOKIE) cookie:String):Observable<LoadingFinishModel>
 
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun getSerialBaseShippingCancelSerials(@Url url: String, @Body jsonObject: JsonObject, @Header(Utils.COOKIE) cookie: String) : Observable<List<SerialBaseShippingSerialRow>>
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun scanSerialShippingCancelSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<AddShippingSerialModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun removeSerialShippingCancelSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<RemoveShippingSerialModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun serialBaseShippingCancel(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<LoadingFinishModel>
+
 
     //---------------------------------Transfer-Task-------------------------------------------------------
 

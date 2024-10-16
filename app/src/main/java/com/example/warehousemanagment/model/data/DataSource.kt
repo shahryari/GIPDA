@@ -445,6 +445,30 @@ interface DataSource
     fun loadingCanselFinish(baseUrl:String,jsonObject: JsonObject,
                             cookie:String):Observable<LoadingFinishModel>
 
+    fun getSerialBaseShippingCancelSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Observable<List<SerialBaseShippingSerialRow>>
+
+    fun scanSerialBaseShippingCancelSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<AddShippingSerialModel>
+
+    fun removeSerialBaseShippingCancelSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<RemoveShippingSerialModel>
+
+    fun cancelSerialShippingSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<LoadingFinishModel>
+
     //----------Transfer------------------------------------------
 
     fun sourceLocationTransfer(baseUrl:String,jsonObject: JsonObject,

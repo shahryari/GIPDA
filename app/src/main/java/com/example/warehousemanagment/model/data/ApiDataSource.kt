@@ -597,7 +597,7 @@ class ApiDataSource() :DataSource
         cookie: String
     ): Single<AddShippingSerialModel> {
         return apiProvider().verifySerialBaseShippingSerial(
-            baseUrl+"VerifySerialBaseShippingSerial",
+            baseUrl+"SerialBaseShippingVerifySerial",
             jsonObject,
             cookie
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

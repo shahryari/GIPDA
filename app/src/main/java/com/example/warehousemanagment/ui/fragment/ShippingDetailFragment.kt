@@ -748,49 +748,49 @@ class ShippingDetailFragment :
         dialogBinding: DialogSerialScanBinding,
         model: ShippingDetailRow
     ) {
-        if (lenEdi(dialogBinding.layoutTopInfo.serialEdi) != 0 )
-        {
-
-            if (quantitySerial < model.quantity)
+        if (model.serialBase == true){
+            viewModel.verifySerialBaseShippingSerial(
+                pref.getDomain(),
+                model.shippingAddressDetailID,
+                model.productCode,
+                textEdi(dialogBinding.layoutTopInfo.serialEdi),
+                pref.getTokenGlcTest(),
+                onSuccess = {
+                    dialogBinding.searchEdi.setText("")
+                    viewModel.setSerialBaseShippingSerials(
+                        pref.getDomain(),
+                        model.shippingAddressDetailID,
+                        pref.getTokenGlcTest()
+                    )
+                },
+                onReceiveError = {
+                    dialogBinding.layoutTopInfo.serialEdi.setText("")
+                }
+            )
+        } else {
+            if (lenEdi(dialogBinding.layoutTopInfo.serialEdi) != 0 )
             {
+
+                if (quantitySerial < model.quantity)
+                {
                     if (checkIfIsValidChars(
                             textEdi(dialogBinding.layoutTopInfo.serialEdi),
                             pref.getUnValidChars(),pref.getSerialLenMax(),
                             pref.getSerialLenMin(),requireActivity())
                     ) {
-                        if (model.serialBase == true){
-                            viewModel.verifySerialBaseShippingSerial(
-                                pref.getDomain(),
-                                model.shippingAddressDetailID,
-                                model.productCode,
-                                textEdi(dialogBinding.layoutTopInfo.serialEdi),
-                                pref.getTokenGlcTest(),
-                                onSuccess = {
-                                    dialogBinding.searchEdi.setText("")
-                                    viewModel.setSerialBaseShippingSerials(
-                                        pref.getDomain(),
-                                        model.shippingAddressDetailID,
-                                        pref.getTokenGlcTest()
-                                    )
-                                },
-                                onReceiveError = {
-                                    dialogBinding.layoutTopInfo.serialEdi.setText("")
-                                }
-                            )
-                        } else {
-                            addSerial(
-                                model.shippingAddressDetailID,
-                                dialogBinding.layoutTopInfo.serialEdi,
-                                model.productID, pref.getTokenGlcTest(),
-                                dialogBinding)
-                        }
+                        addSerial(
+                            model.shippingAddressDetailID,
+                            dialogBinding.layoutTopInfo.serialEdi,
+                            model.productID, pref.getTokenGlcTest(),
+                            dialogBinding)
                     }
 
-            } else {
-                toast(
-                    getString(R.string.youCanAdd)
-                            + model.quantity + getString(R.string.serials), requireActivity()
-                )
+                } else {
+                    toast(
+                        getString(R.string.youCanAdd)
+                                + model.quantity + getString(R.string.serials), requireActivity()
+                    )
+                }
             }
         }
     }

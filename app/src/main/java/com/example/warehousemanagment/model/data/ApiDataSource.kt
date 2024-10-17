@@ -59,6 +59,7 @@ import com.example.warehousemanagment.model.models.shipping.AddShippingSerialMod
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
@@ -869,12 +870,12 @@ class ApiDataSource() :DataSource
         baseUrl: String,
         jsonObject: JsonObject,
         cookie: String
-    ): Observable<List<SerialBaseShippingSerialRow>> {
+    ): Observable<List<ShippingCancelSerialRow>> {
         return apiProvider().getSerialBaseShippingCancelSerials(
             baseUrl+"SerialBaseShippingCancelSerials",
             jsonObject,
             cookie
-        )
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun scanSerialBaseShippingCancelSerial(
@@ -886,7 +887,7 @@ class ApiDataSource() :DataSource
             baseUrl+"SerialBaseShippingCancelScanSerial",
             jsonObject,
             cookie
-        )
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun removeSerialBaseShippingCancelSerial(
@@ -898,7 +899,7 @@ class ApiDataSource() :DataSource
             baseUrl+"SerialBaseShippingCancelRemoveSerial",
             jsonObject,
             cookie
-        )
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun cancelSerialShippingSerial(
@@ -907,6 +908,7 @@ class ApiDataSource() :DataSource
         cookie: String
     ): Single<LoadingFinishModel> {
         return apiProvider().serialBaseShippingCancel(baseUrl+"SerialBaseShippingCancel",jsonObject,cookie)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun sourceLocationTransfer(

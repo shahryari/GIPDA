@@ -285,11 +285,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_height="match_parent"
             android:id="@+id/rv"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:padding="@dimen/marginTop5ForLayouts"
-
-
             tools:listitem="@layout/pattern_serial_cancel"
             android:layout_below="@id/rel2"/>
 

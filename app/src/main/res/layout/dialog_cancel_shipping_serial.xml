@@ -49,13 +49,18 @@
                 android:layout_below="@+id/rel1"
                 android:layout_marginTop="@dimen/marginTop5ForLayouts" />
 
-
-            <include
-                android:id="@+id/rel4"
-                layout="@layout/layout_cansel_confirm"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/canselConfirmRel"
-                android:layout_alignParentBottom="true" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_alignParentBottom="true">
+
+                <include
+                    android:id="@+id/rel4"
+                    layout="@layout/layout_cansel_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/canselConfirmRel"/>
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progress"

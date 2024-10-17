@@ -61,6 +61,7 @@ import com.example.warehousemanagment.model.models.shipping.AddShippingSerialMod
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
@@ -556,7 +557,7 @@ interface ApiService
 
     @Headers(Utils.CONTENT_TYPE)
     @POST
-    fun getSerialBaseShippingCancelSerials(@Url url: String, @Body jsonObject: JsonObject, @Header(Utils.COOKIE) cookie: String) : Observable<List<SerialBaseShippingSerialRow>>
+    fun getSerialBaseShippingCancelSerials(@Url url: String, @Body jsonObject: JsonObject, @Header(Utils.COOKIE) cookie: String) : Observable<List<ShippingCancelSerialRow>>
 
 
     @Headers(Utils.CONTENT_TYPE)

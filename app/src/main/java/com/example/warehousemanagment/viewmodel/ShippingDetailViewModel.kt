@@ -21,6 +21,7 @@ import com.example.warehousemanagment.model.models.shipping.AddShippingSerialMod
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
@@ -44,7 +45,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
 
     private var customerList = MutableLiveData<List<CustomerModel>>()
     private var shippingSerials=MutableLiveData<List<ShippingSerialModel>>()
-    private val cancelShippingSerials = MutableLiveData<List<SerialBaseShippingSerialRow>>()
+    private val cancelShippingSerials = MutableLiveData<List<ShippingCancelSerialRow>>()
     private var serialBaseShippingSerials=MutableLiveData<List<SerialBaseShippingSerialRow>>()
     private var removeShippingModel=MutableLiveData<RemoveShippingSerialModel>()
     private var loadinFinish=MutableLiveData<LoadingFinishModel>()
@@ -109,7 +110,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
         return loadinFinish
     }
 
-    fun getCancelShippingSerials(): LiveData<List<SerialBaseShippingSerialRow>> {
+    fun getCancelShippingSerials(): LiveData<List<ShippingCancelSerialRow>> {
         return cancelShippingSerials
     }
 
@@ -532,11 +533,16 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
     fun cancelSerialBaseShippingSerial(
         baseUrl: String,
         shippingAddressDetailID: String,
+        destinationLocationID: String,
+        cancelReasonId: String,
         cookie: String,
-        onSuccess: () -> Unit
+        onSuccess: () -> Unit,
+        onError: () -> Unit
     ) {
         val jsonObject = JsonObject()
         jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
+        jsonObject.addProperty("DestinationLocationID",destinationLocationID)
+        jsonObject.addProperty("CancelReasonID",cancelReasonId)
         viewModelScope.launch {
             repository.cancelSerialShippingSerial(
                 baseUrl,jsonObject,cookie
@@ -545,6 +551,7 @@ class ShippingDetailViewModel(application: Application,context: Context): Androi
                     onSuccess()
                 },
                 {
+                    onError()
                     showErrorMsg(it,"cancel shipping serial",context)
                 }
             )

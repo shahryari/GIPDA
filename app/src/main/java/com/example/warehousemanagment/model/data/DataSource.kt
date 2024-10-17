@@ -59,6 +59,7 @@ import com.example.warehousemanagment.model.models.shipping.AddShippingSerialMod
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
@@ -449,7 +450,7 @@ interface DataSource
         baseUrl: String,
         jsonObject: JsonObject,
         cookie: String
-    ) : Observable<List<SerialBaseShippingSerialRow>>
+    ) : Observable<List<ShippingCancelSerialRow>>
 
     fun scanSerialBaseShippingCancelSerial(
         baseUrl: String,

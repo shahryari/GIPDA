@@ -49,6 +49,7 @@ import com.example.warehousemanagment.model.constants.SearchFields
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.customer.ColorModel
 import com.example.warehousemanagment.model.models.shipping.customer.CustomerInShipping
@@ -406,7 +407,11 @@ class ShippingDetailFragment :
                 }
 
                 override fun onCloseClick(model: ShippingDetailRow) {
-                    showCancelShippingDialog(model)
+                    if (model.serialBase == true){
+                        showCancelSerialBaseShippingDialog(model)
+                    } else {
+                        showCancelShippingDialog(model)
+                    }
                 }
 
                 override fun init(binding: PatternShippingDetailBinding) {
@@ -515,13 +520,45 @@ class ShippingDetailFragment :
     }
 
 
-    private fun showCancellShippingSerialList(
-        binding: DialogCancelShippingSerialBinding,
-        list: List<SerialBaseShippingSerialRow>
+    private fun setSerialBaseCancelShippingSerials(
+        shippingAddressDetailID: String
     ) {
-        val adapter = CancelSerialAdapter(list, requireActivity())
+        viewModel.setSerialBaseShippingCancelSerials(
+            pref.getDomain(),
+            shippingAddressDetailID,
+            pref.getTokenGlcTest()
+        )
+    }
+    private fun showCancelShippingSerialList(
+        binding: DialogCancelShippingSerialBinding,
+        list: List<ShippingCancelSerialRow>
+    ) {
+        val adapter = CancelSerialAdapter(
+            list,
+            requireActivity(),
+            onRemove = {
+                viewModel.removeCancelShippingSerial(
+                    pref.getDomain(),
+                    it.shippingAddressDetailID,
+                    it.serialNumber,
+                    pref.getTokenGlcTest(),
+                    {
+                        setSerialBaseCancelShippingSerials(it.shippingAddressDetailID)
+                    }
+                )
+            }
+        )
         binding.layoutTopInfo.rv.adapter = adapter
     }
+    private fun observeSerialBaseCancelShippingSerials(
+        binding: DialogCancelShippingSerialBinding
+    )
+    {
+        viewModel.getCancelShippingSerials().observe(viewLifecycleOwner){
+            showCancelShippingSerialList(binding,it)
+        }
+    }
+
     private fun showCancelSerialBaseShippingDialog(model: ShippingDetailRow)
     {
 
@@ -533,7 +570,9 @@ class ShippingDetailFragment :
             dialogBinding,
             R.drawable.shape_background_rect_border_gray_solid_white, requireActivity()
         )
-
+        dispose()
+        setSerialBaseCancelShippingSerials(model.shippingAddressDetailID)
+        observeSerialBaseCancelShippingSerials(dialogBinding)
         dialogBinding.closeImg.setOnClickListener { dialog.dismiss() }
         dialogBinding.rel4.cansel.setOnClickListener { dialog.dismiss() }
 
@@ -579,6 +618,60 @@ class ShippingDetailFragment :
                 }
             }
         }
+
+        checkEnterKey(dialogBinding.layoutTopInfo.serial){
+            if (lenEdi(dialogBinding.layoutTopInfo.serial)!=0)
+            {
+                viewModel.scanSerialBaseShippingCancelSerial(
+                    pref.getDomain(),
+                    model.shippingAddressDetailID,
+                    textEdi(dialogBinding.layoutTopInfo.serial),
+                    pref.getTokenGlcTest(),
+                    onSuccess = {
+                        setSerialBaseCancelShippingSerials(model.shippingAddressDetailID)
+                        dialogBinding.layoutTopInfo.serial.setText("")
+                    },{
+                        dialogBinding.layoutTopInfo.serial.setText("")
+                    }
+                )
+            }
+        }
+
+        dialogBinding.layoutTopInfo.scanBarcode.setOnClickListener {
+            viewModel.scanSerialBaseShippingCancelSerial(
+                pref.getDomain(),
+                model.shippingAddressDetailID,
+                textEdi(dialogBinding.layoutTopInfo.serial),
+                pref.getTokenGlcTest(),
+                onSuccess = {
+                    setSerialBaseCancelShippingSerials(model.shippingAddressDetailID)
+                    dialogBinding.layoutTopInfo.serial.setText("")
+                },{
+                    dialogBinding.layoutTopInfo.serial.setText("")
+                }
+            )
+        }
+
+
+        dialogBinding.rel4.confirm.setOnClickListener {
+            if (locationDestinyId!=null && reasonId!=null){
+
+                viewModel.cancelSerialBaseShippingSerial(
+                    pref.getDomain(),
+                    model.shippingAddressDetailID,
+                    locationDestinyId!!,
+                    reasonId!!.toString(),
+                    pref.getTokenGlcTest(),
+                    {
+                        dialog.dismiss()
+                        refresh()
+                    },{
+                        dialog.dismiss()
+                    }
+                )
+            }else toast(getString(R.string.fillAllFields),requireActivity())
+        }
+
 
 
 

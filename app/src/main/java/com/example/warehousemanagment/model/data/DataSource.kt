@@ -55,6 +55,7 @@ import com.example.warehousemanagment.model.models.report_inventory.serial_inven
 import com.example.warehousemanagment.model.models.report_inventory.serial_inventory_product.SerialInvProductModel
 import com.example.warehousemanagment.model.models.revoke.RevokeModel
 import com.example.warehousemanagment.model.models.rework.ReworkModel
+import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
@@ -508,6 +509,29 @@ interface DataSource
 
     fun inventoryModifyWitoutComp(baseUrl:String,jsonObject: JsonObject,
                                 cookie:String):Observable<InventoryVerifyWithoutComp>
+
+    fun getSerialBaseLocationProduct(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows:Int,
+        sort:String,
+        asc:String,
+        cookie:String
+    ) : Observable<SerialTransferProductModel>
+
+
+    fun checkLocationTransferSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<LocationTransferSubmit>
+
+    fun serialBaseLocationTransfer(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<LocationTransferSubmit>
 
     //------------------------ReportLocation----------------------------------------------
 

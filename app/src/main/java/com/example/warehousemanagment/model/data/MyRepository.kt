@@ -55,6 +55,7 @@ import com.example.warehousemanagment.model.models.report_inventory.serial_inven
 import com.example.warehousemanagment.model.models.report_inventory.serial_inventory_product.SerialInvProductModel
 import com.example.warehousemanagment.model.models.revoke.RevokeModel
 import com.example.warehousemanagment.model.models.rework.ReworkModel
+import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
@@ -817,6 +818,34 @@ class MyRepository() :DataSource
         cookie: String
     ): Observable<InventoryVerifyWithoutComp> {
         return apiDataSource.inventoryModifyWitoutComp(baseUrl,jsonObject, cookie)
+    }
+
+    override fun getSerialBaseLocationProduct(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<SerialTransferProductModel> {
+        return apiDataSource.getSerialBaseLocationProduct(baseUrl, jsonObject, page, rows, sort, asc, cookie)
+    }
+
+    override fun checkLocationTransferSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<LocationTransferSubmit> {
+        return apiDataSource.checkLocationTransferSerial(baseUrl,jsonObject,cookie)
+    }
+
+    override fun serialBaseLocationTransfer(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<LocationTransferSubmit> {
+        return apiDataSource.serialBaseLocationTransfer(baseUrl, jsonObject, cookie)
     }
 
     override fun reportLocationInventory(

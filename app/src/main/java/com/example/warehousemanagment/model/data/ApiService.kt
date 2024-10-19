@@ -57,6 +57,7 @@ import com.example.warehousemanagment.model.models.report_inventory.serial_inven
 import com.example.warehousemanagment.model.models.report_inventory.serial_inventory_product.SerialInvProductModel
 import com.example.warehousemanagment.model.models.revoke.RevokeModel
 import com.example.warehousemanagment.model.models.rework.ReworkModel
+import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
@@ -620,6 +621,34 @@ interface ApiService
     fun completeLocationTransfer(@Url url:String ,@Body jsonObject: JsonObject,
                                  @Header(Utils.COOKIE) cookie:String):Observable<CompleteLocationTransfer>
 
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun getSerialBaseLocationProduct(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Observable<SerialTransferProductModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun checkLocationTransferSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<LocationTransferSubmit>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun serialBaseLocationTransfer(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<LocationTransferSubmit>
     //-------------------------Inventory--------------------------------------------------------
 
     @Headers(Utils.CONTENT_TYPE)

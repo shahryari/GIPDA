@@ -57,7 +57,7 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
 
     val GENERAL_ITEMS = 7.0f
     val REPORT_ITEMS = 3.0f
-    val TRANSFER_ITEMS = 3.0f
+    val TRANSFER_ITEMS = 4.0f
     val SHIPPING_ITEMS = 4.0f
     val RECEIVING_ITEMS = 3.0f
 
@@ -189,6 +189,9 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         }
         b.drawerLayout.linLocationTransfer.setOnClickListener {
             goToFragment(R.id.manualLocationTransferFragment)
+        }
+        b.drawerLayout.linSerialLocationTransfer.setOnClickListener {
+            goToFragment(R.id.serialLocationTransferFragment)
         }
         b.drawerLayout.linTransferTask.setOnClickListener {
             goToFragment(R.id.locationTransferTaskFragment)

@@ -9,7 +9,6 @@
         android:layout_marginBottom="@dimen/edi_login_marginTop"
         android:id="@+id/rel0"
         android:elevation="@dimen/lowElevation"
-        android:minHeight="@dimen/pattern_location_transfer_Height"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -23,6 +22,7 @@
             <TextView
                 style="@style/pattern_putaway_smallTv"
                 android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:id="@+id/locationCodeTitle"
                 android:text="@string/location_code" />
 
             <TextView
@@ -69,7 +69,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/line2">
 
                 <TextView
                     style="@style/pattern_putaway_smallHint"
@@ -84,6 +85,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/line3"
                 android:orientation="horizontal">
 
 
@@ -112,7 +114,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/line4">
 
                 <TextView
                     style="@style/pattern_putaway_smallHint"
@@ -133,6 +136,10 @@
         </LinearLayout>
 
         <include android:id="@+id/rel1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin1"
+            android:layout_alignParentEnd="true"
             layout="@layout/layout_count_two_tv_number" />
 
 

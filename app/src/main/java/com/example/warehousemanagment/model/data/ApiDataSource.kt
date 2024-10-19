@@ -55,6 +55,7 @@ import com.example.warehousemanagment.model.models.report_inventory.serial_inven
 import com.example.warehousemanagment.model.models.report_inventory.serial_inventory_product.SerialInvProductModel
 import com.example.warehousemanagment.model.models.revoke.RevokeModel
 import com.example.warehousemanagment.model.models.rework.ReworkModel
+import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductModel
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
@@ -995,6 +996,47 @@ class ApiDataSource() :DataSource
         return apiProvider().inventoryModifyWitoutComp(baseUrl+"InventoryTypeModifyWithoutSerialComplete",jsonObject, cookie)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getSerialBaseLocationProduct(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<SerialTransferProductModel> {
+        return apiProvider().getSerialBaseLocationProduct(
+            baseUrl+"SerialBaseLocationProduct",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            asc,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun checkLocationTransferSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<LocationTransferSubmit> {
+        return apiProvider().checkLocationTransferSerial(
+            baseUrl+"SerialBaseLocationTransferCheckSerial",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun serialBaseLocationTransfer(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<LocationTransferSubmit> {
+        return apiProvider().serialBaseLocationTransfer(baseUrl+"SerialBaseLocationTransfer",jsonObject, cookie)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun reportLocationInventory(

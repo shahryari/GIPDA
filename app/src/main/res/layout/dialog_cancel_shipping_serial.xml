@@ -47,20 +47,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rel1"
+                android:layout_above="@id/rel4"
                 android:layout_marginTop="@dimen/marginTop5ForLayouts" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_alignParentBottom="true">
+            <include
 
-                <include
-                    android:id="@+id/rel4"
-                    layout="@layout/layout_cansel_confirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/canselConfirmRel"/>
-            </LinearLayout>
+                android:id="@+id/rel4"
+                layout="@layout/layout_cansel_confirm"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/canselConfirmRel"/>
 
             <ProgressBar
                 android:id="@+id/progress"

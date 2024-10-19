@@ -1135,33 +1135,7 @@ class ShippingDetailFragment :
     {
         serialSize=list.size
         val adapter= SerialBaseShippingSerialAdapter(
-            list, requireActivity(),
-            object : SerialBaseShippingSerialAdapter.OnCallBackListener
-            {
-                override fun onDelete(model: ShippingSerialModel)
-                {
-                    val sb= getBuiltString(
-                        getString(R.string.are_you_sure_for_delete),
-                        model.serialNumber,
-                        getString(R.string.are_you_sure_for_delete2)
-                    )
-
-                    showDeleteSheetDialog(getString(R.string.serial_scan),sb)
-                    { mySheetAlertDialog->
-                        viewModel.removeShippingSerial(
-                            pref.getDomain(),model.shippingAddressDetailID,model.serialNumber
-                            ,pref.getTokenGlcTest(),dialogBinding.progress)
-                        observeRemoveSerial(model,mySheetAlertDialog)
-                    }
-
-
-
-                }
-
-                override fun imgVisible(img: ImageView) {
-                    img.visibility = View.GONE
-                }
-            })
+            list, requireActivity())
         dialogBinding.rv.adapter=adapter
         dialogBinding.searchEdi.doAfterTextChanged {
             adapter.setFilter(search(textEdi(dialogBinding.searchEdi),list,SearchFields.SerialNumber))

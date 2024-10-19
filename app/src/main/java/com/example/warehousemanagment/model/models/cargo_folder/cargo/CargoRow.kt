@@ -81,5 +81,7 @@ data class CargoRow(
     @SerializedName("SumQuantity")
     val sumQuantity: Int,
     @SerializedName("SumDoneQuantity")
-    val sumDonQuantity: Int
+    val sumDonQuantity: Int,
+    @SerializedName("ShippingLocationCode")
+    val shippingLocationCode: String
 )

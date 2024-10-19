@@ -7,118 +7,125 @@
     android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    
     <RelativeLayout
-
+        android:layout_width="match_parent"
         android:clipToPadding="false"
         android:clipChildren="false"
-        tools:background="@color/mainBackground"
+        android:background="@color/mainBackground"
         android:paddingBottom="@dimen/padding_all"
-        android:paddingEnd="@dimen/padding_all"
-        android:paddingStart="@dimen/padding_all"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <include
-            android:id="@+id/mainToolbar"
-            layout="@layout/toolbar_main_top"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/mainToolbar"
-            android:layout_toStartOf="@+id/filterImg" />
-
-
-        <include
-            android:id="@+id/mainToolbar2"
-            layout="@layout/toolbar_customer_top"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/mainToolbar"
-            android:layout_below="@id/mainToolbar"
-            android:layout_marginTop="@dimen/marginTop5ForLayouts" />
-
         <RelativeLayout
-            android:id="@+id/rel2"
 
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/mainToolbar"
-            android:layout_below="@id/mainToolbar2"
-            android:layout_marginTop="@dimen/marginTop5ForLayouts"
-            android:visibility="gone"
-            tools:visibility="visible"
-            style="@style/relSearchMainEdi">
-
-
-
-            <EditText
-                android:id="@+id/searchEdi"
-                style="@style/searchMainEdi"
-                android:clickable="true"
-                android:focusable="false"
-                android:hint="@string/customers"
-                android:layout_toStartOf="@+id/clearImg"
-                />
-
-            <ImageView
-                android:id="@+id/clearImg"
-                android:clickable="true"
-                android:focusable="true"
-                style="@style/imgClose" />
-        </RelativeLayout>
-
-
-        <include
-            android:id="@+id/filterImg"
-            layout="@layout/img_filter"/>
-
-        <include
-            android:id="@+id/receiveItem"
-            layout="@layout/pattern_receiving_detail_header"
+            tools:background="@color/mainBackground"
+            android:id="@+id/relTop"
+            android:paddingEnd="@dimen/padding_all"
+            android:paddingStart="@dimen/padding_all"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rel2"
-            android:layout_marginTop="@dimen/marginTopRelInfoTv" />
+            android:layout_height="wrap_content">
 
 
-
-        <RelativeLayout
-            android:id="@+id/rel1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/receiveItem" >
-
-            <View
-                android:id="@+id/view1"
-                android:layout_width="@dimen/view_start_width"
-                android:layout_height="@dimen/view_height1"
-                android:layout_centerVertical="true"
-                android:background="@color/gray70" />
-
-            <TextView
-                android:id="@+id/itemTitle"
+            <include
+                android:id="@+id/mainToolbar"
+                layout="@layout/toolbar_main_top"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_start_icon_tv"
-                android:layout_marginTop="@dimen/margin_start_icon_tv"
-                android:layout_marginEnd="@dimen/margin_start_icon_tv"
-                android:layout_marginBottom="@dimen/margin_start_icon_tv"
-                android:layout_toEndOf="@+id/view1"
-                android:fontFamily="@font/medium"
-                android:textColor="@color/black"
-                android:text="@string/items"
-                android:textSize="@dimen/itemDetailReceive" />
+                android:layout_height="@dimen/mainToolbar"
+                android:layout_toStartOf="@+id/filterImg" />
 
 
-            <View
-                android:id="@+id/view2"
+            <include
+                android:id="@+id/mainToolbar2"
+                layout="@layout/toolbar_customer_top"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/mainToolbar"
+                android:layout_below="@id/mainToolbar"
+                android:layout_marginTop="@dimen/marginTop5ForLayouts" />
+
+            <RelativeLayout
+                android:id="@+id/rel2"
+
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/mainToolbar"
+                android:layout_below="@id/mainToolbar2"
+                android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                android:visibility="gone"
+                tools:visibility="visible"
+                style="@style/relSearchMainEdi">
+
+
+
+                <EditText
+                    android:id="@+id/searchEdi"
+                    style="@style/searchMainEdi"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="@string/customers"
+                    android:layout_toStartOf="@+id/clearImg"
+                    />
+
+                <ImageView
+                    android:id="@+id/clearImg"
+                    android:clickable="true"
+                    android:focusable="true"
+                    style="@style/imgClose" />
+            </RelativeLayout>
+
+
+            <include
+                android:id="@+id/filterImg"
+                layout="@layout/img_filter"/>
+
+            <include
+                android:id="@+id/receiveItem"
+                layout="@layout/pattern_receiving_detail_header"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/view_height1"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/itemTitle"
-                android:background="@color/gray70" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel2"
+                android:layout_marginTop="@dimen/marginTopRelInfoTv" />
 
+
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/receiveItem" >
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="@dimen/view_start_width"
+                    android:layout_height="@dimen/view_height1"
+                    android:layout_centerVertical="true"
+                    android:background="@color/gray70" />
+
+                <TextView
+                    android:id="@+id/itemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_start_icon_tv"
+                    android:layout_marginTop="@dimen/margin_start_icon_tv"
+                    android:layout_marginEnd="@dimen/margin_start_icon_tv"
+                    android:layout_marginBottom="@dimen/margin_start_icon_tv"
+                    android:layout_toEndOf="@+id/view1"
+                    android:fontFamily="@font/medium"
+                    android:textColor="@color/black"
+                    android:text="@string/items"
+                    android:textSize="@dimen/itemDetailReceive" />
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height1"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/itemTitle"
+                    android:background="@color/gray70" />
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
-
-
         <ProgressBar
             android:id="@+id/progressBar"
             style="@style/progressStyle"
@@ -129,10 +136,11 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rel1"
+            android:layout_below="@id/relTop"
+            android:paddingEnd="@dimen/padding_all"
+            android:paddingStart="@dimen/padding_all"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/pattern_receiving_detail_info" />
-
     </RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

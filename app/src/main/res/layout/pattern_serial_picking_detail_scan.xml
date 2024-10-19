@@ -4,11 +4,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/_5sdp">
+        android:paddingBottom="@dimen/_4sdp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:background="@drawable/shape_background_rect_white_6"
-            android:padding="@dimen/_5sdp"
+            android:padding="@dimen/_4sdp"
             app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/layout"
             app:layout_constraintTop_toTopOf="@id/tick"

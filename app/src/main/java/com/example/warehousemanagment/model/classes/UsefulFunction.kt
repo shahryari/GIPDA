@@ -14,11 +14,13 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.FrameLayout.LayoutParams
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
@@ -141,6 +143,9 @@ fun showToast(
     context: Context
 ) {
     snackbar = Snackbar.make((context as FragmentActivity).findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
+    val layoutParams = LayoutParams(snackbar!!.view.layoutParams)
+    layoutParams.gravity = Gravity.TOP
+    snackbar!!.view.layoutParams = layoutParams
     snackbar?.show()
     startTimerForGettingData(3000) {
         snackbar?.dismiss()

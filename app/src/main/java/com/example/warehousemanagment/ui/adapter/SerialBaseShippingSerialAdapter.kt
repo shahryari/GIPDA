@@ -36,7 +36,8 @@ class SerialBaseShippingSerialAdapter(
         onCallBackListener.imgVisible(holder.b.excel)
 
         if (model.isScanInShip)holder.b.title.setTextColor(Color.Black.toArgb())
-        if (model.isScanInShip)holder.b.layout.backgroundTintList = ContextCompat.getColorStateList(context, R.color.green)
+//        if (model.isScanInShip)holder.b.layout.backgroundTintList = ContextCompat.getColorStateList(context, R.color.green)
+        if (model.isScanInShip)holder.b.layout.setBackgroundColor(ContextCompat.getColor(context,R.color.green))
 
         holder.b.delete.visibility = View.GONE
 

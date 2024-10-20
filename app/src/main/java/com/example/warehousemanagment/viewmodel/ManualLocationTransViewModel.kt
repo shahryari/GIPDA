@@ -12,7 +12,7 @@ import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
-import com.example.warehousemanagment.model.models.transfer_task.*
+import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
 import com.example.warehousemanagment.model.models.transfer_task.source_location.SourceLocationRow
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
@@ -145,7 +145,7 @@ class ManualLocationTransViewModel(application: Application,context: Context):
 
                         log("sourceLocationTransfer", it.toString())
 
-                        if (it.rows.size!=0){
+                        if (it.rows.isNotEmpty()){
                             tempList.addAll(it.rows)
                             sourceLocationTransfer.value=(tempList)
                         }

@@ -20,6 +20,12 @@ data class SerialTransferProductRow(
     val productCode: String,
     @SerializedName("ProductName")
     val productName: String,
+    @SerializedName("LocationCode")
+    val locationCode: String,
+    @SerializedName("WarehouseCode")
+    val warehouseCode: String,
+    @SerializedName("WarehouseName")
+    val warehouseName: String,
     @SerializedName("RealInventory")
     val realInventory: Int
 )

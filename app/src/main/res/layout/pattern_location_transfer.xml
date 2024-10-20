@@ -74,10 +74,12 @@
 
                 <TextView
                     style="@style/pattern_putaway_smallHint"
+                    android:id="@+id/typeTitle"
                     android:text="@string/InventoryType" />
 
                 <TextView
                     style="@style/pattern_putaway_smallHint"
+                    android:id="@+id/locationTypeTitle"
                     android:text="@string/locationType" />
 
             </LinearLayout>

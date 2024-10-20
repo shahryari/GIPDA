@@ -33,15 +33,15 @@ class SerialTransferAdapter() : Adapter<SerialTransferAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int)
     {
         val model=arrayList.get(position)
-        holder.b.locationCodeTitle.visibility = View.GONE
-        holder.b.locationCode.visibility = View.GONE
-        holder.b.line2.visibility = View.GONE
-        holder.b.line3.visibility = View.GONE
         holder.b.line4.visibility = View.GONE
         holder.b.ownerCode.visibility = View.GONE
-//        holder.b.locationCode.text=model.locationID
+        holder.b.locationCode.text=model.locationCode
         holder.b.productTitle.text=model.productName
         holder.b.productCode.text=model.productCode
+        holder.b.typeTitle.text = "Warehouse Code"
+        holder.b.locationTypeTitle.text = "Warehouse Name"
+        holder.b.locationType.text = model.warehouseName
+        holder.b.type.text = model.warehouseCode
 //        holder.b.locationType.text=model.locationTypeTitle
 //        holder.b.ownerCode.text=model.ownerCode
 

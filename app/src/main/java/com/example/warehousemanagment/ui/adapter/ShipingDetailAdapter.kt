@@ -71,9 +71,8 @@ class ShipingDetailAdapter(): RecyclerView.Adapter<ShipingDetailAdapter.MyViewHo
             onCallBackListener.reachToEnd(position)
         }
 
-        if (model.cancelCount==null || model.cancelCount==0){
-            holder.b.relCancelCount.visibility=View.INVISIBLE
-        }else holder.b.cancelCount.setText(model.cancelCount.toString())
+        holder.b.cancelCount.text = model.cancelCount?.toString() ?: "0"
+
 
 
 

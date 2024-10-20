@@ -444,6 +444,18 @@ class MyRepository() :DataSource
         return apiDataSource.shippingTruckList(baseUrl,jsonObject, page, rows, sort, asc, cookie)
     }
 
+    override fun serialShippingTruckList(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<ShippingTruckModel> {
+        return apiDataSource.serialShippingTruckList(baseUrl,jsonObject, page, rows, sort, asc, cookie)
+    }
+
     override fun getShippingDetail(
         baseUrl:String,
         jsonObject: JsonObject,
@@ -454,6 +466,18 @@ class MyRepository() :DataSource
         cookie: String
     ): Observable<ShippingDetailModel> {
         return apiDataSource.getShippingDetail(baseUrl,jsonObject,page, rows, sort, asc, cookie)
+    }
+
+    override fun serialShippingTruckDetail(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<ShippingDetailModel> {
+        return apiDataSource.serialShippingTruckDetail(baseUrl,jsonObject, page, rows, sort, asc, cookie)
     }
 
     override fun getShippingSerials(
@@ -502,6 +526,14 @@ class MyRepository() :DataSource
         cookie: String
     ): Observable<LoadingFinishModel> {
         return apiDataSource.loadingFinish(baseUrl,jsonObject,cookie)
+    }
+
+    override fun serialBaseLoadingFinish(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<LoadingFinishModel> {
+        return apiDataSource.serialBaseLoadingFinish(baseUrl,jsonObject,cookie)
     }
 
     override fun revokLocation(

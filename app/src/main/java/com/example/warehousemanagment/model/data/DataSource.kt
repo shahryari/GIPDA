@@ -323,12 +323,25 @@ interface DataSource
                           asc:String, cookie: String): Observable<ShippingTruckModel>
 
 
+    fun serialShippingTruckList(baseUrl:String,jsonObject: JsonObject,
+                          page:Int,
+                          rows:Int,
+                          sort:String,
+                          asc:String, cookie: String): Observable<ShippingTruckModel>
+
     fun getShippingDetail(baseUrl:String,jsonObject: JsonObject,
                           page:Int,
                           rows:Int,
                           sort:String,
                           asc:String,
                           cookie:String):Observable<ShippingDetailModel>
+
+    fun serialShippingTruckDetail(baseUrl:String, jsonObject: JsonObject,
+                                  page:Int,
+                                  rows:Int,
+                                  sort:String,
+                                  asc:String,
+                                  cookie:String):Observable<ShippingDetailModel>
 
     fun getShippingSerials(baseUrl:String,jsonObject: JsonObject,
                           cookie:String):Observable<List<ShippingSerialModel>>
@@ -351,6 +364,8 @@ interface DataSource
 
     fun loadingFinish(baseUrl:String,jsonObject: JsonObject,
                       cookie:String):Observable<LoadingFinishModel>
+
+    fun serialBaseLoadingFinish(baseUrl: String,jsonObject: JsonObject,cookie: String) : Observable<LoadingFinishModel>
 
     fun revokLocation(url:String ,jsonObject: JsonObject,
                       cookie:String):Single<List<DestinyLocationTransfer>>

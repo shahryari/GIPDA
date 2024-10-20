@@ -438,6 +438,16 @@ interface ApiService
                           @Header("sort") sort:String,
                           @Header("order") asc:String,@Header(Utils.COOKIE) cookie:String):Observable<ShippingTruckModel>
 
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"SerialBaseShippingTruck")
+    fun serialShippingTruckList(@Url url:String ,@Body jsonObject: JsonObject,
+                          @Header("page") page:Int,
+                          @Header("rows") rows:Int,
+                          @Header("sort") sort:String,
+                          @Header("order") asc:String,@Header(Utils.COOKIE) cookie:String):Observable<ShippingTruckModel>
+
     @Headers(Utils.CONTENT_TYPE)
     @POST//"ShippingTruckDetail")
     fun getShippingDetail(@Url url:String ,@Body jsonObject: JsonObject,
@@ -447,6 +457,15 @@ interface ApiService
                           @Header("order") asc:String,
                           @Header(Utils.COOKIE) cookie:String):Observable<ShippingDetailModel>
 
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"SerialBaseShippingTruckDetail")
+    fun getSerialShippingDetail(@Url url:String ,@Body jsonObject: JsonObject,
+                          @Header("page") page:Int,
+                          @Header("rows") rows:Int,
+                          @Header("sort") sort:String,
+                          @Header("order") asc:String,
+                          @Header(Utils.COOKIE) cookie:String):Observable<ShippingDetailModel>
 
     @Headers(Utils.CONTENT_TYPE)
     @POST//"ShippingDetailSerial")
@@ -483,6 +502,12 @@ interface ApiService
     @POST//"LoadingFinish")
     fun loadingFinish(@Url url:String ,@Body jsonObject: JsonObject,
                              @Header(Utils.COOKIE) cookie:String):Observable<LoadingFinishModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"LoadingFinishSerialBase")
+    fun serialBaseLoadingFinish(@Url url:String ,@Body jsonObject: JsonObject,
+                      @Header(Utils.COOKIE) cookie:String):Observable<LoadingFinishModel>
+
 
     @Headers(Utils.CONTENT_TYPE)
     @POST//"RevokLocation"

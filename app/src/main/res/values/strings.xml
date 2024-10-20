@@ -400,4 +400,5 @@
     <string name="done_by">Done By</string>
     <string name="use">Use</string>
     <string name="serial_location_transfer">Serial Location Transfer</string>
+    <string name="shipping_serialbase">Shipping Serial Base</string>
 </resources>

@@ -559,6 +559,19 @@ class ApiDataSource() :DataSource
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun serialShippingTruckList(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<ShippingTruckModel> {
+        return apiProvider().serialShippingTruckList(baseUrl+"SerialBaseShippingTruck",jsonObject, page, rows, sort, asc,cookie)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun getShippingDetail(
         baseUrl:String,
         jsonObject: JsonObject,
@@ -569,6 +582,19 @@ class ApiDataSource() :DataSource
         cookie: String
     ): Observable<ShippingDetailModel> {
         return apiProvider().getShippingDetail(baseUrl+"ShippingTruckDetail",jsonObject,page, rows, sort, asc, cookie)
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun serialShippingTruckDetail(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        asc: String,
+        cookie: String
+    ): Observable<ShippingDetailModel> {
+        return apiProvider().getSerialShippingDetail(baseUrl+"SerialBaseShippingTruckDetail",jsonObject,page, rows, sort, asc, cookie)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
@@ -630,6 +656,17 @@ class ApiDataSource() :DataSource
     ): Observable<LoadingFinishModel> {
         return  apiProvider().loadingFinish(baseUrl+"LoadingFinish",jsonObject,cookie)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun serialBaseLoadingFinish(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<LoadingFinishModel> {
+        return apiProvider().serialBaseLoadingFinish(
+            baseUrl+"LoadingFinishSerialBase",
+            jsonObject, cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun revokLocation(

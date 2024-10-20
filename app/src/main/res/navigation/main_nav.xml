@@ -316,6 +316,18 @@
         android:id="@+id/serialLocationTransferFragment"
         android:name="com.example.warehousemanagment.ui.fragment.SerialLocationTransferFragment"
         android:label="SerialLocationTransferFragment" />
+    <fragment
+        android:id="@+id/serialShippingFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.SerialShippingFragment"
+        android:label="SerialShippingFragment" >
+        <action
+            android:id="@+id/action_serialShippingFragment_to_serialShippingDetailFragment"
+            app:destination="@id/serialShippingDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/serialShippingDetailFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.SerialShippingDetailFragment"
+        android:label="SerialShippingDetailFragment" />
 
 
 </navigation>

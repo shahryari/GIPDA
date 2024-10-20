@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            android:padding="@dimen/_4sdp"
+            android:padding="@dimen/_3sdp"
             android:elevation="@dimen/lowElevation"
             android:id="@+id/tick"
             app:layout_constraintTop_toTopOf="parent"
@@ -45,8 +45,8 @@
             >
 
             <ImageView
-                android:layout_width="@dimen/_21sdp"
-                android:layout_height="@dimen/_21sdp"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
                 android:src="@drawable/tick_square"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

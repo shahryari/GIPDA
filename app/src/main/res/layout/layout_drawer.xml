@@ -263,6 +263,21 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/relShippingSerial"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/shipping_serialbase" />
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/relCanselShipping"

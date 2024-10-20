@@ -38,6 +38,8 @@ import com.example.warehousemanagment.viewmodel.SerialPutawayAssignViewModel
 import com.example.warehousemanagment.viewmodel.SerialPutawayDetailLocationViewModel
 import com.example.warehousemanagment.viewmodel.SerialPutawayDetailViewModel
 import com.example.warehousemanagment.viewmodel.SerialPutawayViewModel
+import com.example.warehousemanagment.viewmodel.SerialShippingDetailViewModel
+import com.example.warehousemanagment.viewmodel.SerialShippingViewModel
 import com.example.warehousemanagment.viewmodel.SerialTransferViewModel
 import com.example.warehousemanagment.viewmodel.SettingViewModel
 import com.example.warehousemanagment.viewmodel.ShippingDetailViewModel
@@ -341,5 +343,17 @@ class FragmentModule()
     @Provides
     fun serialTransferViewModel() : SerialTransferViewModel {
         return SerialTransferViewModel(application)
+    }
+
+    @Singleton
+    @Provides
+    fun serialShippingViewModel() : SerialShippingViewModel {
+        return SerialShippingViewModel(application,context)
+    }
+
+    @Singleton
+    @Provides
+    fun serialShippingDetailViewModel() : SerialShippingDetailViewModel {
+        return SerialShippingDetailViewModel(application,context)
     }
 }

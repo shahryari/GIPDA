@@ -108,7 +108,7 @@ class Utils
         val DRAWER_SUB_TRANSFER_RATIO: Double=.2
         val DRAWER_SUB_GENERAL_RATIO: Double=0.3
         val DRAWER_SUB_RECEIVE_RATIO: Double=.15
-        val DRAWER_SUB_SHIPPING_RATIO: Double=.3
+        val DRAWER_SUB_SHIPPING_RATIO: Double=.35
         val Quantity: String="Quantity"
         val OwnerCode="OwnerCode"
         val ProductTitle: String="ProductTitle"

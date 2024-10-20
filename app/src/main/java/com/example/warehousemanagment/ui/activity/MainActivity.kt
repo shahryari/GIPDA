@@ -136,6 +136,10 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
             goToFragment(R.id.shippingFragment)
         }
 
+        b.drawerLayout.relShippingSerial.setOnClickListener {
+            goToFragment(R.id.serialShippingFragment)
+        }
+
         b.drawerLayout.relCheckTruck.setOnClickListener {
             goToFragment(R.id.checkTruckFragment)
         }

@@ -106,6 +106,7 @@ class Utils
         val EXPAND_DURATION: Long=600
         val DRAWER_SUB_REPORT_RATIO: Double=.15
         val DRAWER_SUB_TRANSFER_RATIO: Double=.2
+        val DRAWER_SUB_SERIAL_RATIO: Double = 0.25
         val DRAWER_SUB_GENERAL_RATIO: Double=0.3
         val DRAWER_SUB_RECEIVE_RATIO: Double=.15
         val DRAWER_SUB_SHIPPING_RATIO: Double=.35

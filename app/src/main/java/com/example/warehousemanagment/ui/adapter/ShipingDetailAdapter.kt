@@ -70,8 +70,12 @@ class ShipingDetailAdapter(): RecyclerView.Adapter<ShipingDetailAdapter.MyViewHo
         if (position==arrayList.size-1 && arrayList.size>= Utils.ROWS){
             onCallBackListener.reachToEnd(position)
         }
+        if (model.cancelCount == null || model.cancelCount == 0 ){
+            holder.b.relCancelCount.visibility = View.GONE
+        } else {
 
-        holder.b.cancelCount.text = model.cancelCount?.toString() ?: "0"
+            holder.b.cancelCount.text = model.cancelCount.toString()
+        }
 
 
 

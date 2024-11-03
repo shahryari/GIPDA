@@ -114,35 +114,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/relSerialPutawayAssign"
-                    style="@style/drawer_sub_rel"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/drawer_sub_img"
-                        android:background="@drawable/shape_circle_white_drawer" />
-
-                    <TextView
-                        style="@style/drawer_sub_tv"
-                        android:text="@string/serialPutawayAssign" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/relSerialPutaway"
-                    style="@style/drawer_sub_rel"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/drawer_sub_img"
-                        android:background="@drawable/shape_circle_white_drawer" />
-
-                    <TextView
-                        style="@style/drawer_sub_tv"
-                        android:text="@string/serailPutaway" />
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -185,20 +156,7 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/relSerialPicking"
-                    style="@style/drawer_sub_rel"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        style="@style/drawer_sub_img"
-                        android:background="@drawable/shape_circle_white_drawer" />
-
-                    <TextView
-                        style="@style/drawer_sub_tv"
-                        android:text="@string/serialPicking" />
-
-                </LinearLayout>
 
 
                 <LinearLayout
@@ -263,20 +221,7 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/relShippingSerial"
-                    style="@style/drawer_sub_rel"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        style="@style/drawer_sub_img"
-                        android:background="@drawable/shape_circle_white_drawer" />
-
-                    <TextView
-                        style="@style/drawer_sub_tv"
-                        android:text="@string/shipping_serialbase" />
-
-                </LinearLayout>
 
 
                 <LinearLayout
@@ -336,20 +281,7 @@
                         android:text="@string/locationTransfer" />
 
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/linSerialLocationTransfer"
-                    style="@style/drawer_sub_rel"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        style="@style/drawer_sub_img"
-                        android:background="@drawable/shape_circle_white_drawer" />
-
-                    <TextView
-                        style="@style/drawer_sub_tv"
-                        android:text="@string/serial_location_transfer" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linTransferTask"
@@ -603,6 +535,107 @@
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/serialExpand"
+                style="@style/drawer_rel"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/drawer_img"
+                    android:src="@drawable/scan_barcode" />
+
+                <TextView
+                    style="@style/drawer_tv"
+                    android:text="@string/serial_base" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linSerial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/relSerialPutawayAssign"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/serialPutawayAssign" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/relSerialPutaway"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/serailPutaway" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/relSerialPicking"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/serialPicking" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/relShippingSerial"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/shipping_serialbase" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linSerialLocationTransfer"
+                    style="@style/drawer_sub_rel"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/drawer_sub_img"
+                        android:background="@drawable/shape_circle_white_drawer" />
+
+                    <TextView
+                        style="@style/drawer_sub_tv"
+                        android:text="@string/serial_location_transfer" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
 
 
         </LinearLayout>

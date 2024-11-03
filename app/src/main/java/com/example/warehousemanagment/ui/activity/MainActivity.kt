@@ -48,18 +48,21 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
     var subRecieveHeight = 0
     var subShippingHeight = 0
     var subTransferHeight = 0
+    var subSerialHeight = 0
 
     var subGeneralExpanding = true
     var subReportExapnding = true
     var subReceiveExpanding = true
     var subShippingExpanding = true
     var subTransferExpanding = true
+    var subSerialExpanding = true
 
     val GENERAL_ITEMS = 7.0f
     val REPORT_ITEMS = 3.0f
     val TRANSFER_ITEMS = 4.0f
     val SHIPPING_ITEMS = 4.0f
     val RECEIVING_ITEMS = 3.0f
+    val SERIAL_ITEMS = 5.0f
 
 
     lateinit var pref:MySharedPref
@@ -210,6 +213,29 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
             goToFragment(R.id.dockFragment)
         }
 
+        b.drawerLayout.serialExpand.setOnClickListener {
+            setHeightOfSerial()
+
+            vanishOtherExpanded(
+                b.drawerLayout.linGeneral,
+                b.drawerLayout.generalExpand, b.drawerLayout.linReport,
+                b.drawerLayout.reportExpand, b.drawerLayout.linShipping,
+                b.drawerLayout.shippingExpand,
+                b.drawerLayout.linTransfer,
+                b.drawerLayout.transferExpand,
+                b.drawerLayout.linReceiving,
+                b.drawerLayout.receiveExapnd
+            )
+
+            expandOrDecrease(
+                subSerialHeight,
+                subSerialExpanding,
+                b.drawerLayout.linSerial,
+                Utils.EXPAND_DURATION,
+                b.drawerLayout.serialExpand
+            )
+            subSerialExpanding = !subSerialExpanding
+        }
 
 
         b.drawerLayout.transferExpand.setOnClickListener()
@@ -221,8 +247,10 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
                 b.drawerLayout.generalExpand, b.drawerLayout.linReport,
                 b.drawerLayout.reportExpand, b.drawerLayout.linShipping,
                 b.drawerLayout.shippingExpand,
-                b.drawerLayout.linTransfer,
-                b.drawerLayout.transferExpand
+                b.drawerLayout.linReceiving,
+                b.drawerLayout.receiveExapnd,
+                b.drawerLayout.linSerial,
+                b.drawerLayout.serialExpand
             )
 
             expandOrDecrease(
@@ -245,7 +273,9 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
                 b.drawerLayout.reportExpand, b.drawerLayout.linShipping,
                 b.drawerLayout.shippingExpand,
                 b.drawerLayout.linTransfer,
-                b.drawerLayout.transferExpand
+                b.drawerLayout.transferExpand,
+                b.drawerLayout.linSerial,
+                b.drawerLayout.serialExpand
             )
 
             expandOrDecrease(
@@ -268,7 +298,10 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
                 b.drawerLayout.reportExpand, b.drawerLayout.linReceiving,
                 b.drawerLayout.receiveExapnd,
                 b.drawerLayout.linTransfer,
-                b.drawerLayout.transferExpand
+                b.drawerLayout.transferExpand,
+
+                b.drawerLayout.linSerial,
+                b.drawerLayout.serialExpand
             )
 
             expandOrDecrease(
@@ -293,7 +326,9 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
                 b.drawerLayout.receiveExapnd, b.drawerLayout.linShipping,
                 b.drawerLayout.shippingExpand,
                 b.drawerLayout.linTransfer,
-                b.drawerLayout.transferExpand
+                b.drawerLayout.transferExpand,
+                b.drawerLayout.linSerial,
+                b.drawerLayout.serialExpand
             )
 
             expandOrDecrease(
@@ -315,7 +350,10 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
                 b.drawerLayout.reportExpand, b.drawerLayout.linShipping,
                 b.drawerLayout.shippingExpand,
                 b.drawerLayout.linTransfer,
-                b.drawerLayout.transferExpand
+                b.drawerLayout.transferExpand,
+
+                b.drawerLayout.linSerial,
+                b.drawerLayout.serialExpand
             )
 
             expandOrDecrease(
@@ -413,17 +451,21 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         lin1: LinearLayout, lin1Expander: LinearLayout,
         lin2: LinearLayout, lin2Expander: LinearLayout,
         lin3: LinearLayout, lin3Expander: LinearLayout,
-        lin4: LinearLayout, lin4Expander: LinearLayout
+        lin4: LinearLayout, lin4Expander: LinearLayout,
+        lin5: LinearLayout, lin5Expander: LinearLayout
     ) {
         subReceiveExpanding = true
         subShippingExpanding = true
         subGeneralExpanding = true
         subReportExapnding = true
         subTransferExpanding = true
+        subSerialExpanding = true
         expandOrDecrease(0, false, lin1, Utils.EXPAND_DURATION, lin1Expander)
         expandOrDecrease(0, false, lin2, Utils.EXPAND_DURATION, lin2Expander)
         expandOrDecrease(0, false, lin3, Utils.EXPAND_DURATION, lin3Expander)
         expandOrDecrease(0, false, lin4, Utils.EXPAND_DURATION, lin4Expander)
+        expandOrDecrease(0, false, lin5, Utils.EXPAND_DURATION, lin5Expander)
+
     }
 
     private fun goToFragment(id: Int) {
@@ -528,6 +570,8 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
 
         setHeightOfTransfer()
 
+        setHeightOfSerial()
+
 
 
         b.drawerLayout.linReport.layoutParams.height=0
@@ -537,7 +581,16 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         b.drawerLayout.linTransfer.layoutParams.height=0
 
 
+        b.drawerLayout.linSerial.layoutParams.height=0
 
+
+
+    }
+
+    private fun setHeightOfSerial() {
+        subSerialHeight = (getDimen(this).height * Utils.DRAWER_SUB_SERIAL_RATIO).toInt()
+        subSerialHeight = (subSerialHeight -
+                (pref.getPermissionBy(Utils.RECEIVING_CAT) / SERIAL_ITEMS) * subSerialHeight).toInt()
     }
 
     private fun setHeightOfTransfer() {

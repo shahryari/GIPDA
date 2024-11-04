@@ -25,7 +25,7 @@ data class CompletePutawayModel(
     @SerializedName("Messages")
     val messages: List<Any>,
     @SerializedName("ReturnValue")
-    val returnValue: Int,
+    val returnValue: String?,
     @SerializedName("UpdatedAny")
     val updatedAny: Boolean
 )

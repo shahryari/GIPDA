@@ -25,8 +25,6 @@ import com.example.warehousemanagment.model.classes.setToolbarBackground
 import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.ErrorModel
-import com.example.warehousemanagment.model.models.putaway.complete.CompletePutawayModel
 import com.example.warehousemanagment.model.models.putaway.truck_detail.PutawayDetailRow
 import com.example.warehousemanagment.ui.adapter.PutawayDetailAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
@@ -290,29 +288,26 @@ class PutawayDetailFragment :
 
     private fun observeCompletePutaway(dialog: AlertDialog)
     {
-        viewModel.getCompletePutaway().observe(viewLifecycleOwner,
-            object : Observer<CompletePutawayModel> {
-                override fun onChanged(it: CompletePutawayModel)
-                {
-                    dialog.dismiss()
+        viewModel.getCompletePutaway().observe(viewLifecycleOwner) {
+            if (it.returnValue == "ReceivingDetailFinished") {
 
-                }
-
-            })
+                dialog.dismiss()
+            } else if (it.returnValue == "ReceivingFinished"){
+                dialog.dismiss()
+                navController?.popBackStack()
+            }
+        }
         var done=false
-        viewModel.getCompletePutawayError().observe(viewLifecycleOwner,
-            object : Observer<ErrorModel>
-            {
-                override fun onChanged(it: ErrorModel)
-                {
-                    if (done==false && it.returnValue==Utils.WRONG_NUM)
-                    {
-                        showWrongLocation(getString(R.string.putawayTitle), getString(R.string.wrongLocation))
-                        done=true
-                    }
-                }
-
-            })
+        viewModel.getCompletePutawayError().observe(viewLifecycleOwner
+        ) { it ->
+            if (!done && it.returnValue == Utils.WRONG_NUM) {
+                showWrongLocation(
+                    getString(R.string.putawayTitle),
+                    getString(R.string.wrongLocation)
+                )
+                done = true
+            }
+        }
     }
 
     private fun setPutDetail()

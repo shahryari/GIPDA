@@ -543,7 +543,9 @@
 
                 <ImageView
                     style="@style/drawer_img"
-                    android:src="@drawable/scan_barcode" />
+                    android:src="@drawable/scan_barcode"
+                    app:tint="@color/white"
+                    />
 
                 <TextView
                     style="@style/drawer_tv"

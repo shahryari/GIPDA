@@ -295,6 +295,7 @@ class SerialPutawayDetailLocationFragment
 //
 
         scanDialogBinding!!.rel4.cansel.setOnClickListener { scanDialog?.dismiss() }
+        scanDialogBinding!!.rel4.root.visibility = View.GONE
         scanDialogBinding!!.closeImg.setOnClickListener { scanDialog?.dismiss() }
         scanDialogBinding!!.rel4.confirm.setOnClickListener {
             scanDialog?.dismiss()

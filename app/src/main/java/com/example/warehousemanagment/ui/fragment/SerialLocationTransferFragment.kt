@@ -1,6 +1,7 @@
 package com.example.warehousemanagment.ui.fragment
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -521,6 +522,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         dialogBinding.rel4.confirm.text = getString(R.string.transfer)
         dialogBinding.layoutTopInfo.productTitle.text=model.productName
         dialogBinding.layoutTopInfo.quantity.hint = "Serial"
+        dialogBinding.layoutTopInfo.quantity.inputType = InputType.TYPE_CLASS_TEXT
         dialogBinding.layoutTopInfo.rel4.visibility = View.GONE
 
 

@@ -566,7 +566,7 @@ class SerialShippingFragment: BaseFragment<SerialShippingViewModel, FragmentRece
 
     override fun init()
     {
-        setToolbarTitle(requireActivity(),getString(R.string.shipping))
+        setToolbarTitle(requireActivity(),"Shipping Serial Base")
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
     }
 

@@ -402,4 +402,5 @@
     <string name="serial_location_transfer">Serial Location Transfer</string>
     <string name="shipping_serialbase">Shipping Serial Base</string>
     <string name="serial_base">Serial Base</string>
+    <string name="shipping_location_code">Shipping Location Code</string>
 </resources>

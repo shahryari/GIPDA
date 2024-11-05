@@ -224,6 +224,7 @@ class SerialPickingListFragment : BaseFragment<SerialPickingListViewModel,Fragme
                 bundle.putString("ShippingAddressDetailID",it.shippingAddressDetailID)
                 bundle.putString("ShippingLocationID",it.shippingLocationID)
                 bundle.putString("ItemLocationID",it.itemLocationID)
+                bundle.putString("ShippingLocationCode",it.shippingLocationCode)
 
                 navController?.navigate(R.id.action_serialPickingListFragment_to_serialPickingScanFragment,bundle)
             },

@@ -200,6 +200,7 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
 
         productCode = arguments?.getString(Utils.ProductCode)?:""
         locationCode = arguments?.getString(Utils.locationCode)?:""
+        val shippingLocationCode = arguments?.getString("ShippingLocationCode")?:""
         val productTitle = arguments?.getString(Utils.ProductTitle)
         val invType = arguments?.getString(Utils.locationInventory)
         val shippingNumber = arguments?.getString(Utils.ShippingNumber)
@@ -212,6 +213,7 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
         b.pickingItem.scan.text = sumQuantity.toString()
         b.pickingItem.invTypeTitle.text = invType
         b.pickingItem.locationCode.text = locationCode
+        b.pickingItem.shippingLocationCode.text = shippingLocationCode
         b.pickingItem.shippingArea.text =shippingNumber
         b.pickingItem.productCode.text = productCode
         b.pickingItem.productTitle.text = productTitle

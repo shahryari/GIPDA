@@ -36,6 +36,7 @@ class SerialPickingListAdapter(
         holder.binding.shippingArea.text = model.shippingNumber
         holder.binding.quantity.text = model.quantity.toString()
         holder.binding.scan.text = model.sumQuantity.toString()
+        holder.binding.shippingLocationCode.text = model.shippingLocationCode
 
         holder.itemView.setOnClickListener {
             onItemClick(model)

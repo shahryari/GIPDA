@@ -43,15 +43,32 @@
                     android:layout_gravity="center"
                     android:text="@string/product_code" />
 
+
+
                 <TextView
                     android:id="@+id/productCode"
                     style="@style/pattern_receieve_tv1"
                     android:layout_below="@id/tv2"
                     android:text="@string/tools_tdru4204745"  />
 
+                <TextView
+                    android:id="@+id/tv4"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_below="@id/productCode"
+                    android:layout_gravity="center"
+                    android:text="@string/location_code" />
+
+                <TextView
+                    android:id="@+id/locationCode"
+                    style="@style/pattern_receieve_tv1"
+                    android:layout_below="@+id/tv4"
+                    android:layout_width="wrap_content"
+                    android:text="@string/tools_a220820_023535"
+                    />
+
 
                 <RelativeLayout
-                    android:layout_below="@id/productCode"
+                    android:layout_below="@id/locationCode"
                     android:layout_alignStart="@+id/productTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -97,7 +114,7 @@
                 android:layout_toEndOf="@+id/rel1"
                 android:layout_width="@dimen/_1sdp"
                 android:layout_alignTop="@id/rel1"
-                android:layout_alignBottom="@id/rel2"
+                android:layout_alignBottom="@id/rel1"
                 android:layout_height="wrap_content"/>
 
 
@@ -106,19 +123,20 @@
                 android:layout_toEndOf="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view"
                 android:layout_centerHorizontal="true">
                 <TextView
-                    android:id="@+id/tv4"
+                    android:id="@+id/tv6"
                     style="@style/pattern_putaway_smallTv"
                     android:layout_centerHorizontal="true"
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center"
-                    android:text="@string/location_code" />
+                    android:text="@string/shipping_location_code" />
 
                 <TextView
-                    android:id="@+id/locationCode"
+                    android:id="@+id/shippingLocationCode"
                     style="@style/pattern_receieve_tv1"
-                    android:layout_below="@+id/tv4"
+                    android:layout_below="@+id/tv6"
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:text="@string/tools_a220820_023535"
@@ -128,7 +146,7 @@
                 <TextView
                     android:id="@+id/tv5"
                     style="@style/pattern_putaway_smallTv"
-                    android:layout_below="@+id/locationCode"
+                    android:layout_below="@+id/shippingLocationCode"
                     android:layout_centerHorizontal="true"
                     android:text="Shipping Number" />
 
@@ -144,6 +162,7 @@
                     android:orientation="horizontal"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/shippingArea"
+                    android:layout_alignParentBottom="true"
                     android:layout_margin="@dimen/_10sdp">
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="0dp"

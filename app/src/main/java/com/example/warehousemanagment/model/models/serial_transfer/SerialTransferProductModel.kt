@@ -14,6 +14,12 @@ data class SerialTransferProductRow(
     val availableInventory: Int,
     @SerializedName("LocationID")
     val locationID: String,
+    @SerializedName("WarehouseID")
+    val warehouseID: String,
+    @SerializedName("GoodID")
+    val goodID: String,
+    @SerializedName("InvTypeID")
+    val invTypeID: Int,
     @SerializedName("LocationProductID")
     val locationProductID: String,
     @SerializedName("ProductCode")

@@ -8,12 +8,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductRow
+import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
@@ -27,6 +29,8 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
     val tempList = ArrayList<SerialTransferProductRow>()
     private val serials = MutableLiveData<List<String>>()
     val tempSerials = ArrayList<String>()
+    private var destinyLocationTransfer= MutableLiveData<List<DestinyLocationTransfer>>()
+
 
     val productSize = MutableLiveData<Int>()
 
@@ -45,6 +49,11 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
     fun getSerials() : LiveData<List<String>>{
         return serials
     }
+
+    fun getDestinyLocationTransfer(): MutableLiveData<List<DestinyLocationTransfer>> {
+        return destinyLocationTransfer
+    }
+
 
     fun clearList() {
         if (tempList.size!=0)
@@ -87,6 +96,43 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
                     showErrorMsg(it,"transfer location",context)
                 }
             )
+        }
+    }
+
+    fun setClearList()
+    {
+        destinyLocationTransfer.value= emptyList()
+    }
+    fun setDestinyLocatoinTransfer(
+        baseUrl:String,
+        model: SerialTransferProductRow,
+        cookie:String,
+        context: Context,
+        progressBar: ProgressBar,
+        searchLocationDestiny: String)
+    {
+        showSimpleProgress(true,progressBar)
+        val jsonObject= JsonObject()
+        jsonObject.addProperty("LocationCode",searchLocationDestiny)
+        jsonObject.addProperty("WarehouseID",model.warehouseCode)
+        jsonObject.addProperty("GoodID",model.goodID)
+        jsonObject.addProperty("InvTypeID",model.invTypeID)
+        viewModelScope.launch()
+        {
+            repository.destinationLocationTransfer(baseUrl,jsonObject,cookie)
+                .subscribe(
+                    {
+                        showSimpleProgress(false,progressBar)
+                        destinyLocationTransfer.value=(it)
+                        log("destinyLocationTransfer", it.toString())
+
+
+                    },
+                    {
+                        showSimpleProgress(false,progressBar)
+                        showErrorMsg(it, "destinyLocationTransfer", context)
+                    },{},{disposable.add(it)}
+                ).let { }
         }
     }
 

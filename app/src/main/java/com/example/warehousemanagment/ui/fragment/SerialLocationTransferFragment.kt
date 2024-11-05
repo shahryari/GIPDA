@@ -1,14 +1,18 @@
 package com.example.warehousemanagment.ui.fragment
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
+import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSerialTransferBinding
@@ -16,6 +20,7 @@ import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
 import com.example.warehousemanagment.model.classes.checkEnterKey
 import com.example.warehousemanagment.model.classes.checkTick
+import com.example.warehousemanagment.model.classes.chronometer
 import com.example.warehousemanagment.model.classes.clearEdi
 import com.example.warehousemanagment.model.classes.createAlertDialog
 import com.example.warehousemanagment.model.classes.getBuiltString
@@ -25,14 +30,18 @@ import com.example.warehousemanagment.model.classes.lenEdi
 import com.example.warehousemanagment.model.classes.setBelowCount
 import com.example.warehousemanagment.model.classes.setToolbarBackground
 import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductRow
+import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
+import com.example.warehousemanagment.ui.adapter.DestinyLocationAdapter
 import com.example.warehousemanagment.ui.adapter.SerialTransferAdapter
 import com.example.warehousemanagment.ui.adapter.SimpleSerialAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
+import com.example.warehousemanagment.ui.dialog.SheetDestinationLocationDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.SerialTransferViewModel
 
@@ -276,6 +285,19 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                     clearEdi(dialogBinding.layoutTopInfo.clearImg,dialogBinding.layoutTopInfo.quantity)
 
 
+                    dialogBinding.layoutTopInfo.locationDestiny.doAfterTextChanged()
+                    {
+                        if (lenEdi(dialogBinding.layoutTopInfo.locationDestiny)!=0)
+                        {
+                            startTimerForGettingData()
+                            {
+                                showDestinyLocatoins(
+                                    model,
+                                    dialogBinding.layoutTopInfo.locationDestiny,
+                                )
+                            }
+                        }
+                    }
                     checkEnterKey(dialogBinding.layoutTopInfo.quantity,)
                     {
                         viewModel.checkSerial(
@@ -313,6 +335,8 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
 //                            }
 //                            false
 //                        })
+
+
 
                     dialogBinding.layoutTopInfo.quantity.requestFocus()
 
@@ -367,6 +391,114 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
             )
         } else toast(getString(R.string.fillAllFields), requireActivity())
     }
+
+    private fun showDestinyLocatoins(model: SerialTransferProductRow, locationDestiny:TextView )
+    {
+        var sheet: SheetDestinationLocationDialog?=null
+        sheet= SheetDestinationLocationDialog(
+            requireActivity(),
+            object : SheetDestinationLocationDialog.OnClickListener{
+
+                override fun onCloseClick() {
+                    sheet?.dismiss()
+                }
+
+                override fun setRvData(rv: RecyclerView, progressBar: ProgressBar
+                                       , countTv:TextView, searchEdi: EditText
+                )
+                {
+                    searchEdi.doAfterTextChanged()
+                    {
+
+                        hideKeyboard(requireActivity())
+                        if (lenEdi(searchEdi)==0){
+                            viewModel.setClearList()
+                        }else{
+                            viewModel.setClearList()
+                            searchForDesiniation(locationDestiny,progressBar,rv, countTv, model, sheet,
+                                textEdi(searchEdi))
+                        }
+                    }
+
+
+                }
+
+                override fun init(
+                    rv: RecyclerView,
+                    progressBar: ProgressBar,
+                    countTv: TextView,
+                    searchEdi: EditText
+                ) {
+                    searchEdi.setText(locationDestiny.text)
+                    hideKeyboard(requireActivity())
+                    viewModel.setClearList()
+                    searchForDesiniation(locationDestiny,progressBar,rv, countTv, model, sheet,
+                        textEdi(searchEdi))
+                }
+
+
+            })
+        sheet.show(this.getParentFragmentManager(), "")
+    }
+
+    private fun searchForDesiniation(
+        locationDestiny: TextView, progressBar: ProgressBar,
+        rv: RecyclerView, countTv: TextView, model: SerialTransferProductRow,
+        sheet: SheetDestinationLocationDialog?, searchLocationDestiny: String
+    )
+    {
+
+        chronometer?.cancel()
+        chronometer = object : CountDownTimer(pref.getDelayForInventorySearch(), Utils.COUNT_DOWN_INTERVAL)
+        {
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish()
+            {
+                hideKeyboard(requireActivity())
+                viewModel.setDestinyLocatoinTransfer(
+                    pref.getDomain(),model,pref.getTokenGlcTest(),requireContext(),progressBar,searchLocationDestiny)
+                observeDestinyLocations(rv,countTv,locationDestiny,sheet)
+
+            }
+        }.start()
+    }
+
+    private fun observeDestinyLocations(
+        rv: RecyclerView, countTv: TextView, locationDestiny: TextView,
+        sheet: SheetDestinationLocationDialog?,
+    )
+    {
+        viewModel.getDestinyLocationTransfer().observe(viewLifecycleOwner
+        ) { it ->
+            hideKeyboard(requireActivity())
+            countTv.text =
+                getBuiltString(getString(R.string.tools_scannedItems), it.size.toString())
+            showDestinationList(rv, it, sheet, locationDestiny)
+        }
+    }
+
+    private fun showDestinationList(
+        rv: RecyclerView,
+        it: List<DestinyLocationTransfer>,
+        sheet: SheetDestinationLocationDialog?,
+        locationDestiny: TextView,
+    ) {
+        rv.adapter = DestinyLocationAdapter(
+            it,
+            requireActivity(),
+            object : DestinyLocationAdapter.OnCallBackListener
+            {
+                override fun onItemClick(model: DestinyLocationTransfer)
+                {
+
+                    sheet?.dismiss()
+                    locationDestiny.text = model.locationCode
+                    chronometer?.cancel()
+
+                }
+            })
+    }
+
 
     private fun showConfirmSheet(
         title: String, msg: String,

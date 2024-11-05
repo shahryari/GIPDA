@@ -363,112 +363,16 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
             showConfirmSheet(
                 getString(R.string.confirmTransfer), sb, model,
                 textEdi(dialogBinding.layoutTopInfo.locationDestiny),
-                textEdi(dialogBinding.layoutTopInfo.quantity).toInt(),
-                textEdi(b.mainToolbar.searchEdi),
                 dialog
             )
         } else toast(getString(R.string.fillAllFields), requireActivity())
     }
 
-//    private fun showDestinyLocatoins(model: SourceLocationRow, locationDestiny:TextView )
-//    {
-//        var sheet: SheetDestinationLocationDialog?=null
-//        sheet= SheetDestinationLocationDialog(
-//            requireActivity(),
-//            object : SheetDestinationLocationDialog.OnClickListener{
-//
-//                override fun onCloseClick() {
-//                    sheet?.dismiss()
-//                }
-//
-//                override fun setRvData(rv: RecyclerView, progressBar: ProgressBar
-//                                       ,countTv:TextView,searchLocationDestiny:EditText)
-//                {
-//                    searchLocationDestiny.doAfterTextChanged()
-//                    {
-//
-//                        hideKeyboard(requireActivity())
-//                        if (lenEdi(searchLocationDestiny)==0){
-//                            viewModel.setClearList()
-//                        }else{
-//                            viewModel.setClearList()
-//                            searchForDesiniation(locationDestiny,progressBar,rv, countTv, model, sheet,
-//                                textEdi(searchLocationDestiny),model.locationCode)
-//                        }
-//                    }
-//
-//
-//                }
-//
-//                override fun init(
-//                    rv: RecyclerView,
-//                    progressBar: ProgressBar,
-//                    countTv: TextView,
-//                    searchLocationDestiny: EditText
-//                ) {
-//                    searchLocationDestiny.setText(locationDestiny.text)
-//                    hideKeyboard(requireActivity())
-//                    viewModel.setClearList()
-//                    searchForDesiniation(locationDestiny,progressBar,rv, countTv, model, sheet,
-//                        textEdi(searchLocationDestiny),model.locationCode)
-//                }
-//
-//
-//            })
-//        sheet.show(this.getParentFragmentManager(), "")
-//    }
-
-//    private fun observeDestinyLocations(
-//        rv: RecyclerView, countTv: TextView, locationDestiny: TextView,
-//        sheet: SheetDestinationLocationDialog?,
-//        hostLocationCode: String
-//    )
-//    {
-//        viewModel.getDestinyLocationTransfer().observe(viewLifecycleOwner,
-//            object : Observer<List<DestinyLocationTransfer>>
-//            {
-//                override fun onChanged(it: List<DestinyLocationTransfer>)
-//                {
-//                    hideKeyboard(requireActivity())
-//                    countTv.text= getBuiltString(getString(R.string.tools_scannedItems),it.size.toString())
-//                    showDestinationList(rv, it, sheet, locationDestiny,hostLocationCode)
-//                }
-//
-//            })
-//    }
-
-//    private fun showDestinationList(
-//        rv: RecyclerView,
-//        it: List<DestinyLocationTransfer>,
-//        sheet: SheetDestinationLocationDialog?,
-//        locationDestiny: TextView,
-//        hostLocationCode: String
-//    ) {
-//        rv.adapter = DestinyLocationAdapter(
-//            it,
-//            requireActivity(),
-//            object : DestinyLocationAdapter.OnCallBackListener
-//            {
-//                override fun onItemClick(model: DestinyLocationTransfer)
-//                {
-//                    if (model.locationCode.equals(hostLocationCode,ignoreCase = true))
-//                    {
-//                        toast(getString(R.string.locationHostCantBeEqual),requireActivity())
-//                    }else{
-//                        sheet?.dismiss()
-//                        locationDestiny.text = model.locationCode
-//                        locationDestinyId = model.locationID
-//                        chronometer?.cancel()
-//                    }
-//
-//                }
-//            })
-//    }
-
-    private fun showConfirmSheet(title: String, msg: String,
-                                 model: SerialTransferProductRow,
-                                 locationIdTo:String, quantity:Int, locationCode: String,
-                                 dialog: AlertDialog
+    private fun showConfirmSheet(
+        title: String, msg: String,
+        model: SerialTransferProductRow,
+        locationIdTo: String,
+        dialog: AlertDialog
     )
     {
         var sheet: SheetAlertDialog?=null

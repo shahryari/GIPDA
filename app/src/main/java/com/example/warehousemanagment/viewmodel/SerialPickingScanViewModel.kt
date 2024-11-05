@@ -104,6 +104,7 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
         cookie: String,
         context: Context,
         progress: ProgressBar,
+        onScanAll: () -> Unit,
         callback: ()->Unit
     ) {
         val jsonObject = JsonObject().apply {
@@ -117,11 +118,13 @@ class SerialPickingScanViewModel(application: Application) : AndroidViewModel(ap
         viewModelScope.launch {
             repository.scanSerialBasePickingDetailSerial(url,jsonObject,cookie).subscribe(
                 {
+                    if (serialList.value?.count { it.scanSerial } == 1 && serialList.value?.find { it.serialNumber == serial }?.scanSerial == true ) {
+                        onScanAll()
+                    }
                     showSimpleProgress(false,progress)
                     callback()
                 },
                 {
-
                     showSimpleProgress(false,progress)
                     showErrorMsg(it,"picking serial scan",context)
                 }

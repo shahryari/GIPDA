@@ -25,7 +25,6 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
     private lateinit var shippingAddressDetailId: String
     private lateinit var shippingLocationId: String
     private lateinit var itemLocationId: String
-    private val scanned = false
     var chronometer: CountDownTimer? = null
 
     var sortType = Utils.ProductTitle
@@ -60,6 +59,9 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
                 pref.getTokenGlcTest(),
                 requireContext(),
                 b.progressBar,
+                onScanAll = {
+//                    navController?.popBackStack()
+                }
             ){
                 b.serialEdi.setText("")
                 refresh()
@@ -77,6 +79,9 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
                 pref.getTokenGlcTest(),
                 requireContext(),
                 b.progressBar,
+                onScanAll = {
+//                    navController?.popBackStack()
+                }
             ){
                 b.serialEdi.setText("")
                 refresh()
@@ -134,7 +139,7 @@ class SerialPickingScanFragment : BaseFragment<SerialPickingScanViewModel,Fragme
             if (view != null && isAdded) {
                 b.swipeLayout.isRefreshing = false
                 lastReceivingPosition = list.size - 1
-                if (list.all { it.scanSerial }) {
+                if (list.isNotEmpty() && list.all { it.scanSerial }) {
                     navController?.popBackStack()
                 }
                 showSerialList(list.sortedBy { it.scanSerial })

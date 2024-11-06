@@ -571,13 +571,6 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         dialogBinding.layoutTopInfo.productTitle.text=model.productName
         dialogBinding.layoutTopInfo.quantity.hint = "Serial"
         dialogBinding.layoutTopInfo.quantity.inputType = InputType.TYPE_CLASS_TEXT
-        dialogBinding.layoutTopInfo.rel4.visibility = View.GONE
-
-
-        dialogBinding.layoutTopInfo.availableinventory.text = getBuiltString(
-            "Available Inventory : ",
-            model.availableInventory.toString()
-        )
 
     }
 

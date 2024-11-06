@@ -379,7 +379,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         model: SerialTransferProductRow,
         dialog: AlertDialog
     ) {
-        if (lenEdi(dialogBinding.layoutTopInfo.quantity) != 0 &&
+        if (
             dialogBinding.layoutTopInfo.locationDestiny.text.isNotEmpty()
         ) {
             if (viewModel.tempSerials.isEmpty()) {

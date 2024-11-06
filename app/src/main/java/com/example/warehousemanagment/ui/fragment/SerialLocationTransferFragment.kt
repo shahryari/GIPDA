@@ -388,7 +388,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                 val sb = getBuiltString(
                     getString(R.string.areYouSureTransfer),
                     model.productName, getString(R.string.from2),
-                    model.locationID, getString(R.string.to2),
+                    model.locationCode, getString(R.string.to2),
                     dialogBinding.layoutTopInfo.locationDestiny.text.toString(),
                     getString(R.string.ask2)
                 )

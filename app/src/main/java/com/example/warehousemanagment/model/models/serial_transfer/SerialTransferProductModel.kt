@@ -19,7 +19,7 @@ data class SerialTransferProductRow(
     @SerializedName("GoodID")
     val goodID: String,
     @SerializedName("InvTypeID")
-    val invTypeID: Int,
+    val invTypeID: String,
     @SerializedName("LocationProductID")
     val locationProductID: String,
     @SerializedName("ProductCode")

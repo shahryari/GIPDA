@@ -136,6 +136,11 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
+    fun deleteSerial(serialNumber: String) {
+        tempSerials.remove(serialNumber)
+        serials.value = tempSerials
+    }
+
     fun checkSerial(
         baseUrl: String,
         locationProductId: String,

@@ -360,7 +360,13 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
     private fun showSerials(binding: DialogSerialTransferBinding) {
         viewModel.getSerials().observe(viewLifecycleOwner){list->
             val adapter = SimpleSerialAdapter(
-                list,requireContext(),{}
+                list,requireContext(),
+                onDelete = {
+                    viewModel.deleteSerial(it)
+                },
+                {
+
+                }
             )
 
             binding.rv.adapter = adapter

@@ -11,6 +11,7 @@ import com.example.warehousemanagment.databinding.PatternSerialBinding
 class SimpleSerialAdapter(
     val list: List<String>,
     val context: Context,
+    val onDelete: (model: String) -> Unit,
     val init: (PatternSerialBinding)->Unit
 ) : Adapter<SimpleSerialAdapter.MyViewHolder>() {
 
@@ -27,9 +28,10 @@ class SimpleSerialAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         init(holder.binding)
 
-        holder.binding.delete.visibility = View.GONE
         holder.binding.excel.visibility = View.GONE
-
+        holder.binding.delete.setOnClickListener {
+            onDelete(list[position])
+        }
         holder.binding.title.text = list[position]
     }
 }

@@ -339,7 +339,10 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
 
 
 
-                    dialogBinding.layoutTopInfo.quantity.requestFocus()
+                    dialogBinding.layoutTopInfo.locationDestiny.requestFocus()
+                    checkEnterKey(dialogBinding.layoutTopInfo.locationDestiny){
+                        dialogBinding.layoutTopInfo.quantity.requestFocus()
+                    }
 
                     dialogBinding.rel4.confirm.setOnClickListener()
                     {

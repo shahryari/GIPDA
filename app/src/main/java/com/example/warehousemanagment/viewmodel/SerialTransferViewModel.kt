@@ -114,7 +114,7 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
         showSimpleProgress(true,progressBar)
         val jsonObject= JsonObject()
         jsonObject.addProperty("LocationCode",searchLocationDestiny)
-        jsonObject.addProperty("WarehouseID",model.warehouseCode)
+        jsonObject.addProperty("WarehouseID",model.warehouseID)
         jsonObject.addProperty("GoodID",model.goodID)
         jsonObject.addProperty("InvTypeID",model.invTypeID)
         viewModelScope.launch()

@@ -276,6 +276,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                         R.drawable.shape_background_rect_border_gray_solid_white, requireActivity())
 
                     dialogBinding.closeImg.setOnClickListener {dialog.dismiss()}
+                    showSerials(dialogBinding)
                     dialogBinding.rel4.cansel.setOnClickListener { dialog.dismiss() }
                     initDialog(dialogBinding,model)
                     clearEdi(
@@ -375,20 +376,25 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         if (lenEdi(dialogBinding.layoutTopInfo.quantity) != 0 &&
             dialogBinding.layoutTopInfo.locationDestiny.text.isNotEmpty()
         ) {
-            val sb = getBuiltString(
-                getString(R.string.areYouSureTransfer),
-                model.productName, getString(R.string.from2),
-                model.locationID, getString(R.string.to2),
-                dialogBinding.layoutTopInfo.locationDestiny.text.toString(),
-                getString(R.string.ask2)
-            )
+            if (viewModel.tempSerials.isEmpty()) {
+                toast("Please scan serials first", requireActivity())
+            } else {
+                val sb = getBuiltString(
+                    getString(R.string.areYouSureTransfer),
+                    model.productName, getString(R.string.from2),
+                    model.locationID, getString(R.string.to2),
+                    dialogBinding.layoutTopInfo.locationDestiny.text.toString(),
+                    getString(R.string.ask2)
+                )
 
 
-            showConfirmSheet(
-                getString(R.string.confirmTransfer), sb, model,
-                textEdi(dialogBinding.layoutTopInfo.locationDestiny),
-                dialog
-            )
+                showConfirmSheet(
+                    getString(R.string.confirmTransfer), sb, model,
+                    textEdi(dialogBinding.layoutTopInfo.locationDestiny),
+                    dialog
+                )
+            }
+
         } else toast(getString(R.string.fillAllFields), requireActivity())
     }
 

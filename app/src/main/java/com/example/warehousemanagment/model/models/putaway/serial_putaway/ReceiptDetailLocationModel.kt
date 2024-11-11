@@ -7,7 +7,9 @@ data class ReceiptDetailLocationModel(
     @SerializedName("rows")
     val rows: List<ReceiptDetailLocationRow>,
     @SerializedName("total")
-    val total: Int
+    val total: Int,
+    @SerializedName("MasterData")
+    val masterData: MySerialReceiptDetailRow?
 )
 
 data class ReceiptDetailLocationRow(

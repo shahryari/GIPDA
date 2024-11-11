@@ -75,6 +75,7 @@ class SerialPutawayDetailLocationFragment
         }
         observeLocationData()
         observeReceiveCount()
+        observeHeaderData()
         clearEdi(b.mainToolbar.clearImg, b.mainToolbar.searchEdi)
 
         b.filterImg.img.setOnClickListener()
@@ -243,6 +244,10 @@ class SerialPutawayDetailLocationFragment
                     pref.getTokenGlcTest(),
                     requireContext(),
                     scanDialogBinding!!.progress,
+                    navBack = {
+                        scanDialog?.dismiss()
+                        navController?.popBackStack()
+                    },
                     {
                         scanDialogBinding!!.layoutTopInfo.quantityEdi.setText("")
                         viewModel.setSerialList(
@@ -271,6 +276,10 @@ class SerialPutawayDetailLocationFragment
                     pref.getTokenGlcTest(),
                     requireContext(),
                     scanDialogBinding!!.progress,
+                    navBack = {
+                        scanDialog?.dismiss()
+                        navController?.popBackStack()
+                    },
                     {
                         scanDialogBinding!!.layoutTopInfo.quantityEdi.setText("")
                         viewModel.setSerialList(
@@ -309,6 +318,12 @@ class SerialPutawayDetailLocationFragment
 
 
 
+    }
+
+    fun observeHeaderData() {
+        viewModel.headerData.observe(viewLifecycleOwner) { headerData ->
+            b.header.scan.text = headerData.scanCount.toString()
+        }
     }
 
     private fun showSerialAdapter(

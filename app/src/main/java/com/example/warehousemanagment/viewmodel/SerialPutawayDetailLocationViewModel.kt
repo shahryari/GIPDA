@@ -14,6 +14,7 @@ import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
+import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerialReceiptDetailRow
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptDetailLocationRow
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.ReceiptSerialRow
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.SerialPutawayAssignModel
@@ -25,6 +26,9 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
     private val repository= MyRepository( )
     private var locations: MutableLiveData<List<ReceiptDetailLocationRow>> =
         MutableLiveData<List<ReceiptDetailLocationRow>>()
+
+
+    val headerData = MutableLiveData<MySerialReceiptDetailRow>()
     private var tempLocations=ArrayList<ReceiptDetailLocationRow>()
 
     private var serials: MutableLiveData<List<ReceiptSerialRow>> =
@@ -68,6 +72,10 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
         return serialCount
     }
 
+    fun getHeaderData() : LiveData<MySerialReceiptDetailRow> {
+        return headerData
+    }
+
 
     fun removeSerial(
         baseUrl:String,
@@ -105,7 +113,9 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
         cookie: String,
         context: Context,
         progress: ProgressBar,
-        refreshSerials:()->Unit)
+        navBack: ()->Unit,
+        refreshSerials:()->Unit
+    )
     {
         viewModelScope.launch()
         {
@@ -118,6 +128,10 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
                 showSimpleProgress(false,progress)
                 refreshSerials()
                 addSerialResult.value=it
+
+                if (it.returnValue == "PutFinished") {
+                    navBack()
+                }
 
                 log("scanSerial",it.toString())
             },
@@ -220,6 +234,9 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
                     if (it.rows.isNotEmpty()){
                         tempLocations.addAll(it.rows)
                         locations.value=tempLocations
+                    }
+                    if (it.masterData!=null){
+                        headerData.value= it.masterData!!
                     }
                     detailCount.value=it.total
 

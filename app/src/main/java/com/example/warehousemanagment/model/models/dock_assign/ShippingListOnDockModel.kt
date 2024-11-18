@@ -16,8 +16,16 @@ data class ShippingListOnDockRow(
     val bOLDate: String,
     @SerializedName("BOLNumber")
     val bOLNumber: String,
-    @SerializedName("CarPlaqueNumber")
-    val carPlaqueNumber: String,
+    @SerializedName("PlaqueNumber")
+    val plaqueNumber: String,
+    @SerializedName("PlaqueNumberFirst")
+    val plaqueNumberFirst: String,
+    @SerializedName("PlaqueNumberFourth")
+    val plaqueNumberFourth: String,
+    @SerializedName("PlaqueNumberSecond")
+    val plaqueNumberSecond: String,
+    @SerializedName("PlaqueNumberThird")
+    val plaqueNumberThird: String,
     @SerializedName("CarTypeID")
     val carTypeID: Int,
     @SerializedName("CarTypeTitle")

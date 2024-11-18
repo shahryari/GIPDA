@@ -30,13 +30,11 @@ class DockAssignAdapter(
         holder.binding.bolNumber.text = model.bOLNumber
         holder.binding.shippingNumber.text = model.shippingNumber
         holder.binding.driverFullName.text = model.firstDriverFullName
-        val plques = model.carPlaqueNumber.split('-')
-        if (plques.size==4){
-            holder.binding.plaque.text = getBuiltString(
-                plques[3], plques[2], plques[1]
-            )
-            holder.binding.plaqueYear.text = plques[0]
-        }
+        holder.binding.plaque.text = getBuiltString(
+            model.plaqueNumberThird,
+            model.plaqueNumberSecond, model.plaqueNumberFirst
+        )
+        holder.binding.plaqueYear.text=model.plaqueNumberFourth
         holder.binding.type.text = model.carTypeTitle
 
         holder.binding.root.setOnClickListener {

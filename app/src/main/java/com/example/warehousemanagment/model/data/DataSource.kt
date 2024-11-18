@@ -13,6 +13,9 @@ import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCh
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
 import com.example.warehousemanagment.model.models.dock.DockModel
 import com.example.warehousemanagment.model.models.dock.SetUseDockModel
+import com.example.warehousemanagment.model.models.dock_assign.DockAssignModel
+import com.example.warehousemanagment.model.models.dock_assign.DockListOnShippingModel
+import com.example.warehousemanagment.model.models.dock_assign.ShippingListOnDockModel
 import com.example.warehousemanagment.model.models.insert_serial.InsertSerialModel
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
@@ -727,6 +730,36 @@ interface DataSource
     ) : Observable<DockModel>
 
     fun setUseDock(url: String,jsonObject: JsonObject,cookie: String) : Single<SetUseDockModel>
+
+
+    //dock assign
+
+    fun getShippingListOnDock(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ) : Observable<ShippingListOnDockModel>
+
+
+    fun getDockListOnShippingAddress(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ) : Observable<DockListOnShippingModel>
+
+    fun dockAssignShippingAddress(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<DockAssignModel>
 }
 
 

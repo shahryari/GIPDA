@@ -328,6 +328,10 @@
         android:id="@+id/serialShippingDetailFragment"
         android:name="com.example.warehousemanagment.ui.fragment.SerialShippingDetailFragment"
         android:label="SerialShippingDetailFragment" />
+    <fragment
+        android:id="@+id/dockAssignFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.DockAssignFragment"
+        android:label="DockAssignFragment" />
 
 
 </navigation>

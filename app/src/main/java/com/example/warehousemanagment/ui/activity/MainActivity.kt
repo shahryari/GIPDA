@@ -152,6 +152,10 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
             goToFragment(R.id.canselShippingFragment)
         }
 
+        b.drawerLayout.relDockAssign.setOnClickListener {
+            goToFragment(R.id.dockAssignFragment)
+        }
+
         b.drawerLayout.linLocationInventory.setOnClickListener {
             goToFragment(R.id.locationInventoryReportFragment)
         }

@@ -184,7 +184,7 @@
     <string name="locationScan">Location Scan</string>
     <string name="shippingNumber2">Shipping Number</string>
     <string name="fullName">Full Name</string>
-    <string name="bolNumber">Bol Number</string>
+    <string name="bolNumber">BOL Number</string>
     <string name="docCode">Dock Code</string>
     <string name="dockCode">Dock Code: </string>
     <string name="invTitle">Inv Title</string>
@@ -403,4 +403,6 @@
     <string name="shipping_serialbase">Shipping Serial Base</string>
     <string name="serial_base">Serial Base</string>
     <string name="shipping_location_code">Shipping Location Code</string>
+    <string name="choose_your_dock">Choose your dock</string>
+    <string name="dock_assign">Dock Assign</string>
 </resources>

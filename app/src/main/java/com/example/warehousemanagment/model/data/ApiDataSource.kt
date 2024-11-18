@@ -13,6 +13,9 @@ import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCh
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
 import com.example.warehousemanagment.model.models.dock.DockModel
 import com.example.warehousemanagment.model.models.dock.SetUseDockModel
+import com.example.warehousemanagment.model.models.dock_assign.DockAssignModel
+import com.example.warehousemanagment.model.models.dock_assign.DockListOnShippingModel
+import com.example.warehousemanagment.model.models.dock_assign.ShippingListOnDockModel
 import com.example.warehousemanagment.model.models.insert_serial.InsertSerialModel
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
@@ -1430,6 +1433,40 @@ class ApiDataSource() :DataSource
         return apiProvider().setUseDock(url+"SetUseDock",jsonObject,cookie)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getShippingListOnDock(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<ShippingListOnDockModel> {
+        return apiProvider().getShippingListOnDock(
+            url+"ShippingListOnDock", jsonObject, page, rows, sort, order, cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getDockListOnShippingAddress(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<DockListOnShippingModel> {
+        return apiProvider().getDockListOnShippingAddress(
+            url+"DockListOnShippingAddress", jsonObject, page, rows, sort, order, cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun dockAssignShippingAddress(url: String, jsonObject: JsonObject, cookie: String) : Single<DockAssignModel>{
+        return apiProvider().dockAssignShippingAddress(
+            url+"DockAssignShippingAddress", jsonObject, cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
 }

@@ -10,6 +10,7 @@ import com.example.warehousemanagment.viewmodel.CargoDetailViewModel
 import com.example.warehousemanagment.viewmodel.CargoViewModel
 import com.example.warehousemanagment.viewmodel.CheckTruckViewModel
 import com.example.warehousemanagment.viewmodel.DesktopViewModel
+import com.example.warehousemanagment.viewmodel.DockAssignViewModel
 import com.example.warehousemanagment.viewmodel.DockViewModel
 import com.example.warehousemanagment.viewmodel.InsertSerialViewModel
 import com.example.warehousemanagment.viewmodel.InventoryByViewModel
@@ -355,5 +356,11 @@ class FragmentModule()
     @Provides
     fun serialShippingDetailViewModel() : SerialShippingDetailViewModel {
         return SerialShippingDetailViewModel(application,context)
+    }
+
+    @Singleton
+    @Provides
+    fun dockAssignViewModel() : DockAssignViewModel {
+        return DockAssignViewModel(application)
     }
 }

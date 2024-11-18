@@ -7,6 +7,7 @@ import com.example.warehousemanagment.ui.fragment.CargoDetailFragment
 import com.example.warehousemanagment.ui.fragment.CargoFragment
 import com.example.warehousemanagment.ui.fragment.CheckTruckFragment
 import com.example.warehousemanagment.ui.fragment.DesktopFragment
+import com.example.warehousemanagment.ui.fragment.DockAssignFragment
 import com.example.warehousemanagment.ui.fragment.DockFragment
 import com.example.warehousemanagment.ui.fragment.InsertSerialFragment
 import com.example.warehousemanagment.ui.fragment.InventoryBySerialFragment
@@ -101,4 +102,6 @@ interface FragmentComponent
     fun inject(fragment: SerialLocationTransferFragment)
     fun inject(fragment: SerialShippingFragment)
     fun inject(fragment: SerialShippingDetailFragment)
+
+    fun inject(fragment: DockAssignFragment)
 }

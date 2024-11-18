@@ -15,6 +15,9 @@ import com.example.warehousemanagment.model.models.check_truck.confirm.ConfirmCh
 import com.example.warehousemanagment.model.models.check_truck.deny.DenyCheckTruckModel
 import com.example.warehousemanagment.model.models.dock.DockModel
 import com.example.warehousemanagment.model.models.dock.SetUseDockModel
+import com.example.warehousemanagment.model.models.dock_assign.DockAssignModel
+import com.example.warehousemanagment.model.models.dock_assign.DockListOnShippingModel
+import com.example.warehousemanagment.model.models.dock_assign.ShippingListOnDockModel
 import com.example.warehousemanagment.model.models.insert_serial.InsertSerialModel
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
@@ -1047,5 +1050,38 @@ interface ApiService
     @POST
     fun setUseDock(@Url url: String,@Body jsonObject: JsonObject,@Header(Utils.COOKIE) cookie: String) : Single<SetUseDockModel>
 
+
+    //Dock assign --------------------
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun getShippingListOnDock(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(ApiUtils.Page) page:Int,
+        @Header(ApiUtils.Rows) rows:Int,
+        @Header(ApiUtils.Sort) sort:String,
+        @Header(ApiUtils.Order) order:String,
+        @Header(Utils.COOKIE) cookie: String,
+    ) : Observable<ShippingListOnDockModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun getDockListOnShippingAddress(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(ApiUtils.Page) page:Int,
+        @Header(ApiUtils.Rows) rows:Int,
+        @Header(ApiUtils.Sort) sort:String,
+        @Header(ApiUtils.Order) order:String,
+        @Header(Utils.COOKIE) cookie: String,
+    ) : Observable<DockListOnShippingModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun dockAssignShippingAddress(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<DockAssignModel>
 
 }

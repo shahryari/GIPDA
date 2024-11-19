@@ -30,11 +30,23 @@ class DockAssignAdapter(
         holder.binding.bolNumber.text = model.bOLNumber
         holder.binding.shippingNumber.text = model.shippingNumber
         holder.binding.driverFullName.text = model.firstDriverFullName
-        holder.binding.plaque.text = getBuiltString(
-            model.plaqueNumberThird,
-            model.plaqueNumberSecond, model.plaqueNumberFirst
-        )
-        holder.binding.plaqueYear.text=model.plaqueNumberFourth
+        if (model.plaqueNumberThird !=null && model.plaqueNumberSecond != null && model.plaqueNumberFirst !=null) {
+            holder.binding.plaque.text = getBuiltString(
+                model.plaqueNumberThird,
+                model.plaqueNumberSecond, model.plaqueNumberFirst
+            )
+            holder.binding.plaqueYear.text=model.plaqueNumberFourth
+        } else {
+            val plaques = if (model.plaqueNumber != null) model.plaqueNumber.split('-') else model.carPlaqueNumber.split('-')
+            if (plaques.size == 4){
+                holder.binding.plaque.text = getBuiltString(
+                    plaques[2],plaques[1],plaques[0]
+                )
+                holder.binding.plaqueYear.text = getBuiltString(
+                    plaques[3]
+                )
+            }
+        }
         holder.binding.type.text = model.carTypeTitle
 
         holder.binding.root.setOnClickListener {

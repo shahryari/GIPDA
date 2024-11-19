@@ -64,8 +64,10 @@ class DockAssignViewModel(application: Application) : AndroidViewModel(applicati
             ).subscribe(
                 {
                     showSimpleProgress(false,progressBar)
-                    tempList.add(it.rows)
-                    shippingList.value = tempList
+                    if(it.rows!=null){
+                        tempList.add(it.rows)
+                        shippingList.value = tempList
+                    }
                     shippingCount.value = it.total
                 },
                 {

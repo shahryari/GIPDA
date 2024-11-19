@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ShippingListOnDockModel(
     @SerializedName("rows")
-    val rows: ShippingListOnDockRow,
+    val rows: ShippingListOnDockRow?,
     @SerializedName("total")
     val total: Int
 )

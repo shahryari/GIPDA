@@ -267,7 +267,7 @@ class SerialPutawayFragment : BaseFragment<SerialPutawayViewModel,FragmentSerial
 
             override fun reachToEnd(position: Int)
             {
-                page=page+1
+                page += 1
                 setSerailData()
             }
 

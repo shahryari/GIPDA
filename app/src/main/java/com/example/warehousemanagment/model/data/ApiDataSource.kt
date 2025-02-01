@@ -2,6 +2,7 @@ package com.example.warehousemanagment.model.data
 
 import PickingDetailModel
 import com.example.warehousemanagment.model.models.LocationModel
+import com.example.warehousemanagment.model.models.LocationProductSerialModel
 import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
 import com.example.warehousemanagment.model.models.cargo_folder.SetShippingAddressColorModel
@@ -1094,6 +1095,24 @@ class ApiDataSource() :DataSource
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun getLocationProductSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<LocationProductSerialModel> {
+        return apiProvider()
+            .getLocationProductSerials(
+                baseUrl+"LocationProductSerial",
+                jsonObject = jsonObject,
+                page = 1,
+                rows = 100,
+                sort = "SerialNumber",
+                order = "asc",
+                cookie
+            )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 
 
     override fun reportLocationInventByProduct(

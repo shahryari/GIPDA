@@ -5,7 +5,6 @@ import android.os.CountDownTimer
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -37,8 +36,8 @@ import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductRow
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
 import com.example.warehousemanagment.ui.adapter.DestinyLocationAdapter
+import com.example.warehousemanagment.ui.adapter.LocationProductSerialAdapter
 import com.example.warehousemanagment.ui.adapter.SerialTransferAdapter
-import com.example.warehousemanagment.ui.adapter.SimpleSerialAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetAlertDialog
 import com.example.warehousemanagment.ui.dialog.SheetDestinationLocationDialog
@@ -54,15 +53,25 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
-
+//        clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
+        clearEdi(b.locationClearImg,b.locationCode)
+        clearEdi(b.productCodeImg,b.productCode)
         b.swipeLayout.setOnRefreshListener {
             refresh()
         }
 
-        b.filterImg.img.setOnClickListener {
+//        b.filterImg.img.setOnClickListener {
+//            showFilterSheetDialog()
+//        }
+
+        b.filterImg.root.visibility = View.GONE
+        b.mainToolbar.root.visibility = View.GONE
+        b.setting.visibility = View.VISIBLE
+        b.relSetting.setOnClickListener {
             showFilterSheetDialog()
         }
+
+        b.lin1.visibility = View.VISIBLE
 
 
         refresh()
@@ -71,18 +80,21 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         observeLocationCount()
 
 
-        b.mainToolbar.searchIcon.setOnClickListener {
-            hideKeyboard(requireActivity())
+//        b.mainToolbar.searchIcon.setOnClickListener {
+//            hideKeyboard(requireActivity())
+//            refresh()
+//        }
+//
+//        b.mainToolbar.searchEdi.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+//            if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                refresh()
+//                return@OnEditorActionListener true
+//            }
+//            false
+//        })
+        b.relFilter.setOnClickListener {
             refresh()
         }
-
-        b.mainToolbar.searchEdi.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                refresh()
-                return@OnEditorActionListener true
-            }
-            false
-        })
 
     }
 
@@ -213,7 +225,8 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
     {
         viewModel.getSerialTransferProducts(
             pref.getDomain(),
-            textEdi(b.mainToolbar.searchEdi),
+            textEdi(b.locationCode),
+            textEdi(b.productCode),
             page,sortType,orderType,
             pref.getTokenGlcTest(),
             requireContext(),
@@ -276,6 +289,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                         R.drawable.shape_background_rect_border_gray_solid_white, requireActivity())
 
                     dialogBinding.closeImg.setOnClickListener {dialog.dismiss()}
+                    setSerials(model.locationProductID)
                     showSerials(dialogBinding)
                     dialogBinding.rel4.cansel.setOnClickListener { dialog.dismiss() }
                     initDialog(dialogBinding,model)
@@ -360,17 +374,38 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
 
     }
 
+    private fun setSerials(locationProductID: String) {
+        viewModel.getSerials(
+            pref.getDomain(),
+            locationProductID,
+            pref.getTokenGlcTest(),
+            requireContext(),
+            {},
+            {}
+        )
+    }
+
     private fun showSerials(binding: DialogSerialTransferBinding) {
         viewModel.getSerials().observe(viewLifecycleOwner){list->
-            val adapter = SimpleSerialAdapter(
-                list,requireContext(),
-                onDelete = {
-                    viewModel.deleteSerial(it)
-                },
-                {
+            val adapter = LocationProductSerialAdapter(
+                requireContext(),
+                list
+            ) {binding,model->
+                binding.excel.visibility = View.GONE
+                if (model.isScanned == true){
+                    binding.delete.visibility = View.VISIBLE
+                    binding.layout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.green))
+                    binding.title.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+                } else {
+                    binding.delete.visibility = View.GONE
+                    binding.layout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.white))
+                    binding.title.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
 
                 }
-            )
+                binding.delete.setOnClickListener {
+                    viewModel.deleteSerial(model)
+                }
+            }
 
             binding.rv.adapter = adapter
 

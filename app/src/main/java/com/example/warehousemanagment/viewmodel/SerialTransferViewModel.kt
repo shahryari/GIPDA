@@ -14,6 +14,7 @@ import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.data.MyRepository
+import com.example.warehousemanagment.model.models.LocationProductSerialRow
 import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductRow
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
 import com.google.gson.JsonArray
@@ -27,7 +28,7 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
 
     private val transferProducts = MutableLiveData<List<SerialTransferProductRow>>()
     val tempList = ArrayList<SerialTransferProductRow>()
-    private val serials = MutableLiveData<List<String>>()
+    private val serials = MutableLiveData<List<LocationProductSerialRow>>()
     val tempSerials = ArrayList<String>()
     private var destinyLocationTransfer= MutableLiveData<List<DestinyLocationTransfer>>()
 
@@ -46,7 +47,7 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
         return productSize
     }
 
-    fun getSerials() : LiveData<List<String>>{
+    fun getSerials() : LiveData<List<LocationProductSerialRow>>{
         return serials
     }
 
@@ -65,7 +66,8 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
 
     fun getSerialTransferProducts(
         baseUrl: String,
-        keyword: String,
+        locationCode: String,
+        productCode: String,
         page: Int,
         sort: String,
         order: String,
@@ -75,7 +77,8 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
         swipeRefresh: SwipeRefreshLayout
     ) {
         val jsonObject = JsonObject()
-        jsonObject.addProperty("Keyword",keyword)
+        jsonObject.addProperty("LocationCode",locationCode)
+        jsonObject.addProperty("ProductCode",productCode)
         viewModelScope.launch {
             showSimpleProgress(true,progressBar)
             repository.getSerialBaseLocationProduct(
@@ -136,9 +139,12 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
-    fun deleteSerial(serialNumber: String) {
-        tempSerials.remove(serialNumber)
-        serials.value = tempSerials
+    fun deleteSerial(serial: LocationProductSerialRow) {
+        serials.value = serials.value?.map {
+            if (it.serialID == serial.serialID) it.copy(isScanned = false)
+            else it
+        }
+        tempSerials.remove(serial.serialNumber)
     }
 
     fun checkSerial(
@@ -159,13 +165,45 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
             ).subscribe(
                 {
                     if(it.isSucceed){
+                        serials.value = serials.value?.map {
+                            if (it.serialNumber == serialNumber.trim()) it.copy(isScanned = true)
+                            else it
+                        }
                         tempSerials.add(serialNumber)
-                        serials.value = tempSerials
                         onSuccess()
                     } else {
                         onError()
                         toast(it.messages.first(),context)
                     }
+                },
+                {
+                    onError()
+                    showErrorMsg(it,"location transfer",context)
+                }
+            )
+        }
+    }
+
+    fun getSerials(
+        baseUrl: String,
+        locationProductId: String,
+        cookie: String,
+        context: Context,
+        onSuccess: ()->Unit,
+        onError: ()->Unit
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("LocationProductID",locationProductId)
+        viewModelScope.launch {
+            repository.getLocationProductSerials(
+                baseUrl,jsonObject,cookie
+            ).subscribe(
+                {
+                    if (it.rows?.isNotEmpty() == true){
+
+                        serials.value = it.rows!!
+                    }
+                    onSuccess()
                 },
                 {
                     onError()

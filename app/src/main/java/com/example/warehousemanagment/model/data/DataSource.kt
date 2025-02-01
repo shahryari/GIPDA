@@ -2,6 +2,7 @@ package com.example.warehousemanagment.model.data
 
 import PickingDetailModel
 import com.example.warehousemanagment.model.models.LocationModel
+import com.example.warehousemanagment.model.models.LocationProductSerialModel
 import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
 import com.example.warehousemanagment.model.models.cargo_folder.SetShippingAddressColorModel
@@ -559,6 +560,12 @@ interface DataSource
                                 sort:String,
                                 order:String,
                                 cookie:String):Observable<ReportLocationInventory>
+
+    fun getLocationProductSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Observable<LocationProductSerialModel>
 
     fun reportLocationInventByProduct(baseUrl:String,jsonObject: JsonObject,
                                      cookie:String):Observable<List<LocationInventoryByProduct>>

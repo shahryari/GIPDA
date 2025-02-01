@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.widget.ProgressBar
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -12,6 +13,7 @@ import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.data.MyRepository
+import com.example.warehousemanagment.model.models.LocationProductSerialRow
 import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
@@ -31,13 +33,19 @@ class LocatoinInventoryReportViewModel(application: Application,context: Context
     private var productList=MutableLiveData<List<ProductModel>>()
     private var ownerList= MutableLiveData<List<OwnerModel>>()
 
+    private var serialList = MutableLiveData<List<LocationProductSerialRow>>()
+
     private var disposable: CompositeDisposable = CompositeDisposable()
     fun dispose() { disposable.clear() }
+
 
     fun getLocationCount(): MutableLiveData<Int> {
         return reportLocationCount
     }
 
+    fun getLocationSerials() : LiveData<List<LocationProductSerialRow>> {
+        return serialList
+    }
     fun getOwners(): MutableLiveData<List<OwnerModel>> {
         return ownerList
     }
@@ -73,6 +81,34 @@ class LocatoinInventoryReportViewModel(application: Application,context: Context
                 },).let {  }
         }
 
+    }
+
+    fun setSerialList(
+        baseUrl: String,
+        locationProductID: String,
+        cookie: String,
+        progressBar: ProgressBar
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("LocationProductID",locationProductID)
+
+        showSimpleProgress(true,progressBar)
+        viewModelScope.launch {
+            repository.getLocationProductSerials(baseUrl,jsonObject,cookie)
+                .subscribe(
+                    {
+                        if (it.rows?.isNotEmpty() == true) {
+
+                            serialList.value = it.rows!!
+                        }
+                        showSimpleProgress(false,progressBar)
+                    }  ,
+                    {
+                        showSimpleProgress(false,progressBar)
+                        showErrorMsg(it,"product serials",context)
+                    }
+                )
+        }
     }
 
     fun setProductList(

@@ -1,6 +1,7 @@
 package com.example.warehousemanagment.ui.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
+import com.example.warehousemanagment.databinding.DialogSerialBinding
 import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
 import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
@@ -20,6 +22,7 @@ import com.example.warehousemanagment.databinding.PatternWarehouseBinding
 import com.example.warehousemanagment.model.classes.checkTick
 import com.example.warehousemanagment.model.classes.chronometer
 import com.example.warehousemanagment.model.classes.clearEdi
+import com.example.warehousemanagment.model.classes.createAlertDialog
 import com.example.warehousemanagment.model.classes.getBuiltString
 import com.example.warehousemanagment.model.classes.hideKeyboard
 import com.example.warehousemanagment.model.classes.hideShortCut
@@ -37,6 +40,7 @@ import com.example.warehousemanagment.model.models.insert_serial.ProductModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.report_inventory.report_location.LocationInventoryRows
 import com.example.warehousemanagment.ui.adapter.LocationInventoryReportAdapter
+import com.example.warehousemanagment.ui.adapter.LocationProductSerialAdapter
 import com.example.warehousemanagment.ui.adapter.OwnerAdapter
 import com.example.warehousemanagment.ui.adapter.ProductAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
@@ -447,6 +451,27 @@ class LocationInventoryReportFragment :
 
 
 
+    private fun setSerials(model: LocationInventoryRows,progressBar: ProgressBar) {
+        viewModel.setSerialList(
+            pref.getDomain(),
+            model.locationProductID,
+            pref.getTokenGlcTest(),
+            progressBar
+        )
+    }
+
+    private fun observeSerials(binding: DialogSerialBinding) {
+        viewModel.getLocationSerials().observe(viewLifecycleOwner) {list->
+            val adapter = LocationProductSerialAdapter(
+                requireContext(),
+                list
+            ) {binding,_->
+                binding.delete.visibility = View.GONE
+                binding.excel.visibility = View.GONE
+            }
+            binding.rv.adapter = adapter
+        }
+    }
 
     private fun showLocationList(list:List<LocationInventoryRows>)
     {
@@ -456,8 +481,28 @@ class LocationInventoryReportFragment :
        adapter = LocationInventoryReportAdapter(list, requireActivity(),
             object : LocationInventoryReportAdapter.OnCallBackListener
         {
-            override fun onClick()
+            override fun onClick(model: LocationInventoryRows)
             {
+                val dialogBinding = DialogSerialBinding.inflate(LayoutInflater.from(requireContext()))
+                val dialog = createAlertDialog(dialogBinding,R.drawable.shape_background_rect_border_gray_solid_white,requireContext())
+
+                setSerials(model,dialogBinding.progress)
+                observeSerials(dialogBinding)
+
+                dialogBinding.rel4.confirm.visibility = View.GONE
+
+                dialogBinding.closeImg.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+                dialogBinding.rel4.cansel.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+
+
+
+                dialog.show()
 
             }
 

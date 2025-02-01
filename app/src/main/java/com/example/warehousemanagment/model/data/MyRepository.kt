@@ -2,6 +2,7 @@ package com.example.warehousemanagment.model.data
 
 import PickingDetailModel
 import com.example.warehousemanagment.model.models.LocationModel
+import com.example.warehousemanagment.model.models.LocationProductSerialModel
 import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
 import com.example.warehousemanagment.model.models.cargo_folder.SetShippingAddressColorModel
@@ -894,6 +895,14 @@ class MyRepository() :DataSource
     ): Observable<ReportLocationInventory> {
         return apiDataSource.reportLocationInventory(baseUrl,jsonObject, page, rows, sort, order, cookie)
 
+    }
+
+    override fun getLocationProductSerials(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Observable<LocationProductSerialModel> {
+        return apiDataSource.getLocationProductSerials(baseUrl,jsonObject,cookie)
     }
 
     override fun reportSerialInventory(

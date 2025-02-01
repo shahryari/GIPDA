@@ -4,6 +4,7 @@ import PickingDetailModel
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.LocationModel
+import com.example.warehousemanagment.model.models.LocationProductSerialModel
 import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.cargo_folder.DriverTaskDoneModel
 import com.example.warehousemanagment.model.models.cargo_folder.SetShippingAddressColorModel
@@ -709,6 +710,20 @@ interface ApiService
                                 @Header(ApiUtils.Order) order:String,
                                 @Header(Utils.COOKIE) cookie:String)
                         :Observable<ReportLocationInventory>
+
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//"LocationProductSerial
+    fun getLocationProductSerials(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(ApiUtils.Page) page:Int,
+        @Header(ApiUtils.Rows) rows:Int,
+        @Header(ApiUtils.Sort) sort:String,
+        @Header(ApiUtils.Order) order:String,
+        @Header(Utils.COOKIE) cookie:String
+    ) : Observable<LocationProductSerialModel>
+
     @Headers(Utils.CONTENT_TYPE)
     @POST//"LocationInventoryByProduct")
     fun reportLocationInventByProduct(@Url url:String ,@Body jsonObject: JsonObject,

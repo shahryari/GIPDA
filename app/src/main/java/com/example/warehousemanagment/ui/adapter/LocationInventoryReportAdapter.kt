@@ -9,7 +9,6 @@ import com.example.warehousemanagment.R
 import com.example.warehousemanagment.databinding.PatternPickputReportBinding
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.report_inventory.report_location.LocationInventoryRows
-import com.example.warehousemanagment.model.models.report_inventory.report_location.ReportLocationInventory
 
 class LocationInventoryReportAdapter(): RecyclerView.Adapter<LocationInventoryReportAdapter.MyViewHolder>()
 {
@@ -50,7 +49,7 @@ class LocationInventoryReportAdapter(): RecyclerView.Adapter<LocationInventoryRe
 
 
         holder.itemView.setOnClickListener {
-            onCallBackListener.onClick()
+            onCallBackListener.onClick(model)
         }
 
         if (position==arrayList.size-1 && arrayList.size>=Utils.ROWS){
@@ -81,7 +80,7 @@ class LocationInventoryReportAdapter(): RecyclerView.Adapter<LocationInventoryRe
     }
 
     interface OnCallBackListener{
-        fun onClick()
+        fun onClick(model: LocationInventoryRows)
         fun reachToEnd(position: Int)
     }
 }

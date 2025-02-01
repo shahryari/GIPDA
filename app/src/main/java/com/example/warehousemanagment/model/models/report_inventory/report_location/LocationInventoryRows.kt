@@ -20,6 +20,8 @@ data class LocationInventoryRows(
     val realInventory: Int,
     @SerializedName("InvTypeTitle")
     val invTypeTitle:String,
+    @SerializedName("LocationProductID")
+    val locationProductID: String,
     @SerializedName("UomName")
     val uomName:String
 

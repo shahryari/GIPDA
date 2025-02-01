@@ -84,6 +84,110 @@
                 layout="@layout/img_filter" />
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel1"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginHorizontal="@dimen/padding_all"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/rel3"
+                style="@style/relSearchMainEdi"
+                android:layout_below="@+id/rel2">
+
+                <EditText
+                    android:id="@+id/locationCode"
+                    style="@style/searchMainEdi"
+                    android:layout_toStartOf="@+id/locationClearImg"
+                    android:hint="@string/location_code" />
+
+                <ImageView
+                    android:id="@+id/locationClearImg"
+                    style="@style/imgClose" />
+
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/rel5"
+                style="@style/relSearchMainEdi"
+                android:layout_below="@+id/rel4">
+
+                <EditText
+                    android:id="@+id/productCode"
+                    style="@style/searchMainEdi"
+                    android:layout_toStartOf="@+id/productCodeImg"
+                    android:hint="@string/product_code" />
+
+                <ImageView
+                    android:id="@+id/productCodeImg"
+                    style="@style/imgClose" />
+
+
+            </RelativeLayout>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lin1"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            android:layout_marginHorizontal="@dimen/padding_all"
+            tools:visibility="visible"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/paddingTopBottomOptionsRel">
+
+            <RelativeLayout
+                android:id="@+id/relFilter"
+                style="@style/pickputRelRect"
+                android:background="@drawable/shape_rect_left_corner_just"
+                android:backgroundTint="@color/lowPink">
+
+                <ImageView
+                    style="@style/pickputRectImg"
+                    android:src="@drawable/png_search"
+                    app:tint="@color/black" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relSetting"
+                style="@style/pickputRelRect"
+                android:background="@drawable/shape_rect_right_corner_just"
+                android:backgroundTint="@color/pink">
+
+                <ImageView
+                    style="@style/pickputRectImg"
+                    android:src="@drawable/ic__351904_filter_filtering_filters_funnel_sort_icon"
+                    app:tint="@color/black" />
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/rel0"
             android:paddingBottom="@dimen/padding_all"

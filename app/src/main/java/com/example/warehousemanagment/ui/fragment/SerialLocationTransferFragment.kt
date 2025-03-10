@@ -70,6 +70,9 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         b.relSetting.setOnClickListener {
             showFilterSheetDialog()
         }
+        b.relFilter.setOnClickListener {
+            refresh()
+        }
 
         b.lin1.visibility = View.VISIBLE
 
@@ -92,9 +95,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
 //            }
 //            false
 //        })
-        b.relFilter.setOnClickListener {
-            refresh()
-        }
+
 
     }
 

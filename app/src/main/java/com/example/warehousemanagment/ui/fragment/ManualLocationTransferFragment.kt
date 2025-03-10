@@ -54,9 +54,20 @@ class ManualLocationTransferFragment :
             refresh()
         }
 
-        b.filterImg.img.setOnClickListener {
+        b.filterImg.root.visibility = View.GONE
+        b.mainToolbar.root.visibility = View.GONE
+        b.setting.visibility = View.VISIBLE
+        b.relSetting.setOnClickListener {
             showFilterSheetDialog()
         }
+        b.relFilter.setOnClickListener {
+            refresh()
+        }
+
+        b.lin1.visibility = View.VISIBLE
+//        b.filterImg.img.setOnClickListener {
+//            showFilterSheetDialog()
+//        }
 
 
         refresh()
@@ -65,18 +76,18 @@ class ManualLocationTransferFragment :
         observeLocationCount()
 
 
-        b.mainToolbar.searchIcon.setOnClickListener {
-            hideKeyboard(requireActivity())
-            refresh()
-        }
+//        b.mainToolbar.searchIcon.setOnClickListener {
+//            hideKeyboard(requireActivity())
+//            refresh()
+//        }
 
-        b.mainToolbar.searchEdi.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                refresh()
-                return@OnEditorActionListener true
-            }
-            false
-        })
+//        b.mainToolbar.searchEdi.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+//            if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                refresh()
+//                return@OnEditorActionListener true
+//            }
+//            false
+//        })
 
     }
 
@@ -210,7 +221,9 @@ class ManualLocationTransferFragment :
     {
         viewModel.setSourceLocationTransfer(
             pref.getDomain(),
-            textEdi(b.mainToolbar.searchEdi), pref.getTokenGlcTest(),
+            textEdi(b.locationCode),
+            textEdi(b.productCode),
+            pref.getTokenGlcTest(),
             page,Utils.ROWS,sortType,orderType,
             b.progressBar,
             b.swipeLayout

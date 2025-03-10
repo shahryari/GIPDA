@@ -67,7 +67,7 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
     fun getSerialTransferProducts(
         baseUrl: String,
         locationCode: String,
-        productCode: String,
+        productName: String,
         page: Int,
         sort: String,
         order: String,
@@ -78,7 +78,7 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
     ) {
         val jsonObject = JsonObject()
         jsonObject.addProperty("LocationCode",locationCode)
-        jsonObject.addProperty("ProductCode",productCode)
+        jsonObject.addProperty("ProductName",productName)
         viewModelScope.launch {
             showSimpleProgress(true,progressBar)
             repository.getSerialBaseLocationProduct(

@@ -78,6 +78,7 @@ class InsertSerialFragment : BaseFragment<InsertSerialViewModel, FragmentInsertS
         setWatcherForProducts()
 
 
+
         checkEnterKey(b.serials.quantity,)
         {
             checkAndInsertSerial()
@@ -100,6 +101,8 @@ class InsertSerialFragment : BaseFragment<InsertSerialViewModel, FragmentInsertS
                 toast(getString(R.string.successfullConfirmed),requireActivity())
             }
         }
+
+        b.productTitle.quantity.isEnabled = ownerId != null
 
 
         observeSerialList()
@@ -175,11 +178,13 @@ class InsertSerialFragment : BaseFragment<InsertSerialViewModel, FragmentInsertS
             override fun afterTextChanged(s: Editable?) {
                 startTimerForGettingData()
                 {
-                    if (lenEdi(b.productTitle.quantity) != 0)
+                    if (lenEdi(b.productTitle.quantity) != 0 && ownerId!=null)
                     {
                         viewModel.setProductList(
                             pref.getDomain(),
-                            textEdi(b.productTitle.quantity), pref.getTokenGlcTest()
+                            textEdi(b.productTitle.quantity),
+                            ownerId!!,
+                            pref.getTokenGlcTest()
                         )
                         getProductSheetData(
                             b.productTitle.quantity,
@@ -432,6 +437,7 @@ class InsertSerialFragment : BaseFragment<InsertSerialViewModel, FragmentInsertS
                                 sheet?.dismiss()
                                 ownerId = model.ownerInfoID
                                 tv.text = model.ownerCode
+                                b.productTitle.quantity.isEnabled = true
 
                             }
 

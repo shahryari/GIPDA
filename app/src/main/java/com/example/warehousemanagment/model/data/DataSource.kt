@@ -767,6 +767,12 @@ interface DataSource
         jsonObject: JsonObject,
         cookie: String
     ) : Single<DockAssignModel>
+
+    fun getProductsWithOwner(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<List<ProductModel>>
 }
 
 

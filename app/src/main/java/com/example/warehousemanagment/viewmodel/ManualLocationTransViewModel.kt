@@ -123,6 +123,7 @@ class ManualLocationTransViewModel(application: Application,context: Context):
     fun setSourceLocationTransfer(
         baseUrl:String,
         locationCode: String,
+        productName: String,
         cookie: String,
         page:Int,
         rows:Int,
@@ -135,6 +136,7 @@ class ManualLocationTransViewModel(application: Application,context: Context):
         showSimpleProgress(true,progressBar)
         val jsonObject= JsonObject()
         jsonObject.addProperty("LocationCode",locationCode)
+        jsonObject.addProperty("ProductName",productName)
         viewModelScope.launch()
         {
             repository.sourceLocationTransfer(baseUrl,jsonObject,cookie,page, rows, sort, asc)

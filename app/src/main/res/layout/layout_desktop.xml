@@ -59,6 +59,7 @@
 
                 <TextView
                     style="@style/desktop_tv"
+                    android:id="@+id/receivingTitle"
                     android:layout_alignParentBottom="true"
                     android:text="@string/receiving" />
 
@@ -73,6 +74,7 @@
 
                 <TextView
                     style="@style/desktop_tv"
+                    android:id="@+id/putawayTitle"
                     android:layout_alignParentBottom="true"
                     android:text="@string/putaway" />
 
@@ -97,6 +99,7 @@
 
                 <TextView
                     style="@style/desktop_tv"
+                    android:id="@+id/waitForLoadingTitle"
                     android:layout_alignParentBottom="false"
                     android:layout_centerInParent="true"
                     android:text="@string/waite_for_loading" />
@@ -117,6 +120,7 @@
 
                 <TextView
                     style="@style/desktop_tv"
+                    android:id="@+id/pickingTitle"
                     android:layout_alignParentBottom="true"
                     android:text="@string/picking" />
 
@@ -129,6 +133,28 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relSerialBase"
+                style="@style/desktop_rel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/desktop_rel_height2"
+                android:layout_below="@+id/relPicking"
+                android:layout_alignStart="@+id/relPicking"
+                android:layout_alignEnd="@id/relPutaway"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp">
+
+                <TextView
+                    style="@style/desktop_tv"
+                    android:layout_alignParentBottom="false"
+                    android:layout_centerInParent="true"
+                    android:text="@string/serial_base" />
+
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:id="@+id/relShipping"
                 style="@style/desktop_rel"
                 android:layout_below="@+id/relMyCargo"
@@ -138,6 +164,7 @@
 
                 <TextView
                     style="@style/desktop_tv"
+                    android:id="@+id/shippingTitle"
                     android:layout_alignParentBottom="true"
                     android:text="@string/shipping" />
 
@@ -164,6 +191,7 @@
 
                 <TextView
                     style="@style/desktop_tv"
+                    android:id="@+id/cargoTitle"
                     android:layout_alignParentBottom="true"
                     android:text="@string/cargo" />
 
@@ -190,6 +218,7 @@
                     style="@style/desktop_tv"
                     android:layout_alignParentBottom="true"
                     android:elevation="@dimen/_1sdp"
+                    android:id="@+id/myCargoTitle"
                     android:text="@string/myCargo" />
 
                 <TextView
@@ -222,6 +251,7 @@
 
 
         </RelativeLayout>
+
 
 
 

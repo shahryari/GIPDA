@@ -405,4 +405,5 @@
     <string name="shipping_location_code">Shipping Location Code</string>
     <string name="choose_your_dock">Choose your dock</string>
     <string name="dock_assign">Dock Assign</string>
+    <string name="serial_base_description">Warehouse Management Serial Base</string>
 </resources>

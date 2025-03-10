@@ -1099,4 +1099,13 @@ interface ApiService
         @Header(Utils.COOKIE) cookie: String
     ) : Single<DockAssignModel>
 
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun getProductsWithOwner(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<List<ProductModel>>
+
 }

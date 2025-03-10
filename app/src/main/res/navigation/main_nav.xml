@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_desktopFragment_to_serialPutawayFragment"
             app:destination="@id/serialPutawayFragment" />
+        <action
+            android:id="@+id/action_desktopFragment_to_serialDesktopFragment"
+            app:destination="@id/serialDesktopFragment" />
 
     </fragment>
     <fragment
@@ -332,6 +335,26 @@
         android:id="@+id/dockAssignFragment"
         android:name="com.example.warehousemanagment.ui.fragment.DockAssignFragment"
         android:label="DockAssignFragment" />
+    <fragment
+        android:id="@+id/serialDesktopFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.SerialDesktopFragment"
+        android:label="SerialDesktopFragment" >
+        <action
+            android:id="@+id/action_serialDesktopFragment_to_serialPutawayAssignFragment"
+            app:destination="@id/serialPutawayAssignFragment" />
+        <action
+            android:id="@+id/action_serialDesktopFragment_to_serialPutawayFragment"
+            app:destination="@id/serialPutawayFragment" />
+        <action
+            android:id="@+id/action_serialDesktopFragment_to_serialShippingFragment"
+            app:destination="@id/serialShippingFragment" />
+        <action
+            android:id="@+id/action_serialDesktopFragment_to_serialLocationTransferFragment"
+            app:destination="@id/serialLocationTransferFragment" />
+        <action
+            android:id="@+id/action_serialDesktopFragment_to_serialPickingListFragment"
+            app:destination="@id/serialPickingListFragment" />
+    </fragment>
 
 
 </navigation>

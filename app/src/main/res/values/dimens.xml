@@ -16,7 +16,7 @@
     <dimen name="login_btn_height">@dimen/_40sdp</dimen>
     <dimen name="progress_padding">@dimen/_7sdp</dimen>
     <dimen name="desktopMargintTop">@dimen/_10sdp</dimen>
-    <dimen name="desktop_rel_height">@dimen/_100sdp</dimen>
+    <dimen name="desktop_rel_height">@dimen/_110sdp</dimen>
     <dimen name="desktop_rel_height2">@dimen/_80sdp</dimen>
     <dimen name="desktop_rel_height3">@dimen/_60sdp</dimen>
     <dimen name="desktop_rel_margin">@dimen/_3sdp</dimen>
@@ -174,6 +174,7 @@
     <dimen name="edi_login_fontsize">@dimen/_14ssp</dimen>
     <dimen name="submit_tv_sizes">@dimen/_16ssp</dimen>
     <dimen name="desktop_tv_size">@dimen/_15ssp</dimen>
+    <dimen name="serial_desktop_tv_size">@dimen/_14ssp</dimen>
     <dimen name="desktop_subtv_size">@dimen/_13ssp</dimen>
     <dimen name="mainToolbarTvSize">@dimen/_16ssp</dimen>
     <dimen name="searchFontSize">@dimen/_14ssp</dimen>

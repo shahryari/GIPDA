@@ -68,6 +68,9 @@ class DesktopFragment() : BaseFragment<DesktopViewModel, FragmentDesktopBinding>
         b.layoutDesktop.relMyCargo.setOnClickListener {
             navController?.navigate(R.id.action_desktopFragment_to_myCargoFragment)
         }
+        b.layoutDesktop.relSerialBase.setOnClickListener {
+            navController?.navigate(R.id.action_desktopFragment_to_serialDesktopFragment)
+        }
 
 
         

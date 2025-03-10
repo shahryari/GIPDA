@@ -82,13 +82,14 @@ class InsertSerialViewModel(application: Application,context: Context)
 
     }
     fun setProductList(
-        baseUrl:String,productTitle:String,cookie: String)
+        baseUrl:String,productTitle:String,ownerInfo: String,cookie: String)
     {
         viewModelScope.launch()
         {
             val jsonObject=JsonObject()
             jsonObject.addProperty("ProductTitle",productTitle)
-            repository.getProducts(baseUrl,jsonObject,cookie)
+            jsonObject.addProperty("OwnerInfoID",ownerInfo)
+            repository.getProductsWithOwner(baseUrl,jsonObject,cookie)
                 .subscribe({
                     productList.value=(it)
                     log("products", it.toString())

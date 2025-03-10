@@ -1201,4 +1201,12 @@ class MyRepository() :DataSource
     ): Single<DockAssignModel> {
         return apiDataSource.dockAssignShippingAddress(url, jsonObject, cookie)
     }
+
+    override fun getProductsWithOwner(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<List<ProductModel>> {
+        return apiDataSource.getProductsWithOwner(url,jsonObject,cookie)
+    }
 }

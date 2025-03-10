@@ -31,6 +31,14 @@
 
 
         <include
+            android:id="@+id/owner"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/marginFieldTop"
+            layout="@layout/layout_spinner_field"/>
+
+
+        <include
             android:id="@+id/productTitle"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -39,12 +47,6 @@
             android:layout_marginTop="@dimen/marginFieldTop"
             layout="@layout/layout_white_field"/>
 
-        <include
-            android:id="@+id/owner"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/marginFieldTop"
-            layout="@layout/layout_spinner_field"/>
 
         <include
             android:id="@+id/inventoryType"

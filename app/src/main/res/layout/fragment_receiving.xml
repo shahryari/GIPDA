@@ -98,8 +98,7 @@
 
             <RelativeLayout
                 android:id="@+id/rel3"
-                style="@style/relSearchMainEdi"
-                android:layout_below="@+id/rel2">
+                style="@style/relSearchMainEdi">
 
                 <EditText
                     android:id="@+id/locationCode"
@@ -118,14 +117,13 @@
 
             <RelativeLayout
                 android:id="@+id/rel5"
-                style="@style/relSearchMainEdi"
-                android:layout_below="@+id/rel4">
+                style="@style/relSearchMainEdi">
 
                 <EditText
                     android:id="@+id/productCode"
                     style="@style/searchMainEdi"
                     android:layout_toStartOf="@+id/productCodeImg"
-                    android:hint="@string/product_code" />
+                    android:hint="Product Name" />
 
                 <ImageView
                     android:id="@+id/productCodeImg"

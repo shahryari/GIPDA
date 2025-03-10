@@ -1488,4 +1488,14 @@ class ApiDataSource() :DataSource
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun getProductsWithOwner(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<List<ProductModel>> {
+        return apiProvider().getProductsWithOwner(
+            url+"ProductWithOwner",jsonObject,cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
 }

@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerialReceiptDetailRow
@@ -83,5 +84,32 @@ class SerialPutawayDetailViewModel(application: Application) : AndroidViewModel(
                 showErrorMsg(it,"serialPutawayDetail",context)
             },{},{disposable.add(it)}).let {  }
         }
+    }
+
+    fun receiptDetailAutoScanSerial(
+        baseUrl: String,
+        receiptDetailID: String,
+        cookie: String,
+        context: Context,
+        progressBar: ProgressBar,
+        onComplete: ()-> Unit
+    ) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("ReceiptDetailID",receiptDetailID)
+        showSimpleProgress(true,progressBar)
+        repository.receiptDetailAutoScanSerial(
+            baseUrl,jsonObject, cookie
+        ).subscribe(
+            {
+                showSimpleProgress(false,progressBar)
+                toast("Assigned Successfully",context)
+                onComplete()
+            },
+            {
+                showSimpleProgress(false,progressBar)
+                showErrorMsg(it,"autoScanReceiptSerial",context)
+                onComplete()
+            }
+        ).let {  }
     }
 }

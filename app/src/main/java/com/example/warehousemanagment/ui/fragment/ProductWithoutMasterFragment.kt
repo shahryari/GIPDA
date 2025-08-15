@@ -244,13 +244,15 @@ class ProductWithoutMasterFragment :
         dialogBinding.rel4.ok.setOnClickListener()
         {
             if (lenEdi(dialogBinding.widthEdi)!=0 && lenEdi(dialogBinding.heightEdi)!=0
-                && lenEdi(dialogBinding.lenghtEdi)!=0 && lenEdi(dialogBinding.palletLayer)!=0
+                && lenEdi(dialogBinding.lenghtEdi)!=0 && lenEdi(dialogBinding.weightEdi) != 0 && lenEdi(dialogBinding.palletLayer)!=0
                 && lenEdi(dialogBinding.palletLayer)!=0 && lenEdi(dialogBinding.quantityPerLayer)!=0)
             {
                 viewModel.setUnitOfMeasure(
                     pref.getDomain(),goodId = productId,
                     textEdi(dialogBinding.widthEdi).toInt(), textEdi(dialogBinding.heightEdi).toInt(),
-                    textEdi(dialogBinding.lenghtEdi).toInt(),palletId,
+                    textEdi(dialogBinding.lenghtEdi).toInt(),
+                    textEdi(dialogBinding.weightEdi).toFloat(),
+                    palletId,
                     textEdi(dialogBinding.palletLayer).toInt(),
                     textEdi(dialogBinding.quantityPerLayer).toInt(),pref.getTokenGlcTest(),dialogBinding.progress
                 )

@@ -16,6 +16,10 @@ data class ReceiveDetailRow(
     val productID: String,
     @SerializedName("ProductTitle")
     val productTitle: String,
+    @SerializedName("ProductOwnerCode")
+    val productOwnerCode: String?,
+    @SerializedName("ProductOwnerName")
+    val productOwnerName: String?,
     @SerializedName("QuantityPerLayer")
     val quantityPerLayer: Int,
     @SerializedName("ReceivingDetailID")

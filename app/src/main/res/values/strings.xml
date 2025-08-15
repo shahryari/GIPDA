@@ -56,6 +56,9 @@
     <string name="ok">OK</string>
     <string name="are_you_confirm">You scan 0 serial item , are you sure for confirm?</string>
     <string name="count">Count</string>
+    <string name="count1">Count 1</string>
+    <string name="count_2">Count 2</string>
+    <string name="count_3">Count 3</string>
     <string name="serial_scan_confirm">Serial Scan Confirm</string>
     <string name="location_code">Location Code</string>
 
@@ -140,6 +143,7 @@
     <string name="length">Length(mm)</string>
     <string name="width">Width(mm)</string>
     <string name="height">Height(mm)</string>
+    <string name="weight">Weight(gr)</string>
     <string name="columnQuantity">Column Quantity</string>
     <string name="rowQuantity">Row Quantity</string>
     <string name="majid2851">Majid2851</string>
@@ -149,6 +153,7 @@
     <string name="to3">] to [</string>
     <string name="ask">] ?</string>
     <string name="manualToTransfer">manual locations to transfer</string>
+    <string name="serialToTransfer">serial locations to transfer</string>
     <string name="_0">0</string>
     <string name="pickingFinish">Picking Finish</string>
     <string name="pickingComplete">Picking Complete</string>
@@ -406,4 +411,5 @@
     <string name="choose_your_dock">Choose your dock</string>
     <string name="dock_assign">Dock Assign</string>
     <string name="serial_base_description">Warehouse Management Serial Base</string>
+    <string name="resource_number">Resource Number</string>
 </resources>

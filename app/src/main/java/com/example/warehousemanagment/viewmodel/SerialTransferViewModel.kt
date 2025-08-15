@@ -22,13 +22,15 @@ import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 
-class SerialTransferViewModel(application: Application) : AndroidViewModel(application) {
+class
+SerialTransferViewModel(application: Application) : AndroidViewModel(application) {
 
     val repository = MyRepository()
 
     private val transferProducts = MutableLiveData<List<SerialTransferProductRow>>()
     val tempList = ArrayList<SerialTransferProductRow>()
     private val serials = MutableLiveData<List<LocationProductSerialRow>>()
+    private val normalSerials = MutableLiveData<List<String>>()
     val tempSerials = ArrayList<String>()
     private var destinyLocationTransfer= MutableLiveData<List<DestinyLocationTransfer>>()
 
@@ -51,6 +53,10 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
         return serials
     }
 
+    fun getNormalSerials() : LiveData<List<String>> {
+        return normalSerials
+    }
+
     fun getDestinyLocationTransfer(): MutableLiveData<List<DestinyLocationTransfer>> {
         return destinyLocationTransfer
     }
@@ -62,6 +68,12 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
             tempList.clear()
             transferProducts.value= tempList
         }
+    }
+
+    fun clearSerials() {
+        tempSerials.clear()
+        normalSerials.value = tempSerials
+        serials.value = emptyList()
     }
 
     fun getSerialTransferProducts(
@@ -141,8 +153,13 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
 
     fun deleteSerial(serial: LocationProductSerialRow) {
         serials.value = serials.value?.map {
-            if (it.serialID == serial.serialID) it.copy(isScanned = false)
-            else it
+            if (it.serialID.isNotEmpty()){
+                if (it.serialID == serial.serialID) it.copy(isScanned = false)
+                else it
+            } else {
+                if (it.serialNumber == serial.serialNumber) it.copy(isScanned = false)
+                else it
+            }
         }
         tempSerials.remove(serial.serialNumber)
     }
@@ -163,17 +180,22 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
             repository.checkLocationTransferSerial(
                 baseUrl,jsonObject,cookie
             ).subscribe(
-                {
-                    if(it.isSucceed){
-                        serials.value = serials.value?.map {
-                            if (it.serialNumber == serialNumber.trim()) it.copy(isScanned = true)
-                            else it
+                { res ->
+                    if(res.isSucceed){
+                        if (serials.value?.any { it.serialNumber == serialNumber.trim() } == true){
+
+                            serials.value = serials.value?.map {
+                                if (it.serialNumber == serialNumber.trim()) it.copy(isScanned = true)
+                                else it
+                            }
+                        } else {
+                            serials.value = (serials.value?:emptyList()) + LocationProductSerialRow("",serialNumber, isScanned = true)
                         }
                         tempSerials.add(serialNumber)
                         onSuccess()
                     } else {
                         onError()
-                        toast(it.messages.first(),context)
+                        toast(res.messages.first(),context)
                     }
                 },
                 {
@@ -182,6 +204,28 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
                 }
             )
         }
+    }
+
+    fun addSerialNormal(
+        serial: String,
+        context: Context,
+        onSuccess: ()-> Unit
+    ) {
+        if (serial.isEmpty()) return
+        if (tempSerials.contains(serial)){
+            toast("Serial already exist", context = context)
+            return
+        }
+        tempSerials.add(serial)
+        normalSerials.value = tempSerials
+        onSuccess()
+    }
+
+    fun deleteSerialNormal(
+        serial: String
+    ) {
+        tempSerials.remove(serial)
+        normalSerials.value = tempSerials
     }
 
     fun getSerials(
@@ -216,6 +260,7 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
     fun transferSerials(
         baseUrl: String,
         locationProductId: String,
+        quantity: Double?,
         serials: ArrayList<String>,
         destinationLocation: String,
         cookie: String,
@@ -231,8 +276,8 @@ class SerialTransferViewModel(application: Application) : AndroidViewModel(appli
         val jsonObject = JsonObject()
         jsonObject.addProperty("LocationProductID",locationProductId)
         jsonObject.add("Serials",jsonArray)
+        jsonObject.addProperty("Quantity",quantity?.toInt())
         jsonObject.addProperty("DestinationLocation",destinationLocation)
-
         viewModelScope.launch {
             repository.serialBaseLocationTransfer(
                 baseUrl,jsonObject,cookie

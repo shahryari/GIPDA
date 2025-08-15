@@ -1,6 +1,5 @@
 package com.example.warehousemanagment.ui.fragment
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
-import com.example.warehousemanagment.databinding.FragmentReceivingBinding
+import com.example.warehousemanagment.databinding.FragmentStockTurnReportBinding
 import com.example.warehousemanagment.model.classes.checkTick
 import com.example.warehousemanagment.model.classes.clearEdi
 import com.example.warehousemanagment.model.classes.hideShortCut
@@ -21,46 +20,24 @@ import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.constants.Utils
-import com.example.warehousemanagment.model.models.stock.stock_take.StockTrackRow
-import com.example.warehousemanagment.ui.adapter.StockTakingAdapter
+import com.example.warehousemanagment.model.models.stock.StockTurnItemLocationRow
+import com.example.warehousemanagment.ui.adapter.StockTurnReportAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
-import com.example.warehousemanagment.viewmodel.StockTakeViewModel
+import com.example.warehousemanagment.viewmodel.StockTurnReportViewModel
 
-class StockTakeFragment : BaseFragment<StockTakeViewModel, FragmentReceivingBinding>()
-{
+class StockTurnReportFragment : BaseFragment<StockTurnReportViewModel, FragmentStockTurnReportBinding>() {
     var sortType= Utils.CREATED_ON
     var stockPage= Utils.PAGE_START
     var receiveOrder= Utils.ASC_ORDER
     var lastPosition=0
     var chronometer: CountDownTimer?=null
-    var stockTurn: Int = 1
+    lateinit var stockTurnTeamLocationID: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        b.tabs.visibility = View.VISIBLE
-        b.openTab.text = "Periodic"
-        b.closeTab.text = "Daily"
 
-
-
-        b.closeTabLayout.setOnClickListener {
-            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
-            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
-            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-            stockTurn = 2
-            refresh()
-        }
-        b.openTabLayout.setOnClickListener {
-            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
-            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
-            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-            stockTurn = 1
-            refresh()
-        }
 
         b.swipeLayout.setOnRefreshListener()
         {
@@ -74,6 +51,7 @@ class StockTakeFragment : BaseFragment<StockTakeViewModel, FragmentReceivingBind
 
         clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
 
+        b.filterImg.root.visibility = View.GONE
         b.filterImg.img.setOnClickListener()
         {
             showFilterSheetDialog()
@@ -175,73 +153,46 @@ class StockTakeFragment : BaseFragment<StockTakeViewModel, FragmentReceivingBind
 
     private fun refresh()
     {
-        viewModel.dispose()
         stockPage = Utils.PAGE_START
-        viewModel.clearStockList()
+        viewModel.clearList()
         setStockTakeData()
     }
 
     private fun observeStockCount()
     {
-        viewModel.getStockCount().observe(viewLifecycleOwner,object : Observer<Int>
-        {
-            override fun onChanged(it: Int)
-            {
-
-                setBelowCount(requireActivity(), getString(R.string.tools_you_have),
-                    it, getString(R.string.stockToTake))
-            }
-
+        viewModel.getCount().observe(viewLifecycleOwner, Observer<Int> { it ->
+            setBelowCount(requireActivity(), getString(R.string.tools_you_have),
+                it, "Stock Location Items")
         })
 
     }
 
     private fun observeStockList()
     {
-        viewModel.getStockTakeList()
-            .observe(viewLifecycleOwner, object : Observer<List<StockTrackRow>>
-            {
-                override fun onChanged(it: List<StockTrackRow>)
-                {
-                    if (view!=null && isAdded)
-                    {
-                        b.swipeLayout.isRefreshing=false
-                        lastPosition=it.size-1
-                        showStockTakeList(it)
-                    }
-                }
-            })
+        viewModel.getStockTurnItemList()
+            .observe(viewLifecycleOwner){
+
+                b.swipeLayout.isRefreshing=false
+                lastPosition=it.size-1
+                showStockTakeList(it)
+            }
     }
-    private fun showStockTakeList(list:List<StockTrackRow>)
+    private fun showStockTakeList(list:List<StockTurnItemLocationRow>)
     {
         if(lastPosition- Utils.ROWS<=0)
             b.rv.scrollToPosition(0)
         else b.rv.scrollToPosition(lastPosition- Utils.ROWS)
 
-        val  adapter = StockTakingAdapter(list, requireActivity(),
-            object : StockTakingAdapter.OnCallBackListener
-        {
-            override fun onClick(model: StockTrackRow)
-            {
-               val bundle=Bundle()
+        val  adapter = StockTurnReportAdapter(
+            list,
+            viewModel.getTaskTypes(),
+            viewModel.invList(requireContext()),
 
-                bundle.putString(Utils.StockTakingID,model.stockTakingID)
-                bundle.putString(Utils.StockTurnCode,model.warehouseCode)
-                bundle.putString(Utils.StockTurnTitle,model.title)
+            ) {
 
-
-
-                navController?.navigate(R.id.
-                    action_stockTakeFragment_to_stockTakeLocationFragment, bundle)
-            }
-
-
-            override fun reachToEnd(position: Int)
-            {
-                stockPage=stockPage+1
-                setStockTakeData()
-            }
-        })
+            stockPage = stockPage + 1
+            setStockTakeData()
+        }
         b.rv.adapter = adapter
 
 
@@ -256,17 +207,16 @@ class StockTakeFragment : BaseFragment<StockTakeViewModel, FragmentReceivingBind
 
     private fun setStockTakeData()
     {
-        viewModel.setStockTakeList(
+        viewModel.setStockTurnItemList(
             pref.getDomain(),
-            pref.getTokenGlcTest(),
             textEdi(b.mainToolbar.searchEdi),
-            stockTurn,
+            stockTurnTeamLocationID,
             stockPage,
-            Utils.ROWS,
-            sortType,
             receiveOrder,
+            pref.getTokenGlcTest(),
             b.progressBar,
-            b.swipeLayout
+            b.swipeLayout,
+            requireContext()
         )
     }
 
@@ -275,46 +225,64 @@ class StockTakeFragment : BaseFragment<StockTakeViewModel, FragmentReceivingBind
     override fun onDestroy()
     {
         super.onDestroy()
-        viewModel.dispose()
         if(view!=null){
-            viewModel.getStockTakeList().removeObservers(viewLifecycleOwner)
+            viewModel.getStockTurnItemList().removeObservers(viewLifecycleOwner)
         }
 
     }
     override fun onResume() {
         super.onResume()
         hideShortCut(requireActivity())
-        if (stockTurn == 2){
-
-            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
-            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
-            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-        } else {
-
-            b.openTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
-            b.closeTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
-            b.openTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-            b.closeTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-        }
     }
 
     override fun init()
     {
-        setToolbarTitle(requireActivity(),getString(R.string.stockTake))
+        setToolbarTitle(requireActivity(),"Stock Taking Location Report")
 
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
+        b.stockTakeLocation.add3.visibility = View.GONE
+        b.stockTakeLocation.add2.visibility = View.GONE
+        b.stockTakeLocation.add1.visibility = View.GONE
+        b.stockTakeLocation.count.isEnabled = false
+        b.stockTakeLocation.count2.isEnabled = false
+        b.stockTakeLocation.count3.isEnabled = false
+        b.stockTakeLocation.values1.visibility = View.GONE
+        b.stockTakeLocation.values2.visibility = View.GONE
+        b.stockTakeLocation.values3.visibility = View.GONE
+        b.stockTakeLocation.lineSave.visibility = View.INVISIBLE
+        arguments?.getString("StockTurnTeamLocationID")?.let {
+            stockTurnTeamLocationID = it
+        }
+        val locationCode=arguments?.getString(Utils.locationCode)
+        val productTitle=arguments?.getString(Utils.ProductTitle)
+        val productCode=arguments?.getString(Utils.ProductCode)
+        val ownerCode=arguments?.getString(Utils.OwnerCode)
+        val firstQuantity=arguments?.getString("FirstQuantity")
+        val secondQuantity=arguments?.getString("SecondQuantity")
+        val thirdQuantity=arguments?.getString("ThirdQuantity")
+        val realInventory=arguments?.getInt(Utils.Quantity)
+        val invTypeTitle=arguments?.getString("InventoryType")
+
+        b.stockTakeLocation.locationCode.text=locationCode
+        b.stockTakeLocation.productTitle.text=productTitle
+        b.stockTakeLocation.goodSystemCode.text=productCode
+        b.stockTakeLocation.ownerCode.text=ownerCode
+        b.stockTakeLocation.count.setText(firstQuantity?:"")
+        b.stockTakeLocation.count2.setText(secondQuantity?:"")
+        b.stockTakeLocation.count3.setText(thirdQuantity?:"")
+        b.stockTakeLocation.quantity.text=realInventory.toString()
+        b.stockTakeLocation.invTypeTitle.text=invTypeTitle
     }
 
 
 
 
     override fun getLayout(): Int {
-        return R.layout.fragment_receiving
+        return R.layout.fragment_stock_turn_report
     }
 
-    override fun setupComponent(component: FragmentComponent) {
-        component.inject(this)
+    override fun setupComponent(fragmentComponent: FragmentComponent) {
+        fragmentComponent.inject(this)
     }
 
 

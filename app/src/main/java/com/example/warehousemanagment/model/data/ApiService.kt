@@ -65,7 +65,7 @@ import com.example.warehousemanagment.model.models.serial_transfer.SerialTransfe
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
-import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
@@ -78,6 +78,7 @@ import com.example.warehousemanagment.model.models.shipping.shipping_truck.Shipp
 import com.example.warehousemanagment.model.models.stock.StockLocationInsertModel
 import com.example.warehousemanagment.model.models.stock.StockLocationModel
 import com.example.warehousemanagment.model.models.stock.StockTakingCountModel
+import com.example.warehousemanagment.model.models.stock.StockTurnItemLocationModel
 import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
 import com.example.warehousemanagment.model.models.tracking.LabellingModel
 import com.example.warehousemanagment.model.models.transfer_task.CompleteLocationTransfer
@@ -293,6 +294,22 @@ interface ApiService
     ) : Single<SerialPutawayAssignModel>
 
     @Headers(Utils.CONTENT_TYPE)
+    @POST//ReceiptDetailAutoScanSerial
+    fun receiptDetailAutoScanSerial(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//ReceiptDetailScanSerialAuto
+    fun receiptDetailScanSerialAuto(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
+    @Headers(Utils.CONTENT_TYPE)
     @POST//ReceiptDetailSerialRemove
     fun receiptDetailSerialRemove(
         @Url url: String,
@@ -481,8 +498,12 @@ interface ApiService
     fun getSerialBaseShippingSerials(
         @Url url:String,
         @Body jsonObject: JsonObject,
+        @Header("page") page:Int,
+        @Header("rows") rows:Int,
+        @Header("sort") sort:String,
+        @Header("order") asc:String,
         @Header(Utils.COOKIE) cookie: String
-    ) : Observable<List<SerialBaseShippingSerialRow>>
+    ) : Observable<SerialBaseShippingSerialModel>
 
     @Headers(Utils.CONTENT_TYPE)
     @POST
@@ -1010,6 +1031,19 @@ interface ApiService
             :Observable<StockTakingLocationModel>
 
     @Headers(Utils.CONTENT_TYPE)
+    @POST//"StockTakingListLocationCounted")
+    fun stockTakingLocationListCounted(
+        @Url url:String ,
+        @Body jsonObject: JsonObject,
+        @Header(ApiUtils.Page) page:Int,
+        @Header(ApiUtils.Rows) rows:Int,
+        @Header(ApiUtils.Sort) sort:String,
+        @Header(ApiUtils.Order) order:String,
+        @Header(Utils.COOKIE) cookie: String,)
+            :Observable<StockTakingLocationModel>
+
+
+    @Headers(Utils.CONTENT_TYPE)
     @POST//StockTakingLocationInsert
     fun stockTakingLocationInsert(
         @Url url:String ,
@@ -1038,6 +1072,17 @@ interface ApiService
         @Header(Utils.COOKIE) cookie: String
     ) : Observable<StockLocationModel>
 
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//StockTurnItemLocation
+    fun stockTurnItemLocation(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(ApiUtils.Page) page:Int,
+        @Header(ApiUtils.Rows) rows:Int,
+        @Header(ApiUtils.Sort) sort:String,
+        @Header(ApiUtils.Order) order:String,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Observable<StockTurnItemLocationModel>
 
     //get current version
     @Headers(Utils.CONTENT_TYPE)

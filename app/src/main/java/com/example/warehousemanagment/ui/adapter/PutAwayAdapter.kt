@@ -2,6 +2,7 @@ package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.R
@@ -10,7 +11,6 @@ import com.example.warehousemanagment.model.classes.getBuiltString
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.putaway.truck.PutawayTruckRow
 import com.squareup.picasso.Picasso
-import okhttp3.internal.applyConnectionSpec
 
 class PutAwayAdapter(): RecyclerView.Adapter<PutAwayAdapter.MyViewHolder>()
 {
@@ -34,19 +34,23 @@ class PutAwayAdapter(): RecyclerView.Adapter<PutAwayAdapter.MyViewHolder>()
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int)
     {
-        val model=arrayList.get(position)
-        holder.b.recevieNumber.setText(model.receivingNumber)
-        holder.b.driverFullName.setText(model?.driverFullName?.toString())
-        holder.b.dockCode.setText(model.dockCode)
-        holder.b.date.setText(model.taskTimeString)
-        holder.b.dateTitle.setText(context.getString(R.string.dockAssignTime))
-        holder.b.type.setText(model?.carTypeTitle?.toString())
-        holder.b.containerNumber.setText(model.containerNumber)
+        val model= arrayList[position]
+        holder.b.recevieNumber.text = model.receivingNumber
+        holder.b.driverFullName.text = model.driverFullName
+        holder.b.dockCode.text = model.dockCode
+        holder.b.date.text = model.taskTimeString
+        holder.b.dateTitle.text = context.getString(R.string.dockAssignTime)
+        holder.b.type.text = model.carTypeTitle
+        holder.b.containerNumber.text = model.containerNumber
 
-        holder.b.plaque.setText(
-            getBuiltString(model.plaqueNumberThird,
-            model.plaqueNumberSecond,model.plaqueNumberFirst))
+        holder.b.plaque.text = getBuiltString(model.plaqueNumberThird,
+            model.plaqueNumberSecond,model.plaqueNumberFirst)
         holder.b.plaqueYear.text=model.plaqueNumberFourth
+
+
+        holder.b.ownerNameTitle.visibility = View.VISIBLE
+        holder.b.ownerName.visibility = View.VISIBLE
+        holder.b.ownerName.text = "${model.ownerName?:""} ${model?.ownerCode?.let { "($it)" } ?: ""}"
 
         holder.itemView.setOnClickListener {
             onCallBackListener.onClick(model,position)

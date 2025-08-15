@@ -63,7 +63,7 @@ import com.example.warehousemanagment.model.models.serial_transfer.SerialTransfe
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
-import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
@@ -76,6 +76,7 @@ import com.example.warehousemanagment.model.models.shipping.shipping_truck.Shipp
 import com.example.warehousemanagment.model.models.stock.StockLocationInsertModel
 import com.example.warehousemanagment.model.models.stock.StockLocationModel
 import com.example.warehousemanagment.model.models.stock.StockTakingCountModel
+import com.example.warehousemanagment.model.models.stock.StockTurnItemLocationModel
 import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
 import com.example.warehousemanagment.model.models.tracking.LabellingModel
 import com.example.warehousemanagment.model.models.transfer_task.CompleteLocationTransfer
@@ -287,6 +288,22 @@ class MyRepository() :DataSource
         return apiDataSource.receiptDetailScanSerial(baseUrl,jsonObject, cookie)
     }
 
+    override fun receiptDetailAutoScanSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiDataSource.receiptDetailAutoScanSerial(baseUrl,jsonObject,cookie)
+    }
+
+    override fun receiptDetailScanSerialAuto(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiDataSource.receiptDetailScanSerialAuto(baseUrl,jsonObject,cookie)
+    }
+
     override fun receiptDetailSerialRemove(
         baseUrl: String,
         jsonObject: JsonObject,
@@ -495,9 +512,11 @@ class MyRepository() :DataSource
     override fun getSerialBaseShippingSerials(
         baseUrl: String,
         jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
         cookie: String
-    ): Observable<List<SerialBaseShippingSerialRow>> {
-        return apiDataSource.getSerialBaseShippingSerials(baseUrl, jsonObject, cookie)
+    ): Observable<SerialBaseShippingSerialModel> {
+        return apiDataSource.getSerialBaseShippingSerials(baseUrl, jsonObject, page,rows,cookie)
     }
 
     override fun verifySerialBaseShippingSerial(
@@ -1118,6 +1137,20 @@ class MyRepository() :DataSource
         )
     }
 
+    override fun stockTakingLocationListCounted(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<StockTakingLocationModel> {
+        return apiDataSource.stockTakingLocationListCounted(
+            url,jsonObject,page, rows, sort, order, cookie
+        )
+    }
+
     override fun stockTakingLocationInsert(
         url: String,
         jsonObject: JsonObject,
@@ -1146,6 +1179,19 @@ class MyRepository() :DataSource
         return apiDataSource.stockLocation(url, jsonObject, page, rows, sort, order, cookie)
     }
 
+    override fun stockTurnItemLocation(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<StockTurnItemLocationModel> {
+        return  apiDataSource.stockTurnItemLocation(
+            url,jsonObject, page, rows, sort, order, cookie
+        )
+    }
     override fun getCurrentVersionInfo(url: String, cookie: String): Single<VersionInfoModel> {
         return apiDataSource.getCurrentVersionInfo(url,cookie)
     }

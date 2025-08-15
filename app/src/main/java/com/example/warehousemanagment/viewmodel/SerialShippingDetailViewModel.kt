@@ -45,8 +45,11 @@ class SerialShippingDetailViewModel(application: Application,context: Context): 
 
     private var customerList = MutableLiveData<List<CustomerModel>>()
     private var shippingSerials=MutableLiveData<List<ShippingSerialModel>>()
+
     private val cancelShippingSerials = MutableLiveData<List<ShippingCancelSerialRow>>()
     private var serialBaseShippingSerials=MutableLiveData<List<SerialBaseShippingSerialRow>>()
+    private var serialScanCount = MutableLiveData<Int>()
+    private var serialTempList = ArrayList<SerialBaseShippingSerialRow>()
     private var removeShippingModel=MutableLiveData<RemoveShippingSerialModel>()
     private var loadinFinish=MutableLiveData<LoadingFinishModel>()
     private var addSerialModel=MutableLiveData<AddShippingSerialModel>()
@@ -56,6 +59,7 @@ class SerialShippingDetailViewModel(application: Application,context: Context): 
 
     private var disposable: CompositeDisposable = CompositeDisposable()
     fun dispose() { disposable.clear() }
+    private var isScanning = false
 
     fun clearList(){
         if (tempList.size!=0)
@@ -91,6 +95,9 @@ class SerialShippingDetailViewModel(application: Application,context: Context): 
         return revokLocation
     }
 
+    fun getSerialScanCount() : LiveData<Int> {
+        return serialScanCount
+    }
 
 
     fun getAddSerialModel(): LiveData<AddShippingSerialModel> {
@@ -270,21 +277,41 @@ class SerialShippingDetailViewModel(application: Application,context: Context): 
         }
     }
 
+    fun clearSerials(){
+        serialTempList.clear()
+        serialBaseShippingSerials.value = serialTempList
+    }
+
     fun setSerialBaseShippingSerials(
         baseUrl: String,
         shippingAddressDetailID: String,
-        cookie: String
+        page: Int,
+        cookie: String,
+        progressBar: ProgressBar
     ){
+        showSimpleProgress(true,progressBar)
         viewModelScope.launch {
             val jsonObject = JsonObject()
             jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
-            repository.getSerialBaseShippingSerials(baseUrl,jsonObject,cookie)
+            repository.getSerialBaseShippingSerials(
+                baseUrl,
+                jsonObject,
+                page,
+                100,
+                cookie
+            )
                 .subscribe(
                     {
-                        serialBaseShippingSerials.value=(it)
+                        showSimpleProgress(false,progressBar)
+                        if (it.rows.isNotEmpty()){
+                            serialTempList.addAll(it.rows)
+                            serialBaseShippingSerials.value = serialTempList
+                        }
+                        serialScanCount.value = it.scanItemsCount
                         log("shippingSerials", it.toString())
                     },
                     {
+                        showSimpleProgress(false,progressBar)
                         showErrorMsg(it, "shippingSerials", context)
                     },{},{
                         disposable.add(it)
@@ -302,25 +329,30 @@ class SerialShippingDetailViewModel(application: Application,context: Context): 
         onSuccess: () -> Unit,
         onReceiveError: () -> Unit
     ) {
-        viewModelScope.launch {
-            val jsonObject = JsonObject()
-            jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
-            jsonObject.addProperty("ProductCode",productCode)
-            jsonObject.addProperty("Serial",serial)
-            repository.verifySerialBaseShippingSerial(baseUrl, jsonObject, cookie)
-                .subscribe(
-                    {
-                        if(it.isSucceed){
-                            onSuccess()
-                        } else {
-                            toast(it.messages.first(),context)
+        if (!isScanning){
+            isScanning = true
+            viewModelScope.launch {
+                val jsonObject = JsonObject()
+                jsonObject.addProperty("ShippingAddressDetailID",shippingAddressDetailID)
+                jsonObject.addProperty("ProductCode",productCode)
+                jsonObject.addProperty("Serial",serial)
+                repository.verifySerialBaseShippingSerial(baseUrl, jsonObject, cookie)
+                    .subscribe(
+                        {
+                            isScanning = false
+                            if(it.isSucceed){
+                                onSuccess()
+                            } else {
+                                toast(it.messages.first(),context)
+                            }
+                        },
+                        {
+                            isScanning = false
+                            onReceiveError()
+                            showErrorMsg(it,"verify shipping serial",context)
                         }
-                    },
-                    {
-                        onReceiveError()
-                        showErrorMsg(it,"verify shipping serial",context)
-                    }
-                )
+                    )
+            }
         }
     }
 

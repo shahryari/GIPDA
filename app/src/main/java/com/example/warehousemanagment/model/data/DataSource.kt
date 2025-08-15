@@ -63,7 +63,7 @@ import com.example.warehousemanagment.model.models.serial_transfer.SerialTransfe
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
-import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
@@ -76,6 +76,7 @@ import com.example.warehousemanagment.model.models.shipping.shipping_truck.Shipp
 import com.example.warehousemanagment.model.models.stock.StockLocationInsertModel
 import com.example.warehousemanagment.model.models.stock.StockLocationModel
 import com.example.warehousemanagment.model.models.stock.StockTakingCountModel
+import com.example.warehousemanagment.model.models.stock.StockTurnItemLocationModel
 import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
 import com.example.warehousemanagment.model.models.tracking.LabellingModel
 import com.example.warehousemanagment.model.models.transfer_task.CompleteLocationTransfer
@@ -225,6 +226,21 @@ interface DataSource
         cookie: String
     ) : Single<SerialPutawayAssignModel>
 
+
+    fun receiptDetailAutoScanSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
+    fun receiptDetailScanSerialAuto(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<SerialPutawayAssignModel>
+
+
+
     fun receiptDetailSerialRemove(
         baseUrl: String,
         jsonObject: JsonObject,
@@ -350,8 +366,8 @@ interface DataSource
     fun getShippingSerials(baseUrl:String,jsonObject: JsonObject,
                           cookie:String):Observable<List<ShippingSerialModel>>
 
-    fun getSerialBaseShippingSerials(baseUrl: String,jsonObject: JsonObject,cookie: String)
-        : Observable<List<SerialBaseShippingSerialRow>>
+    fun getSerialBaseShippingSerials(baseUrl: String,jsonObject: JsonObject,page: Int,rows: Int,cookie: String)
+        : Observable<SerialBaseShippingSerialModel>
 
     fun verifySerialBaseShippingSerial(
         baseUrl: String,
@@ -694,6 +710,18 @@ interface DataSource
         cookie: String,
     ):Observable<StockTakingLocationModel>
 
+    fun stockTakingLocationListCounted(
+        url:String,
+        jsonObject: JsonObject,
+        page:Int,
+        rows:Int,
+        sort:String,
+        order:String,
+        cookie: String,
+    ):Observable<StockTakingLocationModel>
+
+
+
     fun stockTakingLocationInsert(
         url:String ,
         jsonObject: JsonObject,
@@ -715,6 +743,17 @@ interface DataSource
         order:String,
         cookie: String,
     ):Observable<StockLocationModel>
+
+
+    fun stockTurnItemLocation(
+        url:String,
+        jsonObject: JsonObject,
+        page:Int,
+        rows:Int,
+        sort:String,
+        order:String,
+        cookie: String,
+    ) : Observable<StockTurnItemLocationModel>
 
 
     //get current version info

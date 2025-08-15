@@ -274,7 +274,11 @@
     <fragment
         android:id="@+id/stockTakeLocationFragment"
         android:name="com.example.warehousemanagment.ui.fragment.StockTakeLocationFragment"
-        android:label="StockTakeLocationFragment" />
+        android:label="StockTakeLocationFragment" >
+        <action
+            android:id="@+id/action_stockTakeLocationFragment_to_stockTurnReportFragment"
+            app:destination="@id/stockTurnReportFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pickingDetailFragment"
         android:name="com.example.warehousemanagment.ui.fragment.PickingDetailFragment"
@@ -355,6 +359,10 @@
             android:id="@+id/action_serialDesktopFragment_to_serialPickingListFragment"
             app:destination="@id/serialPickingListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/stockTurnReportFragment"
+        android:name="com.example.warehousemanagment.ui.fragment.StockTurnReportFragment"
+        android:label="StockTurnReportFragment" />
 
 
 </navigation>

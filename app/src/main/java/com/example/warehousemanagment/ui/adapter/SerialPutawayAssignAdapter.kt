@@ -46,6 +46,15 @@ class SerialPutawayAssignAdapter() : RecyclerView.Adapter<SerialPutawayAssignAda
         holder.b.plaque.text = getBuiltString(model.plaqueNumberThird,
             model.plaqueNumberSecond,model.plaqueNumberFirst)
         holder.b.plaqueYear.text=model.plaqueNumberFourth
+        if (model.ownerName!=null){
+            holder.b.ownerNameTitle.visibility = View.VISIBLE
+            holder.b.ownerName.visibility = View.VISIBLE
+            holder.b.ownerName.text = "${model.ownerName}(${model.ownerCode})"
+        } else {
+
+            holder.b.ownerNameTitle.visibility = View.GONE
+            holder.b.ownerName.visibility = View.GONE
+        }
 
         holder.b.assignBtn.setOnClickListener {
             onCallBackListener.onAssign(model)

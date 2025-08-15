@@ -44,6 +44,7 @@ import com.example.warehousemanagment.ui.fragment.ShippingDetailFragment
 import com.example.warehousemanagment.ui.fragment.ShippingFragment
 import com.example.warehousemanagment.ui.fragment.StockTakeFragment
 import com.example.warehousemanagment.ui.fragment.StockTakeLocationFragment
+import com.example.warehousemanagment.ui.fragment.StockTurnReportFragment
 import com.example.warehousemanagment.ui.fragment.TrackingFragment
 import com.example.warehousemanagment.ui.fragment.TransferTaskFragment
 import com.example.warehousemanagment.ui.fragment.WaitForLoadingDetailFragment
@@ -107,4 +108,6 @@ interface FragmentComponent
     fun inject(fragment: DockAssignFragment)
 
     fun inject(fragment: SerialDesktopFragment)
+
+    fun inject(fragment: StockTurnReportFragment)
 }

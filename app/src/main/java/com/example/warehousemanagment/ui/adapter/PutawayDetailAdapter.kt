@@ -2,6 +2,7 @@ package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternPutawayDetailBinding
@@ -37,6 +38,12 @@ class PutawayDetailAdapter(): RecyclerView.Adapter<PutawayDetailAdapter.MyViewHo
         holder.b.productCode.text=model.productCode
         holder.b.quantity.text=model.quantity.toString()
         holder.b.dockCode.text=model.dockCode
+
+        holder.b.line2.visibility = View.VISIBLE
+        holder.b.dockCode.visibility = View.GONE
+//        holder.b.owner.visibility = View.VISIBLE
+//        holder.b.ownerLabel.visibility = View.VISIBLE
+//        holder.b.owner.text = "${model.productOwnerName?:""} ${model.productOwnerCode?.let { "($it)" } ?: ""}"
 
 
         //goodSet and receiveingId have remainded

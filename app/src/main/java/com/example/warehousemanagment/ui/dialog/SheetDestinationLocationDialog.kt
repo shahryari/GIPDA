@@ -30,7 +30,7 @@ class SheetDestinationLocationDialog() : BottomSheetDialogFragment()
         val binding=DialogSheetDestinyLocationBinding.inflate(inflater,container,false)
 
         onClickListener.init(
-            binding.rv,binding.progressBar,binding.serialsCount,binding.searchEdi
+            binding
         )
 
         binding.closeImg.setOnClickListener {
@@ -54,7 +54,7 @@ class SheetDestinationLocationDialog() : BottomSheetDialogFragment()
         fun onCloseClick()
         fun setRvData(rv: RecyclerView, progressBar: ProgressBar,countTv:TextView,searchEdi:EditText)
         fun init(
-            rv: RecyclerView, progressBar: ProgressBar,countTv:TextView,searchEdi:EditText
+            binding: DialogSheetDestinyLocationBinding
         )
     }
 

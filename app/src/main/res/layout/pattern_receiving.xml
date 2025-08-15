@@ -69,6 +69,38 @@
             android:visibility="gone"
             tools:text="@string/tools_10_08_2022_08_22"
             tools:visibility="visible" />
+        <TextView
+            style="@style/pattern_putaway_smallTv"
+            android:id="@+id/ownerNameTitle"
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:text="@string/owner" />
+
+        <TextView
+            android:id="@+id/ownerName"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="@style/pattern_receieve_tv1"
+            tools:text="@string/tools_benz" />
+
+
+        <TextView
+            style="@style/pattern_putaway_smallTv"
+            android:id="@+id/ownerCodeTitle"
+
+            android:visibility="gone"
+            tools:visibility="visible"
+
+            android:layout_marginStart="@dimen/marginStartLocationTransfer"
+            android:text="@string/ownerCode" />
+
+        <TextView
+            android:id="@+id/ownerCode"
+            style="@style/pattern_receieve_tv1"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="@string/tools_benz" />
 
         <TextView
             style="@style/pattern_putaway_smallTv"
@@ -175,6 +207,8 @@
         android:orientation="vertical"
         android:padding="@dimen/padding_pattern_receive">
 
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -185,6 +219,7 @@
             android:background="@drawable/shape_rect_main_all"
             tools:visibility="visible"
             android:orientation="vertical">
+
             <TextView
                 style="@style/pattern_putaway_smallTv"
                 android:layout_gravity="center"

@@ -32,6 +32,10 @@ data class SourceLocationRow(
     val realInventory: Int,
     @SerializedName("UOMName")
     val uOMName: String,
+    @SerializedName("WarehouseName")
+    val warehouseName: String?,
+    @SerializedName("WarehouseCode")
+    val warehouseCode: String?,
     @SerializedName("WarehouseID")
     val warehouseID: String
 )

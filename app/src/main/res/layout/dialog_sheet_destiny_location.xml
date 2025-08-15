@@ -27,13 +27,38 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lineSourceLocation"
+        android:layout_below="@id/rel1"
+        android:visibility="gone"
+        android:layout_margin="@dimen/marginTop5ForLayouts"
+        tools:visibility="visible"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/pattern_putaway_smallTv"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/paddingEndInfo"
+            android:text="@string/sourceLocation" />
+        <TextView
+            style="@style/pattern_putaway_MediumTv2"
+            android:id="@+id/sourceLocation"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_12ssp"
+            tools:text="@string/tools_mohammad"/>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/relSearch"
         android:paddingStart="@dimen/padding_headers_startEnd"
         android:paddingEnd="@dimen/padding_headers_startEnd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/serials_height_header"
-        android:layout_below="@id/rel1" >
+        android:layout_below="@id/lineSourceLocation" >
 
         <EditText
             android:id="@+id/searchEdi"

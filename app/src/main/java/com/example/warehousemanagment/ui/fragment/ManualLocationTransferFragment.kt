@@ -48,8 +48,10 @@ class ManualLocationTransferFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
+//        clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
 
+        clearEdi(b.locationClearImg,b.locationCode)
+        clearEdi(b.productCodeImg,b.productCode)
         b.swipeLayout.setOnRefreshListener {
             refresh()
         }
@@ -294,6 +296,7 @@ class ManualLocationTransferFragment :
                         dialogBinding.layoutTopInfo.clearImgLocation,
                         dialogBinding.layoutTopInfo.locationDestiny
                     )
+
 
 
                     checkEnterKey(dialogBinding.layoutTopInfo.locationDestiny,)

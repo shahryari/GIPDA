@@ -13,6 +13,8 @@ data class SerialReceiptOnPutawayRow(
     val driverFullName: String?,
     @SerializedName("DriverImageUrl")
     val driverImageUrl: String?,
+    @SerializedName("OwnerName")
+    val ownerName: String?,
     @SerializedName("OwnerCode")
     val ownerCode: String,
     @SerializedName("PlaqueNumber")

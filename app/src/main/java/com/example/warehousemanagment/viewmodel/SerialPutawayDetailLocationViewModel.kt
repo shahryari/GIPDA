@@ -109,6 +109,8 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
         baseUrl:String,
         locationCode:String,
         serialNumber:String,
+        serializable: Boolean,
+        quantity: Double,
         receiptDetailId:String,
         cookie: String,
         context: Context,
@@ -121,19 +123,73 @@ class SerialPutawayDetailLocationViewModel(application: Application) : AndroidVi
         {
             val jsonObject= JsonObject()
             jsonObject.addProperty("LocationCode",locationCode)
-            jsonObject.addProperty("Serial",serialNumber)
+            if (!serializable)
+                jsonObject.addProperty("Quantity",quantity.toInt())
+            else
+                jsonObject.addProperty("Serial",serialNumber)
             jsonObject.addProperty("ReceiptDetailID",receiptDetailId)
             showSimpleProgress(true,progress)
             repository.receiptDetailScanSerial(baseUrl,jsonObject, cookie).subscribe({
                 showSimpleProgress(false,progress)
-                refreshSerials()
-                addSerialResult.value=it
+                if (it.isSucceed){
+                    refreshSerials()
+                    addSerialResult.value=it
 
-                if (it.returnValue == "PutFinished") {
-                    navBack()
+                    if (it.returnValue == "PutFinished") {
+                        navBack()
+                    }
+                    log("scanSerial",it.toString())
+
+                } else {
+                    showErrorMsg(Throwable(it.messages.firstOrNull()?:"") ,"scanSerial",context)
                 }
 
-                log("scanSerial",it.toString())
+
+            },
+                {
+                    showSimpleProgress(false,progress)
+
+                    showErrorMsg(it,"scanSerial",context)
+
+
+                }, ).let {  }
+        }
+    }
+
+    fun scanSerialAuto(
+        baseUrl:String,
+        itemLocationID:String,
+        serialNumber:String,
+        receiptDetailId:String,
+        cookie: String,
+        context: Context,
+        progress: ProgressBar,
+        navBack: ()->Unit,
+        refreshSerials:()->Unit
+    )
+    {
+        viewModelScope.launch()
+        {
+            val jsonObject= JsonObject()
+            jsonObject.addProperty("ItemLocationID",itemLocationID)
+            jsonObject.addProperty("Serial",serialNumber)
+            jsonObject.addProperty("ReceiptDetailID",receiptDetailId)
+            showSimpleProgress(true,progress)
+            repository.receiptDetailScanSerialAuto(baseUrl,jsonObject, cookie).subscribe({
+                showSimpleProgress(false,progress)
+                if (it.isSucceed){
+                    refreshSerials()
+                    addSerialResult.value=it
+                    if (it.returnValue == "PutFinished") {
+                        navBack()
+                    }
+
+                    log("scanSerial",it.toString())
+                } else {
+                    showErrorMsg(Throwable(it.messages.firstOrNull()?:""),"scanSerial",context)
+                }
+
+
             },
                 {
                     showSimpleProgress(false,progress)

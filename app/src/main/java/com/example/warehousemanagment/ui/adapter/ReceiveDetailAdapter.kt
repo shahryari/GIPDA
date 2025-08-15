@@ -48,6 +48,9 @@ class ReceiveDetailAdapter(): RecyclerView.Adapter<ReceiveDetailAdapter.MyViewHo
         holder.b.productCode.setText(model.productCode)
         holder.b.row.text=model.palletLayer.toString()
         holder.b.qri.text=model.quantityPerLayer.toString()
+//        holder.b.owner.visibility = View.VISIBLE
+//        holder.b.tv4.visibility = View.VISIBLE
+//        holder.b.owner.text = "${model.productOwnerName?:""} ${model.productOwnerCode?.let { "($it)" } ?: ""}"
         holder.b.invTypeTitle.text=model.invTypeTitle
 
 

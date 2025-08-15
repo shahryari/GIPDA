@@ -42,6 +42,10 @@ data class RowReceivingModel(
     val receivingTypeTitle: String,
     @SerializedName("TaskTime")
     val taskTime:String,
+    @SerializedName("OwnerName")
+    val ownerName: String?,
+    @SerializedName("OwnerCode")
+    val ownerCode: String?,
     @SerializedName("TaskTimeString")
     val taskTimeString:String ,
     @SerializedName("DriverImageUrl")

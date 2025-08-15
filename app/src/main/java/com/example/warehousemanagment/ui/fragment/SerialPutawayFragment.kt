@@ -260,6 +260,8 @@ class SerialPutawayFragment : BaseFragment<SerialPutawayViewModel,FragmentSerial
                 bundle.putString(Utils.PLAQUE_2,model.plaqueNumberSecond)
                 bundle.putString(Utils.PLAQUE_3,model.plaqueNumberThird)
                 bundle.putString(Utils.PLAQUE_4,model.plaqueNumberFourth)
+                bundle.putString(Utils.OwnerCode,model.ownerCode)
+                bundle.putString(Utils.ownerName,model.ownerName)
 
                 navController?.navigate(R.id.action_serialPutawayFragment_to_serialPutawayDetailFragment,bundle)
             }

@@ -546,11 +546,7 @@ class ReceivingDetailFragment() :
     private fun observeSerialCountActiveStatus(serialCountEdi: EditText) {
         viewModel.getScanCountStatus().observe(viewLifecycleOwner
         ) { status ->
-            if (status == false) {
-                serialCountEdi.isEnabled = false
-            } else {
-                serialCountEdi.isEnabled = true
-            }
+            serialCountEdi.isEnabled = status != false
         }
     }
 
@@ -869,7 +865,7 @@ class ReceivingDetailFragment() :
             viewModel.getRemoveSerialModel().removeObservers(viewLifecycleOwner)
             disposeRequest()
         }
-
+b
     }
 
     override fun init() {
@@ -882,6 +878,8 @@ class ReceivingDetailFragment() :
         val dockCode = arguments?.getString(Utils.DOCK_CODE)
         val createdOn = arguments?.getString(Utils.CREATED_ON)
         val carTypeTitle = arguments?.getString(Utils.CAR_TYPE_TITLE)
+        val ownerName = arguments?.getString(Utils.ownerName)
+        val ownerCode = arguments?.getString(Utils.OwnerCode)
         val containerNumber = arguments?.getString(Utils.CONTAINER_NUMBER)
 
 
@@ -901,7 +899,12 @@ class ReceivingDetailFragment() :
         b.receiveItem.recevieNumber.setText(receiveNumber)
         b.receiveItem.driverFullName.text = driveFullName
         b.receiveItem.containerNumber.text = containerNumber
-
+        b.receiveItem.bolLine2?.visibility = View.VISIBLE
+        b.receiveItem.btitle2?.text = "Owner"
+        b.receiveItem.containerNumber2?.text = ownerName?:""
+        b.receiveItem.ownerLine?.visibility = View.VISIBLE
+        b.receiveItem.ownerTitle?.text = "Owner Code"
+        b.receiveItem.owner?.text = ownerCode?:""
 
     }
 

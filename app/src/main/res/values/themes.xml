@@ -305,6 +305,7 @@
         <item name="android:hint">@string/search</item>
         <item name="android:maxLength">50</item>
         <item name="android:maxLines">1</item>
+        <item name="android:imeOptions">actionDone</item>
         <item name="android:textColor">@color/gray70</item>
         <item name="android:textColorHint">@color/gray70_alpha53</item>
         <item name="android:textSize">@dimen/serial_serachFont</item>

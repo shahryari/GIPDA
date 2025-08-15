@@ -51,7 +51,6 @@
             <TextView
                 android:id="@+id/title2"
                 style="@style/pattern_putaway_smallTv"
-                android:layout_height="23dp"
                 android:layout_marginStart="@dimen/marginStartLocationTransfer"
                 android:text="@string/bolNumber" />
 
@@ -76,6 +75,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:visibility="gone"
+            android:id="@+id/bol_line2"
             tools:visibility="visible"
             android:layout_height="wrap_content">
 
@@ -89,6 +89,32 @@
 
             <TextView
                 android:id="@+id/containerNumber2"
+                style="@style/pattern_receieve_tv1"
+                tools:text="@string/tools_tdru4204745" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/ownerLine"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/ownerTitle"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:text="@string/owner" />
+
+            <TextView
+                android:id="@+id/owner"
                 style="@style/pattern_receieve_tv1"
                 tools:text="@string/tools_tdru4204745" />
 

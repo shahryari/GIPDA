@@ -100,7 +100,7 @@ class ProductWithoutMasterViewModel(application: Application,context: Context)
     }
     fun setUnitOfMeasure(
         baseUrl:String,
-        goodId: String, width: Int, height: Int, length: Int, palletId: String,
+        goodId: String, width: Int, height: Int, length: Int,weight: Float, palletId: String,
         palletLayer: Int, quantityPerLayer: Int, cookie: String, progress: ProgressBar
     )
     {
@@ -112,6 +112,7 @@ class ProductWithoutMasterViewModel(application: Application,context: Context)
             jsonObject.addProperty("Width",width)
             jsonObject.addProperty("Height",height)
             jsonObject.addProperty("Length",length)
+            jsonObject.addProperty("TotalWeight",weight)
             jsonObject.addProperty("PalletID",palletId)
             jsonObject.addProperty("PalletLayer",palletLayer)
             jsonObject.addProperty("QuantityPerLayer",quantityPerLayer)

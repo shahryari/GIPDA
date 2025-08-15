@@ -47,7 +47,6 @@ class MyCargoDetailFragment :
     var chronometer: CountDownTimer?=null
     lateinit var shippingAddressId:String
     lateinit var shippingNumber:String
-    lateinit var customerFullName:String
     lateinit var driverFullName:String
     private var locations: List<LocationModel> = emptyList()
     private var selectedLocation: List<String> = emptyList()
@@ -465,7 +464,6 @@ class MyCargoDetailFragment :
         viewModel.getCargo().observe(this) {
 
             shippingNumber = it.shippingNumber
-            customerFullName = it.customerFullName
             driverFullName = it.driverFullName
 
             b.receiveItem.recevieNumber.text =shippingNumber

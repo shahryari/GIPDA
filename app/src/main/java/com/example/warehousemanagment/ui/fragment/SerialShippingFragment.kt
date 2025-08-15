@@ -544,7 +544,7 @@ class SerialShippingFragment: BaseFragment<SerialShippingViewModel, FragmentRece
         viewModel.getConfirmResult().observe(viewLifecycleOwner
         ) {
             mySheetAlertDialog?.dismiss()
-            setShippingData()
+            refresh()
         }
     }
 

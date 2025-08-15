@@ -3,7 +3,11 @@ package com.example.warehousemanagment.viewmodel
 import android.app.Application
 import android.content.Context
 import android.widget.ProgressBar
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.showErrorMsg
@@ -67,9 +71,11 @@ class PickputDailyReportViewModel(application: Application,context: Context)
         rows: Int,
         sort: String,
         order: String,
+        
         cookie: String,
         progressBar: ProgressBar,
-        swipeLayout: SwipeRefreshLayout
+        swipeLayout: SwipeRefreshLayout,
+        callBack: (showNoResult: Boolean) -> Unit
     )
     {
         viewModelScope.launch()
@@ -88,12 +94,13 @@ class PickputDailyReportViewModel(application: Application,context: Context)
                     {
                         swipeLayout.isRefreshing=false
                         showSimpleProgress(false,progressBar)
-                        if (it.pickAndPutRows.size!=0){
+                        if (it.pickAndPutRows.isNotEmpty()){
                             reportList.addAll(it.pickAndPutRows)
                             pickAndPutList.value=(reportList)
                         }
                         arrayCount.value=it.total
                         log("pickAndPut", it.toString())
+                        callBack(reportList.isEmpty())
                     },
                     {
                         swipeLayout.isRefreshing=false

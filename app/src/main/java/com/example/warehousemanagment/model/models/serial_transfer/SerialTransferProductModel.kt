@@ -33,7 +33,9 @@ data class SerialTransferProductRow(
     @SerializedName("WarehouseName")
     val warehouseName: String,
     @SerializedName("RealInventory")
-    val realInventory: Int
+    val realInventory: Int,
+    @SerializedName("Serializable")
+    val serializable: Boolean
 )
 
 

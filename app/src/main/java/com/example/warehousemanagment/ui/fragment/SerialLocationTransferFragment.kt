@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
 import com.example.warehousemanagment.databinding.DialogSerialTransferBinding
+import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentReceivingBinding
 import com.example.warehousemanagment.model.classes.checkEnterKey
@@ -33,6 +34,7 @@ import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.Utils
+import com.example.warehousemanagment.model.models.LocationProductSerialRow
 import com.example.warehousemanagment.model.models.serial_transfer.SerialTransferProductRow
 import com.example.warehousemanagment.model.models.transfer_task.DestinyLocationTransfer
 import com.example.warehousemanagment.ui.adapter.DestinyLocationAdapter
@@ -54,8 +56,8 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
     {
         super.onViewCreated(view, savedInstanceState)
 //        clearEdi(b.mainToolbar.clearImg,b.mainToolbar.searchEdi)
-        clearEdi(b.locationClearImg,b.locationCode)
-        clearEdi(b.productCodeImg,b.productCode)
+        clearEdi(b.locationClearImg,b.locationCode,{refresh()})
+        clearEdi(b.productCodeImg,b.productCode,{refresh()})
         b.swipeLayout.setOnRefreshListener {
             refresh()
         }
@@ -105,7 +107,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         observe(viewLifecycleOwner) { it ->
             setBelowCount(
                 requireActivity(), getString(R.string.tools_you_have), it,
-                getString(R.string.manualToTransfer)
+                getString(R.string.serialToTransfer)
             )
         }
     }
@@ -290,8 +292,14 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                         R.drawable.shape_background_rect_border_gray_solid_white, requireActivity())
 
                     dialogBinding.closeImg.setOnClickListener {dialog.dismiss()}
-                    setSerials(model.locationProductID)
-                    showSerials(dialogBinding)
+                    if (model.serializable){
+                        viewModel.clearSerials()
+                        setSerials(model.locationProductID)
+                        showSerials(dialogBinding)
+                    } else {
+                        viewModel.clearSerials()
+                        showSerialsNormal(dialogBinding)
+                    }
                     dialogBinding.rel4.cansel.setOnClickListener { dialog.dismiss() }
                     initDialog(dialogBinding,model)
                     clearEdi(
@@ -303,7 +311,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
 
                     dialogBinding.layoutTopInfo.locationDestiny.doAfterTextChanged()
                     {
-                        if (lenEdi(dialogBinding.layoutTopInfo.locationDestiny)!=0)
+                        if (lenEdi(dialogBinding.layoutTopInfo.locationDestiny)>=4)
                         {
                             startTimerForGettingData()
                             {
@@ -316,33 +324,46 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                     }
                     checkEnterKey(dialogBinding.layoutTopInfo.quantity,)
                     {
-                        viewModel.checkSerial(
-                            pref.getDomain(),
-                            model.locationProductID,
-                            textEdi(dialogBinding.layoutTopInfo.quantity),
-                            pref.getTokenGlcTest(),
-                            requireContext(),
-                            {
-                                dialogBinding.layoutTopInfo.quantity.setText("")
-                            },{
-                                dialogBinding.layoutTopInfo.quantity.setText("")
-                            }
-                        )
+                        if (model.serializable){
+                            viewModel.checkSerial(
+                                pref.getDomain(),
+                                model.locationProductID,
+                                textEdi(dialogBinding.layoutTopInfo.quantity),
+                                pref.getTokenGlcTest(),
+                                requireContext(),
+                                {
+                                    dialogBinding.layoutTopInfo.quantity.setText("")
+                                },{
+                                    dialogBinding.layoutTopInfo.quantity.setText("")
+                                }
+                            )
+                        } else {
+//                            viewModel.addSerialNormal(textEdi(dialogBinding.layoutTopInfo.quantity),requireContext()){
+//                            }
+//                            dialogBinding.layoutTopInfo.quantity.setText("")
+                        }
                     }
                     dialogBinding.layoutTopInfo.scanBarcode.setOnClickListener {
-                        viewModel.checkSerial(
-                            pref.getDomain(),
-                            model.locationProductID,
-                            textEdi(dialogBinding.layoutTopInfo.quantity),
-                            pref.getTokenGlcTest(),
-                            requireContext(),
-                            {
-                                dialogBinding.layoutTopInfo.quantity.setText("")
-                            },{
-                                dialogBinding.layoutTopInfo.quantity.setText("")
-                            }
-                        )
+                        if (model.serializable){
+                            viewModel.checkSerial(
+                                pref.getDomain(),
+                                model.locationProductID,
+                                textEdi(dialogBinding.layoutTopInfo.quantity),
+                                pref.getTokenGlcTest(),
+                                requireContext(),
+                                {
+                                    dialogBinding.layoutTopInfo.quantity.setText("")
+                                },{
+                                    dialogBinding.layoutTopInfo.quantity.setText("")
+                                }
+                            )
+                        } else {
+//                            viewModel.addSerialNormal(textEdi(dialogBinding.layoutTopInfo.quantity),requireContext()){
+//                            }
+//                            dialogBinding.layoutTopInfo.quantity.setText("")
+                        }
                     }
+
 //                    dialogBinding.layoutTopInfo.locationDestiny
 //                        .setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
 //                            if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -386,6 +407,23 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         )
     }
 
+    private fun showSerialsNormal(binding: DialogSerialTransferBinding) {
+        viewModel.getNormalSerials().observe(viewLifecycleOwner){list->
+            val adapter = LocationProductSerialAdapter(
+                requireContext(),list.map { LocationProductSerialRow("",it) }
+            ) {binding,model->
+                binding.delete.visibility = View.VISIBLE
+                binding.layout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.white))
+                binding.title.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
+
+                binding.delete.setOnClickListener {
+                    viewModel.deleteSerialNormal(model.serialNumber)
+                }
+            }
+            binding.rv.adapter = adapter
+        }
+    }
+
     private fun showSerials(binding: DialogSerialTransferBinding) {
         viewModel.getSerials().observe(viewLifecycleOwner){list->
             val adapter = LocationProductSerialAdapter(
@@ -421,23 +459,52 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         if (
             dialogBinding.layoutTopInfo.locationDestiny.text.isNotEmpty()
         ) {
-            if (viewModel.tempSerials.isEmpty()) {
-                toast("Please scan serials first", requireActivity())
-            } else {
-                val sb = getBuiltString(
-                    getString(R.string.areYouSureTransfer),
-                    model.productName, getString(R.string.from2),
-                    model.locationCode, getString(R.string.to2),
-                    dialogBinding.layoutTopInfo.locationDestiny.text.toString(),
-                    getString(R.string.ask2)
-                )
+            if (!model.serializable){
+                if (textEdi(dialogBinding.layoutTopInfo.quantity).isEmpty()) {
+                    toast("Please fill quantity first", requireActivity())
+                } else {
+                    val sb = getBuiltString(
+                        getString(R.string.areYouSureTransfer),
+                        model.productName, getString(R.string.from2),
+                        model.locationCode, getString(R.string.to2),
+                        dialogBinding.layoutTopInfo.locationDestiny.text.toString(),
+                        getString(R.string.ask2)
+                    )
+                    val quantity = textEdi(dialogBinding.layoutTopInfo.quantity).toDoubleOrNull()?:0.0
+
+                    if (quantity<=0){
+                        toast("Quantity can't be zero or less then zero",requireActivity())
+                        return
+                    }
+
+                    showConfirmSheet(
+                        getString(R.string.confirmTransfer), sb, model,
+                        quantity,
+                        textEdi(dialogBinding.layoutTopInfo.locationDestiny),
+                        dialog
+                    )
+                }
+            }
+            else {
+                if (viewModel.tempSerials.isEmpty()) {
+                    toast("Please scan serials first", requireActivity())
+                } else {
+                    val sb = getBuiltString(
+                        getString(R.string.areYouSureTransfer),
+                        model.productName, getString(R.string.from2),
+                        model.locationCode, getString(R.string.to2),
+                        dialogBinding.layoutTopInfo.locationDestiny.text.toString(),
+                        getString(R.string.ask2)
+                    )
 
 
-                showConfirmSheet(
-                    getString(R.string.confirmTransfer), sb, model,
-                    textEdi(dialogBinding.layoutTopInfo.locationDestiny),
-                    dialog
-                )
+                    showConfirmSheet(
+                        getString(R.string.confirmTransfer), sb, model,
+                        null,
+                        textEdi(dialogBinding.layoutTopInfo.locationDestiny),
+                        dialog
+                    )
+                }
             }
 
         } else toast(getString(R.string.fillAllFields), requireActivity())
@@ -475,16 +542,15 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                 }
 
                 override fun init(
-                    rv: RecyclerView,
-                    progressBar: ProgressBar,
-                    countTv: TextView,
-                    searchEdi: EditText
+                    binding: DialogSheetDestinyLocationBinding,
                 ) {
-                    searchEdi.setText(locationDestiny.text)
+                    binding.searchEdi.setText(locationDestiny.text)
+                    binding.lineSourceLocation.visibility = View.VISIBLE
+                    binding.sourceLocation.text = model.locationCode
                     hideKeyboard(requireActivity())
                     viewModel.setClearList()
-                    searchForDesiniation(locationDestiny,progressBar,rv, countTv, model, sheet,
-                        textEdi(searchEdi))
+                    searchForDesiniation(locationDestiny,binding.progressBar,binding.rv, binding.serialsCount, model, sheet,
+                        textEdi(binding.searchEdi))
                 }
 
 
@@ -554,6 +620,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
     private fun showConfirmSheet(
         title: String, msg: String,
         model: SerialTransferProductRow,
+        quantity: Double?,
         locationIdTo: String,
         dialog: AlertDialog
     )
@@ -570,16 +637,19 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                     viewModel.transferSerials(
                         pref.getDomain(),
                         model.locationProductID,
+                        quantity,
                         serials = viewModel.tempSerials,
                         destinationLocation = locationIdTo,
                         pref.getTokenGlcTest(),
                         requireContext(),
                         {
                             dialog.dismiss()
+                            sheet?.dismiss()
                             refresh()
                             toast(getString(R.string.successfullConfirmed),requireContext())
                         },{
                             dialog.dismiss()
+                            sheet?.dismiss()
                         }
                     )
 
@@ -606,10 +676,21 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
     private fun initDialog(dialogBinding: DialogSerialTransferBinding, model: SerialTransferProductRow)
     {
 
+
         dialogBinding.rel4.confirm.text = getString(R.string.transfer)
         dialogBinding.layoutTopInfo.productTitle.text=model.productName
-        dialogBinding.layoutTopInfo.quantity.hint = "Serial"
-        dialogBinding.layoutTopInfo.quantity.inputType = InputType.TYPE_CLASS_TEXT
+        dialogBinding.layoutTopInfo.locationCode.text=model.locationCode
+        if (model.serializable){
+            dialogBinding.layoutTopInfo.quantity.hint = "Serial"
+            dialogBinding.layoutTopInfo.quantity.inputType = InputType.TYPE_CLASS_TEXT
+        } else {
+            dialogBinding.layoutTopInfo.quantity.hint = "Quantity"
+            dialogBinding.layoutTopInfo.quantity.inputType = InputType.TYPE_CLASS_NUMBER
+            dialogBinding.rel2.visibility = View.GONE
+            dialogBinding.rv.visibility = View.GONE
+            dialogBinding.layoutTopInfo.scanBarcode.visibility = View.GONE
+            dialogBinding.rel0.layoutParams.height = (270*requireContext().resources.displayMetrics.density).toInt()
+        }
 
     }
 
@@ -629,7 +710,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
 
     override fun init()
     {
-        setToolbarTitle(requireActivity(),getString(R.string.locationTransfer))
+        setToolbarTitle(requireActivity(),getString(R.string.serial_location_transfer))
         setToolbarBackground(b.mainToolbar.rel2,requireActivity())
     }
 

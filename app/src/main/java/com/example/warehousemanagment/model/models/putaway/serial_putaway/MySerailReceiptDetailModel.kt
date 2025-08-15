@@ -22,5 +22,9 @@ data class MySerialReceiptDetailRow(
     @SerializedName("ReceiptDetailID")
     val receiptDetailID: String,
     @SerializedName("ScanCount")
-    val scanCount: Int
+    val scanCount: Int,
+    @SerializedName("HasItemLocation")
+    val hasItemLocation: Boolean,
+    @SerializedName("Serializable")
+    val serializable: Boolean,
 )

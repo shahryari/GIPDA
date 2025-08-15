@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternStockTakingBinding
 import com.example.warehousemanagment.model.constants.Utils
-import com.test.StockTrackRow
+import com.example.warehousemanagment.model.models.stock.stock_take.StockTrackRow
 
 class StockTakingAdapter(): RecyclerView.Adapter<StockTakingAdapter.MyViewHolder>()
 {

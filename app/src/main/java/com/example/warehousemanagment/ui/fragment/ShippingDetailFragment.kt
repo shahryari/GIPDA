@@ -21,6 +21,7 @@ import com.example.warehousemanagment.databinding.DialogChooseColorBinding
 import com.example.warehousemanagment.databinding.DialogSerialScanBinding
 import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetChooseCustomerBinding
+import com.example.warehousemanagment.databinding.DialogSheetDestinyLocationBinding
 import com.example.warehousemanagment.databinding.DialogSheetInvListBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.DialogSheetTaskTypeBinding
@@ -569,16 +570,13 @@ class ShippingDetailFragment :
                 }
 
                 override fun init(
-                    rv: RecyclerView,
-                    progressBar: ProgressBar,
-                    countTv: TextView,
-                    searchEdi: EditText
+                    binding: DialogSheetDestinyLocationBinding
                 ) {
-                    searchEdi.setText(locationDestiny.text)
+                    binding.searchEdi.setText(locationDestiny.text)
                     hideKeyboard(requireActivity())
                     viewModel.setClearList()
-                    searchForDesiniation(locationDestiny,progressBar,rv, countTv, model, sheet,
-                        textEdi(searchEdi))
+                    searchForDesiniation(locationDestiny,binding.progressBar,binding.rv, binding.serialsCount, model, sheet,
+                        textEdi(binding.searchEdi))
                 }
 
 

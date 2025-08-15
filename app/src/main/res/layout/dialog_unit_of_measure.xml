@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 <androidx.cardview.widget.CardView
     app:cardCornerRadius="@dimen/edi_login_corner"
@@ -90,7 +89,13 @@
             <EditText
                 android:id="@+id/heightEdi"
                 style="@style/ediFieldTransfer"
+                android:layout_marginEnd="@dimen/marginTop5ForLayouts"
                 android:hint="@string/height" />
+
+            <EditText
+                android:id="@+id/weightEdi"
+                style="@style/ediFieldTransfer"
+                android:hint="@string/weight" />
 
 
         </LinearLayout>

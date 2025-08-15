@@ -117,22 +117,57 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:id="@+id/line4">
 
                 <TextView
                     style="@style/pattern_putaway_smallHint"
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
                     android:text="@string/ownerCode" />
 
                 <TextView
                     style="@style/pattern_putaway_smallHint"
-                    android:text="" />
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:text="@string/warehouse" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/ownerCode"
-                style="@style/pattern_receieve_tv1"
-                android:text="@string/gin" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+
+                    android:id="@+id/ownerCode"
+                    style="@style/pattern_receieve_tv1"
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:text="@string/gin" />
+                <TextView
+
+                    android:id="@+id/warehouse"
+                    style="@style/pattern_receieve_tv1"
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:text="@string/gin" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         </LinearLayout>

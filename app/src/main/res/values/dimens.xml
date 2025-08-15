@@ -56,7 +56,7 @@
     <dimen name="view_start_width">@dimen/_30sdp</dimen>
     <dimen name="view_height1">@dimen/_1sdp</dimen>
     <dimen name="margin_top_view_detailReceiving">@dimen/_5sdp</dimen>
-    <dimen name="pattern_receive_detail_height">@dimen/_150sdp</dimen>
+    <dimen name="pattern_receive_detail_height">@dimen/_180sdp</dimen>
     <dimen name="pattern_receiving_detail_Icon1">@dimen/_45sdp</dimen>
     <dimen name="pattern_receiving_detail_imgsmall_size">@dimen/_26sdp</dimen>
     <dimen name="dialog_serial_height">@dimen/_440sdp</dimen>
@@ -81,7 +81,7 @@
     <dimen name="sheetAlertHeight">@dimen/_145sdp</dimen>
     <dimen name="dialog_count_height">@dimen/_300sdp</dimen>
     <dimen name="dialog_pickFinish_height">@dimen/_420sdp</dimen>
-    <dimen name="pattern_receive_info_width">@dimen/_135sdp</dimen>
+    <dimen name="pattern_receive_info_width">@dimen/_145sdp</dimen>
     <dimen name="pattern_putaway_detail_relCount">@dimen/_20sdp</dimen>
     <dimen name="pattern_putaway_detail_height">@dimen/_195sdp</dimen>
     <dimen name="padding_pattern_putawayDetail">@dimen/_3sdp</dimen>
@@ -242,7 +242,7 @@
     <dimen name="patternShippingNumbersWidth">@dimen/_95sdp</dimen>
     <dimen name="patternShippingNumbersHeight">@dimen/_70sdp</dimen>
     <dimen name="imgBarcodeSize">@dimen/_40sdp</dimen>
-    <dimen name="layoutCountTwoWidth">@dimen/_110sdp</dimen>
+    <dimen name="layoutCountTwoWidth">@dimen/_145sdp</dimen>
     <dimen name="settingPrintHeight">@dimen/_220sdp</dimen>
     <dimen name="PatternReceivingDetailInfoWidth">@dimen/_60sdp</dimen>
     <dimen name="assignSize">@dimen/_13ssp</dimen>
@@ -254,7 +254,7 @@
     <dimen name="stockChangeHeight">@dimen/_24sdp</dimen>
     <dimen name="stockTakingCountEdiWidth">@dimen/_80sdp</dimen>
     <dimen name="stockTakingCountEdiHeight">@dimen/_24sdp</dimen>
-    <dimen name="stockTakingDetailHeight">@dimen/_140sdp</dimen>
+    <dimen name="stockTakingDetailHeight">@dimen/_145sdp</dimen>
     <dimen name="insertLocationCountWidth">@dimen/_250sdp</dimen>
     <dimen name="rel1PickingDetailPatternWidth">@dimen/_170sdp</dimen>
 

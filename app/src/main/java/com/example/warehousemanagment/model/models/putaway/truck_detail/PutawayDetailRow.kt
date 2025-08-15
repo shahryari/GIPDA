@@ -18,6 +18,10 @@ data class PutawayDetailRow(
     val locationCode: String,
     @SerializedName("ProductCode")
     val productCode: String,
+    @SerializedName("OwnerCode")
+    val productOwnerCode: String?,
+    @SerializedName("OwnerName")
+    val productOwnerName: String?,
     @SerializedName("ProductTitle")
     val productTitle: String,
     @SerializedName("Quantity")

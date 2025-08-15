@@ -12,6 +12,7 @@ import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSe
 class SerialBaseShippingSerialAdapter(
     var list: List<SerialBaseShippingSerialRow>,
     val context: Context,
+    val onReachEnd: ()->Unit
 ): RecyclerView.Adapter<SerialBaseShippingSerialAdapter.MyViewHolder>()
 {
 
@@ -28,11 +29,13 @@ class SerialBaseShippingSerialAdapter(
         holder.b.title.text = model.serialNumber
 
 
-//        if (model.isScanInShip)holder.b.layout.backgroundTintList = ContextCompat.getColorStateList(context, R.color.green)
-        if (model.isScanInShip)holder.b.tick.backgroundTintList = ContextCompat.getColorStateList(context,R.color.green)
+        holder.b.tick.backgroundTintList =
+            if (model.isScanInShip)ContextCompat.getColorStateList(context,R.color.green)
+            else ContextCompat.getColorStateList(context,R.color.white)
 
-
-
+        if (position==list.size-1 && list.size>= 100){
+            onReachEnd()
+        }
 
     }
 

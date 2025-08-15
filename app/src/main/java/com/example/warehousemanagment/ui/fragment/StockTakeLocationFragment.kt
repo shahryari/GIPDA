@@ -1,6 +1,6 @@
 package com.example.warehousemanagment.ui.fragment
 
-import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +31,6 @@ import com.example.warehousemanagment.model.classes.hideShortCut
 import com.example.warehousemanagment.model.classes.lenEdi
 import com.example.warehousemanagment.model.classes.search
 import com.example.warehousemanagment.model.classes.setBelowCount
-import com.example.warehousemanagment.model.classes.setToolbarBackground
 import com.example.warehousemanagment.model.classes.setToolbarTitle
 import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.classes.textEdi
@@ -75,6 +74,26 @@ class StockTakeLocationFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        b.tabs.visibility = View.VISIBLE
+
+        b.stockTabLayout.setOnClickListener {
+            b.stockTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.countedTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.stockTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.countedTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            b.insertLocationCount.visibility = View.VISIBLE
+            viewModel.counted = false
+            refresh()
+        }
+        b.countedTabLayout.setOnClickListener {
+            b.countedTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.stockTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.countedTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.stockTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            viewModel.counted = true
+            b.insertLocationCount.visibility = View.GONE
+            refresh()
+        }
         b.swipeLayout.setOnRefreshListener() {
             refresh()
         }
@@ -84,13 +103,21 @@ class StockTakeLocationFragment :
         observeStockLocationList()
         observeStockLocationCount()
 
-        clearEdi(b.mainToolbar.clearImg, b.mainToolbar.searchEdi)
+//        clearEdi(b.mainToolbar.clearImg, b.mainToolbar.searchEdi)
+        clearEdi(b.locationClearImg,b.locationCode)
+        clearEdi(b.productCodeImg,b.productCode)
 
-        b.filterImg.img.setOnClickListener() {
+        b.relSetting.setOnClickListener() {
             showFilterSheetDialog()
         }
 
-        b.mainToolbar.searchEdi.doAfterTextChanged() {
+        b.relFilter.setOnClickListener {
+            startTimerForGettingData { refresh() }
+        }
+        b.locationCode.doAfterTextChanged {
+            startTimerForGettingData { refresh() }
+        }
+        b.productCode.doAfterTextChanged {
             startTimerForGettingData { refresh() }
         }
 
@@ -224,13 +251,11 @@ class StockTakeLocationFragment :
 
     private fun observeStockLocationList() {
         viewModel.getStockTakeLocationList()
-            .observe(viewLifecycleOwner, object : Observer<List<StockTackingLocationRow>> {
-                override fun onChanged(it: List<StockTackingLocationRow>) {
-                    if (view != null && isAdded) {
-                        b.swipeLayout.isRefreshing = false
-                        lastPosition = it.size - 1
-                        showStockTakeLocationList(it)
-                    }
+            .observe(viewLifecycleOwner, Observer<List<StockTackingLocationRow>> { it ->
+                if (view != null && isAdded) {
+                    b.swipeLayout.isRefreshing = false
+                    lastPosition = it.size - 1
+                    showStockTakeLocationList(it)
                 }
             })
     }
@@ -248,44 +273,102 @@ class StockTakeLocationFragment :
                     stockBinding: PatternStockTakingLocationBinding,
                     model:StockTackingLocationRow,
                 ) {
-                    if(model.historyCount==1){
-                        stockBinding.count.isEnabled=true
+                    stockBinding.count.setText(model.firstQuantity?.toString()?:"")
+                    stockBinding.count2.setText(model.secondQuantity?.toString()?:"")
+                    stockBinding.count3.setText(model.thirdQuantity?.toString()?:"")
+                    if (viewModel.counted){
+                        stockBinding.count.isEnabled= false
+                        stockBinding.add1.visibility=View.GONE
+                        stockBinding.values1.visibility = View.GONE
                         stockBinding.count2.isEnabled=false
+                        stockBinding.add2.visibility=View.GONE
+                        stockBinding.values2.visibility = View.GONE
+                        stockBinding.count3.isEnabled = false
+                        stockBinding.values3.visibility = View.GONE
+                        stockBinding.lineCount3.visibility = View.VISIBLE
+                        stockBinding.add3.visibility = View.GONE
+                        stockBinding.save.visibility = View.GONE
+//
+//                        stockBinding.count2.setBackgroundTintList(
+//                            ColorStateList.valueOf(ContextCompat.
+//                            getColor(requireActivity(), R.color.red)))
+//
+//                        stockBinding.count2
+//                            .setTextColor(ContextCompat
+//                                .getColor(requireActivity(), R.color.white))
+//                        stockBinding.count2
+//                            .setHintTextColor(ContextCompat
+//                                .getColor(requireActivity(), R.color.white))
 
-                    }else if(model.historyCount==2){
-                        stockBinding.count.isEnabled=false
-                        stockBinding.count.setText(model.firstQuantity.toString())
-                        stockBinding.count2.isEnabled=true
+                    } else {
+                        stockBinding.relCount.visibility = if(model.firstQuantity!=null) View.VISIBLE else View.INVISIBLE
 
-                        stockBinding.count2.setBackgroundTintList(
-                            ColorStateList.valueOf(ContextCompat.
-                            getColor(requireActivity(), R.color.red)))
-
-                        stockBinding.count2
-                            .setTextColor(ContextCompat
-                                .getColor(requireActivity(), R.color.white))
-                        stockBinding.count2
-                            .setHintTextColor(ContextCompat
-                                .getColor(requireActivity(), R.color.white))
+                        val firstEnabled = model.firstQuantity == null
+                        val secondEnabled = model.firstQuantity != null && model.secondQuantity == null
+                        val thirdEnabled = model.firstQuantity != null && model.secondQuantity != null && model.thirdQuantity == null
+                        stockBinding.count.isEnabled=firstEnabled
+                        stockBinding.add1.isEnabled=firstEnabled
+                        stockBinding.count2.isEnabled=secondEnabled
+                        stockBinding.add2.isEnabled=secondEnabled
+                        stockBinding.count3.isEnabled=thirdEnabled
+                        stockBinding.add3.isEnabled=thirdEnabled
+//                        if(model.historyCount==1){
+//                            stockBinding.add2.isEnabled = false
+//
+//                        }else if(model.historyCount==2){
+//
+//                            stockBinding.count2.setBackgroundTintList(
+//                                ColorStateList.valueOf(ContextCompat.
+//                                getColor(requireActivity()
+                    //                              , R.color.red)))
+//
+//                            stockBinding.count2
+//                                .setTextColor(ContextCompat
+//                                    .getColor(requireActivity(), R.color.white))
+//                            stockBinding.count2
+//                                .setHintTextColor(ContextCompat
+//                                    .getColor(requireActivity(), R.color.white))
+//                        }
                     }
 
                 }
 
                 override fun onChangeClick(model: StockTackingLocationRow) {
-                    showConfirmDialog(model)
+                    if (viewModel.counted){
+                        val bundle=Bundle()
+                        bundle.putString("StockTurnTeamLocationID",model.stockTurnTeamLocationID)
+                        bundle.putString(Utils.locationCode,model.locationCode)
+                        bundle.putString(Utils.ProductCode,model.productCode)
+                        bundle.putString(Utils.ProductTitle,model.productTitle)
+                        bundle.putString(Utils.OwnerCode,model.ownerCode)
+                        bundle.putInt(Utils.Quantity,model.realInventory)
+                        bundle.putString("FirstQuantity",model.firstQuantity?.toString()?:"")
+                        bundle.putString("SecondQuantity",model.secondQuantity?.toString()?:"")
+                        bundle.putString("ThirdQuantity",model.thirdQuantity?.toString()?:"")
+                        bundle.putString("InventoryType",model.invTypeTitle)
+                        navController?.navigate(R.id.action_stockTakeLocationFragment_to_stockTurnReportFragment,bundle)
+                    } else {
+                        showConfirmDialog(model)
+
+                    }
                 }
 
                 override fun onSaveClick(
                     model: StockTackingLocationRow,
                     countEdi: EditText,
+                    values: List<Int>,
                     countEdi2:EditText,
+                    values2: List<Int>,
+                    countEdit3: EditText,
+                    values3: List<Int>,
                     progressBar: ProgressBar
                 )
                 {
+                    val sum1 = values.sum()
+                    val sum2 = values2.sum()
+                    val sum3 = values3.sum()
                     if(
-                        ( lenEdi(countEdi)!=0 && countEdi.isEnabled)
-                        || (lenEdi(countEdi2)!=0 && countEdi2.isEnabled)
-
+                        values.isNotEmpty() || values2.isNotEmpty() || values3.isNotEmpty()
                     )
                     {
                         hideKeyboard(requireActivity())
@@ -294,18 +377,24 @@ class StockTakeLocationFragment :
                             cookie = pref.getTokenGlcTest(),
                             stockTurnTeamLocationID = model.stockTurnTeamLocationID,
                             countQuantity =
-                            if(!countEdi2.isEnabled && countEdi.isEnabled) textEdi(countEdi).toInt()
-                            else // if(countEdi2.isEnabled && !countEdi2.isEnabled)
-                                textEdi(countEdi2).toInt(),
+                            if (values.isNotEmpty()) sum1
+                                    else if (values2.isNotEmpty()) sum2
+                                    else sum3,
                             progressBar = progressBar,
                             onCallBack = { isStockMessageEqualMinusOne->
+                                countEdi.error = ""
                                 refresh()
                             },
                             onError = {isErrorEqualMinusOne->
+//                                if (!counted && countEdi.isEnabled){
+//                                    countEdi.error = "ًReal Inventory is ${model.realInventory}"
+//                                } else {
+//                                    countEdi.error = ""
+//                                }
                             }
                         )
                     }else
-                        toast(getString(R.string.fillCountEdi),requireActivity())
+                        toast("Please add counts first.",requireActivity())
 
                 }
 
@@ -338,7 +427,7 @@ class StockTakeLocationFragment :
             ownerId=""
         }
 
-        if (ifTypeIsInsertLocation==true)
+        if (ifTypeIsInsertLocation)
         {
             dialogBinding.locationCodeTitle.visibility=View.GONE
             dialogBinding.title1.visibility=View.GONE
@@ -426,6 +515,8 @@ class StockTakeLocationFragment :
                     lenEdi(dialogBinding.quantity) != 0
                     &&
                     lenEdi(dialogBinding.invType) != 0
+                    &&
+                    lenEdi(dialogBinding.ownerCode) != 0
                 ) {
                     viewModel.stockTakingLocationInsert(
                         baseUrl = pref.getDomain(),
@@ -453,6 +544,8 @@ class StockTakeLocationFragment :
                     lenEdi(dialogBinding.quantity) != 0
                     &&
                     lenEdi(dialogBinding.invType) != 0
+                    &&
+                    lenEdi(dialogBinding.ownerCode) != 0
                 ) {
                     viewModel.stockTakingLocationInsert(
                         baseUrl = pref.getDomain(),
@@ -608,7 +701,6 @@ class StockTakeLocationFragment :
         }
     }
 
-
     private fun getProductSheetData(tv: TextView, title: String)
     {
         var productSheet: SheetPalletDialog? = null
@@ -674,18 +766,35 @@ class StockTakeLocationFragment :
     }
 
     private fun setStockTakeLocationData() {
-        viewModel.setStockTakeLocationList(
-            pref.getDomain(),
-            pref.getTokenGlcTest(),
-            textEdi(b.mainToolbar.searchEdi),
-            stockTurnId = stockTurnId,
-            stockPage,
-            Utils.ROWS,
-            sortType,
-            receiveOrder,
-            b.progressBar,
-            b.swipeLayout
-        )
+        if (viewModel.counted){
+            viewModel.setStockTakeLocationListCounted(
+                pref.getDomain(),
+                pref.getTokenGlcTest(),
+                textEdi(b.productCode),
+                textEdi(b.locationCode),
+                stockTurnId = stockTurnId,
+                stockPage,
+                Utils.ROWS,
+                sortType,
+                receiveOrder,
+                b.progressBar,
+                b.swipeLayout
+            )
+        } else {
+            viewModel.setStockTakeLocationList(
+                pref.getDomain(),
+                pref.getTokenGlcTest(),
+                textEdi(b.productCode),
+                textEdi(b.locationCode),
+                stockTurnId = stockTurnId,
+                stockPage,
+                Utils.ROWS,
+                sortType,
+                receiveOrder,
+                b.progressBar,
+                b.swipeLayout
+            )
+        }
     }
 
 
@@ -698,15 +807,35 @@ class StockTakeLocationFragment :
 
     }
 
+
     override fun onResume() {
         super.onResume()
         hideShortCut(requireActivity())
+        if (viewModel.counted){
+            b.countedTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.stockTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.countedTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.stockTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            b.insertLocationCount.visibility = View.GONE
+        } else {
+            b.stockTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.mainYellow))
+            b.countedTabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.yellowGray))
+            b.stockTab.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            b.countedTab.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            b.insertLocationCount.visibility = View.VISIBLE
+        }
     }
 
     override fun init() {
         setToolbarTitle(requireActivity(), getString(R.string.stockTakingLocation))
 
-        setToolbarBackground(b.mainToolbar.rel2, requireActivity())
+//        setToolbarBackground(b.mainToolbar.rel2, requireActivity())
+
+        b.mainToolbar.root.visibility = View.GONE
+        b.filterImg.root.visibility = View.GONE
+        b.lin1.visibility = View.VISIBLE
+        b.setting.visibility = View.VISIBLE
+
 
         stockTurnCode = arguments?.get(Utils.StockTurnCode).toString()
         stockTurnTitle = arguments?.get(Utils.StockTurnTitle).toString()
@@ -720,6 +849,10 @@ class StockTakeLocationFragment :
 
     override fun getLayout(): Int {
         return R.layout.fragment_stock_location
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
     }
 
     override fun setupComponent(component: FragmentComponent) {

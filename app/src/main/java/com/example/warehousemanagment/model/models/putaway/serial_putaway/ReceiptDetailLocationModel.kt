@@ -19,6 +19,8 @@ data class ReceiptDetailLocationRow(
     val createdOnString: String,
     @SerializedName("LocationCode")
     val locationCode: String,
+    @SerializedName("IsSystemic")
+    val isSystemic: Boolean?,
     @SerializedName("SerialCount")
     val serialCount: Int
 )

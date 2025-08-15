@@ -185,16 +185,11 @@ class ReceivingFragment : BaseFragment<ReceivingViewModel, FragmentReceivingBind
     private fun observeReceiveList()
     {
         viewModel.getReceivingList()
-            .observe(viewLifecycleOwner, object : Observer<List<RowReceivingModel>>
-            {
-                override fun onChanged(it: List<RowReceivingModel>)
-                {
-                    if (view!=null && isAdded)
-                    {
-                        b.swipeLayout.isRefreshing=false
-                        lastReceivingPosition=it.size-1
-                        showReceiveList(it)
-                    }
+            .observe(viewLifecycleOwner, Observer<List<RowReceivingModel>> { it ->
+                if (view!=null && isAdded) {
+                    b.swipeLayout.isRefreshing=false
+                    lastReceivingPosition=it.size-1
+                    showReceiveList(it)
                 }
             })
     }
@@ -221,6 +216,8 @@ class ReceivingFragment : BaseFragment<ReceivingViewModel, FragmentReceivingBind
                     bundle.putString(Utils.PLAQUE_2,model.plaqueNumberSecond)
                     bundle.putString(Utils.PLAQUE_3,model.plaqueNumberThird)
                     bundle.putString(Utils.PLAQUE_4,model.plaqueNumberFourth)
+                    bundle.putString(Utils.OwnerCode,model.ownerCode)
+                    bundle.putString(Utils.ownerName,model.ownerName)
 
                     pref.saveAdapterPosition(position)
 

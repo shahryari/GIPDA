@@ -30,6 +30,7 @@
 
         <TextView
             style="@style/headers_title"
+            android:id="@+id/dialog_title"
             android:text="@string/serial_scan" />
 
 

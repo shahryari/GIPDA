@@ -47,6 +47,7 @@ import com.example.warehousemanagment.viewmodel.ShippingDetailViewModel
 import com.example.warehousemanagment.viewmodel.ShippingViewModel
 import com.example.warehousemanagment.viewmodel.StockTakeLocationViewModel
 import com.example.warehousemanagment.viewmodel.StockTakeViewModel
+import com.example.warehousemanagment.viewmodel.StockTurnReportViewModel
 import com.example.warehousemanagment.viewmodel.TrackingViewModel
 import com.example.warehousemanagment.viewmodel.TransferTaskViewModel
 import com.example.warehousemanagment.viewmodel.WaitForLoadingDetailViewModel
@@ -362,5 +363,11 @@ class FragmentModule()
     @Provides
     fun dockAssignViewModel() : DockAssignViewModel {
         return DockAssignViewModel(application)
+    }
+
+    @Singleton
+    @Provides
+    fun stockTurnReportViewModel() : StockTurnReportViewModel {
+        return StockTurnReportViewModel(application)
     }
 }

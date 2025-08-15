@@ -12,8 +12,8 @@ import com.example.warehousemanagment.model.classes.showErrorMsg
 import com.example.warehousemanagment.model.classes.showSimpleProgress
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
+import com.example.warehousemanagment.model.models.stock.stock_take.StockTrackRow
 import com.google.gson.JsonObject
-import com.test.StockTrackRow
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 
@@ -51,6 +51,7 @@ class StockTakeViewModel(application: Application, context: Context):
         baseUrl:String,
         cookie: String,
         keyword: String,
+        stockTurnTypeId: Int,
         page: Int,
         rows: Int,
         sort: String,
@@ -64,6 +65,7 @@ class StockTakeViewModel(application: Application, context: Context):
             showSimpleProgress(true,progressBar)
             val jsonObject= JsonObject()
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
+            jsonObject.addProperty("StockTurnTypeID",stockTurnTypeId)
             repository.stockTakingList(
                     url = baseUrl,
                     jsonObject=jsonObject,

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_background_rect_white_6"
+        android:elevation="@dimen/MediumElevation"
+        android:layout_marginBottom="@dimen/marginTop5ForLayouts"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/locationCode"
+            style="@style/pattern_receieve_tv1"
+            android:textColor="@color/progressYellow"
+            tools:text="@string/a_38_26_03" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/marginTop5ForLayouts"
+            >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guide">
+
+                <TextView
+                    android:id="@+id/goodsNameTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                    android:text="Goods Title" />
+
+
+                <TextView
+                    android:id="@+id/goodsNmae"
+                    style="@style/pattern_receieve_tv1"
+                    tools:text="@string/tools_10_08_2022_08_22" />
+                <TextView
+                    android:id="@+id/ResourceNumberTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                    android:text="@string/resource_number" />
+
+
+                <TextView
+                    android:id="@+id/resourceNumber"
+                    style="@style/pattern_receieve_tv1"
+                    tools:text="@string/tools_10_08_2022_08_22" />
+
+
+                <TextView
+                    android:id="@+id/ownerTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                    android:text="@string/owner" />
+
+
+                <TextView
+                    android:id="@+id/owner"
+                    style="@style/pattern_receieve_tv1"
+                    tools:text="@string/tools_10_08_2022_08_22" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guide">
+
+                <TextView
+                    android:id="@+id/goodsSystemCodeTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                    android:text="Goods System Code" />
+
+
+                <TextView
+                    android:id="@+id/goodsSystemCode"
+                    style="@style/pattern_receieve_tv1"
+                    tools:text="@string/tools_10_08_2022_08_22" />
+
+
+
+                <TextView
+                    android:id="@+id/inventoryTypeTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                    android:text="@string/invType" />
+
+
+                <TextView
+                    android:id="@+id/inventoryType"
+                    style="@style/pattern_receieve_tv1"
+                    tools:text="@string/tools_10_08_2022_08_22" />
+
+
+
+                <TextView
+                    android:id="@+id/taskTypeTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                    android:text="Task Type" />
+
+
+                <TextView
+                    android:id="@+id/taskType"
+                    style="@style/pattern_receieve_tv1"
+                    tools:text="@string/tools_10_08_2022_08_22" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

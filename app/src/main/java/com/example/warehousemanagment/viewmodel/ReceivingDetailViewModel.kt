@@ -3,24 +3,29 @@ package com.example.warehousemanagment.viewmodel
 import android.app.Application
 import android.content.Context
 import android.widget.ProgressBar
-import androidx.compose.ui.res.painterResource
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.warehousemanagment.R
-import com.example.warehousemanagment.model.classes.*
+import com.example.warehousemanagment.model.classes.log
+import com.example.warehousemanagment.model.classes.showErrorMsg
+import com.example.warehousemanagment.model.classes.showSimpleProgress
+import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.ApiUtils
 import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.data.MySharedPref
 import com.example.warehousemanagment.model.models.receive.add_detail_serial.AddReceivingDetailSerialModel
 import com.example.warehousemanagment.model.models.receive.confirm.ConfirmReceiveDetailModel
 import com.example.warehousemanagment.model.models.receive.count.ReceiveDetailCountModel
-import com.example.warehousemanagment.model.models.receive.receiveDetail.ReceiveDetailModel
 import com.example.warehousemanagment.model.models.receive.receiveDetail.ReceiveDetailRow
 import com.example.warehousemanagment.model.models.receive.receiving_detail_serials.ReceivingDetailSerialModel
 import com.example.warehousemanagment.model.models.receive.remove_serial.RemoveSerialModel
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 
 
 class ReceivingDetailViewModel( application: Application,context: Context): AndroidViewModel(application)
@@ -224,7 +229,7 @@ class ReceivingDetailViewModel( application: Application,context: Context): Andr
                 .subscribe({
                     showSimpleProgress(false,progress)
                     serials.value=(it)
-                    if(it.size==0)
+                    if(it.isEmpty())
                     {
                         scanQuantityStatus.value=false
                     }

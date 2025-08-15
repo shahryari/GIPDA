@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
@@ -641,5 +642,16 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
         viewModel.getUpdateInfo(pref.getDomain(),pref.getTokenGlcTest())
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        val overrideConfiguration = Configuration(
+            newBase.resources.configuration
+        ).apply { fontScale = 1.0f }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            super.attachBaseContext(
+                newBase.createConfigurationContext(overrideConfiguration)
+            )
+        }
+    }
 
 }

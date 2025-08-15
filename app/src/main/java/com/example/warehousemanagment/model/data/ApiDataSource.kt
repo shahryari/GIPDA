@@ -63,7 +63,7 @@ import com.example.warehousemanagment.model.models.serial_transfer.SerialTransfe
 import com.example.warehousemanagment.model.models.shipping.AddShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.LoadingFinishModel
 import com.example.warehousemanagment.model.models.shipping.RemoveShippingSerialModel
-import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialRow
+import com.example.warehousemanagment.model.models.shipping.SerialBaseShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.ShippingCancelSerialRow
 import com.example.warehousemanagment.model.models.shipping.ShippingSerialModel
 import com.example.warehousemanagment.model.models.shipping.TruckLoadingRemoveModel
@@ -76,6 +76,7 @@ import com.example.warehousemanagment.model.models.shipping.shipping_truck.Shipp
 import com.example.warehousemanagment.model.models.stock.StockLocationInsertModel
 import com.example.warehousemanagment.model.models.stock.StockLocationModel
 import com.example.warehousemanagment.model.models.stock.StockTakingCountModel
+import com.example.warehousemanagment.model.models.stock.StockTurnItemLocationModel
 import com.example.warehousemanagment.model.models.tracking.GetSerialInfoModel
 import com.example.warehousemanagment.model.models.tracking.LabellingModel
 import com.example.warehousemanagment.model.models.transfer_task.CompleteLocationTransfer
@@ -358,6 +359,30 @@ class ApiDataSource() :DataSource
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun receiptDetailAutoScanSerial(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiProvider().receiptDetailAutoScanSerial(
+            baseUrl+"ReceiptDetailAutoScanSerial",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun receiptDetailScanSerialAuto(
+        baseUrl: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<SerialPutawayAssignModel> {
+        return apiProvider().receiptDetailScanSerialAuto(
+            baseUrl+"ReceiptDetailScanSerialAuto",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun receiptDetailSerialRemove(
         baseUrl: String,
         jsonObject: JsonObject,
@@ -614,11 +639,17 @@ class ApiDataSource() :DataSource
     override fun getSerialBaseShippingSerials(
         baseUrl: String,
         jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
         cookie: String
-    ): Observable<List<SerialBaseShippingSerialRow>> {
+    ): Observable<SerialBaseShippingSerialModel> {
         return apiProvider().getSerialBaseShippingSerials(
             baseUrl+"SerialBaseShippingSerials",
             jsonObject,
+            page,
+            rows,
+            "",
+            "",
             cookie
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
@@ -1376,13 +1407,34 @@ class ApiDataSource() :DataSource
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun stockTakingLocationListCounted(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<StockTakingLocationModel> {
+        return  apiProvider().stockTakingLocationListCounted(
+            url+"StockTakingListLocationCounted",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            order,
+            cookie
+        ).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun stockTakingLocationInsert(
         url: String,
         jsonObject: JsonObject,
         cookie: String
     ): Single<StockLocationInsertModel> {
         return  apiProvider().stockTakingLocationInsert(
-            url+"StockTakingModify", jsonObject, cookie//TODO(set api Address)
+            url+"StockTakingModify", jsonObject, cookie
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -1411,6 +1463,27 @@ class ApiDataSource() :DataSource
     ): Observable<StockLocationModel> {
         return  apiProvider().stockLocation(
             url+"StockLocation",
+            jsonObject,
+            page,
+            rows,
+            sort,
+            order,
+            cookie
+        ).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun stockTurnItemLocation(
+        url: String,
+        jsonObject: JsonObject,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        cookie: String
+    ): Observable<StockTurnItemLocationModel> {
+        return  apiProvider().stockTurnItemLocation(
+            url+"StockTurnItemLocation",
             jsonObject,
             page,
             rows,

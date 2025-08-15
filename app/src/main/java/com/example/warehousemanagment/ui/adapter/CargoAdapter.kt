@@ -42,7 +42,7 @@ class CargoAdapter(): RecyclerView.Adapter<CargoAdapter.MyViewHolder>()
         holder.b.workerFullName.text = model.workerFullNameShip
         holder.b.recevieNumber.text = model.shippingNumber
         holder.b.dockCode.text = model.dockCode
-        holder.b.date.text = model.createdOnString
+        holder.b.date.text = model.dockAssignTimeString
 
         holder.b.type.text = model.carTypeTitle
         holder.b.containerNumber.text = model.bOLNumber

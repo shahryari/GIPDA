@@ -35,6 +35,7 @@ class SerialTransferAdapter() : Adapter<SerialTransferAdapter.MyViewHolder>() {
         val model=arrayList.get(position)
         holder.b.line4.visibility = View.GONE
         holder.b.ownerCode.visibility = View.GONE
+        holder.b.warehouse.visibility = View.GONE
         holder.b.locationCode.text=model.locationCode
         holder.b.productTitle.text=model.productName
         holder.b.productCode.text=model.productCode

@@ -3,13 +3,13 @@
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/canselConfirmRel">
+        android:layout_height="@dimen/canselConfirmRel"
+        android:paddingStart="@dimen/margin_start_cansel">
 
         <TextView
             android:id="@+id/cansel"
             style="@style/btnSubmitCansel"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="@dimen/margin_start_cansel" />
+            android:layout_alignParentStart="true"/>
 
         <TextView
             android:id="@+id/confirm"

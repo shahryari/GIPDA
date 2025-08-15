@@ -2,6 +2,7 @@ package com.example.warehousemanagment.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternSerialPutawayDetailBinding
@@ -12,7 +13,8 @@ class SerialPutawayDetailAdapter(
     private val detailList: List<MySerialReceiptDetailRow>,
     val context: Context,
     val onReachToEnd : (Int)->Unit,
-    val onItemClick: (MySerialReceiptDetailRow)->Unit
+    val onItemClick: (MySerialReceiptDetailRow)->Unit,
+    val onAssignClick: (MySerialReceiptDetailRow)-> Unit
 ) : RecyclerView.Adapter<SerialPutawayDetailAdapter.MyViewHolder>(){
 
     class MyViewHolder(val binding: PatternSerialPutawayDetailBinding) : RecyclerView.ViewHolder(binding.root)
@@ -34,10 +36,14 @@ class SerialPutawayDetailAdapter(
         holder.binding.total.text = model.quantity.toString()
         holder.binding.scan.text = model.scanCount.toString()
 
+        holder.binding.assignLocation.visibility = if(model.hasItemLocation) View.GONE else View.VISIBLE
+        holder.binding.assignLocation.setOnClickListener {
+            onAssignClick(model)
+        }
         if (position==detailList.size-1 && detailList.size>= Utils.ROWS){
             onReachToEnd(position)
         }
-        holder.itemView.setOnClickListener {
+        holder.binding.root.setOnClickListener {
             onItemClick(model)
         }
     }

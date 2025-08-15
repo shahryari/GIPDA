@@ -15,11 +15,11 @@ data class CargoRow(
     @SerializedName("CreatedOn")
     val createdOn: String,
     @SerializedName("CreatedOnString")
-    val createdOnString: String,
+    val createdOnString: String?,
     @SerializedName("CurrentStatusCode")
     val currentStatusCode: String,
     @SerializedName("CustomerFullName")
-    val customerFullName: String,
+    val customerFullName: String?,
     @SerializedName("DockAssignTime")
     val dockAssignTime: String,
     @SerializedName("DockAssignTimeString")
@@ -29,15 +29,15 @@ data class CargoRow(
     @SerializedName("DocumentName")
     val documentName: String,
     @SerializedName("DriverFirstName")
-    val driverFirstName: Any,
+    val driverFirstName: String?,
     @SerializedName("DriverFullName")
     val driverFullName: String,
     @SerializedName("DriverImageUrl")
     val driverImageUrl: String,
     @SerializedName("DriverLastName")
-    val driverLastName: Any,
+    val driverLastName: String?,
     @SerializedName("DriverTaskJson")
-    val driverTaskJson: String,
+    val driverTaskJson: String?,
     @SerializedName("DriverTaskObject")
     val driverTaskObject: List<DriverTaskObject>,
     @SerializedName("HasCheckTruck")
@@ -65,7 +65,7 @@ data class CargoRow(
     @SerializedName("TaskTypeID")
     val taskTypeID: Int,
     @SerializedName("TaskTypeTitle")
-    val taskTypeTitle: String,
+    val taskTypeTitle: String?,
     @SerializedName("WarehouseID")
     val warehouseID: String,
     @SerializedName("WorkerID")
@@ -73,7 +73,7 @@ data class CargoRow(
     @SerializedName("WorkerTaskID")
     val workerTaskID: String,
     @SerializedName("WorkerFullNameShip")
-    val workerFullNameShip:String,
+    val workerFullNameShip:String?,
     @SerializedName("Total")
     val total: Int,
     @SerializedName("DoneCount")
@@ -83,5 +83,5 @@ data class CargoRow(
     @SerializedName("SumDoneQuantity")
     val sumDonQuantity: Int,
     @SerializedName("ShippingLocationCode")
-    val shippingLocationCode: String
+    val shippingLocationCode: String?
 )

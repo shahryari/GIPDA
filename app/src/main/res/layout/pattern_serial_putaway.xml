@@ -46,6 +46,17 @@
                 style="@style/pattern_receieve_tv1"
                 tools:text="@string/tools_tdru4204745" />
             <TextView
+                android:id="@+id/ownerNameTitle"
+                style="@style/pattern_putaway_smallTv"
+                android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                android:visibility="gone"
+                android:text="@string/owner" />
+            <TextView
+                android:id="@+id/ownerName"
+                style="@style/pattern_receieve_tv1"
+                visibility="gone"
+                tools:text="@string/tools_tdru4204745" />
+            <TextView
                 android:id="@+id/title3"
                 style="@style/pattern_putaway_smallTv"
                 android:layout_marginStart="@dimen/marginStartLocationTransfer"

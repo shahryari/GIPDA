@@ -61,6 +61,24 @@
         android:layout_below="@id/tv3"
         android:text="@string/tools_tdru4204745" />
 
+    <TextView
+        android:id="@+id/tv4"
+        style="@style/pattern_putaway_smallTv"
+        android:layout_below="@id/invTypeTitle"
+        android:layout_alignStart="@+id/productTitle"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:text="@string/owner" />
+
+
+    <TextView
+        android:id="@+id/owner"
+        style="@style/pattern_receieve_tv1"
+        android:layout_below="@id/tv4"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:text="@string/tools_tdru4204745" />
 
     <ImageView
         android:id="@+id/imgBackground"

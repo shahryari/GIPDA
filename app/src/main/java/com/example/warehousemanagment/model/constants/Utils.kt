@@ -27,8 +27,8 @@ class Utils
         val sumDoneQuantity: String = "Done Qty"
         val showAssignToMe: String = "Show Assign To Me"
 //      val FIRST_DOMAIN: String="http://81.12.116.91:8080/mobile/v1/"
-        val FIRST_DOMAIN: String="https://gi.inlumo.ir/mobile/v1/"
-//        val FIRST_DOMAIN: String="https://tms.goldiran.ir/mobile/v1/"
+//        val FIRST_DOMAIN: String="https://gi.inlumo.ir/mobile/v1/"
+        val FIRST_DOMAIN: String="https://tms.goldiran.ir/mobile/v1/"
 //        val FIRST_DOMAIN:String="http://gi.namipaya.com/mobile/v1/"
 
         val ERROR_401: Int=401
@@ -112,6 +112,7 @@ class Utils
         val DRAWER_SUB_SHIPPING_RATIO: Double=.35
         val Quantity: String="Quantity"
         val OwnerCode="OwnerCode"
+        val ownerName = "OwnerName"
         val ProductTitle: String="ProductTitle"
         val ProductCode: String="ProductCode"
         val SourceLocationCode: String="SourceLocationCode"

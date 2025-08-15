@@ -7,7 +7,7 @@ data class PutawayTruckRow(
     @SerializedName("CarTypeID")
     val carTypeID: Any,
     @SerializedName("CarTypeTitle")
-    val carTypeTitle: Any,
+    val carTypeTitle: String,
     @SerializedName("ContainerNumber")
     val containerNumber: String,
     @SerializedName("CreatedOn")
@@ -42,6 +42,10 @@ data class PutawayTruckRow(
     val receivingTypeTitle: String,
     @SerializedName("TaskTime")
     val taskTime:String,
+    @SerializedName("OwnerName")
+    val ownerName: String?,
+    @SerializedName("OwnerCode")
+    val ownerCode: String?,
     @SerializedName("TaskTimeString")
     val taskTimeString:String ,
     @SerializedName("DriverImageUrl")

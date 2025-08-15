@@ -24,8 +24,16 @@ data class StockTackingLocationRow(
     val stockTurnTeamLocationID: String,
     @SerializedName("WarehouseCode")
     val warehouseCode: String,
+    @SerializedName("RealInventory")
+    val realInventory: Int,
+    @SerializedName("EnableSecondCountBox")
+    val enableSecondCountBox: Boolean,
     @SerializedName("FirstQuantity")
     val firstQuantity:Int?,
+    @SerializedName("SecondQuantity")
+    val secondQuantity:Int?,
+    @SerializedName("ThirdQuantity")
+    val thirdQuantity: Int?,
     @SerializedName("HistoryCount")
     val historyCount:Int,
 )

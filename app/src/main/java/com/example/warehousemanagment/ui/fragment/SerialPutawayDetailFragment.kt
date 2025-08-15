@@ -3,11 +3,15 @@ package com.example.warehousemanagment.ui.fragment
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
+import com.example.warehousemanagment.databinding.DialogSheetBottomBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentSerialPutawayDetailBinding
 import com.example.warehousemanagment.model.classes.checkTick
@@ -22,6 +26,7 @@ import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.putaway.serial_putaway.MySerialReceiptDetailRow
 import com.example.warehousemanagment.ui.adapter.SerialPutawayDetailAdapter
 import com.example.warehousemanagment.ui.base.BaseFragment
+import com.example.warehousemanagment.ui.dialog.SheetConfirmDialog
 import com.example.warehousemanagment.ui.dialog.SheetSortFilterDialog
 import com.example.warehousemanagment.viewmodel.SerialPutawayDetailViewModel
 
@@ -40,6 +45,9 @@ class SerialPutawayDetailFragment() : BaseFragment<SerialPutawayDetailViewModel,
     lateinit var plaque2: String
     lateinit var plaque3: String
     lateinit var plaque4: String
+    lateinit var ownerName: String
+    lateinit var ownerCode: String
+    var isDecorAdded = false
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -62,6 +70,7 @@ class SerialPutawayDetailFragment() : BaseFragment<SerialPutawayDetailViewModel,
         {
             showFilterSheetDialog()
         }
+
 
 
     }
@@ -173,6 +182,51 @@ class SerialPutawayDetailFragment() : BaseFragment<SerialPutawayDetailViewModel,
         }
     }
 
+    private fun showSubmitAssignSheet(model: MySerialReceiptDetailRow)
+    {
+        var mySheetAlertDialog: SheetConfirmDialog? = null
+        mySheetAlertDialog = SheetConfirmDialog("Submit Assign Location",
+            "Are you sure to assign location?",
+            object : SheetConfirmDialog.OnClickListener {
+                override fun onCanselClick() {
+                    mySheetAlertDialog?.dismiss()
+                }
+
+                override fun onOkClick(progress: ProgressBar, toInt: String) {
+                    viewModel.receiptDetailAutoScanSerial(
+                        pref.getDomain(),
+                        model.receiptDetailID,
+                        pref.getTokenGlcTest(),
+                        context!!,
+                        progress
+                    ) {
+                        mySheetAlertDialog?.dismiss()
+                        refresh()
+                    }
+                }
+
+
+                override fun onCloseClick() {
+                    mySheetAlertDialog?.dismiss()
+                }
+
+                override fun hideCansel(cansel: TextView) {
+
+                }
+
+                override fun onDismiss() {
+
+                }
+
+                override fun init(binding: DialogSheetBottomBinding) {
+
+                }
+
+            })
+        mySheetAlertDialog.show(getParentFragmentManager(), "")
+    }
+
+
     private fun showList(list: List<MySerialReceiptDetailRow>){
         if(lastPosition - Utils.ROWS<=0)
             b.rv.scrollToPosition(0)
@@ -184,8 +238,11 @@ class SerialPutawayDetailFragment() : BaseFragment<SerialPutawayDetailViewModel,
             {
                 page += 1
                 setListData()
-            }
-        ) {model->
+            },
+            onAssignClick = {
+                showSubmitAssignSheet(it)
+            },
+            onItemClick = {model->
             val bundle = Bundle()
             bundle.putString(Utils.DRIVE_FULLNAME, driverFullName)
             bundle.putString(Utils.RECEIVE_NUMBER, receiptNumber)
@@ -197,14 +254,30 @@ class SerialPutawayDetailFragment() : BaseFragment<SerialPutawayDetailViewModel,
             bundle.putString(Utils.PLAQUE_4,plaque4)
             bundle.putInt(Utils.Quantity,model.quantity)
             bundle.putInt("scan",model.scanCount)
+            bundle.putBoolean("Serializable",model.serializable)
             bundle.putString(Utils.ProductCode,model.productCode)
             bundle.putString(Utils.ProductTitle,model.productName)
             bundle.putString(Utils.locationInventory,model.invTypeTitle)
+            bundle.putString(Utils.ownerName,ownerName)
+            bundle.putString(Utils.OwnerCode,ownerCode)
 
             navController?.navigate(R.id.action_serialPutawayDetailFragment_to_serialPutawayDetailLocationFragment,bundle)
 
-        }
+        })
         b.rv.adapter = adapter
+        if(!isDecorAdded){
+
+            isDecorAdded=true
+            val itemDecoration = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+            itemDecoration.setDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.divider
+                )!!
+            )
+            b.rv.addItemDecoration(itemDecoration)
+
+        }
 
         b.mainToolbar.searchEdi.doAfterTextChanged()
         {
@@ -259,10 +332,15 @@ class SerialPutawayDetailFragment() : BaseFragment<SerialPutawayDetailViewModel,
         containerNumber = arguments?.getString(Utils.CONTAINER_NUMBER)?:""
 
 
+
         plaque1 = arguments?.getString(Utils.PLAQUE_1)?:""
         plaque2 = arguments?.getString(Utils.PLAQUE_2)?:""
         plaque3 = arguments?.getString(Utils.PLAQUE_3)?:""
         plaque4 = arguments?.getString(Utils.PLAQUE_4)?:""
+        ownerName = arguments?.getString(Utils.ownerName)?:""
+        ownerCode = arguments?.getString(Utils.OwnerCode)?:""
+
+        b.header.ownerName.text = ownerName+ "(${ownerCode})"
 
         b.header.plaque.text = getBuiltString(
             plaque3,
@@ -274,6 +352,11 @@ class SerialPutawayDetailFragment() : BaseFragment<SerialPutawayDetailViewModel,
         b.header.driverFullName.text = driverFullName
         b.header.recevieNumber.text = receiptNumber
         b.header.containerNumber.text = containerNumber
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isDecorAdded = false
     }
 
     override fun getLayout(): Int {

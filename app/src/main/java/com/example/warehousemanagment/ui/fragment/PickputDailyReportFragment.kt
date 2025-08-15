@@ -53,6 +53,7 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 class PickputDailyReportFragment :
@@ -65,6 +66,8 @@ class PickputDailyReportFragment :
     var lastPosition=0
     var ownerCode=""
     var taskTypeId:Int ?=null
+    var isSearch=false
+    var selectedDate: PersianPickerDate? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -102,9 +105,10 @@ class PickputDailyReportFragment :
         b.relFilter.setOnClickListener()
         {
 
-            if (lenEdi(b.serialEdi)==0){
+            if (selectedDate == null){
                 toast( getString(R.string.youHaveToDate),requireActivity())
             }else{
+                isSearch=true
                 refresh()
             }
 
@@ -280,32 +284,25 @@ class PickputDailyReportFragment :
     )
     {
         viewModel.getProductsList().observe(viewLifecycleOwner,
-            object : Observer<List<ProductModel>>
-            {
-                override fun onChanged(list: List<ProductModel>)
-                {
-                    arrCounts.text= getBuiltString(getString(R.string.tools_scannedItems),
-                        " ",list.size.toString())
-                    val adapter = ProductAdapter(list, requireActivity(),
-                        object : ProductAdapter.OnCallBackListener
-                        {
-                            override fun onClick(model: ProductModel)
-                            {
-                                sheet?.dismiss()
-                                tv.text=model.productTitle
-                                chronometer?.cancel()
-                            }
+            Observer { list ->
+                arrCounts.text= getBuiltString(getString(R.string.tools_scannedItems),
+                    " ",list.size.toString())
+                val adapter = ProductAdapter(list, requireActivity(),
+                    object : ProductAdapter.OnCallBackListener {
+                        override fun onClick(model: ProductModel) {
+                            sheet?.dismiss()
+                            tv.text=model.productTitle
+                            chronometer?.cancel()
+                        }
 
-                        })
-                    rv.adapter = adapter
+                    })
+                rv.adapter = adapter
 
-                    searchEdi.doAfterTextChanged {
-                        adapter.setFilter(search(
-                            textEdi(searchEdi),list,
-                            SearchFields.ProductTitle,SearchFields.ProductCode,SearchFields.OwnerCode
-                        ))
-                    }
-
+                searchEdi.doAfterTextChanged {
+                    adapter.setFilter(search(
+                        textEdi(searchEdi),list,
+                        SearchFields.ProductTitle,SearchFields.ProductCode,SearchFields.OwnerCode
+                    ))
                 }
             })
     }
@@ -322,12 +319,21 @@ class PickputDailyReportFragment :
 
     private fun setReportPickAndPut()
     {
-        viewModel.reportPickAndPutInventory(
-            pref.getDomain(), taskTypeId = taskTypeId,
-            textEdi(b.locationCode), textEdi(b.serialEdi), textEdi(b.productTitleEdi),
+        if (selectedDate!=null) viewModel.reportPickAndPutInventory(
+            pref.getDomain(),
+            taskTypeId = taskTypeId,
+            textEdi(b.locationCode),
+            "${selectedDate!!.gregorianYear}-${String.format(Locale.UK,"%02d",selectedDate!!.gregorianMonth)}-${String.format(Locale.UK,"%02d",selectedDate!!.gregorianDay)}",
+            textEdi(b.productTitleEdi),
             ownerCode,page, Utils.ROWS, sortType,
             orderType, pref.getTokenGlcTest(), b.progressBar,b.swipeLayout
-        )
+        ) {
+            if(it && isSearch) {
+                b.noResultTv.visibility = View.VISIBLE
+            } else {
+                b.noResultTv.visibility = View.GONE
+            }
+        }
     }
 
     private fun showFilterSheet()
@@ -445,7 +451,7 @@ class PickputDailyReportFragment :
             .setTodayButtonVisible(true)
             .setMinYear(1390)
             .setTypeFace(Typeface.createFromAsset(requireActivity().assets,"fonts/medium.ttf"))
-            .setMaxYear(1402)
+            .setMaxYear(1410)
             .setMaxMonth(PersianDatePickerDialog.THIS_MONTH)
             .setMaxDay(PersianDatePickerDialog.THIS_DAY)
             .setInitDate(PersianCalendar().get(Calendar.YEAR),
@@ -458,6 +464,7 @@ class PickputDailyReportFragment :
             .setListener(object : PersianPickerListener {
                 override fun onDateSelected(model: PersianPickerDate)
                 {
+                    selectedDate = model
                     edi.setText(getBuiltString(model.persianYear.toString(),
                     "-",model.persianMonth.toString(),"-",model.persianDay.toString()))
                 }
@@ -470,14 +477,9 @@ class PickputDailyReportFragment :
 
     private fun observeArrayCount()
     {
-        viewModel.getArrayCount().observe(viewLifecycleOwner,object :Observer<Int>
-        {
-            override fun onChanged(it: Int)
-            {
-                setBelowCount(requireActivity(), getString(R.string.tools_you_have),
-                    it, getString(R.string.pickPutDailyReport))
-            }
-
+        viewModel.getArrayCount().observe(viewLifecycleOwner, Observer<Int> { it ->
+            setBelowCount(requireActivity(), getString(R.string.tools_you_have),
+                it, getString(R.string.pickPutDailyReport))
         })
 
     }
@@ -486,14 +488,10 @@ class PickputDailyReportFragment :
     {
 
         viewModel.getReportLocationList().
-        observe(viewLifecycleOwner,object : Observer<List<PickAndPutRow>>
-        {
-            override fun onChanged(it: List<PickAndPutRow>)
-            {
-                b.swipeLayout.isRefreshing=false
-                lastPosition=it.size-1
-                showLocationList(it)
-            }
+        observe(viewLifecycleOwner, Observer { it ->
+            b.swipeLayout.isRefreshing=false
+            lastPosition=it.size-1
+            showLocationList(it)
         })
     }
 

@@ -246,7 +246,7 @@ class PutawayDetailFragment :
                     dialogBinding.rel4.confirm.setOnClickListener()
                     {
                         val location=textEdi(dialogBinding.layoutTopInfo.serialEdi)
-                        if (location.length!=0 && location.equals(model.locationCode,ignoreCase = true))
+                        if (location.isNotEmpty() && location.trim().lowercase() == model.locationCode.lowercase())
                         {
                             completePutaway(dialogBinding.progress, model.receiptDetailID,model.itemLocationID,)
                             observeCompletePutaway(dialog)
@@ -393,6 +393,8 @@ class PutawayDetailFragment :
         val createdOn=arguments?.getString(Utils.CREATED_ON)
         val carTypeTitle=arguments?.getString(Utils.CAR_TYPE_TITLE)
         val containerNumber=arguments?.getString(Utils.CONTAINER_NUMBER)
+        val ownerName = arguments?.getString(Utils.ownerName)
+        val ownerCode = arguments?.getString(Utils.OwnerCode)
 
 
         b.receiveItem.recevieNumber.setText(receiveNumber)
@@ -410,6 +412,14 @@ class PutawayDetailFragment :
         b.receiveItem.plaque.setText(getBuiltString(plaque3.toString()
             ,plaque2.toString(),plaque1.toString()))
         b.receiveItem.plaqueYear.text=plaque4
+
+
+        b.receiveItem.bolLine2?.visibility = View.VISIBLE
+        b.receiveItem.btitle2?.text = "Owner"
+        b.receiveItem.containerNumber2?.text = ownerName?:""
+        b.receiveItem.ownerLine?.visibility = View.VISIBLE
+        b.receiveItem.ownerTitle?.text = "Owner Code"
+        b.receiveItem.owner?.text = ownerCode?:""
     }
 
 

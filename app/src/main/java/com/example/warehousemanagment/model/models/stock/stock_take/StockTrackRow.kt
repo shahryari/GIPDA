@@ -1,4 +1,4 @@
-package com.test
+package com.example.warehousemanagment.model.models.stock.stock_take
 
 
 import com.google.gson.annotations.SerializedName

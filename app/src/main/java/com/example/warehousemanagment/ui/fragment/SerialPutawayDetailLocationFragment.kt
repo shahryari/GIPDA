@@ -11,9 +11,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.R
 import com.example.warehousemanagment.dagger.component.FragmentComponent
+import com.example.warehousemanagment.databinding.DialogPutAwayQuantityBinding
 import com.example.warehousemanagment.databinding.DialogSerialScanBinding
 import com.example.warehousemanagment.databinding.DialogSheetSortFilterBinding
 import com.example.warehousemanagment.databinding.FragmentSerialPutawayDetailBinding
@@ -28,6 +31,7 @@ import com.example.warehousemanagment.model.classes.search
 import com.example.warehousemanagment.model.classes.setBelowCount
 import com.example.warehousemanagment.model.classes.setToolbarBackground
 import com.example.warehousemanagment.model.classes.setToolbarTitle
+import com.example.warehousemanagment.model.classes.showToast
 import com.example.warehousemanagment.model.classes.textEdi
 import com.example.warehousemanagment.model.classes.toast
 import com.example.warehousemanagment.model.constants.SearchFields
@@ -57,6 +61,8 @@ class SerialPutawayDetailLocationFragment
     lateinit var productCode: String
     lateinit var productTitle: String
     lateinit var invType: String
+    var serializable: Boolean = false
+    var isDecorAdded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +74,7 @@ class SerialPutawayDetailLocationFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setLocationList()
+        refresh()
         b.swipeLayout.setOnRefreshListener()
         {
             refresh()
@@ -168,9 +174,94 @@ class SerialPutawayDetailLocationFragment
         sheet.show(this.getParentFragmentManager(), "")
     }
 
+    private fun showQuantityDialog(
+        receiptDetailId: String,
+        locationCode: String,
+        quantity: String,
+        productTitle: String,
+        productCode: String,
+        progress: ProgressBar,
+        isSystemic: Boolean,
+        invtypeTitle: String
+    ) {
+        val dialogBinding = DialogPutAwayQuantityBinding.
+        inflate(LayoutInflater.from(requireActivity()), null)
+        val dialog = createAlertDialog(dialogBinding,
+            R.drawable.shape_background_rect_border_gray_solid_white, requireActivity())
+
+
+        dialogBinding.header.text= if(locationCode.isNotEmpty()) {
+            if(isSystemic) "Automatic put in location"
+            else "Put in location $locationCode"
+        } else {
+            "Put in location"
+        }
+        dialogBinding.layoutTopInfo.serialEdi.setText(locationCode)
+        dialogBinding.layoutTopInfo.serialEdi.isEnabled = locationCode.isEmpty()
+        dialogBinding.layoutTopInfo.quantityEdi.setText(quantity)
+
+        dialogBinding.layoutTopInfo.tv2.text = productTitle
+        dialogBinding.layoutTopInfo.tv3.text = productCode
+        dialogBinding.layoutTopInfo.tv5.visibility = View.GONE
+        dialogBinding.layoutTopInfo.tv6.visibility = View.GONE
+        dialogBinding.layoutTopInfo.tv7.text = invtypeTitle
+
+        if (locationCode.isEmpty()) clearEdi(dialogBinding.layoutTopInfo.clearImg,dialogBinding.layoutTopInfo.serialEdi)
+        else dialogBinding.layoutTopInfo.clearImg.visibility = View.GONE
+        clearEdi(dialogBinding.layoutTopInfo.quantityClearImg,dialogBinding.layoutTopInfo.quantityEdi)
+
+        if (locationCode.isEmpty())
+            dialogBinding!!.layoutTopInfo.serialEdi.requestFocus()
+        else
+            dialogBinding!!.layoutTopInfo.quantityEdi.requestFocus()
+
+        dialogBinding.rel4.confirm.setOnClickListener()
+        {
+            val location=textEdi(dialogBinding.layoutTopInfo.serialEdi)
+            val quantity = textEdi(dialogBinding.layoutTopInfo.quantityEdi)
+            if (location.isEmpty()) {
+                showToast("Please fill the location",requireContext())
+                return@setOnClickListener
+            }
+            if (quantity.isEmpty()) {
+                showToast("Please fill quantity",requireContext())
+                return@setOnClickListener
+            }
+            val quantityVal = quantity.toDoubleOrNull()?:0.0
+            if (quantityVal<=0.0){
+                showToast("Quantity must be greater then zero",requireContext())
+                return@setOnClickListener
+            }
+
+            viewModel.scanSerial(
+                baseUrl = pref.getDomain(),
+                location,
+                "",
+                serializable,
+                quantityVal,
+                receiptDetailId,
+                pref.getTokenGlcTest(),
+                requireContext(),
+                dialogBinding.progress,
+                navBack = {
+                    dialog.dismiss()
+                    navController?.popBackStack()
+                },
+                {
+                    dialog.dismiss()
+                }
+            )
+
+        }
+        dialogBinding.rel4.cansel.setOnClickListener{ dialog.dismiss() }
+        dialogBinding.closeImg.setOnClickListener { dialog.dismiss() }
+
+        dialog.setOnDismissListener {refresh()}
+    }
     private fun showScanDialog(
         receiptDetailId: String,
-//        itemLocationId: String,
+        itemLocationId: String,
+        isSystemic: Boolean,
         locationCode: String,
         productTitle: String,
         productCode: String,
@@ -186,10 +277,17 @@ class SerialPutawayDetailLocationFragment
         )
 
 
+        scanDialogBinding!!.dialogTitle.text = if (locationCode.isNotEmpty()){
+            if (isSystemic) "Automatic Serial Scan"
+            else "Serial Scan"
+        } else "Put Serial Into Location"
+
+
         scanDialogBinding!!.layoutTopInfo.relQuantity.visibility = View.VISIBLE
         scanDialogBinding!!.layoutTopInfo.relOwnerCode.visibility = View.GONE
         scanDialogBinding!!.layoutTopInfo.serialEdi.hint = "Location Code"
         scanDialogBinding!!.layoutTopInfo.serialEdi.setText(locationCode)
+        scanDialogBinding!!.layoutTopInfo.serialEdi.isEnabled = locationCode.isEmpty()
         scanDialogBinding!!.layoutTopInfo.quantityEdi.hint = "Input Serial"
         scanDialogBinding!!.layoutTopInfo.productTitle.text = productTitle
         scanDialogBinding!!.layoutTopInfo.productCode.text = productCode
@@ -211,10 +309,12 @@ class SerialPutawayDetailLocationFragment
 
 
 
-        clearEdi(
+        if (locationCode.isEmpty())clearEdi(
             scanDialogBinding!!.layoutTopInfo.clearImg,
             scanDialogBinding!!.layoutTopInfo.serialEdi
-        )
+        ) else {
+            scanDialogBinding!!.layoutTopInfo.clearImg.visibility = View.GONE
+        }
         clearEdi(scanDialogBinding!!.clearImg, scanDialogBinding!!.searchEdi)
         clearEdi(
             scanDialogBinding!!.layoutTopInfo.quantityclearImg,
@@ -236,10 +336,40 @@ class SerialPutawayDetailLocationFragment
         checkEnterKey(scanDialogBinding!!.layoutTopInfo.quantityEdi)
         {
             if (lenEdi(scanDialogBinding!!.layoutTopInfo.serialEdi) != 0 && lenEdi(scanDialogBinding!!.layoutTopInfo.quantityEdi) != 0){
+//                if (isSystemic) {
+//                    viewModel.scanSerialAuto(
+//                        baseUrl = pref.getDomain(),
+//                        itemLocationId,
+//                        textEdi(scanDialogBinding!!.layoutTopInfo.quantityEdi),
+//                        receiptDetailId,
+//                        pref.getTokenGlcTest(),
+//                        requireContext(),
+//                        scanDialogBinding!!.progress,
+//                        navBack = {
+//                            scanDialog?.dismiss()
+//                            navController?.popBackStack()
+//                        },
+//                        {
+//                            scanDialogBinding!!.layoutTopInfo.quantityEdi.setText("")
+//                            viewModel.setSerialList(
+//                                pref.getDomain(),
+//                                receiptDetailId,
+//                                textEdi(scanDialogBinding!!.layoutTopInfo.serialEdi),
+//                                pref.getTokenGlcTest(),
+//                                requireActivity(),
+//                                progress
+//                            )
+//                        }
+//                    )
+//                } else {
+//
+//                }
                 viewModel.scanSerial(
                     baseUrl = pref.getDomain(),
                     textEdi(scanDialogBinding!!.layoutTopInfo.serialEdi),
                     textEdi(scanDialogBinding!!.layoutTopInfo.quantityEdi),
+                    serializable,
+                    0.0,
                     receiptDetailId,
                     pref.getTokenGlcTest(),
                     requireContext(),
@@ -268,10 +398,40 @@ class SerialPutawayDetailLocationFragment
         scanDialogBinding!!.layoutTopInfo.add.setOnClickListener()
         {
             if (lenEdi(scanDialogBinding!!.layoutTopInfo.serialEdi) != 0 && lenEdi(scanDialogBinding!!.layoutTopInfo.quantityEdi) != 0){
+//                if (isSystemic) {
+//                    viewModel.scanSerialAuto(
+//                        baseUrl = pref.getDomain(),
+//                        itemLocationId,
+//                        textEdi(scanDialogBinding!!.layoutTopInfo.quantityEdi),
+//                        receiptDetailId,
+//                        pref.getTokenGlcTest(),
+//                        requireContext(),
+//                        scanDialogBinding!!.progress,
+//                        navBack = {
+//                            scanDialog?.dismiss()
+//                            navController?.popBackStack()
+//                        },
+//                        {
+//                            scanDialogBinding!!.layoutTopInfo.quantityEdi.setText("")
+//                            viewModel.setSerialList(
+//                                pref.getDomain(),
+//                                receiptDetailId,
+//                                textEdi(scanDialogBinding!!.layoutTopInfo.serialEdi),
+//                                pref.getTokenGlcTest(),
+//                                requireActivity(),
+//                                progress
+//                            )
+//                        }
+//                    )
+//                } else {
+//
+//                }
                 viewModel.scanSerial(
                     baseUrl = pref.getDomain(),
                     textEdi(scanDialogBinding!!.layoutTopInfo.serialEdi),
                     textEdi(scanDialogBinding!!.layoutTopInfo.quantityEdi),
+                    serializable,
+                    0.0,
                     receiptDetailId,
                     pref.getTokenGlcTest(),
                     requireContext(),
@@ -304,8 +464,8 @@ class SerialPutawayDetailLocationFragment
 //
 
         scanDialogBinding!!.rel4.cansel.setOnClickListener { scanDialog?.dismiss() }
-        scanDialogBinding!!.rel4.root.visibility = View.GONE
         scanDialogBinding!!.closeImg.setOnClickListener { scanDialog?.dismiss() }
+        scanDialogBinding!!.rel4.cansel.visibility = View.GONE
         scanDialogBinding!!.rel4.confirm.setOnClickListener {
             scanDialog?.dismiss()
         }
@@ -313,6 +473,7 @@ class SerialPutawayDetailLocationFragment
         {
             scanDialogBinding?.scannerView?.stopCamera()
             scanDialogBinding?.scannerView?.visibility = View.GONE
+            refresh()
         }
 
 
@@ -461,15 +622,6 @@ class SerialPutawayDetailLocationFragment
                 serialList.map { ReceivingDetailSerialModel(false,it.itemSerialID,receiptDetailId,it.serial) },
                 dialogBinding.serialsCount
             )
-
-            dialogBinding.rel4.confirm.setOnClickListener()
-            {
-//                if (serialList.isNotEmpty())
-//                    onConfirmSeiralsClick(
-//                        receivingDetailId, workerTaskId, serialList.size, dialogBinding
-//                    )
-//                else toast(getString(R.string.thereIsNoSerial), requireActivity())
-            }
         }
     }
 
@@ -526,7 +678,7 @@ class SerialPutawayDetailLocationFragment
         ) { it ->
             setBelowCount(
                 requireActivity(), getString(R.string.tools_you_have),
-                it, getString(R.string.productsToReceive)
+                it,  "Location"
             )
         }
     }
@@ -551,7 +703,6 @@ class SerialPutawayDetailLocationFragment
                     b.swipeLayout.isRefreshing = false
                     lastReceivingPosition = it.size - 1
                     showLocationList(it)
-
                 }
             }
     }
@@ -565,14 +716,30 @@ class SerialPutawayDetailLocationFragment
             list,
             context!!,
             onItemClick = {
-                showScanDialog(
-                    receiptDetailId,
-                    it.locationCode,
-                    productTitle = productTitle,
-                    productCode = productCode,
-                    invtypeTitle = invType,
-                    progress = b.progressBar
-                )
+                if (!serializable) {
+                    showQuantityDialog(
+                        receiptDetailId,
+                        it.locationCode,
+                        it.serialCount.toString(),
+                        productTitle,
+                        productCode,
+                        b.progressBar,
+                        it.isSystemic == true,
+                        invType
+                    )
+                }else {
+
+                    showScanDialog(
+                        receiptDetailId,
+                        it.itemLocationID,
+                        it.isSystemic == true,
+                        it.locationCode,
+                        productTitle = productTitle,
+                        productCode = productCode,
+                        invtypeTitle = invType,
+                        progress = b.progressBar
+                    )
+                }
             },
             onReachToEnd = {
                 page += 1
@@ -581,6 +748,18 @@ class SerialPutawayDetailLocationFragment
         )
 
         b.rv.adapter = adapter
+        if(!isDecorAdded){
+            val itemDecoration = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+            itemDecoration.setDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.divider
+                )!!
+            )
+            isDecorAdded = true
+            b.rv.addItemDecoration(itemDecoration)
+        }
+
 
         b.mainToolbar.searchEdi.doAfterTextChanged()
         {
@@ -588,7 +767,6 @@ class SerialPutawayDetailLocationFragment
         }
 
     }
-
 
     override fun init() {
         setToolbarTitle(requireActivity(), "Serial Putaway Detail")
@@ -605,25 +783,44 @@ class SerialPutawayDetailLocationFragment
         val quantity = arguments?.getInt(Utils.Quantity)
         val scan = arguments?.getInt("scan")
         val containerNumber = arguments?.getString(Utils.CONTAINER_NUMBER)
+        serializable = arguments?.getBoolean("Serializable") ?: false
 
 
         val plaque1 = arguments?.getString(Utils.PLAQUE_1)
         val plaque2 = arguments?.getString(Utils.PLAQUE_2)
         val plaque3 = arguments?.getString(Utils.PLAQUE_3)
         val plaque4 = arguments?.getString(Utils.PLAQUE_4)
+        val ownerName = arguments?.getString(Utils.ownerName)
+        val ownerCode = arguments?.getString(Utils.OwnerCode)
+        b.header.ownerName.text = ownerName+"($ownerCode)"
 
         b.layPutSerial.visibility = View.VISIBLE
-        b.putSerial.tv.text = "Put Serial into Location"
+        b.putSerial.tv.text = if (!serializable) "Put into Location" else "Put Serial into Location"
 
         b.putSerial.tv.setOnClickListener {
-            showScanDialog(
-                receiptDetailId,
-                "",
-                productTitle,
-                productCode,
-                b.progressBar,
-                invType
-            )
+            if (!serializable){
+                showQuantityDialog(
+                    receiptDetailId,
+                    "",
+                    "",
+                    productTitle,
+                    productCode,
+                    b.progressBar,
+                    false,
+                    invType
+                )
+            } else {
+                showScanDialog(
+                    receiptDetailId,
+                    "",
+                    false,
+                    "",
+                    productTitle,
+                    productCode,
+                    b.progressBar,
+                    invType
+                )
+            }
         }
 
 

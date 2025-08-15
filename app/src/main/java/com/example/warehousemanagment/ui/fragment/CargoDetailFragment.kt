@@ -441,7 +441,7 @@ class CargoDetailFragment :
         shippingAddressId=arguments?.getString(Utils.ShippingAddressId,"").toString()
         shippingNumber=arguments?.getString(Utils.ShippingNumber,"").toString()
         bolNumber = arguments?.getString(Utils.BOLNumber,"") ?: ""
-        customerFullName=arguments?.getString(Utils.CUSTOMER_FULL_NAME,"").toString()
+//        customerFullName=arguments?.getString(Utils.CUSTOMER_FULL_NAME,"").toString()
         driverFullName=arguments?.getString(Utils.DriverFullName,"").toString()
         isDone = arguments?.getBoolean(Utils.IsDone) ?: false
 

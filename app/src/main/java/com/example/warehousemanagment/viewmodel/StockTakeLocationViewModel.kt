@@ -19,6 +19,7 @@ import com.example.warehousemanagment.model.models.insert_serial.OwnerModel
 import com.example.warehousemanagment.model.models.insert_serial.ProductModel
 import com.example.warehousemanagment.model.models.login.CatalogModel
 import com.example.warehousemanagment.model.models.stock.StockLocationRow
+import com.example.warehousemanagment.model.models.stock.StockTurnItemLocationRow
 import com.example.warehousemanagment.model.models.stock.stock_take_location.StockTackingLocationRow
 import com.google.gson.JsonObject
 import io.reactivex.disposables.CompositeDisposable
@@ -36,11 +37,13 @@ class StockTakeLocationViewModel(application: Application, context: Context):
 
     private var ownerList= MutableLiveData<List<OwnerModel>>()
 
+    private val stockTurnItemLocationList = MutableLiveData<List<StockTurnItemLocationRow>>()
     private var productList=MutableLiveData<List<ProductModel>>()
 
     private var tempList=ArrayList<StockTackingLocationRow>()
 
     private var stockCount= MutableLiveData<Int>()
+    var counted = false
 
     private var disposable: CompositeDisposable = CompositeDisposable()
     fun dispose() { disposable.clear() }
@@ -72,6 +75,9 @@ class StockTakeLocationViewModel(application: Application, context: Context):
         return stockList
     }
 
+    fun getStockTurnItemLocationList(): MutableLiveData<List<StockTurnItemLocationRow>> {
+        return stockTurnItemLocationList
+    }
     fun setOwnerList(
         baseUrl:String,cookie:String)
     {
@@ -120,6 +126,7 @@ class StockTakeLocationViewModel(application: Application, context: Context):
         baseUrl:String,
         cookie: String,
         keyword: String,
+        location: String,
         stockTurnId:String,
         page: Int,
         rows: Int,
@@ -134,6 +141,7 @@ class StockTakeLocationViewModel(application: Application, context: Context):
             showSimpleProgress(true,progressBar)
             val jsonObject= JsonObject()
             jsonObject.addProperty(ApiUtils.Keyword,keyword)
+            jsonObject.addProperty("LocationCode",location)
             jsonObject.addProperty("StockTurnId",stockTurnId)
             repository.stockTakingLocationList(
                     url = baseUrl,
@@ -161,6 +169,56 @@ class StockTakeLocationViewModel(application: Application, context: Context):
                 showSimpleProgress(false,progressBar)
 //                showErrorMsg(it,"stockTakeLocation",context)
             },{},{disposable.add(it)}).let {  }
+        }
+    }
+
+    fun setStockTakeLocationListCounted(
+        baseUrl:String,
+        cookie: String,
+        keyword: String,
+        location: String,
+        stockTurnId:String,
+        page: Int,
+        rows: Int,
+        sort: String,
+        order: String,
+        progressBar: ProgressBar,
+        swipeLayout: SwipeRefreshLayout
+    )
+    {
+        viewModelScope.launch()
+        {
+            showSimpleProgress(true,progressBar)
+            val jsonObject= JsonObject()
+            jsonObject.addProperty(ApiUtils.Keyword,keyword)
+            jsonObject.addProperty("LocationCode",location)
+            jsonObject.addProperty("StockTurnId",stockTurnId)
+            repository.stockTakingLocationListCounted(
+                url = baseUrl,
+                jsonObject=jsonObject,
+                page=page,
+                rows=rows,
+                sort=sort,
+                order = order,
+                cookie=cookie
+            )
+                .subscribe({
+                    showSimpleProgress(false,progressBar)
+                    swipeLayout.isRefreshing=false
+                    if (it.rows.size>0)
+                    {
+                        tempList.addAll(it.rows)
+                        stockList.value=tempList
+
+                    }
+                    stockCount.value=it.total
+//                log("stockTakeLocation",it.toString())
+
+                },{
+                    swipeLayout.isRefreshing=false
+                    showSimpleProgress(false,progressBar)
+//                showErrorMsg(it,"stockTakeLocation",context)
+                },{},{disposable.add(it)}).let {  }
         }
     }
 
@@ -264,6 +322,36 @@ class StockTakeLocationViewModel(application: Application, context: Context):
 
     }
 
+    fun stockTurnItemLocation(
+        baseUrl: String,
+        cookie: String,
+        stockTurnTeamLocationID:String,
+        progressBar: ProgressBar,
+    ) {
+        viewModelScope.launch()
+        {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("StockTurnTeamLocationID", stockTurnTeamLocationID)
+
+            showSimpleProgress(true, progressBar)
+            repository.stockTurnItemLocation(baseUrl, jsonObject, 1,1000,"CreatedOn","asc",cookie)
+                .subscribe(
+                    {
+                        showSimpleProgress(false, progressBar)
+                        log("stockTurnItemLocation", it.toString())
+                        if(it.rows.isNotEmpty())
+                        {
+                            stockTurnItemLocationList.value=it.rows
+                        }
+                    },
+                    {
+                        showSimpleProgress(false, progressBar)
+                        showErrorMsg(it, "stockTurnItemLocation", context)
+                    },
+                ).let { }
+        }
+    }
+
     fun invList(context: Context): List<CatalogModel> {
         val invList = ArrayList<CatalogModel>()
         invList.add(CatalogModel(valueField =1 , title = context.getString(R.string.healty)))
@@ -274,5 +362,18 @@ class StockTakeLocationViewModel(application: Application, context: Context):
         return invList
     }
 
+    fun getTaskTypes(): List<CatalogModel> {
+        val taskTypes = listOf(
+            CatalogModel("TaskType", 1, "Receiving"),
+            CatalogModel("TaskType", 2, "Putaway"),
+            CatalogModel("TaskType", 3, "Picking"),
+            CatalogModel("TaskType", 4, "Shipping"),
+            CatalogModel("TaskType", 5, "Transfer"),
+            CatalogModel("TaskType", 6, "Cancel"),
+            CatalogModel("TaskType", 7, "InvoiceCancel"),
+            CatalogModel("TaskType", 8, "")
+        )
+        return taskTypes
+    }
 
 }

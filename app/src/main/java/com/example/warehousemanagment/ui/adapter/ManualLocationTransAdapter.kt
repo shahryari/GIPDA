@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.warehousemanagment.databinding.PatternLocationTransferBinding
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.models.transfer_task.source_location.SourceLocationRow
-import com.example.warehousemanagment.model.models.transfer_task.source_location.SourceLocationTransferModel
 
 class ManualLocationTransAdapter(): RecyclerView.Adapter<ManualLocationTransAdapter.MyViewHolder>()
 {
@@ -39,6 +38,7 @@ class ManualLocationTransAdapter(): RecyclerView.Adapter<ManualLocationTransAdap
         holder.b.locationType.text=model.locationTypeTitle
         holder.b.ownerCode.text=model.ownerCode
         holder.b.type.text=model.invTypeTitle
+        holder.b.warehouse.text = "${model.warehouseName?:""} (${model.warehouseCode?:""})"
 
         holder.b.rel1.realinventory.text=model.realInventory.toString()
         holder.b.rel1.availableinventory.text=model.availableInventory.toString()

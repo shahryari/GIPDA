@@ -55,7 +55,6 @@ class SheetAlertDialog() : BottomSheetDialogFragment()
         onClickListener.onDismiss()
     }
 
-
     interface OnClickListener{
         fun onCanselClick()
         fun onOkClick(progress: ProgressBar, toInt: String)

@@ -481,6 +481,7 @@ class SerialShippingDetailFragment :
         dialogBinding.layoutTopInfo.owner.text=model.ownerCode
         dialogBinding.layoutTopInfo.invType.text=model.invTypeTitle
         dialogBinding.layoutTopInfo.customerName.text=model.customerFullName
+        dialogBinding.layoutTopInfo.quantityCount.text = model.quantity.toString()
 
 
         dialog.setOnDismissListener { refresh() }

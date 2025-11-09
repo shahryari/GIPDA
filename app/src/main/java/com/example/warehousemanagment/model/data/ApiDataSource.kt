@@ -104,6 +104,16 @@ class ApiDataSource() :DataSource
     private fun apiProvider(): ApiService  {
         return ApiClient.getRetrofit()!!.create(ApiService::class.java)
     }
+
+    override fun logException(
+        baseUrl: String,
+        jsonObject: JsonObject
+    ): Single<Unit> {
+        return apiProvider().logException(
+            baseUrl+"LogException",jsonObject
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun login(baseUrl:String,jsonObject: JsonObject): Single<LoginModel> {
         return apiProvider().login(
             baseUrl+"login",
@@ -1129,14 +1139,15 @@ class ApiDataSource() :DataSource
     override fun getLocationProductSerials(
         baseUrl: String,
         jsonObject: JsonObject,
+        page: Int,
         cookie: String
     ): Observable<LocationProductSerialModel> {
         return apiProvider()
             .getLocationProductSerials(
                 baseUrl+"LocationProductSerial",
                 jsonObject = jsonObject,
-                page = 1,
-                rows = 100,
+                page = page,
+                rows = 1000,
                 sort = "SerialNumber",
                 order = "asc",
                 cookie
@@ -1492,6 +1503,18 @@ class ApiDataSource() :DataSource
             cookie
         ).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun saveTempCountQuantity(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<StockTakingCountModel> {
+        return apiProvider().saveTempCountQuantity(
+            url+"SaveTempCountQuantity",
+            jsonObject,
+            cookie
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun getCurrentVersionInfo(url: String, cookie: String) : Single<VersionInfoModel>{

@@ -35,10 +35,13 @@ class StockTurnReportAdapter(
         holder.binding.locationCode.text = model.locationCode?:""
         holder.binding.taskType.text = taskTypeList.find { it.valueField.toString() == model.taskTypeID }?.title
         holder.binding.inventoryType.text = inventoryList.find { it.valueField.toString() == model.invTypeID }?.title
-        holder.binding.owner.text = model.ownerFullName?:""
+        holder.binding.owner.text = model.ownerCode?:""
         holder.binding.goodsNmae.text = model.goodsTitle?:""
         holder.binding.resourceNumber.text = model.entityResourceNumber?:""
         holder.binding.goodsSystemCode.text = model.goodsSystemCode
+        holder.binding.date.text = model.completeDate?:""
+        holder.binding.dateTitle.text = "Complete Date"
+        holder.binding.quantity.text = model.quantity?.toString() ?: ""
 
 
         if (position==list.size-1 && list.size>= Utils.ROWS){

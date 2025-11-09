@@ -97,6 +97,7 @@ import com.test.StockTakeModel
 import com.test.StockTakingLocationModel
 import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.Cookie
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -105,6 +106,14 @@ import retrofit2.http.Url
 
 interface ApiService
 {
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST
+    fun logException(
+        @Url url: String,
+        @Body jsonObject: JsonObject
+    ) : Single<Unit>
+
     @Headers(Utils.CONTENT_TYPE)
     @POST//("login")
     fun login (
@@ -1083,6 +1092,14 @@ interface ApiService
         @Header(ApiUtils.Order) order:String,
         @Header(Utils.COOKIE) cookie: String
     ) : Observable<StockTurnItemLocationModel>
+
+    @Headers(Utils.CONTENT_TYPE)
+    @POST//SaveTempCountQuantity
+    fun saveTempCountQuantity(
+        @Url url: String,
+        @Body jsonObject: JsonObject,
+        @Header(Utils.COOKIE) cookie: String
+    ) : Single<StockTakingCountModel>
 
     //get current version
     @Headers(Utils.CONTENT_TYPE)

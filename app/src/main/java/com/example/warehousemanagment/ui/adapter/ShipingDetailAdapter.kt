@@ -46,6 +46,7 @@ class ShipingDetailAdapter(): RecyclerView.Adapter<ShipingDetailAdapter.MyViewHo
         holder.b.productCode.text=model.productCode
         holder.b.ownerCode.text=model.ownerCode
         holder.b.date.text=model.taskTimeString
+        holder.b.type.text = model.invTypeTitle
 
         holder.b.colorLay.visibility = View.VISIBLE
         holder.b.customerColor.backgroundTintList = ColorStateList.valueOf(if (model.customerColorCode!=null )

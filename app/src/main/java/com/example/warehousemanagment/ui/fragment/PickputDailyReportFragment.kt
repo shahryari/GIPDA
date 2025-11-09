@@ -105,8 +105,8 @@ class PickputDailyReportFragment :
         b.relFilter.setOnClickListener()
         {
 
-            if (selectedDate == null){
-                toast( getString(R.string.youHaveToDate),requireActivity())
+            if (selectedDate == null && taskTypeId == null && textEdi(b.productTitleEdi).isEmpty() && textEdi(b.locationCode).isEmpty() && ownerCode.isEmpty() ){
+                toast( "You have to fill at least one filed",requireActivity())
             }else{
                 isSearch=true
                 refresh()
@@ -319,11 +319,13 @@ class PickputDailyReportFragment :
 
     private fun setReportPickAndPut()
     {
-        if (selectedDate!=null) viewModel.reportPickAndPutInventory(
+        viewModel.reportPickAndPutInventory(
             pref.getDomain(),
             taskTypeId = taskTypeId,
             textEdi(b.locationCode),
-            "${selectedDate!!.gregorianYear}-${String.format(Locale.UK,"%02d",selectedDate!!.gregorianMonth)}-${String.format(Locale.UK,"%02d",selectedDate!!.gregorianDay)}",
+            selectedDate?.let {
+                "${it.gregorianYear}-${String.format(Locale.UK,"%02d",it.gregorianMonth)}-${String.format(Locale.UK,"%02d",it.gregorianDay)}"
+            }?:"",
             textEdi(b.productTitleEdi),
             ownerCode,page, Utils.ROWS, sortType,
             orderType, pref.getTokenGlcTest(), b.progressBar,b.swipeLayout

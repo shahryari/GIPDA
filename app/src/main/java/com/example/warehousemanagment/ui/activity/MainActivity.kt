@@ -18,6 +18,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.currencykotlin.model.di.component.ActivityComponent
 import com.example.kotlin_wallet.ui.base.BaseActivity
@@ -33,6 +34,7 @@ import com.example.warehousemanagment.model.classes.getBuiltString
 import com.example.warehousemanagment.model.classes.getDimen
 import com.example.warehousemanagment.model.classes.getSpanTv
 import com.example.warehousemanagment.model.classes.hideKeyboard
+import com.example.warehousemanagment.model.classes.log
 import com.example.warehousemanagment.model.classes.startTimerForGettingData
 import com.example.warehousemanagment.model.constants.Utils
 import com.example.warehousemanagment.model.data.MySharedPref
@@ -40,6 +42,7 @@ import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.service.MyNotification
 import com.example.warehousemanagment.ui.dialog.SheetUpdate
 import com.example.warehousemanagment.viewmodel.MainViewModel
+import java.io.File
 
 
 class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
@@ -640,6 +643,13 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>()
     override fun onResume() {
         super.onResume()
         viewModel.getUpdateInfo(pref.getDomain(),pref.getTokenGlcTest())
+        lifecycleScope.launchWhenResumed {
+            val logDir = File(getExternalFilesDir(null),"CrashLogs")
+            if (!logDir.listFiles().isNullOrEmpty())
+            logDir.listFiles()?.forEach {
+                viewModel.logException(pref.getDomain(),"App Crash",it.readText())
+            }
+        }
     }
 
     override fun attachBaseContext(newBase: Context) {

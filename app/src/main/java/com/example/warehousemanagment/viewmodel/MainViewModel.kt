@@ -10,6 +10,7 @@ import com.example.warehousemanagment.model.classes.logErr
 import com.example.warehousemanagment.model.data.MyRepository
 import com.example.warehousemanagment.model.models.VersionInfoModel
 import com.example.warehousemanagment.model.models.notif.NotificationModel
+import com.google.gson.JsonObject
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application,): AndroidViewModel(application)
@@ -50,5 +51,20 @@ class MainViewModel(application: Application,): AndroidViewModel(application)
     }
 
 
+    fun logException(
+        baseUrl: String,
+        message: String,
+        stackTrace: String
+    ) {
+        viewModelScope.launch {
+            repository.logException(
+                baseUrl,
+                jsonObject = JsonObject().apply {
+                    addProperty("Message",message)
+                    addProperty("StackTrack",stackTrace)
+                }
+            )
+        }
+    }
 
 }

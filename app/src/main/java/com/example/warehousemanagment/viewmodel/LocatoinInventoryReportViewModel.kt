@@ -34,6 +34,9 @@ class LocatoinInventoryReportViewModel(application: Application,context: Context
     private var ownerList= MutableLiveData<List<OwnerModel>>()
 
     private var serialList = MutableLiveData<List<LocationProductSerialRow>>()
+    private val tempSerials = arrayListOf<LocationProductSerialRow>()
+
+    private val serialsCount = MutableLiveData<Int>()
 
     private var disposable: CompositeDisposable = CompositeDisposable()
     fun dispose() { disposable.clear() }
@@ -58,6 +61,14 @@ class LocatoinInventoryReportViewModel(application: Application,context: Context
         return reportLocationList
     }
 
+    fun getSerialCount() : MutableLiveData<Int> {
+        return serialsCount
+    }
+
+    fun clearSerials() {
+        tempSerials.clear()
+        serialList.value = tempSerials
+    }
     fun clearReportList()
     {
         if (tempList.size!=0)
@@ -87,6 +98,7 @@ class LocatoinInventoryReportViewModel(application: Application,context: Context
         baseUrl: String,
         locationProductID: String,
         cookie: String,
+        page: Int,
         progressBar: ProgressBar
     ) {
         val jsonObject = JsonObject()
@@ -94,13 +106,14 @@ class LocatoinInventoryReportViewModel(application: Application,context: Context
 
         showSimpleProgress(true,progressBar)
         viewModelScope.launch {
-            repository.getLocationProductSerials(baseUrl,jsonObject,cookie)
+            repository.getLocationProductSerials(baseUrl,jsonObject,page,cookie)
                 .subscribe(
                     {
                         if (it.rows?.isNotEmpty() == true) {
-
-                            serialList.value = it.rows!!
+                            tempSerials.addAll(it.rows)
+                            serialList.value = tempSerials
                         }
+                        serialsCount.value = it.total
                         showSimpleProgress(false,progressBar)
                     }  ,
                     {

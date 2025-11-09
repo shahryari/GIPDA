@@ -214,20 +214,15 @@ class InsertSerialFragment : BaseFragment<InsertSerialViewModel, FragmentInsertS
 
     private fun observeSerialList()
     {
-        viewModel.getSerialList().observe(viewLifecycleOwner, object
-            : Observer<List<InsertedSerialModel>>
-        {
-            override fun onChanged(it: List<InsertedSerialModel>)
-            {
+        viewModel.getSerialList().observe(viewLifecycleOwner,
+            Observer { it ->
                 showSerialList(it)
                 setBelowCount(requireActivity(), getString(R.string.tools_you_have),
                     it.size, getString(R.string.serialsToInsert))
 
                 b.serialsCount.text= getBuiltString(getString(R.string.tools_scannedItems),
                     it.size.toString())
-            }
-
-        })
+            })
     }
 
     private fun showSerialList(list: List<InsertedSerialModel>)

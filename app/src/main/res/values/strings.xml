@@ -50,6 +50,7 @@
     <string name="domainEnd">دامنه نباید به / ختم شود.</string>
     <string name="startDomain">دامنه باید با http شروع شود</string>
     <string name="tools_scannedItems">Scanned Items:</string>
+    <string name="tools_total">Total: </string>
     <string name="tools_205QWZC16766">205QWZC16766</string>
     <string name="are_you_sure_for_delete">Are you sure for delete [</string>
     <string name="are_you_sure_for_delete2">] ?</string>

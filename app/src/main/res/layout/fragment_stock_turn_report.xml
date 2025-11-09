@@ -39,7 +39,7 @@
                     android:id="@+id/stockTakeLocation"
                     layout="@layout/pattern_stock_taking_location"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_180sdp"
+                    android:layout_height="@dimen/_185sdp"
                     android:layout_below="@+id/mainToolbar"
                     android:layout_marginTop="@dimen/marginTopRelInfoTv" />
 

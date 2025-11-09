@@ -10,6 +10,8 @@ data class StockTackingLocationRow(
     val invTypeTitle: String,
     @SerializedName("LocationCode")
     val locationCode: String,
+    @SerializedName("TempCountQuantity")
+    val tempCountQuantity: String?,
     @SerializedName("OwnerCode")
     val ownerCode: String,
     @SerializedName("ProductCode")

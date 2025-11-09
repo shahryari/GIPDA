@@ -42,17 +42,52 @@
 
 
 
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/rel4"
+                android:layout_above="@id/lineTotal"
                 android:layout_below="@id/rel1"
                 android:layout_marginStart="@dimen/edi_login_marginTop"
                 android:layout_marginEnd="@dimen/edi_login_marginTop"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/pattern_serial" />
 
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lineTotal"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_above="@id/rel4"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_headers_startEnd"
+                    android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                    android:fontFamily="@font/medium"
+                    android:text="@string/tools_total"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/serial_serachFont" />
+                <TextView
+                    android:id="@+id/serialsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_headers_startEnd"
+                    android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                    android:layout_marginEnd="@dimen/padding_headers_startEnd"
+                    android:fontFamily="@font/bold"
+                    android:text="@string/_0"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/serial_serachFont" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <include

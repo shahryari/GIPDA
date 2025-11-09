@@ -57,6 +57,7 @@ class LocationInventoryReportFragment :
     var orderType:String=Utils.ASC_ORDER
     var lastPosition=0
     var page=Utils.PAGE_START
+    var serialPage = Utils.PAGE_START
     var adapter:LocationInventoryReportAdapter ?=null
     var ownerId=""
     var invTypeId:Int ?=null
@@ -456,20 +457,31 @@ class LocationInventoryReportFragment :
             pref.getDomain(),
             model.locationProductID,
             pref.getTokenGlcTest(),
+            serialPage,
             progressBar
         )
     }
 
-    private fun observeSerials(binding: DialogSerialBinding) {
+    private fun observeSerials(binding: DialogSerialBinding,model: LocationInventoryRows) {
         viewModel.getLocationSerials().observe(viewLifecycleOwner) {list->
             val adapter = LocationProductSerialAdapter(
                 requireContext(),
-                list
+                list,
+                onReachEnd = {
+                    serialPage = serialPage + 1
+                    setSerials(model,binding.progress)
+                }
             ) {binding,_->
                 binding.delete.visibility = View.GONE
                 binding.excel.visibility = View.GONE
             }
             binding.rv.adapter = adapter
+        }
+    }
+
+    private fun observeSerialCount(binding: DialogSerialBinding) {
+        viewModel.getSerialCount().observe(viewLifecycleOwner){
+            binding.serialsCount.text = it.toString()
         }
     }
 
@@ -486,8 +498,12 @@ class LocationInventoryReportFragment :
                 val dialogBinding = DialogSerialBinding.inflate(LayoutInflater.from(requireContext()))
                 val dialog = createAlertDialog(dialogBinding,R.drawable.shape_background_rect_border_gray_solid_white,requireContext())
 
+                dialogBinding.lineTotal.visibility = View.VISIBLE
+                serialPage = 1
+                viewModel.clearSerials()
                 setSerials(model,dialogBinding.progress)
-                observeSerials(dialogBinding)
+                observeSerials(dialogBinding,model)
+                observeSerialCount(dialogBinding)
 
                 dialogBinding.rel4.confirm.visibility = View.GONE
 

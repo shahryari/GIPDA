@@ -100,6 +100,12 @@ import io.reactivex.Single
 class MyRepository() :DataSource
 {
     private val apiDataSource=ApiDataSource()
+    override fun logException(
+        baseUrl: String,
+        jsonObject: JsonObject
+    ): Single<Unit> {
+        return apiDataSource.logException(baseUrl,jsonObject)
+    }
 
     override fun login(baseUrl:String,jsonObject: JsonObject): Single<LoginModel>
     {
@@ -919,9 +925,10 @@ class MyRepository() :DataSource
     override fun getLocationProductSerials(
         baseUrl: String,
         jsonObject: JsonObject,
+        page: Int,
         cookie: String
     ): Observable<LocationProductSerialModel> {
-        return apiDataSource.getLocationProductSerials(baseUrl,jsonObject,cookie)
+        return apiDataSource.getLocationProductSerials(baseUrl,jsonObject,page,cookie)
     }
 
     override fun reportSerialInventory(
@@ -1192,6 +1199,15 @@ class MyRepository() :DataSource
             url,jsonObject, page, rows, sort, order, cookie
         )
     }
+
+    override fun saveTempCountQuantity(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ): Single<StockTakingCountModel> {
+        return apiDataSource.saveTempCountQuantity(url,jsonObject,cookie)
+    }
+
     override fun getCurrentVersionInfo(url: String, cookie: String): Single<VersionInfoModel> {
         return apiDataSource.getCurrentVersionInfo(url,cookie)
     }

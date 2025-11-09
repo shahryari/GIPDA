@@ -300,7 +300,7 @@ fun showErrorMsg(it:Throwable,logTitle:String,context: Context,onDismiss: () -> 
     {
         val errorBody = (it).response()?.errorBody()
         val errorMsg= Html.fromHtml(errorBody!!.string()).toString()
-        val jsonObj = JSONObject(errorMsg)
+        val jsonObj = JSONObject(errorMsg.ifEmpty { "{}" })
 
 
         logErr(logTitle,errorMsg)

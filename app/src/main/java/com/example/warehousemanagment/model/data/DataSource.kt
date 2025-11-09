@@ -98,6 +98,8 @@ import io.reactivex.Single
 
 interface DataSource
 {
+
+    fun logException(baseUrl: String,jsonObject: JsonObject) : Single<Unit>
     fun login(baseUrl:String,jsonObject: JsonObject): Single<LoginModel>
 
     fun dashboardInfo(baseUrl:String,cookie:String): Observable<List<DashboardInfoModel>>
@@ -580,6 +582,7 @@ interface DataSource
     fun getLocationProductSerials(
         baseUrl: String,
         jsonObject: JsonObject,
+        page: Int,
         cookie: String
     ) : Observable<LocationProductSerialModel>
 
@@ -754,6 +757,12 @@ interface DataSource
         order:String,
         cookie: String,
     ) : Observable<StockTurnItemLocationModel>
+
+    fun saveTempCountQuantity(
+        url: String,
+        jsonObject: JsonObject,
+        cookie: String
+    ) : Single<StockTakingCountModel>
 
 
     //get current version info

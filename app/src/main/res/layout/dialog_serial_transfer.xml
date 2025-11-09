@@ -8,7 +8,8 @@
         android:elevation="@dimen/MediumElevation"
         android:background="@drawable/shape_background_rect_border_gray_solid_white"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialog_serial_height">
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dialog_serial_height">
 
 
         <RelativeLayout
@@ -74,13 +75,44 @@
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/rel4"
+                android:layout_above="@id/relCount"
                 android:layout_below="@id/rel2"
 
                 android:layout_marginStart="@dimen/edi_login_marginTop"
                 android:layout_marginEnd="@dimen/edi_login_marginTop"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/pattern_serial" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/rel4"
+                android:id="@+id/relCount"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_headers_startEnd"
+                    android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                    android:fontFamily="@font/medium"
+                    android:text="@string/tools_scannedItems"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/serial_serachFont" />
+
+                <TextView
+                    android:id="@+id/serialsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_headers_startEnd"
+                    android:layout_marginTop="@dimen/marginTop5ForLayouts"
+                    android:fontFamily="@font/bold"
+                    android:text="@string/_0"
+                    android:textColor="@color/gray70"
+                    android:textSize="@dimen/serial_serachFont" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 

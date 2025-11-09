@@ -51,6 +51,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
     var orderType:String= Utils.ASC_ORDER
     var page= Utils.PAGE_START
     var lastPosition=0
+    var serialPage = Utils.PAGE_START
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
@@ -293,9 +294,11 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
 
                     dialogBinding.closeImg.setOnClickListener {dialog.dismiss()}
                     if (model.serializable){
+                        serialPage = 1
                         viewModel.clearSerials()
                         setSerials(model.locationProductID)
-                        showSerials(dialogBinding)
+                        showSerialCount(dialogBinding)
+                        showSerials(dialogBinding,model.locationProductID)
                     } else {
                         viewModel.clearSerials()
                         showSerialsNormal(dialogBinding)
@@ -401,6 +404,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
             pref.getDomain(),
             locationProductID,
             pref.getTokenGlcTest(),
+            serialPage,
             requireContext(),
             {},
             {}
@@ -410,12 +414,11 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
     private fun showSerialsNormal(binding: DialogSerialTransferBinding) {
         viewModel.getNormalSerials().observe(viewLifecycleOwner){list->
             val adapter = LocationProductSerialAdapter(
-                requireContext(),list.map { LocationProductSerialRow("",it) }
+                requireContext(),list.map { LocationProductSerialRow("",it) }, onReachEnd = {}
             ) {binding,model->
                 binding.delete.visibility = View.VISIBLE
                 binding.layout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.white))
                 binding.title.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-
                 binding.delete.setOnClickListener {
                     viewModel.deleteSerialNormal(model.serialNumber)
                 }
@@ -424,11 +427,16 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         }
     }
 
-    private fun showSerials(binding: DialogSerialTransferBinding) {
+    private fun showSerials(binding: DialogSerialTransferBinding,locationProductID: String) {
         viewModel.getSerials().observe(viewLifecycleOwner){list->
+            binding.serialsCount.text = list.count { it.isScanned == true }.toString()
             val adapter = LocationProductSerialAdapter(
                 requireContext(),
-                list
+                list,
+                onReachEnd = {
+                    serialPage = serialPage + 1
+                    setSerials(locationProductID)
+                }
             ) {binding,model->
                 binding.excel.visibility = View.GONE
                 if (model.isScanned == true){
@@ -449,6 +457,13 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
             binding.rv.adapter = adapter
 
         }
+    }
+
+    private fun showSerialCount(binding: DialogSerialTransferBinding) {
+        viewModel.getSerialCount()
+            .observe(viewLifecycleOwner){
+                binding.layoutTopInfo.total.text = it.toString()
+            }
     }
 
     private fun showConfirmSheetForSubmit(
@@ -634,6 +649,7 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
 
                 override fun onOkClick(progress: ProgressBar, toInt: String)
                 {
+                    sheet?.isCancelable = false
                     viewModel.transferSerials(
                         pref.getDomain(),
                         model.locationProductID,
@@ -642,12 +658,15 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
                         destinationLocation = locationIdTo,
                         pref.getTokenGlcTest(),
                         requireContext(),
+                        progress,
                         {
+                            sheet?.isCancelable = true
                             dialog.dismiss()
                             sheet?.dismiss()
                             refresh()
                             toast(getString(R.string.successfullConfirmed),requireContext())
                         },{
+                            sheet?.isCancelable = true
                             dialog.dismiss()
                             sheet?.dismiss()
                         }
@@ -683,12 +702,14 @@ class SerialLocationTransferFragment : BaseFragment<SerialTransferViewModel,Frag
         if (model.serializable){
             dialogBinding.layoutTopInfo.quantity.hint = "Serial"
             dialogBinding.layoutTopInfo.quantity.inputType = InputType.TYPE_CLASS_TEXT
+            dialogBinding.relCount.visibility = View.VISIBLE
         } else {
             dialogBinding.layoutTopInfo.quantity.hint = "Quantity"
             dialogBinding.layoutTopInfo.quantity.inputType = InputType.TYPE_CLASS_NUMBER
             dialogBinding.rel2.visibility = View.GONE
             dialogBinding.rv.visibility = View.GONE
             dialogBinding.layoutTopInfo.scanBarcode.visibility = View.GONE
+            dialogBinding.relCount.visibility = View.GONE
             dialogBinding.rel0.layoutParams.height = (270*requireContext().resources.displayMetrics.density).toInt()
         }
 

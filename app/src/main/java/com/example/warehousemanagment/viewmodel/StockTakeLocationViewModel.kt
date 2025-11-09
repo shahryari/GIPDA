@@ -155,7 +155,7 @@ class StockTakeLocationViewModel(application: Application, context: Context):
                 .subscribe({
                 showSimpleProgress(false,progressBar)
                 swipeLayout.isRefreshing=false
-                if (it.rows.size>0)
+                if (!it.rows.isNullOrEmpty())
                 {
                     tempList.addAll(it.rows)
                     stockList.value=tempList
@@ -320,6 +320,29 @@ class StockTakeLocationViewModel(application: Application, context: Context):
                 ).let { }
         }
 
+    }
+
+    fun saveTempCountQuantity(
+        baseUrl: String,
+        stockTurnTeamLocationID: String,
+        quantity: String,
+        cookie: String
+    ) {
+        viewModelScope.launch {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("StockTurnTeamLocationID",stockTurnTeamLocationID)
+            jsonObject.addProperty("TempCountQuantity",quantity)
+            repository.saveTempCountQuantity(
+                baseUrl,jsonObject,cookie
+            ).subscribe(
+                {
+                    it.isSucceed
+                },
+                {
+                    it
+                }
+            )
+        }
     }
 
     fun stockTurnItemLocation(

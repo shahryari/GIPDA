@@ -30,6 +30,8 @@ SerialTransferViewModel(application: Application) : AndroidViewModel(application
     private val transferProducts = MutableLiveData<List<SerialTransferProductRow>>()
     val tempList = ArrayList<SerialTransferProductRow>()
     private val serials = MutableLiveData<List<LocationProductSerialRow>>()
+    val serialList = ArrayList<LocationProductSerialRow>()
+    private val serialCount = MutableLiveData<Int>()
     private val normalSerials = MutableLiveData<List<String>>()
     val tempSerials = ArrayList<String>()
     private var destinyLocationTransfer= MutableLiveData<List<DestinyLocationTransfer>>()
@@ -61,6 +63,8 @@ SerialTransferViewModel(application: Application) : AndroidViewModel(application
         return destinyLocationTransfer
     }
 
+    fun getSerialCount() = serialCount
+
 
     fun clearList() {
         if (tempList.size!=0)
@@ -72,6 +76,7 @@ SerialTransferViewModel(application: Application) : AndroidViewModel(application
 
     fun clearSerials() {
         tempSerials.clear()
+        serialList.clear()
         normalSerials.value = tempSerials
         serials.value = emptyList()
     }
@@ -232,6 +237,7 @@ SerialTransferViewModel(application: Application) : AndroidViewModel(application
         baseUrl: String,
         locationProductId: String,
         cookie: String,
+        page: Int,
         context: Context,
         onSuccess: ()->Unit,
         onError: ()->Unit
@@ -240,13 +246,14 @@ SerialTransferViewModel(application: Application) : AndroidViewModel(application
         jsonObject.addProperty("LocationProductID",locationProductId)
         viewModelScope.launch {
             repository.getLocationProductSerials(
-                baseUrl,jsonObject,cookie
+                baseUrl,jsonObject,page,cookie
             ).subscribe(
                 {
                     if (it.rows?.isNotEmpty() == true){
-
-                        serials.value = it.rows!!
+                        serialList.addAll(it.rows)
+                        serials.value = serialList
                     }
+                    serialCount.value = it.total
                     onSuccess()
                 },
                 {
@@ -265,6 +272,7 @@ SerialTransferViewModel(application: Application) : AndroidViewModel(application
         destinationLocation: String,
         cookie: String,
         context: Context,
+        progress: ProgressBar,
         onSuccess: () -> Unit,
         onError: ()->Unit
     ) {
@@ -278,11 +286,13 @@ SerialTransferViewModel(application: Application) : AndroidViewModel(application
         jsonObject.add("Serials",jsonArray)
         jsonObject.addProperty("Quantity",quantity?.toInt())
         jsonObject.addProperty("DestinationLocation",destinationLocation)
+        showSimpleProgress(true,progress)
         viewModelScope.launch {
             repository.serialBaseLocationTransfer(
                 baseUrl,jsonObject,cookie
             ).subscribe(
                 {
+                    showSimpleProgress(false,progress)
                     if (it.isSucceed){
                         onSuccess()
                     } else {
@@ -291,6 +301,7 @@ SerialTransferViewModel(application: Application) : AndroidViewModel(application
                     }
                 },
                 {
+                    showSimpleProgress(false,progress)
                     onError()
                     showErrorMsg(it,"location transfer",context)
                 }

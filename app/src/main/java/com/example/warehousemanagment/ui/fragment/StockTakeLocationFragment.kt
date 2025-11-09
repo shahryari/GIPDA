@@ -398,6 +398,16 @@ class StockTakeLocationFragment :
 
                 }
 
+                override fun onAddTempCount(
+                    model: StockTackingLocationRow,
+                    values: List<Int>
+                ) {
+                    setTempQuantity(
+                        model.stockTurnTeamLocationID,
+                        values.joinToString("+")
+                    )
+                }
+
                 override fun reachToEnd(position: Int) {
                     stockPage = stockPage + 1
                     setStockTakeLocationData()
@@ -763,6 +773,16 @@ class StockTakeLocationFragment :
 
                 }
             })
+    }
+
+    fun setTempQuantity(itemLocationId: String,quantity: String) {
+        viewModel.saveTempCountQuantity(
+            pref.getDomain(),
+            itemLocationId,
+            quantity,
+            pref.getTokenGlcTest()
+
+        )
     }
 
     private fun setStockTakeLocationData() {

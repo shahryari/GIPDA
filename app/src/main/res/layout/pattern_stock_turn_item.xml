@@ -65,6 +65,18 @@
                     style="@style/pattern_receieve_tv1"
                     tools:text="@string/tools_10_08_2022_08_22" />
 
+                <TextView
+                    android:id="@+id/dateTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                    android:text="@string/date" />
+
+
+                <TextView
+                    android:id="@+id/date"
+                    style="@style/pattern_receieve_tv1"
+                    tools:text="@string/tools_10_08_2022_08_22" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.constraintlayout.widget.Guideline
@@ -119,6 +131,17 @@
 
                 <TextView
                     android:id="@+id/taskType"
+                    style="@style/pattern_receieve_tv1"
+                    tools:text="@string/tools_10_08_2022_08_22" />
+                <TextView
+                    android:id="@+id/quantityTitle"
+                    style="@style/pattern_putaway_smallTv"
+                    android:layout_marginStart="@dimen/marginStartLocationTransfer"
+                    android:text="@string/quantity" />
+
+
+                <TextView
+                    android:id="@+id/quantity"
                     style="@style/pattern_receieve_tv1"
                     tools:text="@string/tools_10_08_2022_08_22" />
 

@@ -22,6 +22,12 @@ data class StockTurnItemLocationRow(
     val goodsTitle: String?,
     @SerializedName("InvTypeID")
     val invTypeID: String?,
-    @SerializedName("OwnerFullName")
-    val ownerFullName: String?
+    @SerializedName("OwnerFullname")
+    val ownerFullName: String?,
+    @SerializedName("OwnerCode")
+    val ownerCode: String?,
+    @SerializedName("CompleteDateString")
+    val completeDate: String?,
+    @SerializedName("Quantity")
+    val quantity: Int?
 )
